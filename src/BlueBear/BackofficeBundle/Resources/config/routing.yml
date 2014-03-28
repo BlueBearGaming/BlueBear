@@ -1,0 +1,3 @@
+blue_bear_backoffice_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: BlueBearBackofficeBundle:Default:index }

@@ -1,0 +1,12 @@
+# symfony
+app/config/parameters.yml
+app/bootstrap.php.cache
+app/logs
+cache
+vendor
+
+# composer
+composer.lock
+
+# IDE
+.idea

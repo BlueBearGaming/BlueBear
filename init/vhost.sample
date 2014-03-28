@@ -1,0 +1,26 @@
+<VirtualHost *:80>
+    ServerName dev.bluebear.fr
+	ServerAdmin PANDA@gmail.com
+
+	DocumentRoot /home/PANDA/workspace/BlueBear/web
+	DirectoryIndex app.php
+
+	<Directory /home/PANDA/workspace/BlueBear/web>
+		Require all granted
+		DirectoryIndex app.php
+		AllowOverride All
+		Allow from All
+	</Directory>
+
+	<IfModule mpm_itk_module>
+		AssignUserId PANDA_USER www-data
+	</IfModule>
+
+	ErrorLog ${APACHE_LOG_DIR}/BlueBear.log
+
+	# Possible values include: debug, info, notice, warn, error, crit,
+	# alert, emerg.
+	LogLevel crit
+
+	CustomLog ${APACHE_LOG_DIR}/BlueBear.log combined
+</VirtualHost>

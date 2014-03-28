@@ -1,0 +1,7 @@
+parameters:
+#    blue_bear_backoffice.example.class: BlueBear\BackofficeBundle\Example
+
+services:
+#    blue_bear_backoffice.example:
+#        class: %blue_bear_backoffice.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

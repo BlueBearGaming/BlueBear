@@ -1,0 +1,7 @@
+homepage:
+    path:  /
+    defaults: { _controller: BlueBearBackofficeBundle:Main:homepage}
+
+blue_bear_backoffice:
+    resource: "@BlueBearBackofficeBundle/Resources/config/routing.yml"
+    prefix:   /admin
