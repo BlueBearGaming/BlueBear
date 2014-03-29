@@ -1,0 +1,23 @@
+{% extends 'BlueBearBackofficeBundle::layout.html.twig' %}
+
+{% block content %}
+    <h1>Images</h1>
+
+    <div class="upload">
+        <form action="{{ path('blue_bear_backoffice_image_upload') }}" method="post" enctype="multipart/form-data">
+            <div class="inputs">
+                {{ form_errors(form.file) }}
+                {{ form_label(form.file) }}
+                {{ form_widget(form.file) }}
+            </div>
+            <div class="inputs submit">
+                {{ form_rest(form) }}
+                <input type="submit" value="upload" />
+            </div>
+        </form>
+    </div>
+
+    <div class="list">
+
+    </div>
+{% endblock %}

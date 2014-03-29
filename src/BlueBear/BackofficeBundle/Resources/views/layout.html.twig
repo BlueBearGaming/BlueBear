@@ -1,0 +1,19 @@
+<html>
+<head>
+    <title>{% block title %}BlueBear Admin{% endblock %}</title>
+</head>
+<body>
+    <div class="top-menu">
+        <ul>
+            <li><a href="{{ path('blue_bear_backoffice_homepage') }}">Homepage</a></li>
+            <li><a href="{{ path('blue_bear_backoffice_image') }}">Images</a></li>
+        </ul>
+    </div>
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+<footer>
+
+</footer>
+</body>
+</html>
