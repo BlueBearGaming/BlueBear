@@ -9,6 +9,15 @@
             <li><a href="{{ path('blue_bear_backoffice_image') }}">Images</a></li>
         </ul>
     </div>
+    <!-- flash messages -->
+    <div class="alert-container">
+        {% for flashMessage in app.session.flashbag.get('notice') %}
+            <div class="alert alert-success">
+                {{ flashMessage }}
+                <button type="button" class="close">×</button>
+            </div>
+        {% endfor %}
+    </div>
     <div class="content">
         {% block content %}{% endblock %}
     </div>

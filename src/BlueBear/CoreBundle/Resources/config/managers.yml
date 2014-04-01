@@ -1,0 +1,14 @@
+parameters:
+    bluebear.manager.image: BlueBear\CoreBundle\Manager\ImageManager
+    bluebear.manager.item: BlueBear\CoreBundle\Manager\ItemManager
+
+services:
+    bluebear.manager.image:
+        class: %bluebear.manager.image%
+        calls:
+            - [setContainer, [@service_container]]
+
+    bluebear.manager.item:
+        class: %bluebear.manager.item%
+        calls:
+            - [setContainer, [@service_container]]

@@ -36,12 +36,10 @@ class ImageController extends Controller
         if ($form->isValid()) {
             /** @var UploadedFile $file */
             $file = $form->get('file')->getData();
-            $directory = realpath(__DIR__ . '/../../../../web/uploads/tmp') . '/';
-            $destinationDirectory = realpath(__DIR__ . '/../../../../web/uploads/sprites') . '/';
-            $file->move($directory, $file->getClientOriginalName());
-            $splitter = new SpriteSplitter();
-            $splitter->split($directory.$file->getClientOriginalName(), $destinationDirectory);
-            die('valid');
+            $this->get('bluebear.manager.image')->splitSprite($file);
+            // inform user
+            $this->setMessage('Sprite has been successfully split');
+            return $this->redirect('@blue_bear_backoffice_uncompleted_item_list');
         }
         return $this->render('BlueBearBackofficeBundle:Image:index.html.twig', [
             'form' => $form->createView()

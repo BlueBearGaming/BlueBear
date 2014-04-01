@@ -1,0 +1,7 @@
+parameters:
+#    blue_bear_editor.example.class: BlueBear\EditorBundle\Example
+
+services:
+#    blue_bear_editor.example:
+#        class: %blue_bear_editor.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
