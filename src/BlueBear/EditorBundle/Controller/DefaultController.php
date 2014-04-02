@@ -4,10 +4,10 @@ namespace BlueBear\EditorBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class DefaultController extends Controller
+class MainController extends Controller
 {
-    public function indexAction($name)
+    public function indexAction()
     {
-        return $this->render('BlueBearEditorBundle:Default:index.html.twig', array('name' => $name));
+        return $this->render('BlueBearEditorBundle:Main:index.html.twig');
     }
 }
