@@ -23,7 +23,10 @@
         "doctrine/doctrine-fixtures-bundle": "@dev",
         "gedmo/doctrine-extensions": "dev-master",
         "jms/security-extra-bundle": "1.5.*",
-        "jms/di-extra-bundle": "1.4.*"
+        "jms/di-extra-bundle": "1.4.*",
+		"mopa/bootstrap-bundle": "2.3.*@dev",
+		"twbs/bootstrap": "2.3.*",
+		"bmatzner/fontawesome-bundle": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [
@@ -31,14 +34,16 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+			"Mopa\\Bundle\\BootstrapBundle\\Composer\\ScriptHandler::postInstallSymlinkTwitterBootstrap"
         ],
         "post-update-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+			"Mopa\\Bundle\\BootstrapBundle\\Composer\\ScriptHandler::postInstallSymlinkTwitterBootstrap"
         ]
     },
     "config": {
@@ -47,6 +52,7 @@
     "extra": {
         "symfony-app-dir": "app",
         "symfony-web-dir": "web",
+		"symfony-assets-install": "symlink",
         "incenteev-parameters": {
             "file": "app/config/parameters.yml"
         },
