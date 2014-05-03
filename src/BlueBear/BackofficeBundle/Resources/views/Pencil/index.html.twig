@@ -1,0 +1,30 @@
+{% extends 'BlueBearBackofficeBundle::layout.html.twig' %}
+
+{% block content %}
+    <h1>Pencils</h1>
+
+    <a href="{{ path('bluebear_backoffice_pencil_create') }}">Add new pencil</a>
+
+    <div class="pencils-list">
+        {% if pencils|length > 0 %}
+
+            {% for pencil in pencils %}
+                <div class="item">
+                    <div class="info">
+                        {{ pencil.name }}
+                    </div>
+                    <div class="actions">
+                        <a href=""></a>
+                    </div>
+                </div>
+            {% endfor %}
+
+        {% else %}
+            No pencil yet.
+        {% endif %}
+    </div>
+
+    <div class="list">
+
+    </div>
+{% endblock %}

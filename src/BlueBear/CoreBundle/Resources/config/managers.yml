@@ -1,10 +1,16 @@
 parameters:
     bluebear.manager.image: BlueBear\CoreBundle\Manager\ImageManager
     bluebear.manager.item: BlueBear\CoreBundle\Manager\ItemManager
+    bluebear.manager.pencil: BlueBear\CoreBundle\Manager\PencilManager
 
 services:
     bluebear.manager.image:
         class: %bluebear.manager.image%
+        calls:
+            - [setContainer, [@service_container]]
+
+    bluebear.manager.pencil:
+        class: %bluebear.manager.pencil%
         calls:
             - [setContainer, [@service_container]]
 

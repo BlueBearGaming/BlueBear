@@ -1,3 +1,0 @@
-blue_bear_core_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: BlueBearCoreBundle:Default:index }

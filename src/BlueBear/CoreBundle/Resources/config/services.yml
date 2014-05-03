@@ -1,12 +1,3 @@
-parameters:
-#    blue_bear_core.example.class: BlueBear\CoreBundle\Example
-
-services:
-#    blue_bear_core.example:
-#        class: %blue_bear_core.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
-
-
 imports:
     - { resource: managers.yml }
     - { resource: forms.yml }
