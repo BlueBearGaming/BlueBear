@@ -26,7 +26,8 @@
         "jms/di-extra-bundle": "1.4.*",
 		"mopa/bootstrap-bundle": "2.3.*@dev",
 		"twbs/bootstrap": "2.3.*",
-		"bmatzner/fontawesome-bundle": "dev-master"
+		"bmatzner/fontawesome-bundle": "dev-master",
+        "andres-montanez/magallanes": "1.0.*"
     },
     "scripts": {
         "post-install-cmd": [
