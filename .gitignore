@@ -2,8 +2,10 @@
 app/config/parameters.yml
 app/bootstrap.php.cache
 app/logs
+bin/*
 cache
 vendor
+web/bundles
 
 # composer
 composer.lock
@@ -12,4 +14,9 @@ composer.lock
 .idea
 
 # sprites
-web/uploads/sprite
+web/uploads/sprites
+web/uploads/tmp
+
+# kde, apple
+.ds_store
+.directory

@@ -15,24 +15,17 @@ use Doctrine\ORM\Mapping as ORM;
  * set which have a list of pencils
  *
  * @ORM\Table(name="pencil")
- * @ORM\Entity(repositoryClass="BlueBear\CoreBundle\Entity\PencilRepository")
+ * @ORM\Entity(repositoryClass="BlueBear\CoreBundle\Entity\Map\PencilRepository")
  */
 class Pencil
 {
     use Id, Nameable, Imageable, Sizable, Typeable, Taggable;
 
     /**
-     * @Orm\Column(name="pencil_set_id")
+     * @Orm\Column(name="pencil_set_id", type="integer")
      * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\PencilSet", inversedBy="pencils")
      */
     protected $pencilSet;
-
-    /**
-     * Item type (unit, land...)
-     *
-     * @ORM\Column(type="string", length=64, nullable=true)
-     */
-    protected $type;
 
     /**
      * Relative position of the center of the image to the center of the cell
@@ -89,5 +82,21 @@ class Pencil
     {
         $this->boundingBox = $boundingBox;
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPencilSet()
+    {
+        return $this->pencilSet;
+    }
+
+    /**
+     * @param mixed $pencilSet
+     */
+    public function setPencilSet(PencilSet $pencilSet)
+    {
+        $this->pencilSet = $pencilSet;
     }
 }

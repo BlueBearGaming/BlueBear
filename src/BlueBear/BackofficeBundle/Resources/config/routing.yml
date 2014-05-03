@@ -1,15 +1,26 @@
-blue_bear_backoffice_homepage:
+bluebear_backoffice_homepage:
     pattern:  /
     defaults: {_controller: BlueBearBackofficeBundle:Main:homepage}
 
-blue_bear_backoffice_image:
+# Images
+bluebear_backoffice_image:
     pattern: /images
     defaults: { _controller: BlueBearBackofficeBundle:Image:index }
 
-blue_bear_backoffice_image_upload:
+bluebear_backoffice_image_upload:
     pattern: /upload
     defaults: { _controller: BlueBearBackofficeBundle:Image:upload }
 
-blue_bear_backoffice_uncompleted_item_list:
-    pattern: /items/uncompleted
-    defaults: { _controller: BlueBearBackofficeBundle:Item:listUnCompletedItems}
+bluebear_backoffice_image_orphans:
+    pattern: /images/orphans
+    defaults: { _controller: BlueBearBackofficeBundle:Image:listOrphans }
+
+bluebear_backoffice_image_edit:
+    pattern: /images/edit/{id}
+    defaults: { _controller: BlueBearBackofficeBundle:Image:edit }
+###
+
+# Pencils
+bluebear_backoffice_pencil:
+    pattern: /pencils
+    defaults: { _controller: BlueBearBackofficeBundle:Pencil:index }

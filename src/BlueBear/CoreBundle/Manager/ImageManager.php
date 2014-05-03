@@ -2,10 +2,11 @@
 
 namespace BlueBear\CoreBundle\Manager;
 
+use BlueBear\CoreBundle\Entity\Editor\ImageRepository;
 use BlueBear\CoreBundle\Manager\Behavior\ManagerBehavior;
 use BlueBear\BackofficeBundle\Utils\Sprite\SpriteSplitter;
 use BlueBear\CoreBundle\Entity\Editor\Image;
-use BlueBear\CoreBundle\Entity\Editor\Item;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class ImageManager
@@ -32,15 +33,26 @@ class ImageManager
             // we create an image and associate it to an editor item
             $image = new Image();
             $image->setFilePath($imagePath);
+            $image->setFileName($imageName);
             $image->setName($imageName);
-            // editor item
-            $item = new Item();
-            $item->addImage($image);
-            $item->setName('item_' . time());
             $this->save($image, false);
-            $this->save($item, false);
         }
         $this->flush();
+    }
+
+    /**
+     * Return orphans images (ie images with no item attached)
+     *
+     * @return ArrayCollection
+     */
+    public function findOrphans()
+    {
+        return $this
+            ->getRepository()
+            ->findOrphans()
+            ->setMaxResults('25')
+            ->getQuery()
+            ->getResult();
     }
 
     /**
@@ -50,6 +62,6 @@ class ImageManager
      */
     protected function getRepository()
     {
-        return $this->getEntityManager()->getRepository('BlueBear/CoreBundle/Entity/Editor/ImageRepository');
+        return $this->getEntityManager()->getRepository('BlueBear\CoreBundle\Entity\Editor\Image');
     }
 }

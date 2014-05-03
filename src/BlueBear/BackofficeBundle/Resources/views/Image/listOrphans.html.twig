@@ -1,0 +1,30 @@
+{% extends 'BlueBearBackofficeBundle::layout.html.twig' %}
+
+{% block content %}
+    <h1>Orphan images</h1>
+
+    <div class="orphans-list">
+        {% if images|length > 0 %}
+
+            {% for image in images %}
+                <div class="items">
+                    <div class="name">
+                        {{ image.name }}
+                    </div>
+                    <div class="image">
+                        <img src="/uploads/sprites/{{ image.filename }}" />
+                    </div>
+                    <div class="actions">
+                        <a href="{{ path('bluebear_backoffice_image_edit', {id: image.id}) }}">Edit</a>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            No image yet
+        {% endif %}
+    </div>
+
+    <div class="list">
+
+    </div>
+{% endblock %}

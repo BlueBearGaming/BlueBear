@@ -6,7 +6,7 @@ namespace BlueBear\BackofficeBundle\Utils\Sprite;
 class SpriteSplitter
 {
     /**
-     * Split a sprite into independant file
+     * Split a sprite into independent file
      *
      * @param $imagePath
      * @param $destinationDirectory

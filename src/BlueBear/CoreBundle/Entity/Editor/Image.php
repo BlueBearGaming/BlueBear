@@ -3,6 +3,10 @@
 
 namespace BlueBear\CoreBundle\Entity\Editor;
 
+use BlueBear\CoreBundle\Entity\Behavior\Id;
+use BlueBear\CoreBundle\Entity\Behavior\Nameable;
+use BlueBear\CoreBundle\Entity\Behavior\Timestampable;
+use BlueBear\CoreBundle\Entity\Map\Pencil;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -10,45 +14,30 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="editor_image")
  * @ORM\Entity(repositoryClass="BlueBear\CoreBundle\Entity\Editor\ImageRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Image
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    protected $id;
+    use Id, Nameable, Timestampable;
 
     /**
-     * Image file path
+     * Image file full path
      *
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(name="file_path", type="string", length=255)
      */
     protected $filePath;
 
     /**
-     * Image name
+     * Image file name
      *
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(name="file_name", type="string", length=255)
      */
-    protected $name;
+    protected $fileName;
 
     /**
-     * @return mixed
+     * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Pencil", inversedBy="image")
      */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param mixed $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
+    protected $pencil;
 
     /**
      * @param mixed $filePath
@@ -66,35 +55,29 @@ class Image
         return $this->filePath;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getName()
+    public function getPencil()
     {
-        return $this->name;
+        return $this->pencil;
     }
 
-    /**
-     * @param mixed $name
-     */
-    public function setName($name)
+    public function setPencil(Pencil $pencil)
     {
-        $this->name = $name;
+        $this->pencil = $pencil;
     }
 
     /**
      * @return mixed
      */
-    public function getItem()
+    public function getFileName()
     {
-        return $this->item;
+        return $this->fileName;
     }
 
     /**
-     * @param mixed $item
+     * @param mixed $fileName
      */
-    public function setItem($item)
+    public function setFileName($fileName)
     {
-        $this->item = $item;
+        $this->fileName = $fileName;
     }
 } 

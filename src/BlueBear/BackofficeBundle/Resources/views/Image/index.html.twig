@@ -3,8 +3,10 @@
 {% block content %}
     <h1>Images</h1>
 
+    <a href="{{ path('bluebear_backoffice_image_orphans') }}">Orphans images</a>
+
     <div class="upload">
-        <form action="{{ path('blue_bear_backoffice_image_upload') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ path('bluebear_backoffice_image_upload') }}" method="post" enctype="multipart/form-data">
             <div class="inputs">
                 {{ form_errors(form.file) }}
                 {{ form_label(form.file) }}
