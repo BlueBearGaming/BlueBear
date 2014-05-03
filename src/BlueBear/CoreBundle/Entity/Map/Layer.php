@@ -5,19 +5,25 @@ namespace BlueBear\CoreBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * A layer of the map, containing a collection of positioned mapitems
+ * A layer of the map, containing a collection of positioned mapItems
  *
  * @ORM\Table(name="layer")
  * @ORM\Entity(repositoryClass="BlueBear\CoreBundle\Entity\LayerRepository")
  */
-class Layer {
+class Layer
+{
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
 
     /**
      * Unique name
-     * @ORM\Id
      * @ORM\Column(type="string", length=64, nullable=false)
      */
-    protected $id;
+    protected $name;
     
     /**
      * Layer type (terrain, props, buildings, units...)
@@ -25,5 +31,4 @@ class Layer {
      * @ORM\Column(type="string", length=64, nullable=true)
      */
     protected $type = 'background';
-
 }

@@ -6,9 +6,8 @@ namespace BlueBear\CoreBundle\Entity\Editor;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Image
- *
  * Image are used in the editor
+ *
  * @ORM\Table(name="editor_image")
  * @ORM\Entity(repositoryClass="BlueBear\CoreBundle\Entity\Editor\ImageRepository")
  */
@@ -34,13 +33,6 @@ class Image
      * @ORM\Column(type="string", length=255)
      */
     protected $name;
-
-    /**
-     * Editor items which image belongs
-     *
-     * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Editor\Item", inversedBy="images");
-     */
-    protected $item;
 
     /**
      * @return mixed
