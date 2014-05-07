@@ -1,7 +1,9 @@
 <?php
 
-namespace BlueBear\CoreBundle\Entity;
+namespace BlueBear\CoreBundle\Entity\Map;
 
+use BlueBear\CoreBundle\Entity\Map\Layer;
+use BlueBear\CoreBundle\Entity\Map\Pencil;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -21,12 +23,17 @@ class MapItem
 
     /**
      * @var Pencil
+     *
      */
-    protected $pencilName;
+    protected $pencil;
+
+    protected $map;
 
     /**
+     * Layer
+     *
      * @var Layer
-     * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Layer", fetch="EAGER");
+     * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Layer", fetch="EAGER");
      */
     protected $layer;
 
@@ -98,6 +105,4 @@ class MapItem
         $this->y = $y;
         return $this;
     }
-
-
 }

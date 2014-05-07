@@ -22,15 +22,23 @@ class Pencil
     use Id, Nameable, Imageable, Sizable, Typeable, Taggable;
 
     /**
-     * @Orm\Column(name="pencil_set_id", type="integer")
+     * PencilSet which this pencil belongs
+     *
+     * @ORM\Column(name="pencil_set_id", type="integer")
      * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\PencilSet", inversedBy="pencils")
      */
     protected $pencilSet;
 
     /**
+     * Allowed layers for this pencil
+     *
+     * @ORM\OneToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\Layer", mappedBy="pencil")
+     */
+    protected $allowedLayers;
+
+    /**
      * Relative position of the center of the image to the center of the cell
      *
-     * @var float
      * @ORM\Column(type="float")
      */
     protected $imageX = 0;
@@ -38,7 +46,6 @@ class Pencil
     /**
      * Relative position of the center of the image to the center of the cell
      *
-     * @var float
      * @ORM\Column(type="float")
      */
     protected $imageY = 0;
@@ -46,7 +53,6 @@ class Pencil
     /**
      * Cells that physically contains the object (the one able to capture events)
      *
-     * @var array
      * @ORM\Column(type="array")
      */
     protected $boundingBox = [[0, 0]];
@@ -84,19 +90,23 @@ class Pencil
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
     public function getPencilSet()
     {
         return $this->pencilSet;
     }
 
-    /**
-     * @param mixed $pencilSet
-     */
     public function setPencilSet(PencilSet $pencilSet)
     {
         $this->pencilSet = $pencilSet;
+    }
+
+    public function getAllowedLayers()
+    {
+        return $this->allowedLayers;
+    }
+
+    public function setAllowedLayers($allowedLayers)
+    {
+        $this->allowedLayers = $allowedLayers;
     }
 }

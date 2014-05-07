@@ -26,10 +26,6 @@ bluebear_backoffice_pencil:
     defaults: { _controller: BlueBearBackofficeBundle:Pencil:index }
 
 # Pencils
-bluebear_backoffice_pencil_create:
-    pattern: /pencils/create
-    defaults: { _controller: BlueBearBackofficeBundle:Pencil:create }
-
 bluebear_backoffice_pencil_edit:
-    pattern: /pencils/edit/{id}
+    pattern: /pencils/edit
     defaults: { _controller: BlueBearBackofficeBundle:Pencil:edit }

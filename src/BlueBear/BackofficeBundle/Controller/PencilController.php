@@ -32,9 +32,11 @@ class PencilController extends Controller
      */
     public function editAction(Request $request)
     {
-        $pencil = $this->getPencilManager()->find($request->get('id'));
-
-        if (!$pencil) {
+        if ($id = $request->get('id')) {
+            $pencil = $this->getPencilManager()->find($id);
+            $this->redirect404Unless($pencil);
+        }
+        else {
             $pencil = new Pencil();
         }
         $form = $this->createForm('pencil', $pencil);
@@ -57,4 +59,4 @@ class PencilController extends Controller
     {
         return $this->get('bluebear.manager.pencil');
     }
-} 
+}
