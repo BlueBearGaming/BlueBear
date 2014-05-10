@@ -6,6 +6,20 @@
     "autoload": {
         "psr-0": { "": "src/" }
     },
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "jquery/jquery",
+                "version": "2.1.1",
+                "source": {
+                    "url": "https://github.com/jquery/jquery.git",
+                    "type": "git",
+                    "reference": "master"
+                }
+            }
+        }
+    ],
     "require": {
         "php": ">=5.3.3",
         "symfony/symfony": "~2.4",
@@ -24,19 +38,22 @@
         "gedmo/doctrine-extensions": "dev-master",
         "jms/security-extra-bundle": "1.5.*",
         "jms/di-extra-bundle": "1.4.*",
-		"mopa/bootstrap-bundle": "2.3.*@dev",
-		"twbs/bootstrap": "2.3.*",
 		"bmatzner/fontawesome-bundle": "dev-master",
-        "andres-montanez/magallanes": "1.0.*"
+        "andres-montanez/magallanes": "1.0.*",
+        "jquery/jquery": "*"
     },
     "scripts": {
+        "pre-install-cmd": [
+            "sudo npm install -g grunt-cli"
+        ],
         "post-install-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-			"Mopa\\Bundle\\BootstrapBundle\\Composer\\ScriptHandler::postInstallSymlinkTwitterBootstrap"
+            "cd vendor/jquery/jquery && npm install",
+            "cd vendor/jquery/jquery && grunt"
         ],
         "post-update-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
@@ -44,7 +61,8 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-			"Mopa\\Bundle\\BootstrapBundle\\Composer\\ScriptHandler::postInstallSymlinkTwitterBootstrap"
+            "cd vendor/jquery/jquery && grunt",
+            "cp vendor/jquery/jquery/dist/jquery.min.js web/js/jquery.min.js"
         ]
     },
     "config": {

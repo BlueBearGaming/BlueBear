@@ -6,6 +6,8 @@ bin/*
 cache
 vendor
 web/bundles
+*.log
+.gitkeep
 
 # composer
 composer.lock
@@ -20,3 +22,6 @@ web/uploads/tmp
 # kde, apple
 .ds_store
 .directory
+
+# deployment
+.mage/config/environment

@@ -24,6 +24,9 @@ framework:
 twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
+    form:
+        resources:
+            - BlueBearCoreBundle:Form:fields.html.twig
 
 # Assetic Configuration
 assetic:
