@@ -1,0 +1,23 @@
+{% block image_list_widget %}
+    <div class="image-widget">
+        {% if images|length > 0 %}
+
+            {% for image in images %}
+                <div class="image">
+                    {{ image.name }} - <a href="#" class="select-image" data-id="{{ image.id }}">select image</a>
+                </div>
+            {% endfor %}
+        {% endif %}
+        <input type="hidden" name="{{ form.vars.full_name }}" class="hidden-value"/>
+    </div>
+    <script>
+        $(document).on('ready', function () {
+            var container = $('.image-widget');
+
+            container.find('.select-image').on('click', function () {
+                container.find('.hidden-value').val($(this).data('id'));
+                return false;
+            });
+        });
+    </script>
+{% endblock %}

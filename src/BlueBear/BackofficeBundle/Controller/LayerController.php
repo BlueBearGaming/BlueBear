@@ -8,6 +8,7 @@ use BlueBear\CoreBundle\Entity\Map\Layer;
 use BlueBear\CoreBundle\Manager\LayerManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 class LayerController extends Controller
 {
@@ -42,7 +43,7 @@ class LayerController extends Controller
         if ($form->isValid()) {
             $this->getLayerManager()->save($layer);
             $this->setMessage('Pencil successfully saved');
-            return '';
+            return $this->redirect('@bluebear_backoffice_layer');
         }
         return [
             'form' => $form->createView()

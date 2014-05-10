@@ -25,3 +25,6 @@ web/uploads/tmp
 
 # deployment
 .mage/config/environment
+
+# sass
+.sass-cache

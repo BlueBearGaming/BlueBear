@@ -2,8 +2,10 @@ parameters:
     bluebear.form.image_type: BlueBear\CoreBundle\Form\Editor\ImageType
     bluebear.form.pencil_type: BlueBear\CoreBundle\Form\Map\PencilType
     bluebear.form.layer_type: BlueBear\CoreBundle\Form\Map\LayerType
+    bluebear.form.image_list_type: BlueBear\CoreBundle\Form\Core\ImageListType
 
 services:
+    # entity
     bluebear.form.image_type:
         class: %bluebear.form.image_type%
         tags:
@@ -18,3 +20,11 @@ services:
         class: %bluebear.form.layer_type%
         tags:
             - { name: form.type, alias: layer }
+
+    # utils
+    bluebear.form.image_list_type:
+        class: %bluebear.form.image_list_type%
+        tags:
+            - { name: form.type, alias: image_list }
+        calls:
+            - [setImageManager, [@bluebear.manager.image]]

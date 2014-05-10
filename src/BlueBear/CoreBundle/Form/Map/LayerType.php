@@ -16,6 +16,7 @@ class LayerType extends AbstractType
         $builder->add('type', 'choice', [
             'choices' => Constant::getLayerType()
         ]);
+        $builder->add('image', 'image_list');
     }
 
     public function getName()

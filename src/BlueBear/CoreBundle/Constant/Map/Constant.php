@@ -10,6 +10,7 @@ class Constant
     {
         return [
             'background' => 'Background',
+            'land' => 'Land',
             'unit' => 'Unit',
             'event' => 'Event'
         ];

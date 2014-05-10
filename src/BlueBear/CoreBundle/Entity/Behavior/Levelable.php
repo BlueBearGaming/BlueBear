@@ -2,7 +2,6 @@
 
 namespace BlueBear\CoreBundle\Entity\Behavior;
 
-use Krovitch\UnramalakBundle\Constants\Event;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
 /**

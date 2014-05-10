@@ -1,0 +1,14 @@
+@media -sass-debug-info {
+    filename {
+        font-family: file\:\/\/\/home\/afrezet\/workspace\/BlueBear\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/backoffice\.scss
+    }
+
+    line {
+        font-family: \000032
+
+    }
+}
+
+form input, form select {
+    color: #dddddd;
+}
