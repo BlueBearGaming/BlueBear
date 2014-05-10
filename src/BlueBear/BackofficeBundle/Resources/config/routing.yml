@@ -24,8 +24,13 @@ bluebear_backoffice_image_edit:
 bluebear_backoffice_pencil:
     pattern: /pencils
     defaults: { _controller: BlueBearBackofficeBundle:Pencil:index }
-
-# Pencils
 bluebear_backoffice_pencil_edit:
     pattern: /pencils/edit
     defaults: { _controller: BlueBearBackofficeBundle:Pencil:edit }
+###
+bluebear_backoffice_layer:
+    pattern: /layers
+    defaults: { _controller: BlueBearBackofficeBundle:Layer:index }
+bluebear_backoffice_layer_edit:
+    pattern: /layers/edit
+    defaults: { _controller: BlueBearBackofficeBundle:Layer:edit }

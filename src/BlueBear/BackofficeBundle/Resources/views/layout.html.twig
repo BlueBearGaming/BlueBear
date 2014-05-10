@@ -1,27 +1,34 @@
 <html>
 <head>
     <title>{% block title %}BlueBear Admin{% endblock %}</title>
+    <link rel="stylesheet" href="{{ asset('bundles/bluebearbackoffice/css/bootstrap.min.css') }}" type="text/css"
+          media="all"/>
+    <link rel="stylesheet" href="{{ asset('bundles/bluebearbackoffice/css/backoffice.css') }}" type="text/css"
+          media="all"/>
 </head>
 <body>
-    <div class="top-menu">
-        <ul>
-            <li><a href="{{ path('bluebear_backoffice_homepage') }}">Homepage</a></li>
-            <li><a href="{{ path('bluebear_backoffice_image') }}">Images</a></li>
-            <li><a href="{{ path('bluebear_backoffice_pencil') }}">Pencils</a></li>
-        </ul>
+{% block topMenu %}
+    {% include 'BlueBearBackofficeBundle::top.html.twig' %}
+{% endblock %}
+<!-- flash messages -->
+<div class="alert-container">
+    {% for flashMessage in app.session.flashbag.get('notice') %}
+        <div class="alert alert-success">
+            {{ flashMessage }}
+            <button type="button" class="close">×</button>
+        </div>
+    {% endfor %}
+</div>
+<div class="container">
+    <div class="row-fluid">
+        <div class="col-md-4">
+            {% block rightMenu %}{% endblock %}
+        </div>
+        <div class="col-md-8">
+            {% block content %}{% endblock %}
+        </div>
     </div>
-    <!-- flash messages -->
-    <div class="alert-container">
-        {% for flashMessage in app.session.flashbag.get('notice') %}
-            <div class="alert alert-success">
-                {{ flashMessage }}
-                <button type="button" class="close">×</button>
-            </div>
-        {% endfor %}
-    </div>
-    <div class="content">
-        {% block content %}{% endblock %}
-    </div>
+</div>
 <footer>
 
 </footer>

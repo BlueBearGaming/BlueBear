@@ -12,7 +12,9 @@
                         {{ image.name }}
                     </div>
                     <div class="image">
-                        <img src="/uploads/sprites/{{ image.filename }}" />
+                        <a href="{{ path('bluebear_backoffice_image_edit', {id: image.id}) }}">
+                            <img src="/uploads/sprites/{{ image.filename }}"/>
+                        </a>
                     </div>
                     <div class="actions">
                         <a href="{{ path('bluebear_backoffice_image_edit', {id: image.id}) }}">Edit</a>
