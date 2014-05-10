@@ -2,6 +2,10 @@
 
 namespace BlueBear\CoreBundle\Entity\Map;
 
+use BlueBear\CoreBundle\Entity\Behavior\Id;
+use BlueBear\CoreBundle\Entity\Behavior\Label;
+use BlueBear\CoreBundle\Entity\Behavior\Nameable;
+use BlueBear\CoreBundle\Entity\Behavior\Typeable;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -12,24 +16,5 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Layer
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    protected $id;
-
-    /**
-     * Unique name
-     *
-     * @ORM\Column(type="string", length=64, nullable=false)
-     */
-    protected $name;
-    
-    /**
-     * Layer type (terrain, props, buildings, units...)
-     *
-     * @ORM\Column(type="string", length=64, nullable=true)
-     */
-    protected $type = 'background';
+    use Id, Nameable, Label, Typeable;
 }

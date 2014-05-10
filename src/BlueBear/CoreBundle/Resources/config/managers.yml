@@ -2,19 +2,26 @@ parameters:
     bluebear.manager.image: BlueBear\CoreBundle\Manager\ImageManager
     bluebear.manager.item: BlueBear\CoreBundle\Manager\ItemManager
     bluebear.manager.pencil: BlueBear\CoreBundle\Manager\PencilManager
+    bluebear.manager.layer: BlueBear\CoreBundle\Manager\LayerManager
 
 services:
+    # ImageManager
     bluebear.manager.image:
         class: %bluebear.manager.image%
         calls:
             - [setContainer, [@service_container]]
-
+    # PencilManager
     bluebear.manager.pencil:
         class: %bluebear.manager.pencil%
         calls:
             - [setContainer, [@service_container]]
-
+    # ItemManager
     bluebear.manager.item:
         class: %bluebear.manager.item%
         calls:
             - [setContainer, [@service_container]]
+    # LayerManager
+    bluebear.manager.layer:
+            class: %bluebear.manager.layer%
+            calls:
+                - [setContainer, [@service_container]]

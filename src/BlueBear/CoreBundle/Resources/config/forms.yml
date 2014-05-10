@@ -1,6 +1,7 @@
 parameters:
     bluebear.form.image_type: BlueBear\CoreBundle\Form\Editor\ImageType
     bluebear.form.pencil_type: BlueBear\CoreBundle\Form\Map\PencilType
+    bluebear.form.layer_type: BlueBear\CoreBundle\Form\Map\LayerType
 
 services:
     bluebear.form.image_type:
@@ -12,3 +13,8 @@ services:
         class: %bluebear.form.pencil_type%
         tags:
             - { name: form.type, alias: pencil }
+
+    bluebear.form.layer_type:
+        class: %bluebear.form.layer_type%
+        tags:
+            - { name: form.type, alias: layer }

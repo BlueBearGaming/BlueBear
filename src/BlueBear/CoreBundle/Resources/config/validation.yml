@@ -7,3 +7,13 @@ BlueBear\CoreBundle\Entity\Map\Map:
 BlueBear\CoreBundle\Entity\Map\PencilSet:
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: name
+
+# Pencil
+BlueBear\CoreBundle\Entity\Map\Pencil:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: name
+
+# Layer
+BlueBear\CoreBundle\Entity\Map\Layer:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: name
