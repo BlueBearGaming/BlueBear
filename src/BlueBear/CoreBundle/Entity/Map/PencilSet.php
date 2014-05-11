@@ -4,6 +4,7 @@
 namespace BlueBear\CoreBundle\Entity\Map;
 
 use BlueBear\CoreBundle\Entity\Behavior\Id;
+use BlueBear\CoreBundle\Entity\Behavior\Label;
 use BlueBear\CoreBundle\Entity\Behavior\Nameable;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -11,11 +12,11 @@ use Doctrine\ORM\Mapping as ORM;
  * A pencil set is a collection of pencil. Each have a pencil set.
  *
  * @ORM\Table(name="pencil_set")
- * @ORM\Entity(repositoryClass="BlueBear\CoreBundle\Entity\PencilSetRepository")
+ * @ORM\Entity(repositoryClass="BlueBear\CoreBundle\Entity\Map\PencilSetRepository")
  */
 class PencilSet
 {
-    use Id, Nameable;
+    use Id, Nameable, Label;
 
     /**
      * List of pencils attached to the pencil set

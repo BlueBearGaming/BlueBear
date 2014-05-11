@@ -17,5 +17,5 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Layer
 {
-    use Id, Nameable, Label, Typeable, Imageable;
+    use Id, Nameable, Label, Typeable;
 }

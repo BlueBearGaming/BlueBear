@@ -3,3 +3,21 @@ form {
     color: #dddddd;
   }
 }
+
+.edit-pencil {
+  .image-widget {
+    width: 800px;
+
+    .image {
+      //float: left;
+      display: inline-block;
+
+      &.active {
+        border: 1px solid #428BCA;
+      }
+    }
+  }
+  .submit {
+    clear: both;
+  }
+}

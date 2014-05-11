@@ -1,0 +1,17 @@
+{% extends 'BlueBearBackofficeBundle::layout.html.twig' %}
+
+{% block content %}
+
+    <h1>Pencil Edit</h1>
+
+    <div class="edit-pencil">
+        <form action="{{ path('bluebear_backoffice_layer_edit', { id: form.vars.value.id}) }}" method="post">
+            {{ form_row(form) }}
+
+            <div class="submit">
+                <a href="{{ path('bluebear_backoffice_layer') }}">cancel</a>
+                <input type="submit" value="save"/>
+            </div>
+        </form>
+    </div>
+{% endblock %}

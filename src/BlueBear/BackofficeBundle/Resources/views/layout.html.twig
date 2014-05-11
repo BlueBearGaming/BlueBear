@@ -1,10 +1,7 @@
 <html>
 <head>
     <title>{% block title %}BlueBear Admin{% endblock %}</title>
-    <link rel="stylesheet" href="{{ asset('bundles/bluebearbackoffice/css/bootstrap.min.css') }}" type="text/css"
-          media="all"/>
-    <link rel="stylesheet" href="{{ asset('bundles/bluebearbackoffice/css/backoffice.css') }}" type="text/css"
-          media="all"/>
+    {% include 'BlueBearBackofficeBundle::assets.html.twig' %}
 </head>
 <body>
 {% block topMenu %}

@@ -1,14 +1,20 @@
+{# list of images widget #}
 {% block image_list_widget %}
     <div class="image-widget">
         {% if images|length > 0 %}
 
             {% for image in images %}
-                <div class="image">
-                    {{ image.name }} - <a href="#" class="select-image" data-id="{{ image.id }}">select image</a>
+                {% set active = (image.id == form.vars.value) ? ' active' : '' %}
+
+                <div class="image{{ active }}">
+                    <a href="#" class="select-image" data-id="{{ image.id }}">
+                        <img src="{{ asset('uploads/sprites/' ~ image.fileName) }}"/></a>
+                    <br/>
+                    <a href="#" class="select-image" data-id="{{ image.id }}">{{ image.name }}</a>
                 </div>
             {% endfor %}
         {% endif %}
-        <input type="hidden" name="{{ form.vars.full_name }}" class="hidden-value"/>
+        <input type="hidden" name="{{ form.vars.full_name }}" class="hidden-value" value="{{ form.vars.value }}"/>
     </div>
     <script>
         $(document).on('ready', function () {
@@ -16,6 +22,9 @@
 
             container.find('.select-image').on('click', function () {
                 container.find('.hidden-value').val($(this).data('id'));
+                container.find('.image').removeClass('active');
+                $(this).parents('.image').addClass('active');
+
                 return false;
             });
         });

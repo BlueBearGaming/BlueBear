@@ -1,7 +1,7 @@
 <?php
 
 
-namespace BlueBear\CoreBundle\Form\Core;
+namespace BlueBear\CoreBundle\Form\Editor;
 
 use BlueBear\CoreBundle\Manager\ImageManager;
 use Symfony\Component\Form\AbstractType;
@@ -35,5 +35,10 @@ class ImageListType extends AbstractType
     public function getName()
     {
         return 'image_list';
+    }
+
+    public function getParent()
+    {
+        return 'hidden';
     }
 }

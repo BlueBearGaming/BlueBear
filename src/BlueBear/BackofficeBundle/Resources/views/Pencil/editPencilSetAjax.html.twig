@@ -1,0 +1,13 @@
+<h2>Edit pencil set</h2>
+
+<div class="edit-pencil">
+    <form action="{{ path('bluebear_backoffice_pencil_set_edit', { id: form.vars.value.id}) }}" method="post">
+        {{ form_row(form) }}
+        {{ form_errors(form) }}
+
+        <div class="submit">
+            <a href="{{ path('bluebear_backoffice_pencil') }}" class="cancel">cancel</a>
+            <input type="submit" value="save"/>
+        </div>
+    </form>
+</div>

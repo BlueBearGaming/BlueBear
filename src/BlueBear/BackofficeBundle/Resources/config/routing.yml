@@ -2,6 +2,7 @@ bluebear_backoffice_homepage:
     pattern:  /
     defaults: {_controller: BlueBearBackofficeBundle:Main:homepage}
 
+
 # Images
 bluebear_backoffice_image:
     pattern: /images
@@ -18,16 +19,25 @@ bluebear_backoffice_image_orphans:
 bluebear_backoffice_image_edit:
     pattern: /images/edit/{id}
     defaults: { _controller: BlueBearBackofficeBundle:Image:edit }
-###
+
+
 
 # Pencils
 bluebear_backoffice_pencil:
     pattern: /pencils
     defaults: { _controller: BlueBearBackofficeBundle:Pencil:index }
+
 bluebear_backoffice_pencil_edit:
     pattern: /pencils/edit
     defaults: { _controller: BlueBearBackofficeBundle:Pencil:edit }
-###
+
+bluebear_backoffice_pencil_set_edit:
+    pattern: /pencils/addPencilSet
+    defaults: { _controller: BlueBearBackofficeBundle:Pencil:editPencilSet }
+
+
+
+# Layers
 bluebear_backoffice_layer:
     pattern: /layers
     defaults: { _controller: BlueBearBackofficeBundle:Layer:index }

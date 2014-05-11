@@ -9,5 +9,4 @@ class AuthorizedLayer
     protected $map;
 
     protected $layer;
-
 } 

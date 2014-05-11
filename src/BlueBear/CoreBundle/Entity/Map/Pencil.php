@@ -4,6 +4,7 @@ namespace BlueBear\CoreBundle\Entity\Map;
 
 use BlueBear\CoreBundle\Entity\Behavior\Id;
 use BlueBear\CoreBundle\Entity\Behavior\Imageable;
+use BlueBear\CoreBundle\Entity\Behavior\Label;
 use BlueBear\CoreBundle\Entity\Behavior\Nameable;
 use BlueBear\CoreBundle\Entity\Behavior\Sizable;
 use BlueBear\CoreBundle\Entity\Behavior\Taggable;
@@ -19,7 +20,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Pencil
 {
-    use Id, Nameable, Imageable, Sizable, Typeable, Taggable;
+    use Id, Nameable, Label, Imageable, Sizable, Typeable, Taggable;
 
     /**
      * PencilSet which this pencil belongs

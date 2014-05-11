@@ -4,6 +4,7 @@
     <h1>Pencils</h1>
 
     <a href="{{ path('bluebear_backoffice_pencil_edit') }}">Add new pencil</a>
+    <a href="{{ path('bluebear_backoffice_pencil_set_edit') }}">Add new pencil set</a>
 
     <div class="pencils-list">
         {% if pencils|length > 0 %}
@@ -24,7 +25,24 @@
         {% endif %}
     </div>
 
-    <div class="list">
+    <h1>Pencils Set</h1>
 
+    <div class="pencils-list">
+        {% if pencilSets|length > 0 %}
+
+            {% for pencilSet in pencilSets %}
+                <div class="item">
+                    <div class="info">
+                        {{ pencilSet.name }}
+                    </div>
+                    <div class="actions">
+                        <a href=""></a>
+                    </div>
+                </div>
+            {% endfor %}
+
+        {% else %}
+            No pencil set yet.
+        {% endif %}
     </div>
 {% endblock %}
