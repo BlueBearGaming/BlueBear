@@ -24,4 +24,20 @@ class PencilSet
      * @ORM\OneToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\Pencil", mappedBy="pencilSet")
      */
     protected $pencils;
+
+    /**
+     * @return mixed
+     */
+    public function getPencils()
+    {
+        return $this->pencils;
+    }
+
+    /**
+     * @param mixed $pencils
+     */
+    public function setPencils($pencils)
+    {
+        $this->pencils = $pencils;
+    }
 } 

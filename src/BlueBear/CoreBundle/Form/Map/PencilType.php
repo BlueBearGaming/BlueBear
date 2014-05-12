@@ -3,6 +3,7 @@
 
 namespace BlueBear\CoreBundle\Form\Map;
 
+use BlueBear\CoreBundle\Constant\Map\Constant;
 use BlueBear\CoreBundle\Form\Editor\ImageToIdTransformer;
 use BlueBear\CoreBundle\Manager\ImageManager;
 use BlueBear\CoreBundle\Manager\LayerManager;
@@ -25,9 +26,14 @@ class PencilType extends AbstractType
     {
         $builder->add('name');
         $builder->add('label');
+        $builder->add('type', 'choice', [
+            'choices' => Constant::getPencilType()
+        ]);
         $builder->add('pencilSet', 'entity', [
             'class' => 'BlueBear\CoreBundle\Entity\Map\PencilSet',
-            'property' => 'label'
+            'property' => 'label',
+            'expanded' => false,
+            'multiple' => false
         ]);
         $builder->add(
             'allowedLayers', 'entity', [
@@ -43,6 +49,8 @@ class PencilType extends AbstractType
         );
         $builder->add('imageX');
         $builder->add('imageY');
+        $builder->add('width');
+        $builder->add('height');
     }
 
     public function getName()

@@ -14,7 +14,9 @@
                         {{ layer.name }}
                     </div>
                     <div class="actions">
-                        <a href="{{ path('bluebear_backoffice_layer_edit', {id: layer.id}) }}">edit pencil</a>
+                        <a href="{{ path('bluebear_backoffice_layer_edit', {id: layer.id}) }}">edit</a>
+                        <a href="{{ path('bluebear_backoffice_layer_delete', {id: layer.id}) }}"
+                           class="delete-item">delete</a>
                     </div>
                 </div>
             {% endfor %}

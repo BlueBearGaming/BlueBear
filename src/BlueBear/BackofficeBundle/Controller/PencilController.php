@@ -49,11 +49,20 @@ class PencilController extends Controller
         if ($form->isValid()) {
             $this->getPencilManager()->save($pencil);
             $this->setMessage('Pencil successfully saved');
-            return '';
+            return $this->redirect('@bluebear_backoffice_pencil');
         }
         return [
             'form' => $form->createView()
         ];
+    }
+
+    public function deleteAction(Request $request)
+    {
+        $pencil = $this->getPencilManager()->find($id = $request->get('id'));
+        $this->redirect404Unless($pencil);
+        $this->getPencilManager()->delete($pencil);
+
+        return $this->redirect('@bluebear_backoffice_pencil');
     }
 
     /**
@@ -107,6 +116,15 @@ class PencilController extends Controller
             ]);
         }
         return $response;
+    }
+
+    public function deletePencilSetAction(Request $request)
+    {
+        $pencilSet = $this->getPencilSetManager()->find($id = $request->get('id'));
+        $this->redirect404Unless($pencilSet);
+        $this->getPencilSetManager()->delete($pencilSet);
+
+        return $this->redirect('@bluebear_backoffice_pencil');
     }
 
     /**

@@ -12,10 +12,12 @@
             {% for pencil in pencils %}
                 <div class="item">
                     <div class="info">
-                        {{ pencil.name }}
+                        {{ pencil.label }}
                     </div>
                     <div class="actions">
-                        <a href=""></a>
+                        <a href="{{ path('bluebear_backoffice_pencil_edit', {id: pencil.id}) }}">edit</a>
+                        <a href="{{ path('bluebear_backoffice_pencil_delete', {id: pencil.id}) }}"
+                           class="delete-item">delete</a>
                     </div>
                 </div>
             {% endfor %}
@@ -33,10 +35,12 @@
             {% for pencilSet in pencilSets %}
                 <div class="item">
                     <div class="info">
-                        {{ pencilSet.name }}
+                        {{ pencilSet.label }}
                     </div>
                     <div class="actions">
-                        <a href=""></a>
+                        <a href="{{ path('bluebear_backoffice_pencil_set_edit', {id: pencilSet.id}) }}">edit</a>
+                        <a href="{{ path('bluebear_backoffice_pencil_set_delete', {id: pencilSet.id}) }}"
+                           class="item-delete">delete</a>
                     </div>
                 </div>
             {% endfor %}

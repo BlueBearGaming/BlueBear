@@ -25,7 +25,7 @@ class Pencil
     /**
      * PencilSet which this pencil belongs
      *
-     * @ORM\Column(name="pencil_set_id", type="integer")
+     * @ORM\JoinColumn(name="pencil_set_id")
      * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\PencilSet", inversedBy="pencils")
      */
     protected $pencilSet;

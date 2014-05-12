@@ -50,6 +50,15 @@ class LayerController extends Controller
         ];
     }
 
+    public function deleteAction(Request $request)
+    {
+        $layer = $this->getLayerManager()->find($id = $request->get('id'));
+        $this->redirect404Unless($layer, 'Layer not found? id: ' . $id);
+        $this->getLayerManager()->delete($layer);
+
+        return $this->redirect('@bluebear_backoffice_layer');
+    }
+
     /**
      * @return LayerManager
      */

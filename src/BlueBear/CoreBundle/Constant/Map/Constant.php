@@ -15,4 +15,13 @@ class Constant
             'event' => 'Event'
         ];
     }
+
+    public static function getPencilType()
+    {
+        return [
+            'background' => 'Background',
+            'land' => 'Land',
+            'unit' => 'Unit'
+        ];
+    }
 } 
