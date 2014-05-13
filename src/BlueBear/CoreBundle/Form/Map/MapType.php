@@ -9,20 +9,27 @@ use BlueBear\CoreBundle\Manager\ImageManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class LayerType extends AbstractType
+class MapType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options = [])
     {
         $builder->add('name');
         $builder->add('label');
+        $builder->add('width');
+        $builder->add('height');
         $builder->add('type', 'choice', [
-            'choices' => Constant::getLayerType()
+            'choices' => Constant::getMapType()
+        ]);
+        $builder->add('pencilSets', 'entity', [
+            'class' => 'BlueBear\CoreBundle\Entity\Map\PencilSet',
+            'property' => 'label',
+            'multiple' => true,
+            'expanded' => true
         ]);
     }
 
-
     public function getName()
     {
-        return 'layer';
+        return 'map';
     }
 }

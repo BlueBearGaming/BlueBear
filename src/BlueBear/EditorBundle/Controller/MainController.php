@@ -8,6 +8,8 @@ class MainController extends Controller
 {
     public function indexAction()
     {
+
+
         return $this->render('BlueBearEditorBundle:Main:index.html.twig');
     }
 }

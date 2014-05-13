@@ -3,11 +3,13 @@
 
 namespace BlueBear\CoreBundle\Form\Editor;
 
+use BlueBear\CoreBundle\Entity\Map\Pencil;
 use BlueBear\CoreBundle\Manager\ImageManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class ImageListType extends AbstractType
 {
@@ -16,15 +18,21 @@ class ImageListType extends AbstractType
      */
     protected $imageManager;
 
-    public function buildForm(FormBuilderInterface $builder, array $options = [])
-    {
-
-    }
-
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        $images = $this->imageManager->findOrphans();
+        /**
+         * @var Pencil|null $pencil
+         */
+        $pencil = array_key_exists('pencil', $options) ? $options['pencil'] : null;
+        $images = $this->imageManager->findOrphans($pencil);
         $view->vars['images'] = $images;
+    }
+
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults([
+            'pencil' => null
+        ]);
     }
 
     public function setImageManager(ImageManager $imageManager)

@@ -35,7 +35,8 @@ class Image
     protected $fileName;
 
     /**
-     * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Pencil", inversedBy="image")
+     * @ORM\JoinColumn(nullable=true)
+     * @ORM\OneToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Pencil")
      */
     protected $pencil;
 
@@ -60,7 +61,7 @@ class Image
         return $this->pencil;
     }
 
-    public function setPencil(Pencil $pencil)
+    public function setPencil($pencil)
     {
         $this->pencil = $pencil;
     }

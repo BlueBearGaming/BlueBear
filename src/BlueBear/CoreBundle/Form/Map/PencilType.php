@@ -36,15 +36,14 @@ class PencilType extends AbstractType
             'multiple' => false
         ]);
         $builder->add(
-            'allowedLayers', 'entity', [
-            'class' => 'BlueBear\CoreBundle\Entity\Map\Layer',
-            'property' => 'label',
-            'expanded' => true,
-            'multiple' => true
+            'allowedLayers', 'collection', [
+            'type' => 'allowedLayer'
         ]);
         $builder->add(
             $builder
-                ->create('image', 'image_list')
+                ->create('image', 'image_list', [
+                    'pencil' => $options['data']
+                ])
                 ->addModelTransformer(new ImageToIdTransformer($this->imageManager))
         );
         $builder->add('imageX');

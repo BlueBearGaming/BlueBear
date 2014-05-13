@@ -26,6 +26,11 @@ class PencilSet
     protected $pencils;
 
     /**
+     * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Map", inversedBy="pencilSets")
+     */
+    protected $map;
+
+    /**
      * @return mixed
      */
     public function getPencils()
@@ -39,5 +44,21 @@ class PencilSet
     public function setPencils($pencils)
     {
         $this->pencils = $pencils;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMap()
+    {
+        return $this->map;
+    }
+
+    /**
+     * @param mixed $map
+     */
+    public function setMap($map)
+    {
+        $this->map = $map;
     }
 } 

@@ -3,7 +3,6 @@
 namespace BlueBear\CoreBundle\Entity\Map;
 
 use BlueBear\CoreBundle\Entity\Behavior\Id;
-use BlueBear\CoreBundle\Entity\Behavior\Imageable;
 use BlueBear\CoreBundle\Entity\Behavior\Label;
 use BlueBear\CoreBundle\Entity\Behavior\Nameable;
 use BlueBear\CoreBundle\Entity\Behavior\Typeable;

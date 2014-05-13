@@ -3,6 +3,7 @@
 namespace BlueBear\CoreBundle\Manager;
 
 use BlueBear\CoreBundle\Entity\Editor\ImageRepository;
+use BlueBear\CoreBundle\Entity\Map\Pencil;
 use BlueBear\CoreBundle\Manager\Behavior\ManagerBehavior;
 use BlueBear\BackofficeBundle\Utils\Sprite\SpriteSplitter;
 use BlueBear\CoreBundle\Entity\Editor\Image;
@@ -43,16 +44,34 @@ class ImageManager
     /**
      * Return orphans images (ie images with no item attached)
      *
+     * @param Pencil $pencil
      * @return ArrayCollection
      */
-    public function findOrphans()
+    public function findOrphans(Pencil $pencil = null)
     {
+        $pencilId = $pencil ? $pencil->getId() : 0;
+
         return $this
             ->getRepository()
-            ->findOrphans()
+            ->findOrphans($pencilId)
             ->setMaxResults('25')
             ->getQuery()
             ->getResult();
+    }
+
+    public function unlinkPencil(Pencil $pencil)
+    {
+        /**
+         * @var Image $image
+         */
+        $image = $this->getRepository()->findOneBy([
+            'pencil' => $pencil
+        ]);
+
+        if ($image) {
+            $image->setPencil(null);
+        }
+
     }
 
     /**

@@ -57,3 +57,16 @@ bluebear_backoffice_layer_edit:
 bluebear_backoffice_layer_delete:
     pattern: /layers/delete/{id}
     defaults: { _controller: BlueBearBackofficeBundle:Layer:delete }
+
+# Map
+bluebear_backoffice_map:
+    pattern: /maps
+    defaults: { _controller: BlueBearBackofficeBundle:Map:index }
+
+bluebear_backoffice_map_edit:
+    pattern: /maps/edit
+    defaults: { _controller: BlueBearBackofficeBundle:Map:edit }
+
+bluebear_backoffice_map_delete:
+    pattern: /map/delete/{id}
+    defaults: { _controller: BlueBearBackofficeBundle:Map:delete }

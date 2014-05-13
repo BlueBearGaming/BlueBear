@@ -15,6 +15,12 @@
             <li class="{{ route[:'bluebear_backoffice_layer'|length] == 'bluebear_backoffice_layer' ? 'active' : '' }}">
                 <a href="{{ path('bluebear_backoffice_layer') }}">Layers</a>
             </li>
+            <li class="{{ route[:'bluebear_backoffice_map'|length] == 'bluebear_backoffice_map' ? 'active' : '' }}">
+                <a href="{{ path('bluebear_backoffice_map') }}">Maps</a>
+            </li>
+            <li class="{{ route[:'bluebear_editor'|length] == 'bluebear_editor' ? 'active' : '' }}">
+                <a href="{{ path('bluebear_editor_homepage') }}">Editor</a>
+            </li>
         </ul>
     </div>
 </div>

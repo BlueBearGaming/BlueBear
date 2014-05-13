@@ -1,0 +1,28 @@
+{% extends 'BlueBearBackofficeBundle::layout.html.twig' %}
+
+{% block content %}
+    <h1>Map</h1>
+
+    <a href="{{ path('bluebear_backoffice_map_edit') }}">Add new map</a>
+
+    <div>
+        {% if maps|length > 0 %}
+
+            {% for map in maps %}
+                <div class="item">
+                    <div class="info">
+                        {{ map.name }}
+                    </div>
+                    <div class="actions">
+                        <a href="{{ path('bluebear_backoffice_map_edit', {id: map.id}) }}">edit</a>
+                        <a href="{{ path('bluebear_backoffice_map_delete', {id: map.id}) }}"
+                           class="delete-item">delete</a>
+                    </div>
+                </div>
+            {% endfor %}
+
+        {% else %}
+            No map yet.
+        {% endif %}
+    </div>
+{% endblock %}

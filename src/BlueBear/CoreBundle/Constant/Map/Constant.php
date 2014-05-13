@@ -24,4 +24,13 @@ class Constant
             'unit' => 'Unit'
         ];
     }
+
+    public static function getMapType()
+    {
+        return [
+            'campaign' => 'Campaign',
+            'mini-game' => 'Mini Game',
+            'other' => 'Autres'
+        ];
+    }
 } 

@@ -5,15 +5,17 @@ namespace BlueBear\BackofficeBundle\Controller\Behavior;
 
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
 trait ControllerBehavior
 {
     // Symfony controllers methods
     abstract function createNotFoundException($message = 'Not Found', \Exception $previous = NULL);
-    abstract function generateUrl($route, $parameters = array(), $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH);
-    abstract function get($id);
 
+    abstract function generateUrl($route, $parameters = array(), $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH);
+
+    abstract function get($id);
 
     /**
      * Throw a 404 Exception if $boolean is false or null
@@ -69,6 +71,11 @@ trait ControllerBehavior
         return $this->container->getParameter($key);
     }
 
+    /**
+     * Return routing
+     *
+     * @return RouterInterface
+     */
     public function getRouting()
     {
         return $this->get('router');
@@ -76,6 +83,7 @@ trait ControllerBehavior
 
     /**
      * Return current translator
+     *
      * @return TranslatorInterface
      */
     protected function getTranslator()
@@ -85,6 +93,7 @@ trait ControllerBehavior
 
     /**
      * Return current session
+     *
      * @return Session
      */
     protected function getSession()

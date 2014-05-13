@@ -3,15 +3,17 @@ parameters:
     bluebear.form.pencil_type: BlueBear\CoreBundle\Form\Map\PencilType
     bluebear.form.pencil_set_type: BlueBear\CoreBundle\Form\Map\PencilSetType
     bluebear.form.layer_type: BlueBear\CoreBundle\Form\Map\LayerType
+    bluebear.form.map_type: BlueBear\CoreBundle\Form\Map\MapType
     bluebear.form.image_list_type: BlueBear\CoreBundle\Form\Editor\ImageListType
 
 services:
-    # entity
+    # ImageType
     bluebear.form.image_type:
         class: %bluebear.form.image_type%
         tags:
             - { name: form.type, alias: image }
 
+    # PencilType
     bluebear.form.pencil_type:
         class: %bluebear.form.pencil_type%
         tags:
@@ -20,15 +22,23 @@ services:
             - [setLayerManager, [@bluebear.manager.layer]]
             - [setImageManager, [@bluebear.manager.image]]
 
+    # PencilSetType
     bluebear.form.pencil_set_type:
         class: %bluebear.form.pencil_set_type%
         tags:
             - { name: form.type, alias: pencil_set }
 
+    # Layer
     bluebear.form.layer_type:
         class: %bluebear.form.layer_type%
         tags:
             - { name: form.type, alias: layer }
+
+    # Map
+    bluebear.form.map_type:
+        class: %bluebear.form.map_type%
+        tags:
+            - { name: form.type, alias: map }
 
     # utils
     bluebear.form.image_list_type:

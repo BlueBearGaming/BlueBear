@@ -3,12 +3,12 @@
 namespace BlueBear\CoreBundle\Entity\Map;
 
 use BlueBear\CoreBundle\Entity\Behavior\Id;
-use BlueBear\CoreBundle\Entity\Behavior\Imageable;
 use BlueBear\CoreBundle\Entity\Behavior\Label;
 use BlueBear\CoreBundle\Entity\Behavior\Nameable;
 use BlueBear\CoreBundle\Entity\Behavior\Sizable;
 use BlueBear\CoreBundle\Entity\Behavior\Taggable;
 use BlueBear\CoreBundle\Entity\Behavior\Typeable;
+use BlueBear\CoreBundle\Entity\Editor\Image;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -20,7 +20,15 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Pencil
 {
-    use Id, Nameable, Label, Imageable, Sizable, Typeable, Taggable;
+    use Id, Nameable, Label, Sizable, Typeable, Taggable;
+
+    /**
+     * Image used in render
+     *
+     * @var Image
+     * @ORM\OneToOne(targetEntity="BlueBear\CoreBundle\Entity\Editor\Image", fetch="EAGER", cascade={"persist"});
+     */
+    protected $image;
 
     /**
      * PencilSet which this pencil belongs
@@ -33,7 +41,7 @@ class Pencil
     /**
      * Allowed layers for this pencil
      *
-     * @ORM\OneToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\Layer", mappedBy="pencil")
+     * @ORM\OneToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\AllowedLayer", mappedBy="pencil")
      */
     protected $allowedLayers;
 
@@ -109,5 +117,28 @@ class Pencil
     public function setAllowedLayers($allowedLayers)
     {
         $this->allowedLayers = $allowedLayers;
+    }
+
+
+    /**
+     * Return item's image
+     *
+     * @return Image
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * Set item's image
+     *
+     * @param Image $image
+     * @return $this
+     */
+    public function setImage(Image $image)
+    {
+        $this->image = $image;
+        $image->setPencil($this);
     }
 }
