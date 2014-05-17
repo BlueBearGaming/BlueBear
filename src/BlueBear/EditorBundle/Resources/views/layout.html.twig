@@ -1,0 +1,27 @@
+<html>
+<head>
+    <title>{% block title %}BlueBear Admin{% endblock %}</title>
+    {% include 'BlueBearEditorBundle::assets.html.twig' %}
+</head>
+<body>
+<!-- flash messages -->
+<div class="alert-container">
+    {% for flashMessage in app.session.flashbag.get('notice') %}
+        <div class="alert alert-success">
+            {{ flashMessage }}
+            <button type="button" class="close">×</button>
+        </div>
+    {% endfor %}
+</div>
+<div class="container">
+    <div class="row-fluid">
+        <div class="col-md-12">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+</div>
+<footer>
+    Developed by CleverGaming
+</footer>
+</body>
+</html>

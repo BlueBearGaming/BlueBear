@@ -1,3 +1,11 @@
 bluebear_editor_homepage:
     pattern:  /editor
     defaults: { _controller: BlueBearEditorBundle:Main:index }
+
+bluebear_map_edit:
+    pattern:  /editor/map
+    defaults: { _controller: BlueBearEditorBundle:Main:edit }
+
+bluebear_map_delete:
+    pattern:  /editor/delete/{id}
+    defaults: { _controller: BlueBearEditorBundle:Main:delete }

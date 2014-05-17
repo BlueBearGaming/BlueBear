@@ -24,7 +24,7 @@ class Map
     /**
      * Map pencil set
      *
-     * @ORM\OneToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\PencilSet", mappedBy="map", fetch="EAGER")
+     * @ORM\OneToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\PencilSet", mappedBy="map")
      */
     protected $pencilSets;
 

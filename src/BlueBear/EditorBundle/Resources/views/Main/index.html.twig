@@ -1,1 +1,23 @@
 {% extends 'BlueBearBackofficeBundle::layout.html.twig' %}
+
+{% block content %}
+    <h1>Map Editor</h1>
+
+    <div class="list">
+        {% if maps|length > 0 %}
+            <table>
+                {% for map in maps %}
+                    <tr>
+                        <td>{{ map.id }}</td>
+                        <td>{{ map.label }}</td>
+                        <td>
+                            <a href="{{ path('bluebear_map_edit') }}">edit</a>
+                            <a href="{{ path('bluebear_map_delete', {id: map.id}) }}" class="item-delete">delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+        {% endif %}
+    </div>
+{% endblock %}
