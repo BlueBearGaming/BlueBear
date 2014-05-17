@@ -59,7 +59,7 @@ var Backoffice = {
     init: function () {
         // alert on deletion
         $('.item-delete').on('click', function () {
-            return confirm('It will be deleted!!! Are ou really really really sure ? 100% ?');
+            return confirm('It will be deleted!!! Are you really really sure ? 100% ?');
         });
     }
 };

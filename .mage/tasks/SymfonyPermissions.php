@@ -26,10 +26,13 @@ class SymfonyPermissions extends AbstractTask
      */
     public function run()
     {
+        $output = '';
         // TODO handle other permissions types
         $command = "setfacl -R -m u:www-data:rwX -m u:johnkrovitch:rwX app/cache app/logs";
-        $this->runCommandRemote($command);
+        $this->runCommandRemote($command, $output);
+        var_dump($output);
         $command2 = "setfacl -dR -m u:www-data:rwx -m u:johnkrovitch:rwx app/cache app/logs";
-        $this->runCommandRemote($command2);
+        $this->runCommandRemote($command2, $output);
+        var_dump($output);
     }
 }

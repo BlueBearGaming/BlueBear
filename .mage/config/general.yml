@@ -1,7 +1,7 @@
 # global settings
 name: BlueBear
 email: arnaudfrezet@gmail.com
-notifications: true
+notifications: false
 logging: true
 maxlogs: 1
 ssh_needs_tty: true
