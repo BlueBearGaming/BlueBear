@@ -4,6 +4,14 @@
     <h1>Map Editor</h1>
 
     <div id="editor">
+        {% for pencilSet in map.pencilSets %}
+            <div>
+                <h2>{{ pencilSet.label }}</h2>
 
+                {% for pencil in pencilSet %}
+                    <h3>{{ pencil.label }}</h3>
+                {% endfor %}
+            </div>
+        {% endfor %}
     </div>
 {% endblock %}

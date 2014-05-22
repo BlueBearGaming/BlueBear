@@ -22,9 +22,9 @@ class Map
     use Id, Nameable, Label, Sizable, Timestampable, Typeable;
 
     /**
-     * Map pencil set
+     * Map pencil sets
      *
-     * @ORM\OneToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\PencilSet", mappedBy="map")
+     * @ORM\OneToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\PencilSet", mappedBy="map", cascade={"persist", "merge", "refresh"})
      */
     protected $pencilSets;
 
@@ -37,10 +37,23 @@ class Map
     }
 
     /**
-     * @param mixed $pencilSets
+     * @param array $pencilSets
      */
     public function setPencilSets($pencilSets)
     {
+        die('lol?');
         $this->pencilSets = $pencilSets;
+        var_dump($pencilSets);
+        /**
+         * @var PencilSet $pencilSet
+         */
+        foreach ($pencilSets as $pencilSet) {
+            $pencilSet->setMap($this);
+        }
+    }
+
+    public function addPencilSets(PencilSet $pencilSet)
+    {
+        die('add');
     }
 }

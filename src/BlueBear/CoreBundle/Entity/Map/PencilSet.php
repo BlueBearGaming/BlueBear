@@ -26,7 +26,7 @@ class PencilSet
     protected $pencils;
 
     /**
-     * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Map", inversedBy="pencilSets")
+     * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Map", inversedBy="pencilSets", cascade={"persist", "merge"})
      */
     protected $map;
 
@@ -55,10 +55,11 @@ class PencilSet
     }
 
     /**
-     * @param mixed $map
+     * @param Map $map
      */
     public function setMap($map)
     {
         $this->map = $map;
+        die('set map');
     }
 } 

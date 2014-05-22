@@ -4,7 +4,9 @@
     "type": "project",
     "description": "BlueBear, panda against the world",
     "autoload": {
-        "psr-0": { "": "src/" }
+        "psr-0": {
+            "": "src/"
+        }
     },
     "repositories": [
         {
@@ -38,7 +40,7 @@
         "gedmo/doctrine-extensions": "dev-master",
         "jms/security-extra-bundle": "1.5.*",
         "jms/di-extra-bundle": "1.4.*",
-		"bmatzner/fontawesome-bundle": "dev-master",
+        "bmatzner/fontawesome-bundle": "dev-master",
         "andres-montanez/magallanes": "1.0.*",
         "jquery/jquery": "*"
     },
@@ -71,12 +73,12 @@
     "extra": {
         "symfony-app-dir": "app",
         "symfony-web-dir": "web",
-		"symfony-assets-install": "symlink",
+        "symfony-assets-install": "symlink",
         "incenteev-parameters": {
             "file": "app/config/parameters.yml"
         },
         "branch-alias": {
-            "dev-master": "2.4-dev"
+            "dev-master": "2.4-stable"
         }
     }
 }

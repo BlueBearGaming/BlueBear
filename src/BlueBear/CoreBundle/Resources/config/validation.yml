@@ -2,6 +2,16 @@
 BlueBear\CoreBundle\Entity\Map\Map:
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: name
+    properties:
+        name:
+            - NotBlank: ~
+            - NotNull: ~
+        label:
+            - NotBlank: ~
+            - NotNull: ~
+        pencilSets:
+            - Count: {min: 1}
+
 
 # Pencil Set
 BlueBear\CoreBundle\Entity\Map\PencilSet:

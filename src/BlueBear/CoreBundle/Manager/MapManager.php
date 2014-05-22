@@ -12,14 +12,16 @@ class MapManager
     use ManagerBehavior;
 
     /**
+     * Find a map with its linked objects
+     *
      * @param $id
      * @return Map|null
      */
-    public function find($id)
+    public function findMap($id)
     {
         return $this
             ->getRepository()
-            ->find($id)
+            ->findMap($id)
             ->getQuery()
             ->getOneOrNullResult();
     }

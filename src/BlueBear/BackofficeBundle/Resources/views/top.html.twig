@@ -15,6 +15,14 @@
             <li class="{{ route[:'bluebear_backoffice_layer'|length] == 'bluebear_backoffice_layer' ? 'active' : '' }}">
                 <a href="{{ path('bluebear_backoffice_layer') }}">Layers</a>
             </li>
+            <li>
+                <a href="">Unit</a>
+                <ul class="nav nav-pills">
+                    <li>
+                        <a href="{{ path('bluebear_backoffice_units') }}"></a>
+                    </li>
+                </ul>
+            </li>
             <li class="{{ route[:'bluebear_backoffice_map'|length] == 'bluebear_backoffice_map' ? 'active' : '' }}">
                 <a href="{{ path('bluebear_backoffice_map') }}">Maps</a>
             </li>

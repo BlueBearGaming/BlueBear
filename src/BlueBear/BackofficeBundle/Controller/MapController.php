@@ -4,9 +4,8 @@
 namespace BlueBear\BackofficeBundle\Controller;
 
 use BlueBear\BackofficeBundle\Controller\Behavior\ControllerBehavior;
-use BlueBear\CoreBundle\Entity\Map\Layer;
 use BlueBear\CoreBundle\Entity\Map\Map;
-use BlueBear\CoreBundle\Manager\LayerManager;
+use BlueBear\CoreBundle\Manager\MapManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -33,7 +32,7 @@ class MapController extends Controller
     public function editAction(Request $request)
     {
         if ($id = $request->get('id')) {
-            $map = $this->getMapManager()->find($id);
+            $map = $this->getMapManager()->findMap($id);
             $this->redirect404Unless($map);
         } else {
             $map = new Map();
@@ -44,7 +43,7 @@ class MapController extends Controller
         if ($form->isValid()) {
             $this->getMapManager()->save($map);
             $this->setMessage('Map successfully saved');
-            return $this->redirect('@bluebear_backoffice_map');
+            //return $this->redirect('@bluebear_backoffice_map');
         }
         return [
             'form' => $form->createView()
@@ -63,7 +62,7 @@ class MapController extends Controller
     /**
      *
      *
-     * @return LayerManager
+     * @return MapManager
      */
     protected function getMapManager()
     {

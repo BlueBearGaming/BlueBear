@@ -2,6 +2,7 @@
 
 namespace BlueBear\EditorBundle\Controller;
 
+use BlueBear\BackofficeBundle\Controller\Behavior\ControllerBehavior;
 use BlueBear\CoreBundle\Manager\MapManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -9,6 +10,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 class MainController extends Controller
 {
+    use ControllerBehavior;
+
     /**
      * @Template()
      */
@@ -23,12 +26,13 @@ class MainController extends Controller
 
     /**
      * @Template()
-     * @param Request $id
+     * @param Request $request
      * @return array
      */
-    public function editAction(Request $id)
+    public function editAction(Request $request)
     {
-        $map = $this->getMapManager()->find($id);
+        $map = $this->getMapManager()->find($request->get('id'));
+        $this->redirect404Unless($map, 'Map not found');
 
         return [
             'map' => $map
