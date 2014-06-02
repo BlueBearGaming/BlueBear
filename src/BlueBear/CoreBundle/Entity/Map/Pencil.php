@@ -119,7 +119,6 @@ class Pencil
         $this->allowedLayers = $allowedLayers;
     }
 
-
     /**
      * Return item's image
      *

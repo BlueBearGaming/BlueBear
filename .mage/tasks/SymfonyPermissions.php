@@ -3,6 +3,7 @@
 namespace Task;
 
 use Mage\Task\AbstractTask;
+use Symfony\Component\Finder\Finder;
 
 class SymfonyPermissions extends AbstractTask
 {
@@ -28,6 +29,12 @@ class SymfonyPermissions extends AbstractTask
     {
         $output = '';
         // TODO handle other permissions types
+
+        $finder = new Finder();
+        //$finder->directories()->in();
+        //die($this->getConfig()->getParameter('deployment'));
+
+
         $command = "setfacl -R -m u:www-data:rwX -m u:johnkrovitch:rwX app/cache app/logs";
         $this->runCommandRemote($command, $output);
         var_dump($output);

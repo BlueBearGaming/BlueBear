@@ -61,7 +61,7 @@ bluebear_backoffice_layer_delete:
 
 
 # Units
-bluebear_backoffice_layer_delete:
+bluebear_backoffice_units:
     pattern: /units
     defaults: { _controller: BlueBearBackofficeBundle:Unit:index }
 
