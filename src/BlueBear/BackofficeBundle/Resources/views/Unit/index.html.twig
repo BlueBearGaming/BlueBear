@@ -1,0 +1,27 @@
+{% extends 'BlueBearBackofficeBundle::layout.html.twig' %}
+
+{% block content %}
+    <h1>Units</h1>
+
+    <a href="{{ path('bluebear_backoffice_unit_edit') }}">Add new unit</a>
+
+    <div>
+        {% if unit|length > 0 %}
+            {% for unit in units %}
+                <div class="item">
+                    <div class="info">
+                        {{ unit.name }}
+                    </div>
+                    <div class="actions">
+                        <a href="{{ path('bluebear_backoffice_unit_edit', {id: unit.id}) }}">edit</a>
+                        <a href="{{ path('bluebear_backoffice_unit_delete', {id: unit.id}) }}"
+                           class="item-delete">delete</a>
+                    </div>
+                </div>
+            {% endfor %}
+
+        {% else %}
+            No unit yet.
+        {% endif %}
+    </div>
+{% endblock %}

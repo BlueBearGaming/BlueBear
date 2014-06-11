@@ -20,11 +20,7 @@ class MapType extends AbstractType
         $builder->add('type', 'choice', [
             'choices' => Constant::getMapType()
         ]);
-        $builder->add('pencilSets', 'entity', [
-            'class' => 'BlueBear\CoreBundle\Entity\Map\PencilSet',
-            'property' => 'label',
-            'multiple' => true,
-            'expanded' => true
+        $builder->add('pencilSets', 'pencil_set_list', [
         ]);
     }
 

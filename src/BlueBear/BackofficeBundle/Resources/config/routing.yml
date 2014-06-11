@@ -43,6 +43,9 @@ bluebear_backoffice_pencil_set_delete:
     pattern: /pencils/deletePencilSet/{id}
     defaults: { _controller: BlueBearBackofficeBundle:Pencil:deletePencilSet }
 
+bluebear_backoffice_select_pencil_set:
+    pattern: pencils/selectPencilSet
+    defaults: { _controller: BlueBearBackofficeBundle:Pencil:selectPencilSet }
 
 
 # Layers

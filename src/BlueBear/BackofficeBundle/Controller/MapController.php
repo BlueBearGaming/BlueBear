@@ -43,7 +43,8 @@ class MapController extends Controller
         if ($form->isValid()) {
             $this->getMapManager()->save($map);
             $this->setMessage('Map successfully saved');
-            //return $this->redirect('@bluebear_backoffice_map');
+
+            return $this->redirect('@bluebear_backoffice_map');
         }
         return [
             'form' => $form->createView()

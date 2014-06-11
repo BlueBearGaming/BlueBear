@@ -30,3 +30,53 @@
         });
     </script>
 {% endblock %}
+
+{# list of pencil set #}
+{% block pencil_set_list_widget %}
+    {% set pencilSets = form.vars.value %}
+    {% set list = form.vars.list %}
+
+    <div class="pencil-set-list">
+        <a href="{{ path('bluebear_backoffice_select_pencil_set') }}" class="add-pencil-set">Add a pencil set</a>
+
+        <label>
+            <select name="select-pencil" class="select-pencil">
+                {% for pencil in list %}
+                    <option value="{{ pencil.id }}">{{ pencil.name }}</option>
+                {% endfor %}
+            </select>
+        </label>
+
+        {% if pencilSets|length > 0 %}
+
+            {% for pencilSet in pencilSets %}
+                <div>
+
+                </div>
+            {% endfor %}
+        {% else %}
+
+        {% endif %}
+    </div>
+
+    <script>
+        $(document).on('ready', function () {
+            var addLink = $('.add-pencil-set');
+            var select = $('.select-pencil');
+
+            addLink.on('click', function () {
+                $.ajax({
+                    url: addLink.attr('href'),
+                    data: select.val(),
+                    type: 'post',
+                    success: function (response) {
+                        if (response.code == 'ok') {
+                            window.location.reload();
+                        }
+                    }
+                });
+                return false;
+            });
+        });
+    </script>
+{% endblock %}

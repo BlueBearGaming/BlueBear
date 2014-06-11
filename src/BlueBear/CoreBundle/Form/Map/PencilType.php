@@ -62,7 +62,6 @@ class PencilType extends AbstractType
         $this->layerManager = $layerManager;
     }
 
-
     public function setImageManager(ImageManager $imageManager)
     {
         $this->imageManager = $imageManager;

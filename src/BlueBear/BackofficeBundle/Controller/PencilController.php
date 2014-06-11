@@ -56,6 +56,10 @@ class PencilController extends Controller
         ];
     }
 
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function deleteAction(Request $request)
     {
         $pencil = $this->getPencilManager()->find($id = $request->get('id'));
@@ -118,6 +122,10 @@ class PencilController extends Controller
         return $response;
     }
 
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function deletePencilSetAction(Request $request)
     {
         $pencilSet = $this->getPencilSetManager()->find($id = $request->get('id'));
@@ -125,6 +133,24 @@ class PencilController extends Controller
         $this->getPencilSetManager()->delete($pencilSet);
 
         return $this->redirect('@bluebear_backoffice_pencil');
+    }
+
+    /**
+     * @Template()
+     * @param Request $request
+     * @return array
+     */
+    public function selectPencilSetAction(Request $request)
+    {
+        //$form = $this->createForm('pencil_set_list');
+        //$form->handleRequest($request);
+
+        if ($form->isValid()) {
+
+        }
+        return [
+            'form' => $form->createView()
+        ];
     }
 
     /**
