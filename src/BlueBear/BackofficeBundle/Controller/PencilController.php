@@ -4,8 +4,10 @@
 namespace BlueBear\BackofficeBundle\Controller;
 
 use BlueBear\BackofficeBundle\Controller\Behavior\ControllerBehavior;
+use BlueBear\CoreBundle\Entity\Map\Map;
 use BlueBear\CoreBundle\Entity\Map\Pencil;
 use BlueBear\CoreBundle\Entity\Map\PencilSet;
+use BlueBear\CoreBundle\Manager\MapManager;
 use BlueBear\CoreBundle\Manager\PencilManager;
 use BlueBear\CoreBundle\Manager\PencilSetManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -142,8 +144,20 @@ class PencilController extends Controller
      */
     public function selectPencilSetAction(Request $request)
     {
-        //$form = $this->createForm('pencil_set_list');
-        //$form->handleRequest($request);
+        $mapId = $request->get('mapId');
+        $pencilSetId = $request->get('pencilSetId');
+
+        /**
+         * @var Map $map
+         * @var PencilSet $pencilSet
+         */
+        $pencilSet = $this->getPencilManager()->find($pencilSetId);
+        $map = $this->getMapManager()->find($mapId);
+        $map->addPencilSets($pencilSet);
+        $this->getMapManager()->save($map);
+
+        $form = $this->createForm('pencil_set_list');
+        $form->handleRequest($request);
 
         if ($form->isValid()) {
 
@@ -167,5 +181,13 @@ class PencilController extends Controller
     protected function getPencilSetManager()
     {
         return $this->get('bluebear.manager.pencil_set');
+    }
+
+    /**
+     * @return MapManager
+     */
+    protected function getMapManager()
+    {
+        return $this->get('bluebear.manager.map');
     }
 }

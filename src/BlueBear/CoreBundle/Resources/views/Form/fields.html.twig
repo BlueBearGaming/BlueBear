@@ -35,6 +35,7 @@
 {% block pencil_set_list_widget %}
     {% set pencilSets = form.vars.value %}
     {% set list = form.vars.list %}
+    {% set map = form.vars.map %}
 
     <div class="pencil-set-list">
         <a href="{{ path('bluebear_backoffice_select_pencil_set') }}" class="add-pencil-set">Add a pencil set</a>
@@ -57,6 +58,10 @@
         {% else %}
 
         {% endif %}
+
+        {% if map %}
+            <input name="map-id" type="hidden" class="map-id" value="{{ map.id }}"/>
+        {% endif %}
     </div>
 
     <script>
@@ -67,11 +72,11 @@
             addLink.on('click', function () {
                 $.ajax({
                     url: addLink.attr('href'),
-                    data: select.val(),
+                    data: 'pencilSetId=' + select.val() + '&mapId=' + $('input.map-id').val(),
                     type: 'post',
                     success: function (response) {
                         if (response.code == 'ok') {
-                            window.location.reload();
+                            console.log('response', response.data);
                         }
                     }
                 });

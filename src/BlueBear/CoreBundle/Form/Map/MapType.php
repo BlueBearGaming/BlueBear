@@ -20,8 +20,7 @@ class MapType extends AbstractType
         $builder->add('type', 'choice', [
             'choices' => Constant::getMapType()
         ]);
-        $builder->add('pencilSets', 'pencil_set_list', [
-        ]);
+        $builder->add('pencilSets', 'pencil_set_list');
     }
 
     public function getName()
