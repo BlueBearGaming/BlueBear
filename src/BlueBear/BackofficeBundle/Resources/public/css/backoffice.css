@@ -4,10 +4,23 @@
     }
 
     line {
-        font-family: \000032
+        font-family: \000031
     }
 }
 
+body {
+    margin-top: 40px;
+}
+
+@media -sass-debug-info {
+    filename {
+        font-family: file\:\/\/\/home\/afrezet\/workspace\/BlueBear\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/backoffice\.scss
+    }
+
+    line {
+        font-family: \000036
+    }
+}
 form input, form select {
     color: #dddddd;
 }
@@ -18,26 +31,11 @@ form input, form select {
     }
 
     line {
-        font-family: \000038
+        font-family: \0000312
     }
 }
-
 .edit-pencil .image-widget {
     width: 800px;
-}
-
-@media -sass-debug-info {
-    filename {
-        font-family: file\:\/\/\/home\/afrezet\/workspace\/BlueBear\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/backoffice\.scss
-    }
-
-    line {
-        font-family: \0000311
-    }
-}
-
-.edit-pencil .image-widget .image {
-    display: inline-block;
 }
 
 @media -sass-debug-info {
@@ -49,7 +47,19 @@ form input, form select {
         font-family: \0000315
     }
 }
+.edit-pencil .image-widget .image {
+    display: inline-block;
+}
 
+@media -sass-debug-info {
+    filename {
+        font-family: file\:\/\/\/home\/afrezet\/workspace\/BlueBear\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/backoffice\.scss
+    }
+
+    line {
+        font-family: \0000319
+    }
+}
 .edit-pencil .image-widget .image.active {
     border: 1px solid #428BCA;
 }
@@ -60,10 +70,9 @@ form input, form select {
     }
 
     line {
-        font-family: \0000320
+        font-family: \0000324
     }
 }
-
 .edit-pencil .submit {
     clear: both;
 }

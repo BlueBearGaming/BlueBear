@@ -30,7 +30,7 @@ class SymfonyPermissions extends AbstractTask
         $output = '';
         // TODO handle other permissions types
 
-        $finder = new Finder();
+        //$finder = new Finder();
         //$finder->directories()->in();
         //die($this->getConfig()->getParameter('deployment'));
 
