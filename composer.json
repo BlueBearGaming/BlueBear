@@ -2,26 +2,12 @@
     "name": "BlueBear",
     "license": "MIT",
     "type": "project",
-    "description": "BlueBear, panda against the world",
+    "description": "BlueBear, pandas against the world",
     "autoload": {
         "psr-0": {
             "": "src/"
         }
     },
-    "repositories": [
-        {
-            "type": "package",
-            "package": {
-                "name": "jquery/jquery",
-                "version": "2.1.1",
-                "source": {
-                    "url": "https://github.com/jquery/jquery.git",
-                    "type": "git",
-                    "reference": "master"
-                }
-            }
-        }
-    ],
     "require": {
         "php": ">=5.3.3",
         "symfony/symfony": "~2.5",
@@ -40,23 +26,20 @@
         "gedmo/doctrine-extensions": "dev-master",
         "jms/security-extra-bundle": "1.5.*",
         "jms/di-extra-bundle": "1.4.*",
-        "bmatzner/fontawesome-bundle": "dev-master",
         "andres-montanez/magallanes": "1.0.*",
-        "jquery/jquery": "*",
-        "mopa/bootstrap-bundle": "~2.3"
+		"mopa/bootstrap-bundle": "3.*@dev",
+        "twbs/bootstrap-sass": "3.*@dev",
+        "components/jquery": "1.11.*",
+        "components/jqueryui": "1.11.*"
     },
     "scripts": {
-        "pre-install-cmd": [
-            "sudo npm install -g grunt-cli"
-        ],
         "post-install-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "cd vendor/jquery/jquery && npm install",
-            "cd vendor/jquery/jquery && grunt"
+            "Mopa\\Bundle\\BootstrapBundle\\Composer\\ScriptHandler::postInstallSymlinkTwitterBootstrapSass"
         ],
         "post-update-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
@@ -64,12 +47,12 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "cd vendor/jquery/jquery && grunt",
-            "cp vendor/jquery/jquery/dist/jquery.min.js web/js/jquery.min.js"
+            "Mopa\\Bundle\\BootstrapBundle\\Composer\\ScriptHandler::postInstallSymlinkTwitterBootstrapSass"
         ]
     },
     "config": {
-        "bin-dir": "bin"
+        "bin-dir": "bin",
+        "component-dir": "web/assets"
     },
     "extra": {
         "symfony-app-dir": "app",

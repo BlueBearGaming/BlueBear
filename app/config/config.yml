@@ -33,7 +33,8 @@ assetic:
     write_to: %kernel.root_dir%/../web
     debug:          %kernel.debug%
     use_controller: false
-    bundles:        []
+    bundles:
+        - BlueBearBackofficeBundle
     #java: /usr/bin/java
     filters:
         cssrewrite: ~

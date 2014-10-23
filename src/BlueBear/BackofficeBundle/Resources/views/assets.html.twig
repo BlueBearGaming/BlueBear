@@ -1,6 +1,10 @@
-<link rel="stylesheet" href="{{ asset('bundles/bluebearbackoffice/css/bootstrap.min.css') }}" type="text/css"
-      media="all"/>
-<link rel="stylesheet" href="{{ asset('bundles/bluebearbackoffice/css/backoffice.css') }}" type="text/css"
-      media="all"/>
+{% stylesheets  'bundles/bluebearbackoffice/css/bootstrap-datetimepicker.min.css'
+                'assets/jquery-ui/themes/flick/jquery-ui.min.css'
+                'bundles/bluebearbackoffice/css/backoffice.css'
+                'bundles/bluebearbackoffice/css/bootstrap-darkly.min.css'
+    filter='cssrewrite' %}
+    <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
+{% endstylesheets %}
+
 <script src="/js/jquery.min.js"></script>
 <script src="{{ asset('bundles/bluebearbackoffice/js/backoffice.js') }}"></script>

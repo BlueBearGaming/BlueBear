@@ -2,8 +2,6 @@
 
 namespace BlueBear\CoreBundle\Entity\Behavior;
 
-use Symfony\Component\EventDispatcher\EventDispatcher;
-
 /**
  * Levelable
  *
@@ -14,7 +12,7 @@ trait Levelable
     /**
      * Return event dispatcher
      *
-     * @return EventDispatcher
+     * @return \Symfony\Component\EventDispatcher\EventDispatcher
      */
     abstract function getEventDispatcher();
 

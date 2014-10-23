@@ -6,6 +6,7 @@ bin/*
 cache
 vendor
 web/bundles
+web/assets
 *.log
 .gitkeep
 
