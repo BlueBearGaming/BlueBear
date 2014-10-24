@@ -14,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class PencilController extends Controller
@@ -36,6 +37,8 @@ class PencilController extends Controller
 
     /**
      * @Template()
+     * @param Request $request
+     * @return array|RedirectResponse
      */
     public function editAction(Request $request)
     {
@@ -60,7 +63,7 @@ class PencilController extends Controller
 
     /**
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return RedirectResponse
      */
     public function deleteAction(Request $request)
     {
@@ -73,7 +76,7 @@ class PencilController extends Controller
 
     /**
      * @param Request $request
-     * @return JsonResponse|\Symfony\Component\HttpFoundation\RedirectResponse
+     * @return JsonResponse|RedirectResponse
      */
     public function editPencilSetAction(Request $request)
     {
@@ -126,7 +129,7 @@ class PencilController extends Controller
 
     /**
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return RedirectResponse
      */
     public function deletePencilSetAction(Request $request)
     {

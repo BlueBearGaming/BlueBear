@@ -36,11 +36,11 @@ bluebear_backoffice_pencil_delete:
     defaults: { _controller: BlueBearBackofficeBundle:Pencil:delete }
 
 bluebear_backoffice_pencil_set_edit:
-    pattern: /pencils/addPencilSet
+    pattern: /pencils/sets/editPencil
     defaults: { _controller: BlueBearBackofficeBundle:Pencil:editPencilSet }
 
 bluebear_backoffice_pencil_set_delete:
-    pattern: /pencils/deletePencilSet/{id}
+    pattern: /pencils/sets/delete/{id}
     defaults: { _controller: BlueBearBackofficeBundle:Pencil:deletePencilSet }
 
 bluebear_backoffice_select_pencil_set:
