@@ -27,8 +27,8 @@
         "jms/security-extra-bundle": "1.5.*",
         "jms/di-extra-bundle": "1.4.*",
         "andres-montanez/magallanes": "1.0.*",
-		"mopa/bootstrap-bundle": "3.*@dev",
-        "twbs/bootstrap-sass": "3.*@dev",
+        "mopa/bootstrap-bundle": "3.*@dev",
+        "twbs/bootstrap-sass": "3.2.*",
         "components/jquery": "1.11.*",
         "components/jqueryui": "1.11.*"
     },

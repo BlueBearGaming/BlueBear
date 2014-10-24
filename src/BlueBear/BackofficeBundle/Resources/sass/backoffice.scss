@@ -1,6 +1,24 @@
 @import "partials/variables";
 
-@import "../../../../../web/bundles/mopabootstrap/sass/mopabootstrapbundle.scss";
+// Bootstrap overrides, such as the asset-url(..) function.
+@import "../../../../../web/bundles/mopabootstrap/sass/bootstrap_and_overrides";
+
+@import "darkly/variables";
+
+// Main bootstrap.sass entry point
+@import "../../../../../web/bundles/mopabootstrap/bootstrap-sass/assets/stylesheets/bootstrap/bootstrap";
+
+// The Paginator less for MopaBootstrapBundle
+@import "../../../../../web/bundles/mopabootstrap/sass/paginator.scss";
+
+// Collection support for MopaBootstrapBundle
+@import "../../../../../web/bundles/mopabootstrap/sass/collections.scss";
+
+// FormFlow support for MopaBootstrapBundle
+@import "../../../../../web/bundles/mopabootstrap/sass/form_flow.scss";
+
+@import "darkly/bootswatch";
+
 @import "../../../../../web/bundles/mopabootstrap/sass/font-awesome/font-awesome.scss";
 
 body {
