@@ -10,9 +10,6 @@ web/assets
 *.log
 .gitkeep
 
-# composer
-composer.lock
-
 # IDE
 .idea
 
