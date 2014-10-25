@@ -4,6 +4,7 @@
 namespace BlueBear\CoreBundle\Form\Map;
 
 use BlueBear\CoreBundle\Constant\Map\Constant;
+use BlueBear\CoreBundle\Entity\Map\Map;
 use BlueBear\CoreBundle\Entity\Map\PencilSet;
 use BlueBear\CoreBundle\Manager\PencilSetManager;
 use Symfony\Component\Form\AbstractType;
@@ -19,6 +20,12 @@ class MapType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options = [])
     {
+        /** @var Map $map */
+        $map = $options['data'];
+        $transformer = new PencilSetToChoicesTransformer();
+        $transformer->setPencilSetManager($this->pencilSetManager);
+        $transformer->setMap($map);
+
         $builder->add('name', 'text', [
             'help_block' => 'Internal map name (eg: map_0)'
         ]);
@@ -35,11 +42,16 @@ class MapType extends AbstractType
             'choices' => Constant::getMapType(),
             'help_block' => 'Map type'
         ]);
-        $builder->add('pencilSets', 'choice', [
-            'choices' => $this->getSortedPencilSets(),
-            'multiple' => true,
-            'expanded' => true
-        ]);
+        $builder->add(
+            $builder->create(
+                'pencilSets', 'choice', [
+                    'choices' => $this->getSortedPencilSets($this->pencilSetManager->findAll()),
+                    'data' => $map->getPencilSets(),
+                    'multiple' => true,
+                    'expanded' => true,
+                ]
+            )->addModelTransformer($transformer)
+        );
 
     }
 
@@ -63,14 +75,13 @@ class MapType extends AbstractType
         $this->pencilSetManager = $pencilSetManager;
     }
 
-    protected function getSortedPencilSets()
+    protected function getSortedPencilSets($pencilsSets)
     {
-        $pencilsSets = $this->pencilSetManager->findAll();
         $sorted = [];
 
         /** @var PencilSet $pencilsSet */
         foreach ($pencilsSets as $pencilsSet) {
-            $sorted[$pencilsSet->getName()] = $pencilsSet->getLabel() . ' ("' . $pencilsSet->getName() . '")';
+            $sorted[$pencilsSet->getId()] = $pencilsSet->getLabel() . ' ("' . $pencilsSet->getName() . '")';
         }
         return $sorted;
     }

@@ -60,6 +60,5 @@ class PencilSet
     public function setMap($map)
     {
         $this->map = $map;
-        die('set map');
     }
 } 
