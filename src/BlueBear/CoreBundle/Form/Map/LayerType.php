@@ -4,8 +4,6 @@
 namespace BlueBear\CoreBundle\Form\Map;
 
 use BlueBear\CoreBundle\Constant\Map\Constant;
-use BlueBear\CoreBundle\Form\Editor\ImageToIdTransformer;
-use BlueBear\CoreBundle\Manager\ImageManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 

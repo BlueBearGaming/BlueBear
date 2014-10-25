@@ -2,8 +2,6 @@
 
 namespace BlueBear\CoreBundle\Entity\Map;
 
-use BlueBear\CoreBundle\Entity\Map\Layer;
-use BlueBear\CoreBundle\Entity\Map\Pencil;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

@@ -2,7 +2,6 @@
 
 namespace BlueBear\CoreBundle\Manager;
 
-use BlueBear\CoreBundle\Entity\Map\LayerRepository;
 use BlueBear\CoreBundle\Entity\Map\Map;
 use BlueBear\CoreBundle\Entity\Map\MapRepository;
 use BlueBear\CoreBundle\Manager\Behavior\ManagerBehavior;

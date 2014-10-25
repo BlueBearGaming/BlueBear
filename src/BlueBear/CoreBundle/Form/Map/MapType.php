@@ -5,8 +5,6 @@ namespace BlueBear\CoreBundle\Form\Map;
 
 use BlueBear\CoreBundle\Constant\Map\Constant;
 use BlueBear\CoreBundle\Entity\Map\PencilSet;
-use BlueBear\CoreBundle\Form\Editor\ImageToIdTransformer;
-use BlueBear\CoreBundle\Manager\ImageManager;
 use BlueBear\CoreBundle\Manager\PencilSetManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
