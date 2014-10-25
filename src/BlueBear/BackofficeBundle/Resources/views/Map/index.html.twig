@@ -1,28 +1,42 @@
 {% extends 'BlueBearBackofficeBundle::layout.html.twig' %}
 
+{% block rightMenu %}
+    <ul class="nav nav-pills nav-stacked">
+        <li><a href="{{ path('bluebear_backoffice_map_edit') }}">Add new map</a></li>
+    </ul>
+{% endblock %}
+
 {% block content %}
     <h1>Map</h1>
-
-    <a href="{{ path('bluebear_backoffice_map_edit') }}">Add new map</a>
-
     <div>
         {% if maps|length > 0 %}
-
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Label</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
             {% for map in maps %}
-                <div class="item">
-                    <div class="info">
-                        {{ map.name }}
-                    </div>
-                    <div class="actions">
-                        <a href="{{ path('bluebear_backoffice_map_edit', {id: map.id}) }}">edit</a>
+                <tr>
+                    <td>{{ map.id }}</td>
+                    <td>{{ map.label }}</td>
+                    <td>
+                        <a href="{{ path('bluebear_backoffice_map_edit', {id: map.id}) }}"
+                           class="btn btn-sm">edit</a>
                         <a href="{{ path('bluebear_backoffice_map_delete', {id: map.id}) }}"
-                           class="item-delete">delete</a>
-                    </div>
-                </div>
+                           class="item-delete btn btn-sm">delete</a>
+                    </td>
+                </tr>
             {% endfor %}
-
+                    </tbody>
+                </table>
+            </div>
         {% else %}
-            No map yet.
+            No map yet
         {% endif %}
     </div>
 {% endblock %}

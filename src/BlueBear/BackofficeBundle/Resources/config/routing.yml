@@ -64,10 +64,13 @@ bluebear_backoffice_layer_delete:
 
 
 # Units
-bluebear_backoffice_units:
+bluebear_backoffice_unit:
     pattern: /units
     defaults: { _controller: BlueBearBackofficeBundle:Unit:index }
 
+bluebear_backoffice_unit_edit:
+    pattern: /units/edit
+    defaults: { _controller: BlueBearBackofficeBundle:Unit:edit }
 
 # Map
 bluebear_backoffice_map:

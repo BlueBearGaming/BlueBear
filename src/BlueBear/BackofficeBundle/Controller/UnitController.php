@@ -3,8 +3,8 @@
 namespace BlueBear\BackofficeBundle\Controller;
 
 use BlueBear\BackofficeBundle\Controller\Behavior\ControllerBehavior;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class UnitController extends Controller
 {
@@ -15,6 +15,10 @@ class UnitController extends Controller
      */
     public function indexAction()
     {
-        return [];
+        $units = [];
+
+        return [
+            'units' => $units
+        ];
     }
 }
