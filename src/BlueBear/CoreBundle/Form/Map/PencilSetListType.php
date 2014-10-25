@@ -21,7 +21,8 @@ class PencilSetListType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options = [])
     {
         $builder->add('pencils', 'collection', [
-            'type' => 'pencil_set'
+            'type' => 'pencil_set',
+            'data_class' => 'BlueBear\CoreBundle\Entity\Map\Pencil'
         ]);
     }
 

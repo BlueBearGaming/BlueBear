@@ -28,6 +28,8 @@ class MapController extends Controller
 
     /**
      * @Template()
+     * @param Request $request
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function editAction(Request $request)
     {

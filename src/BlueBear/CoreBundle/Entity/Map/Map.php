@@ -41,15 +41,7 @@ class Map
      */
     public function setPencilSets($pencilSets)
     {
-        die('lol?');
         $this->pencilSets = $pencilSets;
-        var_dump($pencilSets);
-        /**
-         * @var PencilSet $pencilSet
-         */
-        foreach ($pencilSets as $pencilSet) {
-            $pencilSet->setMap($this);
-        }
     }
 
     public function addPencilSets(PencilSet $pencilSet)

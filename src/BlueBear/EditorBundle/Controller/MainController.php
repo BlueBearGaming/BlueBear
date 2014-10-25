@@ -40,6 +40,19 @@ class MainController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @return array
+     */
+    public function deleteAction(Request $request)
+    {
+        $map = $this->getMapManager()->find($request->get('id'));
+        $this->redirect404Unless($map, 'Map not found');
+        $this->getMapManager()->delete($map);
+
+        return $this->redirect('@bluebear_editor_homepage');
+    }
+
+    /**
      * @return MapManager
      */
     protected function getMapManager()

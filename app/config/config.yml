@@ -79,3 +79,7 @@ services:
         class: Twig_Extensions_Extension_Text
         tags:
             - { name: twig.extension }
+
+# Mopa
+mopa_bootstrap:
+    form: ~

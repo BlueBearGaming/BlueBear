@@ -3,9 +3,9 @@
 {% block content %}
     <h1>Map Edit</h1>
 
-    <div class="edit-pencil">
-        <form action="{{ path('bluebear_backoffice_map_edit', { id: form.vars.value.id}) }}" method="post">
-            {{ form_row(form) }}
+    <div class="edit-map">
+        <form action="{{ path('bluebear_backoffice_map_edit', { id: form.vars.value.id}) }}" method="post" class="well">
+            {{ form_widget(form) }}
 
             <div class="submit">
                 <a href="{{ path('bluebear_backoffice_map') }}">cancel</a>

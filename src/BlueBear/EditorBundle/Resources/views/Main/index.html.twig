@@ -18,6 +18,8 @@
                 {% endfor %}
             </table>
         {% else %}
+            No map was yet created in backoffice. Click <a href="{{ path('bluebear_backoffice_map_edit') }}">here</a>
+            to create one.
         {% endif %}
     </div>
 {% endblock %}

@@ -28,6 +28,9 @@ class ImageController extends Controller
     /**
      * @ParamConverter("image", class="BlueBear\CoreBundle\Entity\Editor\Image")
      * @Template()
+     * @param Request $request
+     * @param Image $image
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function editAction(Request $request, Image $image)
     {

@@ -53,7 +53,7 @@
         {% if pencilSets|length > 0 %}
             <div class="list">
                 {% for pencilSet in pencilSets %}
-                    <div>
+                    <div class="item">
                         {{ pencilSets.name }}
                         <a href="#" class="remove-pencil-set">delete</a>
                         <input name="{{ inputName }}[pencil_set_list][]" type="hidden" value="{{ pencilSet.id }}"/>
@@ -65,10 +65,10 @@
         {% endif %}
 
         <div class="template hide">
-            <div>
+            <div class="item">
                 __NAME__
                 <a href="#" class="remove-pencil-set">delete</a>
-                <input name="{{ inputName }}[pencil_set_list][0]" type="hidden" value="__ID__"/>
+                <input name="{{ inputName }}[pencil_set_list][__INDEX__]" type="hidden" value="__ID__"/>
             </div>
         </div>
 
@@ -90,6 +90,7 @@
 
                 template = template.replace('__ID__', option.val());
                 template = template.replace('__NAME__', option.text());
+                template = template.replace('__INDEX__', list.find('.item').length - 1);
 
                 option.remove();
                 list.append(template);
@@ -105,7 +106,6 @@
                     var container = $(this).parent('div');
                     var input = container.find('input[type=hidden]');
 
-                    console.log('input', input);
                     select.append('<option value="' + input.val() + '">' + input.text() + '</option>');
                     container.remove();
 
