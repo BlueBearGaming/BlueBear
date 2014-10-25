@@ -12,16 +12,19 @@ services:
         class: %bluebear.manager.image%
         calls:
             - [setContainer, [@service_container]]
+
     # PencilManager
     bluebear.manager.pencil:
         class: %bluebear.manager.pencil%
         calls:
             - [setContainer, [@service_container]]
+
     # PencilSetManager
     bluebear.manager.pencil_set:
         class: %bluebear.manager.pencil_set%
         calls:
             - [setContainer, [@service_container]]
+
     # ItemManager
     bluebear.manager.item:
         class: %bluebear.manager.item%

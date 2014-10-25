@@ -28,8 +28,6 @@ services:
         class: %bluebear.form.pencil_set_list_type%
         tags:
             - { name: form.type, alias: pencil_set_list }
-        calls:
-            - [setPencilManager, [@bluebear.manager.pencil]]
 
     # PencilSetListType
     bluebear.form.pencil_set_type:
@@ -37,18 +35,19 @@ services:
         tags:
             - { name: form.type, alias: pencil_set }
 
-    # Layer
+    # LayerType
     bluebear.form.layer_type:
         class: %bluebear.form.layer_type%
         tags:
             - { name: form.type, alias: layer }
 
-    # Map
+    # MapType
     bluebear.form.map_type:
         class: %bluebear.form.map_type%
         tags:
             - { name: form.type, alias: map }
-
+        calls:
+            - [setPencilSetManager, [@bluebear.manager.pencil_set]]
     # utils
     bluebear.form.image_list_type:
         class: %bluebear.form.image_list_type%

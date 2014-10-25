@@ -7,10 +7,9 @@
         <form action="{{ path('bluebear_backoffice_map_edit', { id: form.vars.value.id}) }}" method="post" class="well">
             {{ form_widget(form) }}
 
-            <div class="submit">
-                <a href="{{ path('bluebear_backoffice_map') }}">cancel</a>
-                <input type="submit" value="save"/>
-            </div>
+            <a href="{{ path('bluebear_backoffice_map') }}" class="btn"><i class="fa fa-arrow-circle-left"></i>&nbsp;
+                &nbsp;cancel</a>
+            <input type="submit" value="save" class="btn btn-default"/>
         </form>
     </div>
 {% endblock %}

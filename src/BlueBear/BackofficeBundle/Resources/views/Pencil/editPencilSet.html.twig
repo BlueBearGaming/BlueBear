@@ -1,16 +1,23 @@
 {% extends 'BlueBearBackofficeBundle::layout.html.twig' %}
 
+{% block rightMenu %}
+    <ul class="nav nav-pills nav-stacked">
+        <li><a href="{{ path('bluebear_backoffice_pencil_edit') }}">Add new pencil</a></li>
+        <li><a href="{{ path('bluebear_backoffice_pencil_set_edit') }}">Add new pencil set</a></li>
+    </ul>
+{% endblock %}
+
 {% block content %}
     <h1>Pencil Set Edit</h1>
 
     <div class="edit-pencil">
-        <form action="{{ path('bluebear_backoffice_pencil_set_edit', { id: form.vars.value.id}) }}" method="post">
-            {{ form_row(form) }}
+        <form action="{{ path('bluebear_backoffice_pencil_set_edit', { id: form.vars.value.id}) }}" method="post"
+              class="well">
+            {{ form_widget(form) }}
 
-            <div class="submit">
-                <a href="{{ path('bluebear_backoffice_pencil') }}">cancel</a>
-                <input type="submit" value="save"/>
-            </div>
+            <a href="{{ path('bluebear_backoffice_pencil') }}" class="btn"><i class="fa fa-arrow-circle-left"></i>&nbsp;
+                &nbsp;cancel</a>
+            <input type="submit" value="save" class="btn btn-default"/>
         </form>
     </div>
 {% endblock %}

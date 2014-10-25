@@ -33,88 +33,20 @@
 
 {# list of pencil set #}
 {% block pencil_set_list_widget %}
-    {% set pencilSets = form.vars.value %}
-    {% set list = form.vars.list %}
-    {% set map = form.vars.map %}
-
-    <div class="pencil-set-list">
-        <a href="{{ path('bluebear_backoffice_select_pencil_set') }}" class="add-pencil-set">Add a pencil set</a>
-
-        <label>
-            <select name="select-pencil" class="select-pencil">
-                {% for pencil in list %}
-                    <option value="{{ pencil.id }}">{{ pencil.name }}</option>
-                {% endfor %}
-            </select>
-        </label>
-        {% set inputName = form.parent.vars.name %}
-        {{ inputName }}
-
-        {% if pencilSets|length > 0 %}
-            <div class="list">
-                {% for pencilSet in pencilSets %}
-                    <div class="item">
-                        {{ pencilSets.name }}
-                        <a href="#" class="remove-pencil-set">delete</a>
-                        <input name="{{ inputName }}[pencil_set_list][]" type="hidden" value="{{ pencilSet.id }}"/>
-                    </div>
-                {% endfor %}
-            </div>
-        {% else %}
-
-        {% endif %}
-
-        <div class="template hide">
-            <div class="item">
-                __NAME__
-                <a href="#" class="remove-pencil-set">delete</a>
-                <input name="{{ inputName }}[pencil_set_list][__INDEX__]" type="hidden" value="__ID__"/>
-            </div>
-        </div>
-
-        {% if map %}
-            {#<input name="map-id" type="hidden" class="map-id" value="{{ map.id }}"/>#}
-        {% endif %}
-    </div>
+    {{ form_widget(form) }}lol?
 
     <script>
         $(document).on('ready', function () {
-            var select = $('.select-pencil');
-            var list = $('.pencil-set-list');
-            var addLink = $('.add-pencil-set');
-            var removeLink = $('.remove-pencil-set');
+            // removing already added items from select
+            $(window).on('add.mopa-collection-item', function (event, collection) {
+                var ids = [];
 
-            addLink.on('click', function () {
-                var option = select.find('option:selected');
-                var template = list.find('.template').html();
+                collection.find('select').each(function () {
+                    console.log($(this), $(this).val());
+                });
 
-                template = template.replace('__ID__', option.val());
-                template = template.replace('__NAME__', option.text());
-                template = template.replace('__INDEX__', list.find('.item').length - 1);
-
-                option.remove();
-                list.append(template);
-                bindRemove();
-
-                return false;
+                console.log('data', ids);
             });
-
-            function bindRemove() {
-                var removeLink = $('.remove-pencil-set');
-
-                removeLink.on('click', function () {
-                    var container = $(this).parent('div');
-                    var input = container.find('input[type=hidden]');
-
-                    select.append('<option value="' + input.val() + '">' + input.text() + '</option>');
-                    container.remove();
-
-                    return false;
-                })
-            }
-
-            bindRemove();
-
         });
     </script>
 {% endblock %}
