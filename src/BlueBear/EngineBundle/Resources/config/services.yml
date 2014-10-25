@@ -1,0 +1,8 @@
+parameters:
+    bluebear.engine.event.tile_leave_subscriber: BlueBear\EngineBundle\Event\Tile\TileLeaveSubscriber
+
+services:
+    bluebear.engine.event.tile_leave_subscriber:
+        class: %bluebear.engine.event.tile_leave_subscriber%
+        tags:
+            - {name: kernel.event_subscriber}

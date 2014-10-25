@@ -26,6 +26,7 @@ class AppKernel extends Kernel
             new BlueBear\BackofficeBundle\BlueBearBackofficeBundle(),
             new BlueBear\EditorBundle\BlueBearEditorBundle(),
             new BlueBear\CoreBundle\BlueBearCoreBundle(),
+            new BlueBear\EngineBundle\BlueBearEngineBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

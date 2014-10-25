@@ -3,6 +3,7 @@
 
 namespace BlueBear\BackofficeBundle\Controller\Behavior;
 
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
@@ -99,6 +100,16 @@ trait ControllerBehavior
     protected function getSession()
     {
         return $this->get('session');
+    }
+
+    /**
+     * Return event dispatcher
+     *
+     * @return EventDispatcherInterface
+     */
+    protected function getEventDispatcher()
+    {
+        return $this->get('event_dispatcher');
     }
 
     /**

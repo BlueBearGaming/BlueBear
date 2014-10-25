@@ -1,3 +1,7 @@
+blue_bear_engine:
+    resource: "@BlueBearEngineBundle/Resources/config/routing.yml"
+    prefix:   /
+
 blue_bear_editor:
     resource: "@BlueBearEditorBundle/Resources/config/routing.yml"
     prefix:   /
