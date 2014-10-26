@@ -5,6 +5,7 @@ parameters:
     bluebear.manager.pencil_set: BlueBear\CoreBundle\Manager\PencilSetManager
     bluebear.manager.layer: BlueBear\CoreBundle\Manager\LayerManager
     bluebear.manager.map: BlueBear\CoreBundle\Manager\MapManager
+    bluebear.manager.resource: BlueBear\CoreBundle\Manager\ResourceManager
 
 services:
     # ImageManager
@@ -40,5 +41,11 @@ services:
     # MapManager
     bluebear.manager.map:
             class: %bluebear.manager.map%
+            calls:
+                - [setContainer, [@service_container]]
+
+    # ResourceManager
+    bluebear.manager.resource:
+            class: %bluebear.manager.resource%
             calls:
                 - [setContainer, [@service_container]]

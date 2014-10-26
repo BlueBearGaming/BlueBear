@@ -1,8 +1,0 @@
-parameters:
-    backoffice.sprite_type: BlueBear\BackofficeBundle\Form\Type\SpriteType
-
-services:
-    backoffice.form.sprite:
-        class: %backoffice.sprite_type%
-        tags:
-          - { name: form.type, alias: sprite }

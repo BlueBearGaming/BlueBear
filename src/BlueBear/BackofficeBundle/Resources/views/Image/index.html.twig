@@ -1,20 +1,16 @@
 {% extends 'BlueBearBackofficeBundle::layout.html.twig' %}
 
+{% block rightMenu %}
+    <ul class="nav nav-pills nav-stacked">
+        <li><a href="{{ path('bluebear_backoffice_image_upload') }}">Upload an image</a></li>
+    </ul>
+{% endblock %}
+
 {% block content %}
     <h1>Images</h1>
 
     <a href="{{ path('bluebear_backoffice_image_orphans') }}">Orphans images (images not linked to an pencil)</a>
 
-    <div class="upload">
-        <form action="{{ path('bluebear_backoffice_image_upload') }}" method="post" enctype="multipart/form-data">
-            {{ form_row(form) }}
-
-            <div class="inputs submit">
-                {{ form_rest(form) }}
-                <input type="submit" value="upload" />
-            </div>
-        </form>
-    </div>
 
     <div class="list">
 

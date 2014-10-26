@@ -6,23 +6,25 @@ namespace BlueBear\BackofficeBundle\Controller;
 use BlueBear\BackofficeBundle\Controller\Behavior\ControllerBehavior;
 use BlueBear\CoreBundle\Entity\Editor\Image;
 use BlueBear\CoreBundle\Manager\ImageManager;
+use BlueBear\CoreBundle\Manager\ResourceManager;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 class ImageController extends Controller
 {
     use ControllerBehavior;
 
+    /**
+     * @Template()
+     */
     public function indexAction()
     {
-        $form = $this->createForm('sprite');
+        $imagesWithoutPencil = $this->getImageManager()->findOrphans();
 
-        return $this->render('BlueBearBackofficeBundle:Image:index.html.twig', [
-            'form' => $form->createView()
-        ]);
+        return [];
     }
 
     /**
@@ -62,20 +64,34 @@ class ImageController extends Controller
 
     public function uploadAction(Request $request)
     {
-        $form = $this->createForm('sprite');
+        $form = $this->createForm('upload');
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             /** @var UploadedFile $file */
             $file = $form->get('file')->getData();
-            $this->getImageManager()->splitSprite($file);
-            // inform user
-            $this->setMessage('Sprite has been successfully split');
-            return $this->redirect('@bluebear_backoffice_image_orphans');
+            $uploadType = $form->get('type')->getData();
+            // upload file into resources directory, if it's a sprite it will vut into multiple images
+            $this->getResourceManager()->upload($file, $uploadType);
+
+            $this->setMessage('Image has been successfully uploaded');
+
+            if ($uploadType == Image::IMAGE_TYPE_RPG_MAKER_SPRITE) {
+                $this->setMessage('Sprite has been successfully cut');
+            }
+            return $this->redirect('@bluebear_backoffice_image');
         }
-        return $this->render('BlueBearBackofficeBundle:Image:index.html.twig', [
+        return $this->render('BlueBearBackofficeBundle:Image:upload.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @return ResourceManager
+     */
+    protected function getResourceManager()
+    {
+        return $this->get('bluebear.manager.resource');
     }
 
     /**

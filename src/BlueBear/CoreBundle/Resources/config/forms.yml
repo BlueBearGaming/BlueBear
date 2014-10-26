@@ -6,6 +6,7 @@ parameters:
     bluebear.form.layer_type: BlueBear\CoreBundle\Form\Map\LayerType
     bluebear.form.map_type: BlueBear\CoreBundle\Form\Map\MapType
     bluebear.form.image_list_type: BlueBear\CoreBundle\Form\Editor\ImageListType
+    bluebear.form.upload_type: BlueBear\CoreBundle\Form\Editor\UploadType
 
 services:
     # ImageType
@@ -48,6 +49,13 @@ services:
             - { name: form.type, alias: map }
         calls:
             - [setPencilSetManager, [@bluebear.manager.pencil_set]]
+
+    # UploadType
+    bluebear.form.upload:
+        class: %bluebear.form.upload_type%
+        tags:
+            - { name: form.type, alias: upload }
+
     # utils
     bluebear.form.image_list_type:
         class: %bluebear.form.image_list_type%

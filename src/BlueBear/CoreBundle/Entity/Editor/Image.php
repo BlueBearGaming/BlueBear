@@ -18,21 +18,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Image
 {
+    const IMAGE_TYPE_SINGLE_IMAGE = 'image.type.single_image';
+    const IMAGE_TYPE_RPG_MAKER_SPRITE = 'image.type.rpg_maker_sprite';
+
     use Id, Nameable, Timestampable;
-
-    /**
-     * Image file full path
-     *
-     * @ORM\Column(name="file_path", type="string", length=255)
-     */
-    protected $filePath;
-
-    /**
-     * Image file name
-     *
-     * @ORM\Column(name="file_name", type="string", length=255)
-     */
-    protected $fileName;
 
     /**
      * @ORM\JoinColumn(nullable=true)
@@ -41,20 +30,9 @@ class Image
     protected $pencil;
 
     /**
-     * @param mixed $filePath
+     * @ORM\OneToOne(targetEntity="BlueBear\CoreBundle\Entity\Editor\Resource")
      */
-    public function setFilePath($filePath)
-    {
-        $this->filePath = $filePath;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getFilePath()
-    {
-        return $this->filePath;
-    }
+    protected $resource;
 
     public function getPencil()
     {
@@ -69,16 +47,16 @@ class Image
     /**
      * @return mixed
      */
-    public function getFileName()
+    public function getResource()
     {
-        return $this->fileName;
+        return $this->resource;
     }
 
     /**
-     * @param mixed $fileName
+     * @param mixed $resource
      */
-    public function setFileName($fileName)
+    public function setResource($resource)
     {
-        $this->fileName = $fileName;
+        $this->resource = $resource;
     }
 } 

@@ -9,7 +9,7 @@ use Doctrine\ORM\QueryBuilder;
 class ImageRepository extends EntityRepository
 {
     /**
-     * Find orphans images, i.e. images with no linked item
+     * Find orphans images, i.e. images with no linked pencil
      *
      * @param int $pencilId
      * @return QueryBuilder

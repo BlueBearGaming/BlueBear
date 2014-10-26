@@ -2,13 +2,12 @@
 
 namespace BlueBear\CoreBundle\Manager;
 
+use BlueBear\BackofficeBundle\Utils\Sprite\SpriteSplitter;
+use BlueBear\CoreBundle\Entity\Editor\Image;
 use BlueBear\CoreBundle\Entity\Editor\ImageRepository;
 use BlueBear\CoreBundle\Entity\Map\Pencil;
 use BlueBear\CoreBundle\Manager\Behavior\ManagerBehavior;
-use BlueBear\BackofficeBundle\Utils\Sprite\SpriteSplitter;
-use BlueBear\CoreBundle\Entity\Editor\Image;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class ImageManager
 {
@@ -17,28 +16,28 @@ class ImageManager
     /**
      * Split the sprite in $file into multiple images
      *
-     * @param UploadedFile $file
+     * @param $spriteFullPath
+     * @param $destinationDirectory
+     * @throws \Exception
+     * @return array
      */
-    public function splitSprite(UploadedFile $file)
+    public function splitSprite($spriteFullPath, $destinationDirectory)
     {
-        // copy sprite file into tmp directory to split it
-        $directory = realpath(__DIR__ . '/../../../../web/uploads/tmp') . '/';
-        $file->move($directory, $file->getClientOriginalName());
-
+        $images = [];
         // split the sprite
         $splitter = new SpriteSplitter();
-        $destinationDirectory = realpath(__DIR__ . '/../../../../web/uploads/sprites') . '/';
-        $images = $splitter->split($directory . $file->getClientOriginalName(), $destinationDirectory);
+        $imagesFilename = $splitter->split($spriteFullPath, $destinationDirectory);
 
-        foreach ($images as $imageName => $imagePath) {
+        foreach ($imagesFilename as $imageName => $imagePath) {
             // we create an image and associate it to an editor item
             $image = new Image();
-            $image->setFilePath($imagePath);
-            $image->setFileName($imageName);
             $image->setName($imageName);
             $this->save($image, false);
+            $images[] = $image;
         }
         $this->flush();
+
+        return $images;
     }
 
     /**

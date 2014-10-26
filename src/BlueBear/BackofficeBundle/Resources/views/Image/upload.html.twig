@@ -1,0 +1,16 @@
+{% extends 'BlueBearBackofficeBundle::layout.html.twig' %}
+
+{% block content %}
+    <h1>Image upload (oh yeah !)</h1>
+
+    <div class="upload">
+        <form action="{{ path('bluebear_backoffice_image_upload') }}" method="post" enctype="multipart/form-data">
+            {{ form_widget(form) }}
+
+            <div class="inputs submit">
+                <a href="{{ path('bluebear_backoffice_image') }}" class="btn">cancel</a>
+                <input type="submit" value="upload" class="btn btn-primary"/>
+            </div>
+        </form>
+    </div>
+{% endblock %}
