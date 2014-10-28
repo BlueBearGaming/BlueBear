@@ -24,7 +24,7 @@ class Map
     /**
      * Map pencil sets
      *
-     * @ORM\OneToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\PencilSet", mappedBy="map", cascade={"persist", "merge", "refresh"})
+     * @ORM\ManyToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\PencilSet", cascade={"persist"})
      */
     protected $pencilSets;
 
@@ -42,10 +42,5 @@ class Map
     public function setPencilSets($pencilSets)
     {
         $this->pencilSets = $pencilSets;
-    }
-
-    public function addPencilSets(PencilSet $pencilSet)
-    {
-        die('add');
     }
 }

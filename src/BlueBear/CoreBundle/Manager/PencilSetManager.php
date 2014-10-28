@@ -13,6 +13,7 @@ class PencilSetManager
 
     public function removeFromMap(Map $map)
     {
+        // map save from form items
         $mapPencilSets = $map->getPencilSets();
         $ids = [];
 
@@ -20,17 +21,20 @@ class PencilSetManager
         foreach ($mapPencilSets as $pencilSet) {
             $ids[] = $pencilSet->getId();
         }
-        $pencilSets = $this->getRepository()->findBy([
-            'map' => $map
-        ]);
+        // map pencil set before form edition
+        $pencilSets = $this
+            ->getRepository()
+            ->findByMap($map->getId())
+            ->getQuery()
+            ->getResult();
         /** @var PencilSet $pencilSet */
         foreach ($pencilSets as $pencilSet) {
             if (!in_array($pencilSet->getId(), $ids)) {
-                $pencilSet->setMap(null);
-                $this->save($pencilSet, false);
+                // removing relation between map and pencil set
+                $pencilSet->removeMap($map);
+                $this->save($pencilSet);
             }
         }
-        $this->flush();
     }
 
     /**

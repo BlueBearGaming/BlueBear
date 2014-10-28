@@ -84,3 +84,13 @@ bluebear_backoffice_map_edit:
 bluebear_backoffice_map_delete:
     pattern: /map/delete/{id}
     defaults: { _controller: BlueBearBackofficeBundle:Map:delete }
+
+
+# Tests
+bluebear_backoffice_api:
+    pattern: /tests
+    defaults: { _controller: BlueBearBackofficeBundle:Api:index }
+
+bluebear_backoffice_api_test_php:
+    pattern: /tests/php
+    defaults: { _controller: BlueBearBackofficeBundle:Api:testPHP }

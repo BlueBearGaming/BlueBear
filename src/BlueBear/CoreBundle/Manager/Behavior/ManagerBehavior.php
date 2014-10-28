@@ -72,7 +72,7 @@ trait ManagerBehavior
         $this->getEntityManager()->persist($entity);
 
         if ($flush) {
-            $this->getEntityManager()->flush();
+            $this->getEntityManager()->flush($entity);
         }
         return $this;
     }

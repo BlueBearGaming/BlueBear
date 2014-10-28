@@ -45,7 +45,7 @@ class PencilSetToChoicesTransformer implements DataTransformerInterface
             if (!$pencilSet) {
                 throw new TransformationFailedException('Pencil set not found (id: ' . $id . ')');
             }
-            $pencilSet->setMap($this->map);
+            $pencilSet->addMap($this->map);
             $pencilSets[] = $pencilSet;
         }
         return $pencilSets;

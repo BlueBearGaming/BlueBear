@@ -6,6 +6,7 @@ namespace BlueBear\CoreBundle\Entity\Map;
 use BlueBear\CoreBundle\Entity\Behavior\Id;
 use BlueBear\CoreBundle\Entity\Behavior\Label;
 use BlueBear\CoreBundle\Entity\Behavior\Nameable;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -26,9 +27,15 @@ class PencilSet
     protected $pencils;
 
     /**
-     * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Map", inversedBy="pencilSets", cascade={"persist", "merge"})
+     * @ORM\ManyToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\Map")
+     * @var ArrayCollection
      */
-    protected $map;
+    protected $maps;
+
+    public function __construct()
+    {
+        $this->maps = new ArrayCollection();
+    }
 
     /**
      * @return mixed
@@ -46,19 +53,18 @@ class PencilSet
         $this->pencils = $pencils;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getMap()
+    public function getMaps()
     {
-        return $this->map;
+        return $this->maps;
     }
 
-    /**
-     * @param Map $map
-     */
-    public function setMap($map)
+    public function addMap(Map $map)
     {
-        $this->map = $map;
+        $this->maps->add($map);
+    }
+
+    public function removeMap(Map $map)
+    {
+        $this->maps->remove($map->getId());
     }
 } 

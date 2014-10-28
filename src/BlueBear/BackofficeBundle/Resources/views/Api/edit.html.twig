@@ -1,0 +1,15 @@
+{% extends 'BlueBearBackofficeBundle::layout.html.twig' %}
+
+{% block content %}
+    <h1>Map Edit</h1>
+
+    <div class="edit-map">
+        <form action="{{ path('bluebear_backoffice_map_edit', { id: form.vars.value.id}) }}" method="post" class="well">
+            {{ form_widget(form) }}
+
+            <a href="{{ path('bluebear_backoffice_map') }}" class="btn"><i class="fa fa-arrow-circle-left"></i>&nbsp;
+                &nbsp;cancel</a>
+            <input type="submit" value="save" class="btn btn-default"/>
+        </form>
+    </div>
+{% endblock %}
