@@ -29,6 +29,13 @@ class Map
     protected $pencilSets;
 
     /**
+     * Map layers
+     *
+     * @ORM\ManyToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\Layer", cascade={"persist"})
+     */
+    protected $layers;
+
+    /**
      * @return mixed
      */
     public function getPencilSets()
@@ -42,5 +49,21 @@ class Map
     public function setPencilSets($pencilSets)
     {
         $this->pencilSets = $pencilSets;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLayers()
+    {
+        return $this->layers;
+    }
+
+    /**
+     * @param mixed $layers
+     */
+    public function setLayers($layers)
+    {
+        $this->layers = $layers;
     }
 }

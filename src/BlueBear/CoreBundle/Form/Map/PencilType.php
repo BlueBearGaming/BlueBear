@@ -4,14 +4,18 @@
 namespace BlueBear\CoreBundle\Form\Map;
 
 use BlueBear\CoreBundle\Constant\Map\Constant;
+use BlueBear\CoreBundle\Entity\Behavior\SortEntity;
+use BlueBear\CoreBundle\Entity\Map\Pencil;
 use BlueBear\CoreBundle\Form\Editor\ImageToIdTransformer;
 use BlueBear\CoreBundle\Manager\ImageManager;
 use BlueBear\CoreBundle\Manager\LayerManager;
+use BlueBear\CoreBundle\Manager\PencilSetManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class PencilType extends AbstractType
 {
+    use SortEntity;
     /**
      * @var LayerManager
      */
@@ -22,23 +26,48 @@ class PencilType extends AbstractType
      */
     protected $imageManager;
 
+    /**
+     * @var PencilSetManager $pencilSetManager
+     */
+    protected $pencilSetManager;
+
     public function buildForm(FormBuilderInterface $builder, array $options = [])
     {
-        $builder->add('name');
-        $builder->add('label');
-        $builder->add('type', 'choice', [
-            'choices' => Constant::getPencilType()
+        /** @var Pencil $pencil */
+        $pencil = $options['data'];
+        $layerTransformer = new EntityToChoiceTransformer();
+        $layerTransformer->setManager($this->layerManager);
+        $pencilSetTransformer = new EntityToChoiceTransformer();
+        $pencilSetTransformer->setManager($this->pencilSetManager);
+
+        $builder->add('name', 'text', [
+            'help_block' => 'Internal name of the pencil (eg: pencil_0)'
         ]);
-        $builder->add('pencilSet', 'entity', [
-            'class' => 'BlueBear\CoreBundle\Entity\Map\PencilSet',
-            'property' => 'label',
-            'expanded' => false,
-            'multiple' => false
+        $builder->add('label', 'text', [
+            'help_block' => 'Displayed name (eg: MyPencil)'
+        ]);
+        $builder->add('type', 'choice', [
+            'choices' => Constant::getPencilType(),
+            'help_block' => 'Pencil type'
         ]);
         $builder->add(
-            'allowedLayers', 'collection', [
-            'type' => 'allowedLayer'
-        ]);
+            $builder->create('pencilSet', 'choice', [
+                'choices' => $this->getSortedEntityForChoice($this->pencilSetManager->findAll()),
+                'data' => $pencil->getPencilSet(),
+                'multiple' => true,
+                'expanded' => true,
+            ])->addModelTransformer($pencilSetTransformer)
+        );
+        $builder->add(
+            $builder->create(
+                'allowedLayers', 'choice', [
+                    'choices' => $this->getSortedEntityForChoice($this->layerManager->findAll()),
+                    'data' => $pencil->getAllowedLayers(),
+                    'multiple' => true,
+                    'expanded' => true,
+                ]
+            )->addModelTransformer($layerTransformer)
+        );
         $builder->add(
             $builder
                 ->create('image', 'image_list', [
@@ -46,10 +75,18 @@ class PencilType extends AbstractType
                 ])
                 ->addModelTransformer(new ImageToIdTransformer($this->imageManager))
         );
-        $builder->add('imageX');
-        $builder->add('imageY');
-        $builder->add('width');
-        $builder->add('height');
+        $builder->add('imageX', 'integer', [
+            'help_block' => 'Image x position'
+        ]);
+        $builder->add('imageY', 'integer', [
+            'help_block' => 'Image y position'
+        ]);
+        $builder->add('width', 'integer', [
+            'help_block' => 'Image width displayed (in px)'
+        ]);
+        $builder->add('height', 'integer', [
+            'help_block' => 'Image height displayed (in px)'
+        ]);
     }
 
     public function getName()
@@ -65,5 +102,13 @@ class PencilType extends AbstractType
     public function setImageManager(ImageManager $imageManager)
     {
         $this->imageManager = $imageManager;
+    }
+
+    /**
+     * @param PencilSetManager $pencilSetManager
+     */
+    public function setPencilSetManager(PencilSetManager $pencilSetManager)
+    {
+        $this->pencilSetManager = $pencilSetManager;
     }
 } 

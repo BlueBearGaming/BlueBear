@@ -9,10 +9,17 @@
 {% block content %}
     <h1>Images</h1>
 
-    <a href="{{ path('bluebear_backoffice_image_orphans') }}">Orphans images (images not linked to an pencil)</a>
-
+    <p class="help-block">List of uploaded images</p>
 
     <div class="list">
-
+        {% for image in images %}
+            <a href="{{ path('bluebear_backoffice_image_edit', {id: image.id}) }}">
+                <img src="data:image/{{ image.resource.extension }};base64,{{ image.resource.fileContent }}"
+                     class="img-thumbnail" width="140" height="140"/>
+            </a>
+        {% endfor %}
     </div>
+
+
+    <a href="{{ path('bluebear_backoffice_image_orphans') }}">Orphans images (images not linked to an pencil)</a>
 {% endblock %}

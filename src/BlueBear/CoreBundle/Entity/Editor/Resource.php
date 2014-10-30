@@ -45,6 +45,18 @@ class Resource
         $this->filePath = $filePath;
     }
 
+    public function getFullPath()
+    {
+        return $this->getFilePath() . '/' . $this->getFileName();
+    }
+
+    public function getExtension()
+    {
+        $array = explode('.', $this->fileName);
+
+        return array_pop($array);
+    }
+
     /**
      * @return mixed
      */
@@ -59,5 +71,13 @@ class Resource
     public function setFileName($fileName)
     {
         $this->fileName = $fileName;
+    }
+
+    public function getFileContent()
+    {
+        if (strpos($this->getFilePath(), '../')) {
+            throw new \Exception('Security error in file path for file_get_content');
+        }
+        return base64_encode(file_get_contents($this->getFullPath()));
     }
 } 

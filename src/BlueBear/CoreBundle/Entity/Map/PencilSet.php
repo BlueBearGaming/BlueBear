@@ -27,7 +27,6 @@ class PencilSet
     protected $pencils;
 
     /**
-     * @ORM\ManyToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\Map")
      * @var ArrayCollection
      */
     protected $maps;

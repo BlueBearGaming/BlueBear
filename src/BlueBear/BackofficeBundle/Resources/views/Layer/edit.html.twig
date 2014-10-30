@@ -3,14 +3,13 @@
 {% block content %}
     <h1>Layer Edit</h1>
 
-    <div class="edit-pencil">
+    <div class="edit-layer">
         <form action="{{ path('bluebear_backoffice_layer_edit', { id: form.vars.value.id}) }}" method="post">
-            {{ form_row(form) }}
+            {{ form_widget(form) }}
 
-            <div class="submit">
-                <a href="{{ path('bluebear_backoffice_layer') }}">cancel</a>
-                <input type="submit" value="save"/>
-            </div>
+            <a href="{{ path('bluebear_backoffice_layer') }}" class="btn"><i class="fa fa-arrow-circle-left"></i>&nbsp;
+                &nbsp;cancel</a>
+            <input type="submit" value="save" class="btn btn-default"/>
         </form>
     </div>
 {% endblock %}

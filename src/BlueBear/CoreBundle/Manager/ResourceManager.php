@@ -26,8 +26,8 @@ class ResourceManager
 
         if ($uploadType == Image::IMAGE_TYPE_SINGLE_IMAGE) {
             // generate "unique" filename
-            $fileName = $this->generateFileHash($file->getClientOriginalName());
-            $file->move($imagesDirectory, $fileName . '.' . $file->getClientOriginalExtension());
+            $fileName = $this->generateFileHash($file->getClientOriginalName()) . '.' . $file->getClientOriginalExtension();
+            $file->move($imagesDirectory, $fileName);
 
             // save resource into database
             $resource = new Resource();
@@ -50,7 +50,7 @@ class ResourceManager
                 // save resource into database
                 $resource = new Resource();
                 $resource->setName($image->getName());
-                $resource->setFileName($this->generateFileHash($image->getName()));
+                $resource->setFileName($this->generateFileHash($image->getName()) . '');
                 $resource->setFilePath($imagesDirectory);
                 $image->setResource($resource);
                 $this->save($resource, false);

@@ -1,34 +1,41 @@
 {# list of images widget #}
 {% block image_list_widget %}
-    <div class="image-widget">
-        {% if images|length > 0 %}
+    <div class="form-group">
+        <div class="col-sm-9 image-widget">
+            {% if images|length > 0 %}
+                <ul class="">
+                    {% for image in images %}
+                        {% set active = (image.id == form.vars.value) ? ' active' : '' %}
 
-            {% for image in images %}
-                {% set active = (image.id == form.vars.value) ? ' active' : '' %}
+                        <li class="image{{ active }}">
+                            <a href="#" class="select-image" data-id="{{ image.id }}">
+                                <img src="data:image/{{ image.resource.extension }};base64,{{ image.resource.fileContent }}"
+                                     width="100"/>
+                            </a>
+                            <br/>
+                            <a href="#" class="select-image" data-id="{{ image.id }}"
+                               title="{{ image.name }}">{{ image.name|truncate(15, false, '...') }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            <input type="hidden" name="{{ form.vars.full_name }}" class="hidden-value" value="{{ form.vars.value }}"/>
+        </div>
+        <script>
+            $(document).on('ready', function () {
+                var container = $('.image-widget');
 
-                <div class="image{{ active }}">
-                    <a href="#" class="select-image" data-id="{{ image.id }}">
-                        <img src="{{ asset('uploads/sprites/' ~ image.fileName) }}"/></a>
-                    <br/>
-                    <a href="#" class="select-image" data-id="{{ image.id }}">{{ image.name }}</a>
-                </div>
-            {% endfor %}
-        {% endif %}
-        <input type="hidden" name="{{ form.vars.full_name }}" class="hidden-value" value="{{ form.vars.value }}"/>
-    </div>
-    <script>
-        $(document).on('ready', function () {
-            var container = $('.image-widget');
+                container.find('.select-image').on('click', function () {
+                    console.log($(this), $(this).data('id'));
+                    container.find('.hidden-value').val($(this).data('id'));
+                    container.find('.image').removeClass('active');
+                    $(this).parents('.image').addClass('active');
 
-            container.find('.select-image').on('click', function () {
-                container.find('.hidden-value').val($(this).data('id'));
-                container.find('.image').removeClass('active');
-                $(this).parents('.image').addClass('active');
-
-                return false;
+                    return false;
+                });
             });
-        });
-    </script>
+        </script>
+    </div>
 {% endblock %}
 
 {# list of pencil set #}
@@ -49,4 +56,47 @@
             });
         });
     </script>
+{% endblock %}
+
+{# list of generic items #}
+{% block table_list %}
+    {% if list|length > 0 %}
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Label</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for entity in list %}
+                    <tr>
+                        <td>{{ entity.id }}</td>
+                        <td>{{ entity.label }}</td>
+                        <td>
+                            <a href="{{ path(editRoute, {id: entity.id}) }}"
+                               class="btn btn-sm">edit</a>
+                            <a href="{{ path(deleteRoute, {id: entity.id}) }}"
+                               class="item-delete btn btn-sm">delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        No record yet
+    {% endif %}
+{% endblock %}
+
+{% block menu %}
+    {% if menu|length > 0 %}
+        {% for route, item in menu %}
+            <ul class="nav nav-pills nav-stacked">
+                <li><a href="{{ path(route) }}">{{ item }}</a></li>
+            </ul>
+        {% endfor %}
+    {% endif %}
 {% endblock %}

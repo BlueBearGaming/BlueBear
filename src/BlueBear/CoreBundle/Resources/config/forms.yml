@@ -23,6 +23,7 @@ services:
         calls:
             - [setLayerManager, [@bluebear.manager.layer]]
             - [setImageManager, [@bluebear.manager.image]]
+            - [setPencilSetManager, [@bluebear.manager.pencil_set]]
 
     # PencilSetType
     bluebear.form.pencil_set_list_type:
@@ -49,6 +50,7 @@ services:
             - { name: form.type, alias: map }
         calls:
             - [setPencilSetManager, [@bluebear.manager.pencil_set]]
+            - [setLayerManager, [@bluebear.manager.layer]]
 
     # UploadType
     bluebear.form.upload:

@@ -1,28 +1,18 @@
 {% extends 'BlueBearBackofficeBundle::layout.html.twig' %}
+{% use 'BlueBearCoreBundle:Form:fields.html.twig' %}
+
+{% block rightMenu %}
+    {% set menu = {'bluebear_backoffice_layer_edit': 'Add new layer'} %}
+    {{ block('menu') }}
+{% endblock %}
 
 {% block content %}
     <h1>Layers</h1>
-
-    <a href="{{ path('bluebear_backoffice_layer_edit') }}">Add new layer</a>
-
     <div>
-        {% if layers|length > 0 %}
+        {% set list = layers %}
+        {% set editRoute = 'bluebear_backoffice_layer_edit' %}
+        {% set deleteRoute = 'bluebear_backoffice_layer_edit' %}
 
-            {% for layer in layers %}
-                <div class="item">
-                    <div class="info">
-                        {{ layer.name }}
-                    </div>
-                    <div class="actions">
-                        <a href="{{ path('bluebear_backoffice_layer_edit', {id: layer.id}) }}">edit</a>
-                        <a href="{{ path('bluebear_backoffice_layer_delete', {id: layer.id}) }}"
-                           class="item-delete">delete</a>
-                    </div>
-                </div>
-            {% endfor %}
-
-        {% else %}
-            No pencil yet.
-        {% endif %}
+        {{ block('table_list') }}
     </div>
 {% endblock %}

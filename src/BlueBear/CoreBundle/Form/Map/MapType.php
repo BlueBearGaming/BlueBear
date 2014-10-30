@@ -4,8 +4,10 @@
 namespace BlueBear\CoreBundle\Form\Map;
 
 use BlueBear\CoreBundle\Constant\Map\Constant;
+use BlueBear\CoreBundle\Entity\Map\Layer;
 use BlueBear\CoreBundle\Entity\Map\Map;
 use BlueBear\CoreBundle\Entity\Map\PencilSet;
+use BlueBear\CoreBundle\Manager\LayerManager;
 use BlueBear\CoreBundle\Manager\PencilSetManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,13 +20,19 @@ class MapType extends AbstractType
      */
     protected $pencilSetManager;
 
+    /**
+     * @var LayerManager $layerManager
+     */
+    protected $layerManager;
+
     public function buildForm(FormBuilderInterface $builder, array $options = [])
     {
         /** @var Map $map */
         $map = $options['data'];
-        $transformer = new PencilSetToChoicesTransformer();
-        $transformer->setPencilSetManager($this->pencilSetManager);
-        $transformer->setMap($map);
+        $transformer = new EntityToChoiceTransformer();
+        $transformer->setManager($this->pencilSetManager);
+        $layerTransformer = new EntityToChoiceTransformer();
+        $layerTransformer->setManager($this->layerManager);
 
         $builder->add('name', 'text', [
             'help_block' => 'Internal map name (eg: map_0)'
@@ -52,7 +60,16 @@ class MapType extends AbstractType
                 ]
             )->addModelTransformer($transformer)
         );
-
+        $builder->add(
+            $builder->create(
+                'layers', 'choice', [
+                    'choices' => $this->getSortedLayers($this->layerManager->findAll()),
+                    'data' => $map->getLayers(),
+                    'multiple' => true,
+                    'expanded' => true,
+                ]
+            )->addModelTransformer($layerTransformer)
+        );
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
@@ -75,6 +92,11 @@ class MapType extends AbstractType
         $this->pencilSetManager = $pencilSetManager;
     }
 
+    public function setLayerManager(LayerManager $layerManager)
+    {
+        $this->layerManager = $layerManager;
+    }
+
     protected function getSortedPencilSets($pencilsSets)
     {
         $sorted = [];
@@ -82,6 +104,17 @@ class MapType extends AbstractType
         /** @var PencilSet $pencilsSet */
         foreach ($pencilsSets as $pencilsSet) {
             $sorted[$pencilsSet->getId()] = $pencilsSet->getLabel() . ' ("' . $pencilsSet->getName() . '")';
+        }
+        return $sorted;
+    }
+
+    protected function getSortedLayers($layers)
+    {
+        $sorted = [];
+
+        /** @var Layer $layer */
+        foreach ($layers as $layer) {
+            $sorted[$layer->getId()] = $layer->getLabel() . ' ("' . $layer->getName() . '")';
         }
         return $sorted;
     }

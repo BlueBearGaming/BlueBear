@@ -22,9 +22,12 @@ class ImageController extends Controller
      */
     public function indexAction()
     {
-        $imagesWithoutPencil = $this->getImageManager()->findOrphans();
+        $images = $this->getImageManager()->findAll();
+        //$imagesWithoutPencil = $this->getImageManager()->findOrphans();
 
-        return [];
+        return [
+            'images' => $images
+        ];
     }
 
     /**
@@ -42,7 +45,7 @@ class ImageController extends Controller
         if ($form->isValid()) {
             $this->getImageManager()->save($image);
             $this->setMessage('Image has been successfully changed');
-            return $this->redirect('@bluebear_backoffice_image_orphans');
+            return $this->redirect('@bluebear_backoffice_image');
         }
         return [
             'form' => $form->createView()
@@ -62,6 +65,13 @@ class ImageController extends Controller
         ];
     }
 
+    /**
+     * Upload an image into backoffice
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
+     */
     public function uploadAction(Request $request)
     {
         $form = $this->createForm('upload');

@@ -13,7 +13,8 @@
                     </div>
                     <div class="image">
                         <a href="{{ path('bluebear_backoffice_image_edit', {id: image.id}) }}">
-                            <img src="/uploads/sprites/{{ image.filename }}"/>
+                            <img src="data:image/{{ image.resource.extension }};base64,{{ image.resource.fileContent }}"
+                                 class="img-thumbnail" width="140" height="140"/>
                         </a>
                     </div>
                     <div class="actions">

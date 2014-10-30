@@ -6,37 +6,11 @@
     <div class="edit-pencil">
         <form action="{{ path('bluebear_backoffice_pencil_edit', { id: form.vars.value.id}) }}" method="post"
               role="form">
-            <div class="form-group">
-                {{ form_row(form.name) }}
-            </div>
-            <div class="form-group">
-                {{ form_row(form.label) }}
-            </div>
-            <div class="form-group">
-                {{ form_row(form.pencilSet) }}
-                <a href="{{ path('bluebear_backoffice_pencil_set_edit') }}" class="add-new-pencil-set">Add new pencil
-                    set</a>
+            {{ form_widget(form) }}
 
-                <div class="hide pencil-set-container">{# ajax content #}</div>
-            </div>
-            <div class="form-group">
-                {{ form_row(form.allowedLayers) }}
-            </div>
-            <div class="form-group">
-                {{ form_row(form.image) }}
-            </div>
-            <div class="form-group">
-                {{ form_row(form.imageX) }}
-            </div>
-            <div class="form-group">
-                {{ form_row(form.imageY) }}
-            </div>
-            {{ form_rest(form) }}
-
-            <div class="submit">
-                <a href="{{ path('bluebear_backoffice_pencil') }}">cancel</a>
-                <input type="submit" value="save"/>
-            </div>
+            <a href="{{ path('bluebear_backoffice_pencil') }}" class="btn"><i class="fa fa-arrow-circle-left"></i>&nbsp;
+                &nbsp;cancel</a>
+            <input type="submit" value="save" class="btn btn-default"/>
         </form>
     </div>
 

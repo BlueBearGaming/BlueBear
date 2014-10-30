@@ -11,6 +11,8 @@ BlueBear\CoreBundle\Entity\Map\Map:
             - NotNull: ~
         pencilSets:
             - Count: {min: 1}
+        layers:
+            - Count: {min: 1}
 
 
 # Pencil Set
