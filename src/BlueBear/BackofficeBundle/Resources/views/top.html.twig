@@ -1,32 +1,35 @@
 {% set route = app.request.get('_route') %}
 
-<div class="navbar navbar-fixed-top" role="navigation">
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
-        <ul class="nav nav-pills">
-            <li class="{{ route[:'bluebear_backoffice_homepage'|length] == 'bluebear_backoffice_homepage' ? 'active' : '' }}">
-                <a href="{{ path('bluebear_backoffice_homepage') }}">Homepage</a>
-            </li>
-            <li class="{{ route[:'bluebear_backoffice_image'|length] == 'bluebear_backoffice_image' ? 'active' : '' }}">
-                <a href="{{ path('bluebear_backoffice_image') }}">Images</a>
-            </li>
-            <li class="{{ route[:'bluebear_backoffice_pencil'|length] == 'bluebear_backoffice_pencil' ? 'active' : '' }}">
-                <a href="{{ path('bluebear_backoffice_pencil') }}">Pencils</a>
-            </li>
-            <li class="{{ route[:'bluebear_backoffice_layer'|length] == 'bluebear_backoffice_layer' ? 'active' : '' }}">
-                <a href="{{ path('bluebear_backoffice_layer') }}">Layers</a>
-            </li>
-            <li>
-                <a href="{{ path('bluebear_backoffice_unit') }}">Unit</a>
-            </li>
-            <li class="{{ route[:'bluebear_backoffice_map'|length] == 'bluebear_backoffice_map' ? 'active' : '' }}">
-                <a href="{{ path('bluebear_backoffice_map') }}">Maps</a>
-            </li>
-            <li class="{{ route[:'bluebear_backoffice_api'|length] == 'bluebear_backoffice_api' ? 'active' : '' }}">
-                <a href="{{ path('bluebear_backoffice_api') }}">Api</a>
-            </li>
-            <li class="{{ route[:'bluebear_editor'|length] == 'bluebear_editor' ? 'active' : '' }}">
-                <a href="{{ path('bluebear_editor_homepage') }}">Editor</a>
-            </li>
-        </ul>
+        <div class="navbar-header">
+            <a class="navbar-brand {{ route[:'bluebear_backoffice_homepage'|length] == 'bluebear_backoffice_homepage' ? 'active' : '' }}"
+               href="{{ path('bluebear_backoffice_homepage') }}">BlueBear by CleverGaming</a>
+        </div>
+        <div class="navbar-collapse collapse navbar-responsive-collapse">
+            <ul class="nav navbar-nav">
+                <li class="{{ route[:'bluebear_backoffice_image'|length] == 'bluebear_backoffice_image' ? 'active' : '' }}">
+                    <a href="{{ path('bluebear_backoffice_image') }}">Images</a>
+                </li>
+                <li class="{{ route[:'bluebear_backoffice_pencil'|length] == 'bluebear_backoffice_pencil' ? 'active' : '' }}">
+                    <a href="{{ path('bluebear_backoffice_pencil') }}">Pencils</a>
+                </li>
+                <li class="{{ route[:'bluebear_backoffice_layer'|length] == 'bluebear_backoffice_layer' ? 'active' : '' }}">
+                    <a href="{{ path('bluebear_backoffice_layer') }}">Layers</a>
+                </li>
+                <li>
+                    <a href="{{ path('bluebear_backoffice_unit') }}">Unit</a>
+                </li>
+                <li class="{{ route[:'bluebear_backoffice_map'|length] == 'bluebear_backoffice_map' ? 'active' : '' }}">
+                    <a href="{{ path('bluebear_backoffice_map') }}">Maps</a>
+                </li>
+                <li class="{{ route[:'bluebear_backoffice_api'|length] == 'bluebear_backoffice_api' ? 'active' : '' }}">
+                    <a href="{{ path('bluebear_backoffice_api') }}">Api</a>
+                </li>
+                <li class="{{ route[:'bluebear_editor'|length] == 'bluebear_editor' ? 'active' : '' }}">
+                    <a href="{{ path('bluebear_editor_homepage') }}">Editor</a>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>

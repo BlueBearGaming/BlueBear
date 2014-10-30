@@ -7,6 +7,7 @@ parameters:
     bluebear.form.map_type: BlueBear\CoreBundle\Form\Map\MapType
     bluebear.form.image_list_type: BlueBear\CoreBundle\Form\Editor\ImageListType
     bluebear.form.upload_type: BlueBear\CoreBundle\Form\Editor\UploadType
+    bluebear.form.engine_event_test_type: BlueBear\CoreBundle\Form\Engine\EngineEventTestType
 
 services:
     # ImageType
@@ -65,3 +66,8 @@ services:
             - { name: form.type, alias: image_list }
         calls:
             - [setImageManager, [@bluebear.manager.image]]
+
+    bluebear.form.engine_event_test_type:
+        class: %bluebear.form.engine_event_test_type%
+        tags:
+            - { name: form.type, alias: engine_event_test }

@@ -1,9 +1,12 @@
 <html>
 <head>
     <title>{% block title %}BlueBear Admin{% endblock %}</title>
-    {% include 'BlueBearEditorBundle::assets.html.twig' %}
+    {% include 'BlueBearBackofficeBundle::assets.html.twig' %}
 </head>
 <body>
+{% block topMenu %}
+    {% include 'BlueBearBackofficeBundle::top.html.twig' %}
+{% endblock %}
 <!-- flash messages -->
 <div class="alert-container">
     {% for flashMessage in app.session.flashbag.get('notice') %}
@@ -13,18 +16,18 @@
         </div>
     {% endfor %}
 </div>
-<div class="top-menu">
-    <a href="{{ app.request.scriptName }}">Return</a>
-</div>
 <div class="container">
     <div class="row-fluid">
-        <div class="col-md-12">
+        <div class="col-md-2">
+            {% block rightMenu %}{% endblock %}
+        </div>
+        <div class="col-md-10">
             {% block content %}{% endblock %}
         </div>
     </div>
 </div>
 <footer>
-    Developed by CleverGaming
+    <i class="fa fa-gamepad"></i>
 </footer>
 </body>
 </html>

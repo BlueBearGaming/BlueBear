@@ -2,12 +2,50 @@
 
 {% block rightMenu %}
     <ul class="nav nav-pills nav-stacked">
-        <li><a href="{{ path('bluebear_backoffice_api_test_php') }}">Test PHP Api</a></li>
+        <li>Panda ?</li>
     </ul>
 {% endblock %}
 
 {% block content %}
     <h1>Tests</h1>
-    <div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Call events on PHP Engine®
+        </div>
+        <div class="panel-body">
+            <form action="{{ path('blue_bear_engine_trigger_event', {eventName: '__EVENT__'}) }}" method="post"
+                  class="well">
+                {{ form_widget(form) }}
+                <input type="submit" class="btn btn-default" data-target="#php-response"/>
+            </form>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <label for="php-response">Response</label>
+                    <textarea id="php-response" class="form-control" rows="10">
+
+                    </textarea>
+                </div>
+            </div>
+        </div>
     </div>
+    <script>
+        $(document).on('ready', function () {
+            $('input[type=submit]').on('click', function () {
+                var responseContainer = $($(this).data('target'));
+                var form = $(this).parents('form');
+                var eventName = form.find('select').val();
+
+                $.ajax({
+                    url: form.attr('action').replace('__EVENT__', eventName),
+                    type: 'post',
+                    success: function (response) {
+                        responseContainer.text(JSON.stringify(response, function (key, value) {
+                            return value;
+                        }, 2));
+                    }
+                });
+                return false;
+            });
+        });
+    </script>
 {% endblock %}
