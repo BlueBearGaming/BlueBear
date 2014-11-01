@@ -1,65 +1,34 @@
 {% extends 'BlueBearEditorBundle::layout.html.twig' %}
 
 {% block content %}
-    <h1>Map Editor</h1>
-
     <div id="editor">
-        {% for pencilSet in map.pencilSets %}
-            <div>
-                <p>{{ pencilSet.label }}</p>
-
-                {% for pencil in pencilSet %}
-                    <p>{{ pencil.label }}</p>
-                    <img src="data:image/{{ pencil.image.resource.extension }}"/>
-
-                {% endfor %}
-            </div>
-        {% endfor %}
-    </div>
-
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            Call events on PHP Engine®
+        <div class="col-md-2">
+            {% for pencilSet in map.pencilSets %}
+                <ul class="accordion">
+                    <li><strong>{{ pencilSet.label }}</strong>
+                        <ul>
+                            {% for pencil in pencilSet.pencils %}
+                                <li data-id="{{ pencil.id }}">
+                                    {{ pencil.label }}
+                                    <img width="50" height="50"
+                                         src="data:image/{{ pencil.image.resource.extension }};base64,{{ pencil.image.resource.fileContent }}"/>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                </ul>
+            {% endfor %}
         </div>
-        <div class="panel-body">
-            <form action="{{ path('blue_bear_engine_trigger_event', {eventName: '__EVENT__'}) }}" method="post"
-                  class="well">
-                {{ form_widget(form) }}
-                <input type="submit" class="btn btn-default" data-target="#php-response"/>
-            </form>
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <label for="php-response">Response</label>
-                    <textarea id="php-response" class="form-control" rows="10">
-
-                    </textarea>
-                </div>
-            </div>
+        <div class="col-md-10">
+            <h1>Map Editor</h1>
         </div>
     </div>
+
     <script>
         $(document).on('ready', function () {
-            $('input[type=submit]').on('click', function () {
-                var responseContainer = $($(this).data('target'));
-                var form = $(this).parents('form');
-                var eventName = form.find('select').val();
-
-                $.ajax({
-                    url: form.attr('action').replace('__EVENT__', eventName),
-                    type: 'post',
-                    data: 'eventData=' + form.find('#engine_event_test_data').val(),
-                    success: function (response) {
-                        responseContainer.text(JSON.stringify(response, function (key, value) {
-                            return value;
-                        }, 2));
-                    },
-                    error: function (response) {
-                        responseContainer.text(JSON.stringify(response, function (key, value) {
-                            return value;
-                        }, 2));
-                    }
-                });
-                return false;
+            $('.accordion').accordion({
+                collapsible: true,
+                active: 1
             });
         });
     </script>

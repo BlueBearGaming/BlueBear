@@ -22,8 +22,9 @@ class ImageRepository extends EntityRepository
         $queryBuilder
             ->where($queryBuilder->expr()->notIn('image.id',
                 $subQueryBuilder
-                    ->select('pencil.id')
+                    ->select('linkedImage.id')
                     ->from('BlueBear\CoreBundle\Entity\Map\Pencil', 'pencil')
+                    ->join('pencil.image', 'linkedImage')
                     ->getDQL()
             ))
             ->orderBy('image.updatedAt', 'DESC');
