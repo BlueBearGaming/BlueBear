@@ -6,10 +6,12 @@
     <div id="editor">
         {% for pencilSet in map.pencilSets %}
             <div>
-                <h2>{{ pencilSet.label }}</h2>
+                <p>{{ pencilSet.label }}</p>
 
                 {% for pencil in pencilSet %}
-                    <h3>{{ pencil.label }}</h3>
+                    <p>{{ pencil.label }}</p>
+                    <img src="data:image/{{ pencil.image.resource.extension }}"/>
+
                 {% endfor %}
             </div>
         {% endfor %}
@@ -45,7 +47,13 @@
                 $.ajax({
                     url: form.attr('action').replace('__EVENT__', eventName),
                     type: 'post',
+                    data: 'eventData=' + form.find('#engine_event_test_data').val(),
                     success: function (response) {
+                        responseContainer.text(JSON.stringify(response, function (key, value) {
+                            return value;
+                        }, 2));
+                    },
+                    error: function (response) {
                         responseContainer.text(JSON.stringify(response, function (key, value) {
                             return value;
                         }, 2));

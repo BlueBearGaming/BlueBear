@@ -34,12 +34,14 @@ class ImageToIdTransformer implements DataTransformerInterface
         return $value;
     }
 
-    public function reverseTransform($id)
+    public function reverseTransform($id = 0)
     {
-        $image = $this->imageManager->find($id);
+        $image = null;
 
-        if (!$image) {
+        if (!$id) {
             throw new TransformationFailedException('Invalid image id : ' . $id);
+        } else {
+            $image = $this->imageManager->find($id);
         }
         return $image;
     }

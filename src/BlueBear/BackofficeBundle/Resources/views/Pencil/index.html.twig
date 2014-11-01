@@ -11,23 +11,11 @@
     <h1>Pencils</h1>
 
     <div class="pencils-list">
-        {% if pencils|length > 0 %}
-            {% for pencil in pencils %}
-                <div class="item">
-                    <div class="info">
-                        {{ pencil.label }}
-                    </div>
-                    <div class="actions">
-                        <a href="{{ path('bluebear_backoffice_pencil_edit', {id: pencil.id}) }}">edit</a>
-                        <a href="{{ path('bluebear_backoffice_pencil_delete', {id: pencil.id}) }}"
-                           class="item-delete">delete</a>
-                    </div>
-                </div>
-            {% endfor %}
+        {% set list = pencils %}
+        {% set editRoute = 'bluebear_backoffice_pencil_edit' %}
+        {% set deleteRoute = 'bluebear_backoffice_pencil_edit' %}
 
-        {% else %}
-            No pencil yet
-        {% endif %}
+        {{ block('table_list') }}
     </div>
 
     <h1>Pencils Set</h1>

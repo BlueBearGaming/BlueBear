@@ -3,10 +3,8 @@
 namespace BlueBear\EngineBundle\Controller;
 
 use BlueBear\BackofficeBundle\Controller\Behavior\ControllerBehavior;
-use BlueBear\EngineBundle\Event\EngineEvent;
-use Exception;
+use BlueBear\EngineBundle\Engine\Engine;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class EngineController extends Controller
@@ -17,23 +15,10 @@ class EngineController extends Controller
     {
         $eventName = $request->get('eventName');
         $eventData = $request->get('eventData');
+        /** @var Engine $engine */
+        $engine = $this->get('bluebear.engine.engine');
+        $response = $engine->run($eventName, json_decode($eventData));
 
-        // only BlueBear events are allowed to be triggered here, not Symfony ones
-        if (strpos($eventName, 'bluebear.') !== 0) {
-            throw new Exception('Invalid event name. Bluebear events name should start with "bluebear."');
-        }
-        // check if event is registered
-        if (!in_array($eventName, EngineEvent::getAllowedEvents())) {
-            throw new Exception('Invalid event name. Allowed events name are "' . implode('", "', EngineEvent::getAllowedEvents()) . '"');
-        }
-        // dispatch event to the engine
-        $event = new EngineEvent();
-        $event->setData($eventData);
-        $this->getEventDispatcher()->dispatch($eventName, $event);
-
-        return new JsonResponse([
-            'code' => 'ok',
-            'data' => []
-        ]);
+        return $response;
     }
 } 

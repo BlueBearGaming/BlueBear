@@ -24,4 +24,9 @@ class TileLeaveSubscriber implements EventSubscriberInterface
     {
 
     }
+
+    public function onLeave()
+    {
+
+    }
 }

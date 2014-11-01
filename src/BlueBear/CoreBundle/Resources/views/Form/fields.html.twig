@@ -1,6 +1,8 @@
 {# list of images widget #}
 {% block image_list_widget %}
     <div class="form-group">
+        {{ form_label(form) }}
+
         <div class="col-sm-9 image-widget">
             {% if images|length > 0 %}
                 <ul class="">
@@ -20,6 +22,7 @@
                 </ul>
             {% endif %}
             <input type="hidden" name="{{ form.vars.full_name }}" class="hidden-value" value="{{ form.vars.value }}"/>
+            {{ form_errors(form) }}
         </div>
         <script>
             $(document).on('ready', function () {
@@ -40,7 +43,7 @@
 
 {# list of pencil set #}
 {% block pencil_set_list_widget %}
-    {{ form_widget(form) }}lol?
+    {{ form_widget(form) }}
 
     <script>
         $(document).on('ready', function () {

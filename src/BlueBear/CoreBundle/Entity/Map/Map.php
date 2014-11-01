@@ -36,6 +36,27 @@ class Map
     protected $layers;
 
     /**
+     * Map contexts (ie snapshot of map state)
+     *
+     * @ORM\OneToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\Context", mappedBy="map", cascade={"persist", "remove"})
+     */
+    protected $contexts;
+
+    /**
+     * @ORM\OneToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\Tile", mappedBy="map", cascade={"persist", "remove"})
+     */
+    protected $tiles;
+
+    /**
+     * Initialize the map and its context
+     */
+    public function __construct()
+    {
+        // by default a map has always a context
+        $this->context = new Context();
+    }
+
+    /**
      * @return mixed
      */
     public function getPencilSets()
@@ -65,5 +86,21 @@ class Map
     public function setLayers($layers)
     {
         $this->layers = $layers;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getContext()
+    {
+        return $this->context;
+    }
+
+    /**
+     * @param mixed $context
+     */
+    public function setContext($context)
+    {
+        $this->context = $context;
     }
 }

@@ -41,7 +41,8 @@ class Pencil
     /**
      * Allowed layers for this pencil
      *
-     * @ORM\OneToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\AllowedLayer", mappedBy="pencil")
+     * @ORM\ManyToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\Layer")
+     * @ORM\JoinTable(name="pencil_allowed_layers")
      */
     protected $allowedLayers;
 
@@ -99,6 +100,9 @@ class Pencil
         return $this;
     }
 
+    /**
+     * @return PencilSet
+     */
     public function getPencilSet()
     {
         return $this->pencilSet;

@@ -6,7 +6,6 @@ namespace BlueBear\CoreBundle\Form\Map;
 use BlueBear\CoreBundle\Constant\Map\Constant;
 use BlueBear\CoreBundle\Entity\Behavior\SortEntity;
 use BlueBear\CoreBundle\Entity\Map\Pencil;
-use BlueBear\CoreBundle\Form\Editor\ImageToIdTransformer;
 use BlueBear\CoreBundle\Manager\ImageManager;
 use BlueBear\CoreBundle\Manager\LayerManager;
 use BlueBear\CoreBundle\Manager\PencilSetManager;
@@ -37,8 +36,10 @@ class PencilType extends AbstractType
         $pencil = $options['data'];
         $layerTransformer = new EntityToChoiceTransformer();
         $layerTransformer->setManager($this->layerManager);
-        $pencilSetTransformer = new EntityToChoiceTransformer();
+        $pencilSetTransformer = new EntityToIdTransformer();
         $pencilSetTransformer->setManager($this->pencilSetManager);
+        $imageTransformer = new EntityToIdTransformer();
+        $imageTransformer->setManager($this->imageManager);
 
         $builder->add('name', 'text', [
             'help_block' => 'Internal name of the pencil (eg: pencil_0)'
@@ -53,9 +54,7 @@ class PencilType extends AbstractType
         $builder->add(
             $builder->create('pencilSet', 'choice', [
                 'choices' => $this->getSortedEntityForChoice($this->pencilSetManager->findAll()),
-                'data' => $pencil->getPencilSet(),
-                'multiple' => true,
-                'expanded' => true,
+                'data' => $pencil->getPencilSet()
             ])->addModelTransformer($pencilSetTransformer)
         );
         $builder->add(
@@ -73,7 +72,7 @@ class PencilType extends AbstractType
                 ->create('image', 'image_list', [
                     'pencil' => $options['data']
                 ])
-                ->addModelTransformer(new ImageToIdTransformer($this->imageManager))
+                ->addModelTransformer($imageTransformer)
         );
         $builder->add('imageX', 'integer', [
             'help_block' => 'Image x position'

@@ -17,7 +17,7 @@ class EngineEventTestType extends AbstractType
         ]);
         $builder->add('data', 'textarea', [
             'help_block' => 'Event data in json (eg: {' . "\n"
-                . ' { x: 4, y: 2}
+                . ' {"mapId": 1, "x": 4, "y": 2}
                 }'
         ]);
     }

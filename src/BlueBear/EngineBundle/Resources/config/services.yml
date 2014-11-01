@@ -1,8 +1,26 @@
 parameters:
+    # engine
+    bluebear.engine.engine: BlueBear\EngineBundle\Engine\Engine
+
+    # events subscribers
     bluebear.engine.event.tile_leave_subscriber: BlueBear\EngineBundle\Event\Tile\TileLeaveSubscriber
+    bluebear.engine.event.tile_click_subscriber: BlueBear\EngineBundle\Event\Tile\TileClickSubscriber
 
 services:
+    # engine
+    bluebear.engine.engine:
+        class: %bluebear.engine.engine%
+        calls:
+            - [setEventDispatcher, [@event_dispatcher]]
+            - [setMapManager, [@bluebear.manager.map]]
+
+    # events subscribers
     bluebear.engine.event.tile_leave_subscriber:
         class: %bluebear.engine.event.tile_leave_subscriber%
+        tags:
+            - {name: kernel.event_subscriber}
+
+    bluebear.engine.event.tile_click_subscriber:
+        class: %bluebear.engine.event.tile_click_subscriber%
         tags:
             - {name: kernel.event_subscriber}

@@ -7,12 +7,12 @@ namespace BlueBear\CoreBundle\Entity\Behavior;
 trait Sizable
 {
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="integer")
      */
     protected $width;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="integer")
      */
     protected $height;
 
