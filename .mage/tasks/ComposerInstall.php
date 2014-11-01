@@ -33,7 +33,7 @@ class ComposerInstall extends ComposerAbstractTask
         if ($environment == 'prod') {
             $options = $options = ' --no-ansi --no-dev --no-interaction --no-progress --no-scripts --optimize-autoloader';
         } else {
-            $options = 'dev';
+            $options = '';
         }
         $command = $this->getComposerCmd() . ' install' . $options;
 

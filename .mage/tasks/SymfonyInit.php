@@ -27,8 +27,6 @@ class SymfonyInit extends SymfonyAbstractTask
      */
     public function run()
     {
-        // --no-ansi --no-dev --no-interaction --no-progress --no-scripts --optimize-autoloader
-
         // shared directory
         $this->runSharedDirectory();
 
@@ -41,6 +39,9 @@ class SymfonyInit extends SymfonyAbstractTask
         return true;
     }
 
+    /**
+     * Creates "shared" directory, then creates "/shared/logs" and "/shared/app/config/parameters.yml" from .dist
+     */
     protected function runSharedDirectory()
     {
         $projectDirectory = $this->getConfig()->deployment('to');
@@ -62,31 +63,7 @@ class SymfonyInit extends SymfonyAbstractTask
         $releasePath = $projectDirectory . '/' . $releasesDirectory . '/' . $releaseId;
 
         $command = 'cp ' . $releasePath . '/app/config/parameters.yml.dist ' . $projectDirectory . '/shared/app/config/parameters.yml';
+        $command .= ' --backup -n';
         $this->runCommandRemote($command, $output);
-
-//        $environmentConfig = $this->getConfig()->getEnvironmentOption('deployment');
-//
-//        if (array_key_exists('shared', $environmentConfig)) {
-//            // check config
-//            if (!is_array($environmentConfig['shared'])) {
-//                throw new Exception('Invalid shared options. It should be an array of files and directories');
-//            }
-//            $sharedDirectory = realpath(__DIR__ . '/../../../shared');
-//            $shared = $environmentConfig['shared'];
-//            $commands = [];
-//
-//            foreach ($shared as $path) {
-//                $commands[] = 'ln -s ';
-//            }
-//
-//            if (!file_exists($sharedDirectory)) {
-//                mkdir($sharedDirectory);
-//                $this->
-//            }
-//
-//            var_dump($shared);
-//        }
-//        die;
-//        $parametersPath = __DIR__ . '/../../app/config/parameters.yml';
     }
 }
