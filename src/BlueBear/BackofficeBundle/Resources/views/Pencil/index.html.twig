@@ -21,34 +21,10 @@
     <h1>Pencils Set</h1>
 
     <div class="pencils-list">
-        {% if pencilSets|length > 0 %}
-            <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Label</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for pencilSet in pencilSets %}
-                        <tr>
-                            <td>{{ pencilSet.id }}</td>
-                            <td>{{ pencilSet.label }}</td>
-                            <td>
-                                <a href="{{ path('bluebear_backoffice_pencil_set_edit', {id: pencilSet.id}) }}"
-                                   class="btn btn-sm">edit</a>
-                                <a href="{{ path('bluebear_backoffice_pencil_set_delete', {id: pencilSet.id}) }}"
-                                   class="item-delete btn btn-sm">delete</a>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        {% else %}
-            No pencil set yet.
-        {% endif %}
+        {% set list = pencilSets %}
+        {% set editRoute = 'bluebear_backoffice_pencil_set_edit' %}
+        {% set deleteRoute = 'bluebear_backoffice_pencil_set_delete' %}
+
+        {{ block('table_list') }}
     </div>
 {% endblock %}

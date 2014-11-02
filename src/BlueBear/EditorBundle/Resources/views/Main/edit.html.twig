@@ -10,8 +10,11 @@
                             {% for pencil in pencilSet.pencils %}
                                 <li data-id="{{ pencil.id }}">
                                     {{ pencil.label }}
-                                    <img width="50" height="50"
-                                         src="data:image/{{ pencil.image.resource.extension }};base64,{{ pencil.image.resource.fileContent }}"/>
+
+                                    {% if pencil.image %}
+                                        <img width="50" height="50"
+                                             src="data:image/{{ pencil.image.resource.extension }};base64,{{ pencil.image.resource.fileContent }}"/>
+                                    {% endif %}
                                 </li>
                             {% endfor %}
                         </ul>

@@ -16,5 +16,24 @@ class Tile
 {
     use Id, Positionable;
 
-    //protected
+    /**
+     * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Map", inversedBy="tiles")
+     */
+    protected $map;
+
+    /**
+     * @return mixed
+     */
+    public function getMap()
+    {
+        return $this->map;
+    }
+
+    /**
+     * @param mixed $map
+     */
+    public function setMap($map)
+    {
+        $this->map = $map;
+    }
 } 

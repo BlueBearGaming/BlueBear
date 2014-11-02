@@ -106,3 +106,17 @@
         {% endfor %}
     {% endif %}
 {% endblock %}
+
+{% block generic_form %}
+    {% set containerClass = containerClass ? containerClass : '' %}
+
+    <div class="well {{ containerClass }}">
+        <form action="{{ path(action, { id: form.vars.value.id}) }}" method="post">
+            {{ form_widget(form) }}
+
+            <a href="{{ path(returnRoute) }}" class="btn"><i class="fa fa-arrow-circle-left"></i>&nbsp;
+                &nbsp;cancel</a>
+            <input type="submit" value="save" class="btn btn-default"/>
+        </form>
+    </div>
+{% endblock %}

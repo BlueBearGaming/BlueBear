@@ -39,6 +39,16 @@ form {
   }
 }
 
+table {
+  td {
+    .btn {
+      line-height: 1;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  }
+}
+
 .edit-pencil {
   .image-widget {
     .image {

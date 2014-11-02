@@ -2,18 +2,11 @@
 
 {% block content %}
     <h1>Pencil Edit</h1>
+    {% set action = 'bluebear_backoffice_pencil_edit' %}
+    {% set returnRoute = 'bluebear_backoffice_pencil' %}
+    {% set containerClass = 'edit-pencil' %}
 
-    <div class="edit-pencil">
-        <form action="{{ path('bluebear_backoffice_pencil_edit', { id: form.vars.value.id}) }}" method="post"
-              role="form">
-            {{ form_widget(form) }}
-
-            <a href="{{ path('bluebear_backoffice_pencil') }}" class="btn"><i class="fa fa-arrow-circle-left"></i>&nbsp;
-                &nbsp;cancel</a>
-            <input type="submit" value="save" class="btn btn-default"/>
-        </form>
-    </div>
-
+    {{ block('generic_form') }}
     <script>
         $(document).on('ready', function () {
             PencilForm.init($('.edit-pencil'));
