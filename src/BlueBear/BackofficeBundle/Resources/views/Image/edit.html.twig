@@ -7,14 +7,9 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Image Edit</h1>
+    {% set title = 'Image Edit' %}
+    {% set action = 'bluebear_backoffice_image_edit' %}
+    {% set returnRoute = 'bluebear_backoffice_image' %}
 
-    <div class="edit-image">
-        <form action="{{ path('bluebear_backoffice_image_edit', { id: form.vars.value.id}) }}" method="post">
-            {{ form_widget(form) }}
-
-            <a href="{{ path('bluebear_backoffice_image_orphans') }}" class="btn">cancel</a>
-            <input type="submit" value="save" class="btn btn-default"/>
-        </form>
-    </div>
+    {{ block('generic_form') }}
 {% endblock %}

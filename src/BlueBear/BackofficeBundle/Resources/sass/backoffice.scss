@@ -32,20 +32,20 @@ form {
   textarea {
     resize: vertical;
   }
-  .form-group {
-    & > div {
-      margin-bottom: 20px;
-    }
-  }
 }
 
 table {
   td {
     .btn {
       line-height: 1;
-      padding-top: 0;
-      padding-bottom: 0;
     }
+  }
+}
+
+.image-list {
+  img {
+    height: 100px;
+    width: 100px;
   }
 }
 
