@@ -79,7 +79,7 @@ class ResourceManager
         $imageDirectory = __DIR__ . '/../../../../resources/images';
 
         if (!file_exists($imageDirectory)) {
-            mkdir($imageDirectory);
+            mkdir($imageDirectory, 0777, true);
         }
         return realpath($imageDirectory);
     }
@@ -89,7 +89,7 @@ class ResourceManager
         $imageDirectory = __DIR__ . '/../../../../resources/sprites/';
 
         if (!file_exists($imageDirectory)) {
-            mkdir($imageDirectory);
+            mkdir($imageDirectory, 0777, true);
         }
         return realpath($imageDirectory);
     }
