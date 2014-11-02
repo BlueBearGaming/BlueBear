@@ -2,6 +2,7 @@
 
 namespace BlueBear\CoreBundle\Entity\Map;
 
+use BlueBear\CoreBundle\Entity\Behavior\Descriptionable;
 use BlueBear\CoreBundle\Entity\Behavior\Id;
 use BlueBear\CoreBundle\Entity\Behavior\Label;
 use BlueBear\CoreBundle\Entity\Behavior\Nameable;
@@ -20,13 +21,14 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Pencil
 {
-    use Id, Nameable, Label, Sizable, Typeable, Taggable;
+    use Id, Nameable, Label, Descriptionable, Sizable, Typeable, Taggable;
 
     /**
      * Image used in render
      *
      * @var Image
      * @ORM\OneToOne(targetEntity="BlueBear\CoreBundle\Entity\Editor\Image", fetch="EAGER", cascade={"persist"});
+     * @ORM\JoinColumn(nullable=true)
      */
     protected $image;
 

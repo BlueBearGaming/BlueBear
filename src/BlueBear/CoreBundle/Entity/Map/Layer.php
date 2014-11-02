@@ -2,6 +2,7 @@
 
 namespace BlueBear\CoreBundle\Entity\Map;
 
+use BlueBear\CoreBundle\Entity\Behavior\Descriptionable;
 use BlueBear\CoreBundle\Entity\Behavior\Id;
 use BlueBear\CoreBundle\Entity\Behavior\Label;
 use BlueBear\CoreBundle\Entity\Behavior\Nameable;
@@ -16,5 +17,5 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Layer
 {
-    use Id, Nameable, Label, Typeable;
+    use Id, Nameable, Label, Typeable, Descriptionable;
 }

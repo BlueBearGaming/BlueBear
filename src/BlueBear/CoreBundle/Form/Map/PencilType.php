@@ -34,6 +34,7 @@ class PencilType extends AbstractType
     {
         /** @var Pencil $pencil */
         $pencil = $options['data'];
+        // Transformers (yeh !)
         $layerTransformer = new EntityToChoiceTransformer();
         $layerTransformer->setManager($this->layerManager);
         $pencilSetTransformer = new EntityToIdTransformer();
@@ -47,6 +48,9 @@ class PencilType extends AbstractType
         $builder->add('label', 'text', [
             'help_block' => 'Displayed name (eg: MyPencil)'
         ]);
+        $builder->add('description', 'textarea', [
+            'help_block' => 'Pencil description'
+        ]);
         $builder->add('type', 'choice', [
             'choices' => Constant::getPencilType(),
             'help_block' => 'Pencil type'
@@ -54,7 +58,8 @@ class PencilType extends AbstractType
         $builder->add(
             $builder->create('pencilSet', 'choice', [
                 'choices' => $this->getSortedEntityForChoice($this->pencilSetManager->findAll()),
-                'data' => $pencil->getPencilSet()
+                'data' => $pencil->getPencilSet(),
+                'help_block' => 'Pencil set which this pencil belongs'
             ])->addModelTransformer($pencilSetTransformer)
         );
         $builder->add(
@@ -64,14 +69,14 @@ class PencilType extends AbstractType
                     'data' => $pencil->getAllowedLayers(),
                     'multiple' => true,
                     'expanded' => true,
+                    'help_block' => 'Allowed layers for this pencil (it means that the pencil can only be added in
+                    those layers)'
                 ]
             )->addModelTransformer($layerTransformer)
         );
         $builder->add(
             $builder
-                ->create('image', 'image_list', [
-                    'pencil' => $options['data']
-                ])
+                ->create('image', 'image_list', [])
                 ->addModelTransformer($imageTransformer)
         );
         $builder->add('imageX', 'integer', [

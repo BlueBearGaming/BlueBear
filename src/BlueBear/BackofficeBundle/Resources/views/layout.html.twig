@@ -9,7 +9,7 @@
     {% include 'BlueBearBackofficeBundle::top.html.twig' %}
 {% endblock %}
 <!-- flash messages -->
-<div class="alert-container">
+<div class="alert-container container">
     {% for flashMessage in app.session.flashbag.get('notice') %}
         <div class="alert alert-success">
             {{ flashMessage }}

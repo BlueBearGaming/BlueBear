@@ -29,14 +29,19 @@ form {
   input, select {
     color: #dddddd;
   }
+  textarea {
+    resize: vertical;
+  }
+  .form-group {
+    & > div {
+      margin-bottom: 20px;
+    }
+  }
 }
 
 .edit-pencil {
   .image-widget {
-    //width: 800px;
-
     .image {
-      //float: left;
       display: inline-block;
 
       &.active {

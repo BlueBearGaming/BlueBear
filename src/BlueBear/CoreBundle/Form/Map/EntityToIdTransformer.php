@@ -5,7 +5,6 @@ namespace BlueBear\CoreBundle\Form\Map;
 use BlueBear\CoreBundle\Entity\Behavior\Id;
 use BlueBear\CoreBundle\Manager\Behavior\ManagerBehavior;
 use Symfony\Component\Form\DataTransformerInterface;
-use Symfony\Component\Form\Exception\TransformationFailedException;
 
 /**
  * EntityToChoiceTransformer
@@ -40,10 +39,6 @@ class EntityToIdTransformer implements DataTransformerInterface
 
         if ($value) {
             $entity = $this->manager->find($value);
-        }
-        /** @var Id $entity */
-        if (!$entity) {
-            throw new TransformationFailedException('Invalid id');
         }
         return $entity;
     }

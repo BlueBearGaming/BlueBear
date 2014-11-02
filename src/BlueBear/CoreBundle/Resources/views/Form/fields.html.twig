@@ -1,18 +1,19 @@
 {# list of images widget #}
 {% block image_list_widget %}
-    <div class="form-group">
-        {{ form_label(form) }}
+    {% set image = form.vars.value %}
+    {{ form_label(form) }}
 
+    <div class="form-group">
         <div class="col-sm-9 image-widget">
-            {% if images|length > 0 %}
+            {% if orphans|length > 0 %}
                 <ul class="">
-                    {% for image in images %}
-                        {% set active = (image.id == form.vars.value) ? ' active' : '' %}
+                    {% for oprhan in orphans %}
+                        {% set active = (oprhan.id == form.vars.value) ? ' active' : '' %}
 
                         <li class="image{{ active }}">
                             <a href="#" class="select-image" data-id="{{ image.id }}">
                                 <img src="data:image/{{ image.resource.extension }};base64,{{ image.resource.fileContent }}"
-                                     width="100"/>
+                                     height="50" width="50"/>
                             </a>
                             <br/>
                             <a href="#" class="select-image" data-id="{{ image.id }}"
@@ -20,8 +21,11 @@
                         </li>
                     {% endfor %}
                 </ul>
+            {% else %}
+                <strong>All existing images have already been linked to a pencil</strong>
             {% endif %}
-            <input type="hidden" name="{{ form.vars.full_name }}" class="hidden-value" value="{{ form.vars.value }}"/>
+            <input type="hidden" name="{{ form.vars.full_name }}" class="hidden-value"
+                   value="{{ form.vars.value ? form.vars.value : 1 }}"/>
             {{ form_errors(form) }}
         </div>
         <script>
@@ -29,7 +33,6 @@
                 var container = $('.image-widget');
 
                 container.find('.select-image').on('click', function () {
-                    console.log($(this), $(this).data('id'));
                     container.find('.hidden-value').val($(this).data('id'));
                     container.find('.image').removeClass('active');
                     $(this).parents('.image').addClass('active');
