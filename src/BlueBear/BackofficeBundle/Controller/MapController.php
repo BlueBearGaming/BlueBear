@@ -15,6 +15,8 @@ class MapController extends Controller
     use ControllerBehavior;
 
     /**
+     * List all maps
+     *
      * @Template()
      */
     public function indexAction()
@@ -27,6 +29,8 @@ class MapController extends Controller
     }
 
     /**
+     * Edit a map
+     *
      * @Template()
      * @param Request $request
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
@@ -44,7 +48,7 @@ class MapController extends Controller
 
         if ($form->isValid()) {
             $this->get('bluebear.manager.pencil_set')->removeFromMap($map);
-            $this->getMapManager()->save($map);
+            $this->getMapManager()->saveMap($map);
             $this->setMessage('Map successfully saved');
 
             return $this->redirect('@bluebear_backoffice_map');
@@ -54,6 +58,12 @@ class MapController extends Controller
         ];
     }
 
+    /**
+     * Delete a map
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function deleteAction(Request $request)
     {
         $map = $this->getMapManager()->find($id = $request->get('id'));
@@ -64,7 +74,7 @@ class MapController extends Controller
     }
 
     /**
-     *
+     * Return map manager
      *
      * @return MapManager
      */

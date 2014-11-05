@@ -24,6 +24,12 @@
         </div>
         <div class="col-md-10">
             <h1>Map Editor</h1>
+
+            <div class="map">
+                {% for tile in map.tiles %}
+                    <span>Tile : {{ tile.x }} - {{ tile.y }} |</span>
+                {% endfor %}
+            </div>
         </div>
     </div>
 

@@ -103,4 +103,20 @@ class Map
     {
         $this->context = $context;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getTiles()
+    {
+        return $this->tiles;
+    }
+
+    /**
+     * @param mixed $tiles
+     */
+    public function setTiles($tiles)
+    {
+        $this->tiles = $tiles;
+    }
 }
