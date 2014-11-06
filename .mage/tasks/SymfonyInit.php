@@ -76,13 +76,17 @@ class SymfonyInit extends SymfonyAbstractTask
         $currentCopy = $releasesDirectory . '/' . $this->getConfig()->getReleaseId();
 
         foreach ($linkedFolders as $folder) {
-            $command = "ln -nfs $sharedFolderName/$folder $currentCopy/";
+            $folderArray = explode('/', $folder);
+            array_pop($folderArray);
+            $command = 'mkdir -p ' . $sharedFolderName . '/' . $folder;
+            $this->runCommandRemote($command);
+
+            $command = "ln -nfs $sharedFolderName/$folder $currentCopy/" . implode('/', $folderArray);
             $this->runCommandRemote($command);
         }
         foreach ($linkedFiles as $folder) {
             $command = "ln -nfs $sharedFolderName/$folder $currentCopy/$folder";
             $this->runCommandRemote($command);
         }
-
     }
 }
