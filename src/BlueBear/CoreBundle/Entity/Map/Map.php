@@ -47,6 +47,8 @@ class Map
      */
     protected $tiles;
 
+    protected $currentContext;
+
     /**
      * Initialize the map and its context
      */
@@ -91,22 +93,6 @@ class Map
     /**
      * @return mixed
      */
-    public function getContext()
-    {
-        return $this->context;
-    }
-
-    /**
-     * @param mixed $context
-     */
-    public function setContext($context)
-    {
-        $this->context = $context;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getTiles()
     {
         return $this->tiles;
@@ -118,5 +104,69 @@ class Map
     public function setTiles($tiles)
     {
         $this->tiles = $tiles;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getContexts()
+    {
+        return $this->contexts;
+    }
+
+    /**
+     * @param mixed $contexts
+     */
+    public function setContexts($contexts)
+    {
+        $this->contexts = $contexts;
+    }
+
+    /**
+     * @return Context
+     */
+    public function getCurrentContext()
+    {
+        return $this->currentContext;
+    }
+
+    /**
+     * @param mixed $currentContext
+     */
+    public function setCurrentContext(Context $currentContext)
+    {
+        $this->currentContext = $currentContext;
+    }
+
+    public function toJson()
+    {
+        // export tiles to array
+        $jsonTiles = [];
+        $tiles = $this->getTiles();
+        /** @var Tile $tile */
+        foreach ($tiles as $tile) {
+            $jsonTiles[$tile->getId()] = $tile->toJson();
+        }
+        // export layers to array
+        $jsonLayers = [];
+        $layers = $this->getLayers();
+        /** @var Layer $layer */
+        foreach ($layers as $layer) {
+            $jsonLayers[$layer->getId()] = $layer->toJson();
+        }
+        // export context to array
+        $contextJson = null;
+
+        if ($this->getCurrentContext()) {
+            $contextJson = $this->getCurrentContext()->toJson();
+        }
+        $json = [
+            'id' => $this->getId(),
+            'label' => $this->getLabel(),
+            'tiles' => $jsonTiles,
+            'layers' => $jsonLayers,
+            'context' => $contextJson
+        ];
+        return $json;
     }
 }

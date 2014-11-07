@@ -22,6 +22,12 @@ class Tile
     protected $map;
 
     /**
+     * @ORM\OneToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\PencilTile", mappedBy="tile")
+     * @ORM\JoinColumn(name="pencil_tile")
+     */
+    protected $pencilTile;
+
+    /**
      * @return mixed
      */
     public function getMap()
@@ -35,5 +41,30 @@ class Tile
     public function setMap($map)
     {
         $this->map = $map;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPencilTile()
+    {
+        return $this->pencilTile;
+    }
+
+    /**
+     * @param mixed $pencilTile
+     */
+    public function setPencilTile($pencilTile)
+    {
+        $this->pencilTile = $pencilTile;
+    }
+
+    public function toJson()
+    {
+        return [
+            'id' => $this->getId(),
+            'x' => $this->getX(),
+            'y' => $this->getY()
+        ];
     }
 } 

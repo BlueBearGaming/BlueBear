@@ -40,4 +40,13 @@ class Context
     {
         $this->map = $map;
     }
+
+    public function toJson()
+    {
+        $json = [];
+
+        return [
+
+        ];
+    }
 } 

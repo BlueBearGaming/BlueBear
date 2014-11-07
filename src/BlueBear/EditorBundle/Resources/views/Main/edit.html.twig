@@ -3,6 +3,17 @@
 {% block content %}
     <div id="editor">
         <div class="col-md-2">
+            {# layers #}
+            <label>
+                Layer
+                <select>
+                    {% for layer in map.layers %}
+                        <option value="{{ layer.id }}">{{ layer.label }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+
+            {# pencils #}
             {% for pencilSet in map.pencilSets %}
                 <ul class="accordion">
                     <li><strong>{{ pencilSet.label }}</strong>
@@ -29,6 +40,11 @@
                 {% for tile in map.tiles %}
                     <span>Tile : {{ tile.x }} - {{ tile.y }} |</span>
                 {% endfor %}
+                <br/>map json :<br/>
+
+                <div class="panel">
+                    <pre>{{ map.toJson | json_encode(constant('JSON_PRETTY_PRINT')) }}</pre>
+                </div>
             </div>
         </div>
     </div>

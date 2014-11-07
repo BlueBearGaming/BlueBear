@@ -18,4 +18,13 @@ use Doctrine\ORM\Mapping as ORM;
 class Layer
 {
     use Id, Nameable, Label, Typeable, Descriptionable;
+
+    public function toJson()
+    {
+        $json = [
+            'id' => $this->getId(),
+            'label' => $this->getLabel()
+        ];
+        return $json;
+    }
 }
