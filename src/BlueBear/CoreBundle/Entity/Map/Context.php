@@ -5,7 +5,6 @@ namespace BlueBear\CoreBundle\Entity\Map;
 use BlueBear\CoreBundle\Entity\Behavior\Data;
 use BlueBear\CoreBundle\Entity\Behavior\Id;
 use BlueBear\CoreBundle\Entity\Behavior\Label;
-use BlueBear\CoreBundle\Entity\Behavior\Sizable;
 use BlueBear\CoreBundle\Entity\Behavior\Timestampable;
 use BlueBear\CoreBundle\Entity\Behavior\Typeable;
 use Doctrine\ORM\Mapping as ORM;
@@ -18,7 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Context
 {
-    use Id, Label, Sizable, Timestampable, Typeable, Data;
+    use Id, Label, Timestampable, Typeable, Data;
 
     /**
      * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Map", inversedBy="contexts")

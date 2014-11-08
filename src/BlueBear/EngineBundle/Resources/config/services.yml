@@ -1,10 +1,13 @@
 parameters:
     # engine
     bluebear.engine.engine: BlueBear\EngineBundle\Engine\Engine
+    bluebear.engine.context_factory: BlueBear\EngineBundle\Engine\Context\ContextFactory
 
     # events subscribers
     bluebear.engine.event.tile_leave_subscriber: BlueBear\EngineBundle\Event\Tile\TileLeaveSubscriber
     bluebear.engine.event.tile_click_subscriber: BlueBear\EngineBundle\Event\Tile\TileClickSubscriber
+    bluebear.engine.event.map_subscriber: BlueBear\EngineBundle\Event\Map\MapSubscriber
+    bluebear.engine.event.engine_subscriber: BlueBear\EngineBundle\Event\Engine\EngineSubscriber
 
 services:
     # engine
@@ -12,7 +15,6 @@ services:
         class: %bluebear.engine.engine%
         calls:
             - [setEventDispatcher, [@event_dispatcher]]
-            - [setMapManager, [@bluebear.manager.map]]
 
     # events subscribers
     bluebear.engine.event.tile_leave_subscriber:
@@ -24,3 +26,21 @@ services:
         class: %bluebear.engine.event.tile_click_subscriber%
         tags:
             - {name: kernel.event_subscriber}
+
+    bluebear.engine.event.map_subscriber:
+        class: %bluebear.engine.event.map_subscriber%
+        tags:
+            - {name: kernel.event_subscriber}
+        calls:
+            - [setContextFactory, [@bluebear.engine.context_factory]]
+
+    bluebear.engine.event.engine_subscriber:
+        class: %bluebear.engine.event.engine_subscriber%
+        tags:
+            - {name: kernel.event_subscriber}
+        calls:
+            - [setEventDispatcher, [@event_dispatcher]]
+            - [setMapManager, [@bluebear.manager.map]]
+
+    bluebear.engine.context_factory:
+        class: %bluebear.engine.context_factory%

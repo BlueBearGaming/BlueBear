@@ -36,6 +36,13 @@
         <div class="col-md-10">
             <h1>Map Editor</h1>
 
+            <div class="row">
+                <form action="{{ path('blue_bear_engine_trigger_event', {eventName: 'bluebear.engine.onMapSave'}) }}"
+                      method="post">
+                    <input type="submit" class="btn btn-default save-map" value="save"/>
+                </form>
+            </div>
+
             <div class="map">
                 {% for tile in map.tiles %}
                     <span>Tile : {{ tile.x }} - {{ tile.y }} |</span>
@@ -55,6 +62,21 @@
                 collapsible: true,
                 active: 1,
                 heightStyle: 'content'
+            });
+            $('.save-map').on('click', function () {
+                var data = {
+                    mapId: {{ map.id }}
+                };
+                var form = $(this).parents('form');
+
+                $.ajax({
+                    type: 'post',
+                    url: form.attr('action'),
+                    data: 'eventData=' + JSON.stringify(data)
+                });
+
+
+                return false;
             });
         });
     </script>

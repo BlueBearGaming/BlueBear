@@ -4,7 +4,6 @@ namespace BlueBear\EngineBundle\Engine;
 
 use BlueBear\CoreBundle\Entity\Behavior\HasEventDispatcher;
 use BlueBear\CoreBundle\Entity\Map\Map;
-use BlueBear\CoreBundle\Manager\MapManager;
 use BlueBear\EngineBundle\Event\EngineEvent;
 use Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -17,11 +16,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class Engine
 {
     use HasEventDispatcher;
-
-    /**
-     * @var MapManager
-     */
-    protected $mapManager;
 
     const RESPONSE_CODE_OK = 'ok';
     const RESPONSE_CODE_KO = 'ko';
@@ -43,11 +37,15 @@ class Engine
                 throw new Exception('Invalid event name. Allowed events name are "' . implode('", "', EngineEvent::getAllowedEvents()) . '"');
             }
             if (!$eventData) {
-                throw new Exception('Invalid event data');
+                throw new Exception('Empty event data');
             }
-            $event = $this->load($eventData);
+            $event = new EngineEvent();
+            $event->setData($eventData);
+            // trigger onEngineEvent
+            $this->getEventDispatcher()->dispatch(EngineEvent::ENGINE_ON_ENGINE_EVENT, $event);
+            // trigger wanted event
             $this->getEventDispatcher()->dispatch($eventName, $event);
-
+            // everything went fine, send ok response
             $response = $this->createResponse(self::RESPONSE_CODE_OK, ':)', 200);
         } catch (Exception $e) {
             $response = $this->createResponse(self::RESPONSE_CODE_KO, $e->getMessage(), 200);
@@ -65,49 +63,5 @@ class Engine
             'data' => $data
         ]);
         return $response;
-    }
-
-    /**
-     * Create an engine event and load map into it
-     *
-     * @param $eventData
-     * @return EngineEvent
-     * @throws Exception
-     */
-    protected function load($eventData)
-    {
-        if (!$eventData->mapId) {
-            throw new Exception('Invalid mapId');
-        }
-        /** @var Map $map */
-        $map = $this->getMapManager()->find($eventData->mapId);
-
-        if (!$map) {
-            throw new Exception('Map not found');
-        }
-        // dispatch event to the engine
-        $event = new EngineEvent();
-        $event->setData($eventData);
-        $event->setMap($map);
-        // dispatch map load event
-        $this->getEventDispatcher()->dispatch(EngineEvent::ENGINE_ON_MAP_LOAD, $event);
-
-        return $event;
-    }
-
-    /**
-     * @return MapManager
-     */
-    public function getMapManager()
-    {
-        return $this->mapManager;
-    }
-
-    /**
-     * @param MapManager $mapManager
-     */
-    public function setMapManager(MapManager $mapManager)
-    {
-        $this->mapManager = $mapManager;
     }
 } 
