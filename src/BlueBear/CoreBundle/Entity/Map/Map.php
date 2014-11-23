@@ -24,7 +24,7 @@ class Map
     /**
      * Map pencil sets
      *
-     * @ORM\ManyToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\PencilSet", cascade={"persist"}, mappedBy="maps")
+     * @ORM\ManyToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\PencilSet", cascade={"persist"})
      */
     protected $pencilSets;
 

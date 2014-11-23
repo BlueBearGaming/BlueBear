@@ -78,7 +78,7 @@ bluebear_backoffice_map:
     defaults: { _controller: BlueBearBackofficeBundle:Map:index }
 
 bluebear_backoffice_map_edit:
-    pattern: /maps/edit
+    pattern: /map/edit
     defaults: { _controller: BlueBearBackofficeBundle:Map:edit }
 
 bluebear_backoffice_map_delete:

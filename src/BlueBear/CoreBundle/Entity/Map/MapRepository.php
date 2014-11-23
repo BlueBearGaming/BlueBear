@@ -10,6 +10,7 @@ class MapRepository extends EntityRepository
     {
         return $this
             ->createQueryBuilder('map')
+            ->addSelect('pencilSets')
             ->leftJoin('map.pencilSets', 'pencilSets')
             ->where('map.id = :id')
             ->setParameter('id', $id);

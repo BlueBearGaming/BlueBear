@@ -87,7 +87,7 @@ class MapType extends AbstractType
     /**
      * @param PencilSetManager $pencilSetManager
      */
-    public function setPencilSetManager($pencilSetManager)
+    public function setPencilSetManager(PencilSetManager $pencilSetManager)
     {
         $this->pencilSetManager = $pencilSetManager;
     }
