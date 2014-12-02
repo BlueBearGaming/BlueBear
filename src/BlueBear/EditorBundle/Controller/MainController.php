@@ -3,9 +3,14 @@
 namespace BlueBear\EditorBundle\Controller;
 
 use BlueBear\BackofficeBundle\Controller\Behavior\ControllerBehavior;
+use BlueBear\CoreBundle\Entity\Map\Map;
 use BlueBear\CoreBundle\Manager\MapManager;
+use BlueBear\EngineBundle\Engine\Engine;
+use BlueBear\EngineBundle\Event\EngineEvent;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use stdClass;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class MainController extends Controller
@@ -31,14 +36,20 @@ class MainController extends Controller
      */
     public function editAction(Request $request)
     {
-        $map = $this->getMapManager()->find($request->get('id'));
-        $form = $this->createForm('engine_event_test');
+        /** @var Engine $engine */
+        $engine = $this->get('bluebear.engine.engine');
+        $data = new stdClass();
+        $data->mapId = $request->get('id');
 
-        $this->redirect404Unless($map, 'Map not found');
+        $event = $engine->run(EngineEvent::ENGINE_ON_MAP_LOAD, $data);
+
+
+        $test = $event->getMap();
+        var_dump($test->getContexts());
+        die;
 
         return [
-            'map' => $map,
-            'form' => $form->createView()
+            'map' => $event->getMap()
         ];
     }
 
@@ -61,5 +72,17 @@ class MainController extends Controller
     protected function getMapManager()
     {
         return $this->get('bluebear.manager.map');
+    }
+
+    protected function createResponse($code, $data, $statusCode = 200)
+    {
+        $response = new JsonResponse();
+        $response->setStatusCode($statusCode);
+        $response->setEncodingOptions(JSON_PRETTY_PRINT);
+        $response->setData([
+            'code' => $code,
+            'data' => $data
+        ]);
+        return $response;
     }
 }

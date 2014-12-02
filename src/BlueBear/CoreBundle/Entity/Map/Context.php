@@ -14,10 +14,11 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="context")
  * @ORM\Entity(repositoryClass="BlueBear\CoreBundle\Entity\Map\ContextRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Context
 {
-    use Id, Label, Timestampable, Typeable, Data;
+    use Id, Label, Timestampable, Data;
 
     /**
      * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Map", inversedBy="contexts")
@@ -25,7 +26,7 @@ class Context
     protected $map;
 
     /**
-     * @return mixed
+     * @return Map
      */
     public function getMap()
     {
@@ -40,12 +41,18 @@ class Context
         $this->map = $map;
     }
 
-    public function toJson()
+    public function toArray()
     {
-        $json = [];
+        $tiles = $this->getMap()->getTiles();
+        $tilesArray = [];
 
+        /** @var Tile $tile */
+        foreach ($tiles as $tile) {
+            $tilesArray[] = $tile->toArray();
+        }
         return [
-
+            'id' => $this->getId(),
+            'tiles' => $tilesArray
         ];
     }
 } 

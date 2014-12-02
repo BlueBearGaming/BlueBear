@@ -59,7 +59,7 @@ class Tile
         $this->pencilTile = $pencilTile;
     }
 
-    public function toJson()
+    public function toArray()
     {
         return [
             'id' => $this->getId(),

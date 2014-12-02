@@ -13,7 +13,8 @@
             Call events on PHP Engine®
         </div>
         <div class="panel-body">
-            <form action="{{ path('blue_bear_engine_trigger_event', {eventName: '__EVENT__'}) }}" method="post"
+            <form action="{{ path('bluebear_engine_trigger_event', {eventName: '__EVENT__', eventData: '__EVENT_DATA__'}) }}"
+                  method="post"
                   class="well">
                 {{ form_widget(form) }}
                 <input type="submit" class="btn btn-default" data-target="#php-response"/>
@@ -34,9 +35,10 @@
                 var responseContainer = $($(this).data('target'));
                 var form = $(this).parents('form');
                 var eventName = form.find('select').val();
+                var eventData = form.find('textarea').val();
 
                 $.ajax({
-                    url: form.attr('action').replace('__EVENT__', eventName),
+                    url: form.attr('action').replace('__EVENT__', eventName).replace('__EVENT_DATA__', eventData),
                     type: 'post',
                     success: function (response) {
                         responseContainer.text(JSON.stringify(response, function (key, value) {

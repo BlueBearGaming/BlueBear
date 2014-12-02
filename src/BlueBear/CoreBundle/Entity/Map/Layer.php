@@ -19,7 +19,7 @@ class Layer
 {
     use Id, Nameable, Label, Typeable, Descriptionable;
 
-    public function toJson()
+    public function toArray()
     {
         $json = [
             'id' => $this->getId(),

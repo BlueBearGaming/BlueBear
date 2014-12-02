@@ -44,3 +44,5 @@ services:
 
     bluebear.engine.context_factory:
         class: %bluebear.engine.context_factory%
+        calls:
+            - [setMapManager, [@bluebear.manager.map]]

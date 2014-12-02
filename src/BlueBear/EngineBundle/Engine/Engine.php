@@ -25,6 +25,13 @@ class Engine
      */
     protected $map;
 
+    /**
+     * Run map engine with an event name and event data
+     *
+     * @param $eventName
+     * @param $eventData
+     * @return EngineEvent
+     */
     public function run($eventName, $eventData)
     {
         try {
@@ -39,29 +46,22 @@ class Engine
             if (!$eventData) {
                 throw new Exception('Empty event data');
             }
-            $event = new EngineEvent();
-            $event->setData($eventData);
+            $engineEvent = new EngineEvent();
+            $engineEvent->setData($eventData);
+            $engineEvent->setEventName($eventName);
             // trigger onEngineEvent
-            $this->getEventDispatcher()->dispatch(EngineEvent::ENGINE_ON_ENGINE_EVENT, $event);
+            $this->getEventDispatcher()->dispatch(EngineEvent::ENGINE_ON_ENGINE_EVENT, $engineEvent);
             // trigger wanted event
-            $this->getEventDispatcher()->dispatch($eventName, $event);
-            // everything went fine, send ok response
-            $response = $this->createResponse(self::RESPONSE_CODE_OK, ':)', 200);
+            $this->getEventDispatcher()->dispatch($eventName, $engineEvent);
+            // return event
+            return $engineEvent;
         } catch (Exception $e) {
+            echo $e->getMessage();
+            echo "\n";
+            echo $e->getTraceAsString();
+            die;
             $response = $this->createResponse(self::RESPONSE_CODE_KO, $e->getMessage(), 200);
         }
-        return $response;
-    }
-
-    protected function createResponse($code, $data, $statusCode = 200)
-    {
-        $response = new JsonResponse();
-        $response->setStatusCode($statusCode);
-        $response->setEncodingOptions(JSON_PRETTY_PRINT);
-        $response->setData([
-            'code' => $code,
-            'data' => $data
-        ]);
         return $response;
     }
 } 

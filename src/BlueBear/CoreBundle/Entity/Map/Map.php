@@ -8,6 +8,7 @@ use BlueBear\CoreBundle\Entity\Behavior\Nameable;
 use BlueBear\CoreBundle\Entity\Behavior\Sizable;
 use BlueBear\CoreBundle\Entity\Behavior\Timestampable;
 use BlueBear\CoreBundle\Entity\Behavior\Typeable;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -49,13 +50,9 @@ class Map
 
     protected $currentContext;
 
-    /**
-     * Initialize the map and its context
-     */
     public function __construct()
     {
-        // by default a map has always a context
-        $this->context = new Context();
+        $this->contexts = new ArrayCollection();
     }
 
     /**
@@ -123,6 +120,14 @@ class Map
     }
 
     /**
+     * @param Context $context
+     */
+    public function addContext(Context $context)
+    {
+        $this->contexts[] = $context;
+    }
+
+    /**
      * @return Context
      */
     public function getCurrentContext()
@@ -136,34 +141,35 @@ class Map
     public function setCurrentContext(Context $currentContext)
     {
         $this->currentContext = $currentContext;
+        $this->addContext($currentContext);
     }
 
-    public function toJson()
+    public function toArray()
     {
         // export tiles to array
         $jsonTiles = [];
         $tiles = $this->getTiles();
         /** @var Tile $tile */
         foreach ($tiles as $tile) {
-            $jsonTiles[$tile->getId()] = $tile->toJson();
+            $jsonTiles[$tile->getId()] = $tile->toArray();
         }
         // export layers to array
         $jsonLayers = [];
         $layers = $this->getLayers();
         /** @var Layer $layer */
         foreach ($layers as $layer) {
-            $jsonLayers[$layer->getId()] = $layer->toJson();
+            $jsonLayers[$layer->getId()] = $layer->toArray();
         }
         // export context to array
         $contextJson = null;
 
         if ($this->getCurrentContext()) {
-            $contextJson = $this->getCurrentContext()->toJson();
+            $contextJson = $this->getCurrentContext()->toArray();
         }
         $json = [
             'id' => $this->getId(),
             'label' => $this->getLabel(),
-            'tiles' => $jsonTiles,
+            //'tiles' => $jsonTiles,
             'layers' => $jsonLayers,
             'context' => $contextJson
         ];

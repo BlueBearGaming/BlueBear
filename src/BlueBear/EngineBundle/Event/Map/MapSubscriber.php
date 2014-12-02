@@ -21,17 +21,17 @@ class MapSubscriber implements EventSubscriberInterface
 
     public function onMapLoad(EngineEvent $event)
     {
-        $this->check($event);
+        $map = $event->getMap();
+
+        if (!$map->getCurrentContext()) {
+            $this->getContextFactory()->create($map);
+        }
     }
 
     public function onMapSave(EngineEvent $event)
     {
         $this->check($event);
-        $map = $event->getMap();
 
-        if (!$map->getCurrentContext()) {
-            $context = $this->getContextFactory()->create($map);
-        }
     }
 
     /**

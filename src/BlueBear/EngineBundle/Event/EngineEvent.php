@@ -10,6 +10,8 @@ class EngineEvent extends Event
 {
     use Data;
 
+    protected $eventName;
+
     /**
      * @var Map $map
      */
@@ -19,6 +21,10 @@ class EngineEvent extends Event
      * Engine events
      */
     const ENGINE_ON_ENGINE_EVENT = 'bluebear.engine.onEngineEvent';
+
+    /**
+     * Map events
+     */
     const ENGINE_ON_MAP_LOAD = 'bluebear.engine.onMapLoad';
     const ENGINE_ON_MAP_SAVE = 'bluebear.engine.onMapSave';
 
@@ -42,6 +48,7 @@ class EngineEvent extends Event
     {
         return [
             self::ENGINE_ON_TILE_CLICK,
+            self::ENGINE_ON_MAP_LOAD,
             self::ENGINE_ON_MAP_SAVE
         ];
     }
@@ -60,5 +67,21 @@ class EngineEvent extends Event
     public function setMap(Map $map)
     {
         $this->map = $map;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEventName()
+    {
+        return $this->eventName;
+    }
+
+    /**
+     * @param mixed $eventName
+     */
+    public function setEventName($eventName)
+    {
+        $this->eventName = $eventName;
     }
 }
