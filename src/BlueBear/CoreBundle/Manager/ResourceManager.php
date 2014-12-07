@@ -60,7 +60,6 @@ class ResourceManager
         } else {
             throw new Exception('Invalid upload type');
         }
-
     }
 
     /**

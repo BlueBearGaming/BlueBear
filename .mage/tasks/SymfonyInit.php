@@ -88,5 +88,6 @@ class SymfonyInit extends SymfonyAbstractTask
             $command = "ln -nfs $sharedFolderName/$folder $currentCopy/$folder";
             $this->runCommandRemote($command);
         }
+        // TODO add chmod options
     }
 }
