@@ -43,10 +43,26 @@ table {
 }
 
 .image-list {
+  a {
+    display: block;
+    float: left;
+    margin-left: 10px;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
   img {
     height: 100px;
     width: 100px;
+
+    &:hover {
+      border-width: 2px;
+    }
   }
+}
+.orphans-image-list {
+  clear: both;
 }
 
 .edit-pencil {

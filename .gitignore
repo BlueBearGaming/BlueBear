@@ -4,11 +4,11 @@ app/bootstrap.php.cache
 app/logs
 bin/*
 cache
+resources
 vendor
 web/bundles
 web/assets
 *.log
-.gitkeep
 
 # IDE
 .idea

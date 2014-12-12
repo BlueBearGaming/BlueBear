@@ -18,9 +18,10 @@ class ResourceManager
      *
      * @param UploadedFile $file
      * @param $uploadType
+     * @param Image $image
      * @throws Exception
      */
-    public function upload(UploadedFile $file, $uploadType)
+    public function upload(UploadedFile $file, $uploadType, Image $image = null)
     {
         $imagesDirectory = $this->getImageDirectory();
 
@@ -35,7 +36,10 @@ class ResourceManager
             $resource->setName($file->getClientOriginalName());
             $resource->setFileName($fileName);
             $resource->setFilePath($imagesDirectory);
-            $image = new Image();
+            // if no image was provided, we create a new one
+            if (!$image) {
+                $image = new Image();
+            }
             $image->setName($file->getClientOriginalName());
             $image->setResource($resource);
 

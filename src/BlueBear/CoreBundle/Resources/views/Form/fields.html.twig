@@ -107,14 +107,20 @@
     {% endif %}
 {% endblock %}
 
+
+{# generic edition form #}
 {% block generic_form %}
     {% set containerClass = containerClass is defined ? containerClass : '' %}
-    {% set title = title is defined ? title : '' %}
+    {% set title = title is defined ? title : null %}
+    {% set encType = (form.vars.multipart) ? 'multipart/form-data' : 'application/x-www-form-urlencoded' %}
 
-    <h1>{{ title }}</h1>
+    {% if title %}
+        <h1>{{ title }}</h1>
+    {% endif %}
 
     <div class="well {{ containerClass }}">
-        <form action="{{ path(action, { id: form.vars.value.id}) }}" method="post" class="form-horizontal">
+        <form action="{{ path(action, { id: form.vars.value.id}) }}" method="post" class="form-horizontal"
+              enctype="{{ encType }}">
             {{ form_widget(form) }}
 
             <div class="form-group">

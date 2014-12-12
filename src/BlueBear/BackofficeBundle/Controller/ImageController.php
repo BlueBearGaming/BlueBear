@@ -11,6 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class ImageController extends Controller
@@ -35,7 +36,7 @@ class ImageController extends Controller
      * @Template()
      * @param Request $request
      * @param Image $image
-     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     * @return array|RedirectResponse
      */
     public function editAction(Request $request, Image $image)
     {
@@ -43,8 +44,16 @@ class ImageController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+            // save image object
             $this->getImageManager()->save($image);
-            $this->setMessage('Image has been successfully changed');
+            $file = $form->get('file')->getData();
+            // upload new file
+            if ($file) {
+                // upload resource
+                $this->getResourceManager()->upload($file, Image::IMAGE_TYPE_SINGLE_IMAGE, $image);
+                $this->setMessage('Image has been successfully changed');
+            }
+            // redirect to image list
             return $this->redirect('@bluebear_backoffice_image');
         }
         return [
@@ -69,7 +78,7 @@ class ImageController extends Controller
      * Upload an image into backoffice
      *
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @throws \Exception
      */
     public function uploadAction(Request $request)
@@ -83,7 +92,6 @@ class ImageController extends Controller
             $uploadType = $form->get('type')->getData();
             // upload file into resources directory, if it's a sprite it will vut into multiple images
             $this->getResourceManager()->upload($file, $uploadType);
-
             $this->setMessage('Image has been successfully uploaded');
 
             if ($uploadType == Image::IMAGE_TYPE_RPG_MAKER_SPRITE) {
