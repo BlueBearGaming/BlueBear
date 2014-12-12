@@ -28,4 +28,15 @@ trait Label
     {
         $this->label = $label;
     }
+
+
+    /**
+     * Return entity label
+     *
+     * @return mixed
+     */
+    public function __toString()
+    {
+        return $this->label;
+    }
 } 

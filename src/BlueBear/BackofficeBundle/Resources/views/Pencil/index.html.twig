@@ -14,6 +14,7 @@
         {% set list = pencils %}
         {% set editRoute = 'bluebear_backoffice_pencil_edit' %}
         {% set deleteRoute = 'bluebear_backoffice_pencil_edit' %}
+        {% set fields = ['id', 'label', 'pencilSet'] %}
 
         {{ block('table_list') }}
     </div>
@@ -24,6 +25,7 @@
         {% set list = pencilSets %}
         {% set editRoute = 'bluebear_backoffice_pencil_set_edit' %}
         {% set deleteRoute = 'bluebear_backoffice_pencil_set_delete' %}
+        {% set fields = ['id', 'label'] %}
 
         {{ block('table_list') }}
     </div>
