@@ -23,9 +23,14 @@ class PencilTile
     protected $pencil;
 
     /**
-     * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Tile")
+     * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Tile", inversedBy="pencilTiles")
      */
     protected $tile;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Layer", inversedBy="tiles")
+     */
+    protected $layer;
 
     /**
      * @return mixed
@@ -57,5 +62,21 @@ class PencilTile
     public function setTile($tile)
     {
         $this->tile = $tile;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLayer()
+    {
+        return $this->layer;
+    }
+
+    /**
+     * @param mixed $layer
+     */
+    public function setLayer($layer)
+    {
+        $this->layer = $layer;
     }
 } 

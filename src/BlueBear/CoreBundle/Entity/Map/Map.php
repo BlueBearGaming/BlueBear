@@ -22,6 +22,10 @@ class Map
 {
     use Id, Nameable, Label, Sizable, Timestampable, Typeable;
 
+    const MAP_TYPE_EDITOR = 1;
+    const MAP_TYPE_DEBUG = 2;
+    const MAP_TYPE_GAME = 3;
+
     /**
      * Map pencil sets
      *
@@ -44,15 +48,63 @@ class Map
     protected $contexts;
 
     /**
-     * @ORM\OneToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\Tile", mappedBy="map", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Context", mappedBy="currentMap", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="current_context", nullable=true)
      */
-    protected $tiles;
-
     protected $currentContext;
 
+    /**
+     * Map mode :
+     *   > EDITOR : run in edit mode
+     *   > DEBUG : run with debug information
+     *   > GAME: normal run of the map
+     *
+     * @var int
+     */
+    protected $mode = self::MAP_TYPE_GAME;
+
+    /**
+     *
+     */
     public function __construct()
     {
         $this->contexts = new ArrayCollection();
+    }
+
+
+    /**
+     * @return array
+     */
+    public function toArray()
+    {
+        // export tiles to array
+        $jsonTiles = [];
+        $tiles = $this->getCurrentContext()->getTiles();
+        /** @var Tile $tile */
+        foreach ($tiles as $tile) {
+            $jsonTiles[$tile->getId()] = $tile->toArray();
+        }
+        // export layers to array
+        $jsonLayers = [];
+        $layers = $this->getLayers();
+        /** @var Layer $layer */
+        foreach ($layers as $layer) {
+            $jsonLayers[$layer->getId()] = $layer->toArray();
+        }
+        // export context to array
+        $contextJson = null;
+
+        if ($this->getCurrentContext()) {
+            $contextJson = $this->getCurrentContext()->toArray();
+        }
+        $json = [
+            'id' => $this->getId(),
+            'label' => $this->getLabel(),
+            //'tiles' => $jsonTiles,
+            'layers' => $jsonLayers,
+            'context' => $contextJson
+        ];
+        return $json;
     }
 
     /**
@@ -85,22 +137,6 @@ class Map
     public function setLayers($layers)
     {
         $this->layers = $layers;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getTiles()
-    {
-        return $this->tiles;
-    }
-
-    /**
-     * @param mixed $tiles
-     */
-    public function setTiles($tiles)
-    {
-        $this->tiles = $tiles;
     }
 
     /**
@@ -141,38 +177,22 @@ class Map
     public function setCurrentContext(Context $currentContext)
     {
         $this->currentContext = $currentContext;
-        $this->addContext($currentContext);
+        $currentContext->setCurrentMap($this);
     }
 
-    public function toArray()
+    /**
+     * @return int
+     */
+    public function getMode()
     {
-        // export tiles to array
-        $jsonTiles = [];
-        $tiles = $this->getTiles();
-        /** @var Tile $tile */
-        foreach ($tiles as $tile) {
-            $jsonTiles[$tile->getId()] = $tile->toArray();
-        }
-        // export layers to array
-        $jsonLayers = [];
-        $layers = $this->getLayers();
-        /** @var Layer $layer */
-        foreach ($layers as $layer) {
-            $jsonLayers[$layer->getId()] = $layer->toArray();
-        }
-        // export context to array
-        $contextJson = null;
+        return $this->mode;
+    }
 
-        if ($this->getCurrentContext()) {
-            $contextJson = $this->getCurrentContext()->toArray();
-        }
-        $json = [
-            'id' => $this->getId(),
-            'label' => $this->getLabel(),
-            //'tiles' => $jsonTiles,
-            'layers' => $jsonLayers,
-            'context' => $contextJson
-        ];
-        return $json;
+    /**
+     * @param int $mode
+     */
+    public function setMode($mode)
+    {
+        $this->mode = $mode;
     }
 }

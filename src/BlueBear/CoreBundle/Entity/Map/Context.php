@@ -6,7 +6,6 @@ use BlueBear\CoreBundle\Entity\Behavior\Data;
 use BlueBear\CoreBundle\Entity\Behavior\Id;
 use BlueBear\CoreBundle\Entity\Behavior\Label;
 use BlueBear\CoreBundle\Entity\Behavior\Timestampable;
-use BlueBear\CoreBundle\Entity\Behavior\Typeable;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -21,9 +20,45 @@ class Context
     use Id, Label, Timestampable, Data;
 
     /**
+     * Map which this context belongs
+     *
      * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Map", inversedBy="contexts")
      */
     protected $map;
+
+    /**
+     * Map with this context as current context
+     *
+     * @ORM\OneToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Map", inversedBy="currentContext")
+     */
+    protected $currentMap;
+
+    /**
+     * Tiles for this context
+     *
+     * @ORM\OneToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\Tile", mappedBy="context")
+     */
+    protected $tiles;
+
+    /**
+     * Convert the context to an array
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        $tiles = $this->getTiles();
+        $tilesArray = [];
+
+        /** @var Tile $tile */
+        foreach ($tiles as $tile) {
+            $tilesArray[] = $tile->toArray();
+        }
+        return [
+            'id' => $this->getId(),
+            'tiles' => $tilesArray
+        ];
+    }
 
     /**
      * @return Map
@@ -36,23 +71,40 @@ class Context
     /**
      * @param mixed $map
      */
-    public function setMap($map)
+    public function setMap(Map $map)
     {
         $this->map = $map;
     }
 
-    public function toArray()
+    /**
+     * @return mixed
+     */
+    public function getCurrentMap()
     {
-        $tiles = $this->getMap()->getTiles();
-        $tilesArray = [];
+        return $this->currentMap;
+    }
 
-        /** @var Tile $tile */
-        foreach ($tiles as $tile) {
-            $tilesArray[] = $tile->toArray();
-        }
-        return [
-            'id' => $this->getId(),
-            'tiles' => $tilesArray
-        ];
+    /**
+     * @param mixed $currentMap
+     */
+    public function setCurrentMap($currentMap)
+    {
+        $this->currentMap = $currentMap;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTiles()
+    {
+        return $this->tiles;
+    }
+
+    /**
+     * @param mixed $tiles
+     */
+    public function setTiles($tiles)
+    {
+        $this->tiles = $tiles;
     }
 } 

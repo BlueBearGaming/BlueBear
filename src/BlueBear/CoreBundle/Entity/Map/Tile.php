@@ -17,48 +17,25 @@ class Tile
     use Id, Positionable;
 
     /**
-     * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Map", inversedBy="tiles")
+     * Context of the tile
+     *
+     * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Context", inversedBy="tiles")
      */
-    protected $map;
+    protected $context;
 
     /**
+     * Link between the tile and a pencil on a layer
+     *
      * @ORM\OneToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\PencilTile", mappedBy="tile")
-     * @ORM\JoinColumn(name="pencil_tile")
+     * @ORM\JoinColumn(name="pencil_tiles")
      */
-    protected $pencilTile;
+    protected $pencilTiles;
 
     /**
-     * @return mixed
+     * Convert the tile to an array
+     *
+     * @return array
      */
-    public function getMap()
-    {
-        return $this->map;
-    }
-
-    /**
-     * @param mixed $map
-     */
-    public function setMap($map)
-    {
-        $this->map = $map;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPencilTile()
-    {
-        return $this->pencilTile;
-    }
-
-    /**
-     * @param mixed $pencilTile
-     */
-    public function setPencilTile($pencilTile)
-    {
-        $this->pencilTile = $pencilTile;
-    }
-
     public function toArray()
     {
         return [
@@ -66,5 +43,21 @@ class Tile
             'x' => $this->getX(),
             'y' => $this->getY()
         ];
+    }
+
+    /**
+     * @return Context
+     */
+    public function getContext()
+    {
+        return $this->context;
+    }
+
+    /**
+     * @param Context $context
+     */
+    public function setContext(Context $context)
+    {
+        $this->context = $context;
     }
 } 

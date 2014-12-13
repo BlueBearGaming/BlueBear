@@ -19,6 +19,11 @@ class Layer
 {
     use Id, Nameable, Label, Typeable, Descriptionable;
 
+    /**
+     * @ORM\OneToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\PencilTile", mappedBy="layer")
+     */
+    protected $tiles;
+
     public function toArray()
     {
         $json = [
@@ -26,5 +31,21 @@ class Layer
             'label' => $this->getLabel()
         ];
         return $json;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTiles()
+    {
+        return $this->tiles;
+    }
+
+    /**
+     * @param mixed $tiles
+     */
+    public function setTiles($tiles)
+    {
+        $this->tiles = $tiles;
     }
 }

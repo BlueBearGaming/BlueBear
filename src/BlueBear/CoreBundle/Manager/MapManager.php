@@ -4,8 +4,8 @@ namespace BlueBear\CoreBundle\Manager;
 
 use BlueBear\CoreBundle\Entity\Map\Map;
 use BlueBear\CoreBundle\Entity\Map\MapRepository;
-use BlueBear\CoreBundle\Entity\Map\Tile;
 use BlueBear\CoreBundle\Manager\Behavior\ManagerBehavior;
+use Doctrine\ORM\NonUniqueResultException;
 
 class MapManager
 {
@@ -33,30 +33,30 @@ class MapManager
      */
     public function saveMap(Map $map)
     {
-        $tiles = $map->getTiles();
 
-        // on map saving, we create tiles if they do not exist
-        if (!count($tiles)) {
-            $x = 0;
-            $y = 0;
-            $tiles = [];
-
-            while ($x < $map->getWidth()) {
-                while ($y < $map->getHeight()) {
-                    $tile = new Tile();
-                    $tile->setX($x);
-                    $tile->setY($y);
-                    $tile->setMap($map);
-                    $tiles[] = $tile;
-                    $y++;
-                }
-                $x++;
-            }
-            $map->setTiles($tiles);
-        }
         $this->save($map);
     }
 
+    /**
+     * Find the first map
+     *
+     * @return Map
+     * @throws NonUniqueResultException
+     */
+    public function findOne()
+    {
+        return $this
+            ->getRepository()
+            ->findOne()
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    /**
+     * Return number of maps
+     *
+     * @return mixed
+     */
     public function count()
     {
         return $this
@@ -65,12 +65,14 @@ class MapManager
     }
 
     /**
-     * Return layers repository
+     * Return map repository
      *
      * @return MapRepository
      */
     protected function getRepository()
     {
-        return $this->getEntityManager()->getRepository('BlueBear\CoreBundle\Entity\Map\Map');
+        return $this
+            ->getEntityManager()
+            ->getRepository('BlueBear\CoreBundle\Entity\Map\Map');
     }
 }
