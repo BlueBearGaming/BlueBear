@@ -2,25 +2,15 @@
 
 namespace BlueBear\CoreBundle\Manager\Behavior;
 
+use BlueBear\CoreBundle\Entity\Behavior\HasContainer;
+use BlueBear\CoreBundle\Entity\Behavior\HasEntityManager;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-// TODO translate comments
 trait ManagerBehavior
 {
-    /**
-     * Current manager $entityManager
-     *
-     * @var \Doctrine\Common\Persistence\ObjectManager
-     */
-    protected $entityManager;
-
-    /**
-     * Le conteneur de services
-     * @var ContainerInterface $container
-     */
-    protected $container;
+    use HasContainer, HasEntityManager;
 
     /**
      * Retourne le repository courant
@@ -30,27 +20,7 @@ trait ManagerBehavior
     abstract protected function getRepository();
 
     /**
-     * Définis le conteneur de services
-     *
-     * @param ContainerInterface $container
-     */
-    public function setContainer(ContainerInterface $container)
-    {
-        $this->container = $container;
-    }
-
-    /**
-     * Retourne le conteneur de services
-     *
-     * @return ContainerInterface
-     */
-    public function getContainer()
-    {
-        return $this->container;
-    }
-
-    /**
-     * Retourne un service
+     * Return a service by its id
      *
      * @param $service
      * @return ContainerInterface
@@ -61,7 +31,7 @@ trait ManagerBehavior
     }
 
     /**
-     * Sauvegarde d'une entité
+     * Save and optionally flush an entity
      *
      * @param $entity
      * @param bool $flush
@@ -78,7 +48,7 @@ trait ManagerBehavior
     }
 
     /**
-     * Suppression d'une entité
+     * Remove and optionally flush an entity
      *
      * @param $entity
      * @param bool $flush
@@ -95,7 +65,7 @@ trait ManagerBehavior
     }
 
     /**
-     * Retourne une entité par son identifiant
+     * Find an entity by its id
      *
      * @param $id
      * @return object
@@ -106,7 +76,7 @@ trait ManagerBehavior
     }
 
     /**
-     * Retourne une entité par son identifiant
+     * Find all entities in current repository
      *
      * @return object
      */
@@ -115,21 +85,26 @@ trait ManagerBehavior
         return $this->getRepository()->findAll();
     }
 
-    // TODO vérifier l'utilité de la fonction par rapport à la fonction save()
+    /**
+     * Flush current entity manager
+     *
+     * @param null $entity
+     */
     public function flush($entity = null)
     {
         $this->getEntityManager()->flush($entity);
     }
 
     /**
-     * Retourne le manager d'entités
+     * Return current entity manager
+     *
      * @return EntityManager
      */
     public function getEntityManager()
     {
-        if (!$this->entityManager) {
-            $this->entityManager = $this->container->get('doctrine')->getManager();
-        }
-        return $this->entityManager;
+        return $this
+            ->container
+            ->get('doctrine')
+            ->getManager();
     }
 }

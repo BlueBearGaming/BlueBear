@@ -43,6 +43,13 @@ table {
   }
 }
 
+// navbar
+.dropdown-menu {
+  & > li > a {
+    padding: 10px;
+  }
+}
+
 .image-list {
   a {
     display: block;

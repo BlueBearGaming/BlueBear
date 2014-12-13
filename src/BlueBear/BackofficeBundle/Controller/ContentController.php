@@ -6,7 +6,7 @@ use BlueBear\BackofficeBundle\Controller\Behavior\ControllerBehavior;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class UnitController extends Controller
+class ContentController extends Controller
 {
     use ControllerBehavior;
 
@@ -15,18 +15,6 @@ class UnitController extends Controller
      */
     public function indexAction()
     {
-        $units = [];
-
-        return [
-            'units' => $units
-        ];
-    }
-
-    /**
-     * @Template()
-     */
-    public function editAction()
-    {
-
+        return [];
     }
 }

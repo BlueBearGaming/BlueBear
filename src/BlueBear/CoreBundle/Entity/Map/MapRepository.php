@@ -15,4 +15,18 @@ class MapRepository extends EntityRepository
             ->where('map.id = :id')
             ->setParameter('id', $id);
     }
+
+    /**
+     * Return number of entities in map repository
+     *
+     * @return mixed
+     */
+    public function count()
+    {
+        return $this
+            ->createQueryBuilder('map')
+            ->select('COUNT(map.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }

@@ -55,6 +55,29 @@ var PencilForm = {
     }
 };
 
+var HighChartHelper = {
+    init: function (container, options) {
+        container.highcharts({
+            chart: {
+                type: options.type,
+                backgroundColor: '#303030'
+            },
+            title: {
+                text: options.title
+            },
+            xAxis: {
+                categories: ['Apples', 'Bananas', 'Oranges']
+            },
+            yAxis: {
+                title: {
+                    text: 'Fruit eaten'
+                }
+            },
+            series: options.series
+        });
+    }
+};
+
 var Backoffice = {
     init: function () {
         // alert on deletion

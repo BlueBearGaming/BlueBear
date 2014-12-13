@@ -72,6 +72,7 @@ bluebear_backoffice_unit_edit:
     pattern: /units/edit
     defaults: { _controller: BlueBearBackofficeBundle:Unit:edit }
 
+
 # Map
 bluebear_backoffice_map:
     pattern: /maps
@@ -94,3 +95,9 @@ bluebear_backoffice_api:
 bluebear_backoffice_api_test_php:
     pattern: /tests/php
     defaults: { _controller: BlueBearBackofficeBundle:Api:testPHP }
+
+
+# Content
+bluebear_content_index:
+    pattern: /content/unit
+    defaults: { _controller: BlueBearBackofficeBundle:Content:index }

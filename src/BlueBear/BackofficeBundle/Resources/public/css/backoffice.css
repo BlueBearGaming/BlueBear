@@ -10900,45 +10900,50 @@ table td .btn {
   line-height: 1;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/afrezet\/Projets\/Bluebear\/Symfony\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/backoffice\.scss}line{font-family:\0000347}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/afrezet\/Projets\/Bluebear\/Symfony\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/backoffice\.scss}line{font-family:\0000348}}
+.dropdown-menu > li > a {
+  padding: 10px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/afrezet\/Projets\/Bluebear\/Symfony\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/backoffice\.scss}line{font-family:\0000354}}
 .image-list a {
   display: block;
   float: left;
   margin-left: 10px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/afrezet\/Projets\/Bluebear\/Symfony\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/backoffice\.scss}line{font-family:\0000352}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/afrezet\/Projets\/Bluebear\/Symfony\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/backoffice\.scss}line{font-family:\0000359}}
 .image-list a:hover {
   text-decoration: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/afrezet\/Projets\/Bluebear\/Symfony\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/backoffice\.scss}line{font-family:\0000356}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/afrezet\/Projets\/Bluebear\/Symfony\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/backoffice\.scss}line{font-family:\0000363}}
 .image-list img {
   height: 100px;
   width: 100px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/afrezet\/Projets\/Bluebear\/Symfony\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/backoffice\.scss}line{font-family:\0000360}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/afrezet\/Projets\/Bluebear\/Symfony\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/backoffice\.scss}line{font-family:\0000367}}
 .image-list img:hover {
   border-width: 2px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/afrezet\/Projets\/Bluebear\/Symfony\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/backoffice\.scss}line{font-family:\0000365}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/afrezet\/Projets\/Bluebear\/Symfony\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/backoffice\.scss}line{font-family:\0000372}}
 .orphans-image-list {
   clear: both;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/afrezet\/Projets\/Bluebear\/Symfony\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/backoffice\.scss}line{font-family:\0000371}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/afrezet\/Projets\/Bluebear\/Symfony\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/backoffice\.scss}line{font-family:\0000378}}
 .edit-pencil .image-widget .image {
   display: inline-block;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/afrezet\/Projets\/Bluebear\/Symfony\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/backoffice\.scss}line{font-family:\0000374}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/afrezet\/Projets\/Bluebear\/Symfony\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/backoffice\.scss}line{font-family:\0000381}}
 .edit-pencil .image-widget .image.active {
   border: 1px solid #428BCA;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/afrezet\/Projets\/Bluebear\/Symfony\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/backoffice\.scss}line{font-family:\0000379}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/afrezet\/Projets\/Bluebear\/Symfony\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/backoffice\.scss}line{font-family:\0000386}}
 .edit-pencil .submit {
   clear: both;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/afrezet\/Projets\/Bluebear\/Symfony\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/backoffice\.scss}line{font-family:\0000385}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/afrezet\/Projets\/Bluebear\/Symfony\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/backoffice\.scss}line{font-family:\0000392}}
 .tests #php-response {
   height: 400px;
 }

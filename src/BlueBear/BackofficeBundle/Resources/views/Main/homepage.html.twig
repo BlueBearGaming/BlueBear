@@ -1,5 +1,24 @@
 {% extends 'BlueBearBackofficeBundle::layout.html.twig' %}
 
 {% block content %}
+    <div class="test">
+lol ?
+    </div>
 
+    <script>
+        $(document).on('ready', function () {
+            var chartsOptions = {
+                type: 'pie',
+                title: 'Images',
+                series: [
+                    {
+                        name: 'test',
+                        data: [0, 2, 5, 8, 9]
+                    }
+                ]
+            };
+
+            HighChartHelper.init($('.test'), chartsOptions);
+        })
+    </script>
 {% endblock %}

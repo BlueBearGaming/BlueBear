@@ -2,6 +2,7 @@
 
 namespace BlueBear\CoreBundle\Entity\Map;
 
+use Doctrine\ORM\Mapping as ORM;
 use BlueBear\CoreBundle\Entity\Behavior\Descriptionable;
 use BlueBear\CoreBundle\Entity\Behavior\Id;
 use BlueBear\CoreBundle\Entity\Behavior\Label;
@@ -10,7 +11,6 @@ use BlueBear\CoreBundle\Entity\Behavior\Sizable;
 use BlueBear\CoreBundle\Entity\Behavior\Taggable;
 use BlueBear\CoreBundle\Entity\Behavior\Typeable;
 use BlueBear\CoreBundle\Entity\Editor\Image;
-use Doctrine\ORM\Mapping as ORM;
 
 /**
  * A pencil is a model that is used to "paint" tiles and object on the map. Each map have a pencil

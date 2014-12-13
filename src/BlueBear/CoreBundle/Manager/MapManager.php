@@ -57,6 +57,13 @@ class MapManager
         $this->save($map);
     }
 
+    public function count()
+    {
+        return $this
+            ->getRepository()
+            ->count();
+    }
+
     /**
      * Return layers repository
      *
