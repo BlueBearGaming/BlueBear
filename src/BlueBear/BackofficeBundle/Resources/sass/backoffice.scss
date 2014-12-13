@@ -30,6 +30,7 @@ form {
     color: #dddddd;
   }
   textarea {
+    min-height: 150px;
     resize: vertical;
   }
 }
@@ -77,5 +78,11 @@ table {
   }
   .submit {
     clear: both;
+  }
+}
+
+.tests {
+  #php-response {
+    height: 400px;
   }
 }
