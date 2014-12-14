@@ -61,7 +61,7 @@ class ApiController extends Controller
 
                     /** @var PencilSet $pencilSet */
                     foreach ($pencilSets as $pencilSet) {
-                        $pencils[] = $pencilSet->getPencils();
+                        $pencils = array_merge($pencils, $pencilSet->getPencils()->toArray());
                     }
                     if (count($pencils)) {
                         /** @var Pencil $pencil */
