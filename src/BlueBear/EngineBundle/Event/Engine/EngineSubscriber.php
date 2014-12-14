@@ -41,7 +41,7 @@ class EngineSubscriber implements EventSubscriberInterface
             throw new Exception('Map not found');
         }
         $event->setMap($map);
-        // we load map only if event is not map load
+        // we load map only if event is not map load to avoid calling subscribers twice
         if ($event->getEventName() != EngineEvent::ENGINE_ON_MAP_LOAD) {
             // dispatch map load event
             $this->getEventDispatcher()->dispatch(EngineEvent::ENGINE_ON_MAP_LOAD, $event);

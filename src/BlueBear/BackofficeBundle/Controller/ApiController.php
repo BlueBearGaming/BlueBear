@@ -3,6 +3,9 @@
 namespace BlueBear\BackofficeBundle\Controller;
 
 use BlueBear\BackofficeBundle\Controller\Behavior\ControllerBehavior;
+use BlueBear\CoreBundle\Entity\Map\Pencil;
+use BlueBear\CoreBundle\Entity\Map\PencilSet;
+use BlueBear\CoreBundle\Entity\Map\Tile;
 use BlueBear\CoreBundle\Manager\MapManager;
 use BlueBear\EngineBundle\Event\EngineEvent;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -40,6 +43,7 @@ class ApiController extends Controller
             $snippet = new stdClass();
             if ($event == EngineEvent::ENGINE_ON_MAP_LOAD) {
                 $snippet->mapId = $map->getId();
+                $snippet->contextId = null;
                 $snippets[$event] = $snippet;
             } else if ($event == EngineEvent::ENGINE_ON_MAP_SAVE) {
                 $snippet->mapId = $map->getId();
@@ -48,8 +52,34 @@ class ApiController extends Controller
                 if ($map->getCurrentContext()) {
                     $snippet->context->id = $map->getCurrentContext()->getId();
                     $snippet->context->tiles = [];
-                    $snippet->context->tiles[] = $map->getCurrentContext()->getTiles()[0];
-                    $snippet->context->tiles[] = $map->getCurrentContext()->getTiles()[1];
+                    $tiles[] = $map->getCurrentContext()->getTiles()[0];
+                    $tiles[] = $map->getCurrentContext()->getTiles()[1];
+
+                    // get allowed pencils
+                    $pencils = [];
+                    $pencilSets = $map->getPencilSets();
+
+                    /** @var PencilSet $pencilSet */
+                    foreach ($pencilSets as $pencilSet) {
+                        $pencils[] = $pencilSet->getPencils();
+                    }
+                    if (count($pencils)) {
+                        /** @var Pencil $pencil */
+                        $pencil = $pencils[0];
+                        /** @var Tile $tile */
+                        foreach ($tiles as $tile) {
+                            $pencilObject = new stdClass();
+                            $pencilObject->id = $pencil->getId();
+                            $pencilObject->label = $pencil->getLabel();
+                            $pencilObject->name = $pencil->getName();
+                            $pencilObject->layer = '';
+
+                            $tileObject = new stdClass();
+                            $tileObject->id = $tile->getId();
+                            $tileObject->pencil = $pencilObject;
+                            $snippet->context->tiles[$tile->getId()] = $tileObject;
+                        }
+                    }
                 }
                 $snippets[$event] = $snippet;
             }

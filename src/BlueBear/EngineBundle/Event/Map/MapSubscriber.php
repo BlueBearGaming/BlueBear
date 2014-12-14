@@ -22,8 +22,14 @@ class MapSubscriber implements EventSubscriberInterface
     public function onMapLoad(EngineEvent $event)
     {
         $map = $event->getMap();
+        $data = $event->getData();
 
-        if (!$map->getCurrentContext()) {
+        // if a context id is provided, we try to load this context
+        if (property_exists($data, 'contextId')) {
+            $this->getContextFactory()->loadContext($map, $data->contextId);
+        }
+        // if no context id we load the last context
+        else if (!$map->getCurrentContext()) {
             $this->getContextFactory()->create($map);
         }
     }
