@@ -43,7 +43,8 @@
                         url: form.attr('action').replace('__EVENT__', eventName).replace('__EVENT_DATA__', eventData),
                         type: 'post',
                         success: function (response) {
-                            responseContainer.text(JSON.stringify(response, null, 4));
+                            responseContainer.text(JSON.stringify(response, null, 8));
+                            TestHelper.processSize(responseContainer);
                         }
                     });
                     return false;
@@ -58,11 +59,23 @@
 
             selectChange: function (textarea, eventName) {
                 if (TestHelper.snippets[eventName]) {
-                    var jsonText = JSON.stringify(TestHelper.snippets[eventName], null, 4);
+                    var jsonText = JSON.stringify(TestHelper.snippets[eventName], null, 8);
                     textarea.text(jsonText);
+
                 } else {
-                    textarea.text('');
+                    textarea.empty();
                 }
+                TestHelper.processSize(textarea);
+            },
+
+            /**
+             * Refresh textarea size after content insertion to match content height (no more scrollbar)
+             *
+             * @param textarea
+             */
+            processSize: function (textarea) {
+                console.log('height', textarea[0].scrollHeight);
+                textarea.height(textarea[0].offsetHeight);
             }
         };
 

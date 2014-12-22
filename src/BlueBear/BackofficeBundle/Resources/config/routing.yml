@@ -101,3 +101,8 @@ bluebear_backoffice_api_test_php:
 bluebear_content_index:
     pattern: /content/unit
     defaults: { _controller: BlueBearBackofficeBundle:Content:index }
+
+# Documentation
+bluebear_backoffice_documentation:
+    pattern: /docs
+    defaults: { _controller: BlueBearBackofficeBundle:Documentation:index }

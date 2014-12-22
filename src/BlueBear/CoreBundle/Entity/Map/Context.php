@@ -101,6 +101,21 @@ class Context
     }
 
     /**
+     * Return tiles with id as array key
+     *
+     * @return array
+     */
+    public function getTilesById()
+    {
+        $tiles = [];
+        /** @var Tile $tile */
+        foreach ($this->tiles as $tile) {
+            $tiles[$tile->getId()] = $tile;
+        }
+        return $tiles;
+    }
+
+    /**
      * @param mixed $tiles
      */
     public function setTiles($tiles)

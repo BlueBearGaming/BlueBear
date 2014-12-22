@@ -14,7 +14,9 @@ class EngineController extends Controller
 
     public function triggerEventAction(Request $request)
     {
+        // api event name
         $eventName = $request->get('eventName');
+        // api event data
         $eventData = $request->get('eventData');
         /** @var Engine $engine */
         $engine = $this->get('bluebear.engine.engine');
@@ -24,8 +26,8 @@ class EngineController extends Controller
         $response->setStatusCode(200);
         $response->setEncodingOptions(JSON_PRETTY_PRINT);
         $response->setData([
-            'code' => 'ok',
-            'data' => $engineEvent->getMap()->toArray()
+            'code' => $engineEvent->getResponseCode(),
+            'data' => $engineEvent->getResponseData()
         ]);
         return $response;
     }

@@ -124,7 +124,7 @@ class Map
     }
 
     /**
-     * @return mixed
+     * @return ArrayCollection
      */
     public function getLayers()
     {

@@ -52,15 +52,12 @@ class Engine
             $this->getEventDispatcher()->dispatch(EngineEvent::ENGINE_ON_ENGINE_EVENT, $engineEvent);
             // trigger wanted event
             $this->getEventDispatcher()->dispatch($eventName, $engineEvent);
-            // return event
-            return $engineEvent;
         } catch (Exception $e) {
-            echo 'lol';
-            echo $e->getMessage();
-            echo "\n";
-            echo $e->getTraceAsString();
-            die;
-            $response = $this->createResponse(self::RESPONSE_CODE_KO, $e->getMessage(), 200);
+            $engineEvent = new EngineEvent();
+            $engineEvent->setResponseCode(EngineEvent::ENGINE_EVENT_RESPONSE_KO);
+            $engineEvent->setResponseData($e);
         }
+        // return event
+        return $engineEvent;
     }
 } 

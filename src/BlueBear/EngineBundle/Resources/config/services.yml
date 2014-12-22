@@ -33,6 +33,7 @@ services:
             - {name: kernel.event_subscriber}
         calls:
             - [setContextFactory, [@bluebear.engine.context_factory]]
+            - [setContainer, [@service_container]]
 
     bluebear.engine.event.engine_subscriber:
         class: %bluebear.engine.event.engine_subscriber%

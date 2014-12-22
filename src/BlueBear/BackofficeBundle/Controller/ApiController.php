@@ -3,6 +3,7 @@
 namespace BlueBear\BackofficeBundle\Controller;
 
 use BlueBear\BackofficeBundle\Controller\Behavior\ControllerBehavior;
+use BlueBear\CoreBundle\Entity\Map\Layer;
 use BlueBear\CoreBundle\Entity\Map\Pencil;
 use BlueBear\CoreBundle\Entity\Map\PencilSet;
 use BlueBear\CoreBundle\Entity\Map\Tile;
@@ -17,6 +18,8 @@ class ApiController extends Controller
     use ControllerBehavior;
 
     /**
+     * Display api interface to send event and receive response from api
+     *
      * @Template()
      */
     public function indexAction()
@@ -31,6 +34,8 @@ class ApiController extends Controller
     }
 
     /**
+     * Return json snippets to help user to make a request to api
+     *
      * @return string
      */
     protected function getJsonSnippets()
@@ -66,13 +71,16 @@ class ApiController extends Controller
                     if (count($pencils)) {
                         /** @var Pencil $pencil */
                         $pencil = $pencils[0];
+                        $layers = $map->getLayers()->toArray();
                         /** @var Tile $tile */
                         foreach ($tiles as $tile) {
                             $pencilObject = new stdClass();
                             $pencilObject->id = $pencil->getId();
                             $pencilObject->label = $pencil->getLabel();
                             $pencilObject->name = $pencil->getName();
-                            $pencilObject->layer = '';
+                            /** @var Layer $layer */
+                            $layer = $layers[array_rand($layers)];
+                            $pencilObject->layer = $layer->getId();
 
                             $tileObject = new stdClass();
                             $tileObject->id = $tile->getId();

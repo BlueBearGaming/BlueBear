@@ -12,6 +12,10 @@ class EngineEvent extends Event
 
     protected $eventName;
 
+    protected $responseData = [];
+
+    protected $responseCode = self::ENGINE_EVENT_RESPONSE_OK;
+
     /**
      * @var Map $map
      */
@@ -38,6 +42,12 @@ class EngineEvent extends Event
     const ENGINE_ON_ENTER = 'bluebear.engine.onEnter';
     const ENGINE_ON_AFTER_ENTER = 'bluebear.engine.onAfterEnter';
     const ENGINE_ON_TILE_CLICK = 'bluebear.engine.onTileClick';
+
+    /**
+     * Engine event response code
+     */
+    const ENGINE_EVENT_RESPONSE_OK = 'ok';
+    const ENGINE_EVENT_RESPONSE_KO = 'error';
 
     /**
      * Return allowed events to be called in front
@@ -83,5 +93,42 @@ class EngineEvent extends Event
     public function setEventName($eventName)
     {
         $this->eventName = $eventName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getResponseData()
+    {
+        return $this->responseData;
+    }
+
+    /**
+     * @param mixed $responseData
+     */
+    public function setResponseData($responseData)
+    {
+        $this->responseData = $responseData;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getResponseCode()
+    {
+        return $this->responseCode;
+    }
+
+    /**
+     * @param mixed $responseCode
+     */
+    public function setResponseCode($responseCode)
+    {
+        $this->responseCode = $responseCode;
+    }
+
+    public function addResponseData($responseData)
+    {
+        $this->responseData[] = $responseData;
     }
 }

@@ -1,0 +1,94 @@
+{% extends 'BlueBearBackofficeBundle::layout.html.twig' %}
+
+{% block rightMenu %}
+    <ul class="nav nav-pills nav-stacked">
+        <li><a href="{{ path('bluebear_backoffice_documentation') }}#api">Api</a></li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+    <h1>Welcome in BlueBear Documentation</h1>
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Api</h2>
+            <h3>Events</h3>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Map save (bluebear.engine.onMapSave)
+                </div>
+                <div class="panel-body">
+                    <h4>Parameters (json object):</h4>
+
+                    <table class="table table-striped table-hover table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Parameter name</th>
+                            <th>Description</th>
+                            <th>Example</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>mapId</td>
+                            <td>Id of the current map</td>
+                            <td>"mapId": 1,</td>
+                        </tr>
+                        <tr>
+                            <td>context</td>
+                            <td>Context of the current map</td>
+                            <td>"mapId": 1,</td>
+                        </tr>
+                        <tr>
+                            <td>mapId</td>
+                            <td>Id of the current map</td>
+                            <td>"mapId": 1,</td>
+                        </tr>
+                        <tr>
+                            <td>mapId</td>
+                            <td>Id of the current map</td>
+                            <td>"mapId": 1,</td>
+                        </tr>
+                        <tr>
+                            <td>mapId</td>
+                            <td>Id of the current map</td>
+                            <td>"mapId": 1,</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <p>
+                        json object :<br/>
+
+
+                    </p>
+                    {
+                        "mapId": 1,
+                        "context": {
+                            "id": 81,
+                            "tiles": {
+                                "17": {
+                                    "id": 17,
+                                    "pencil": {
+                                        "id": 1,
+                                        "label": "Little Panda",
+                                        "name": "pencil_panda_0",
+                                        "layer": 1
+                                    }
+                                },
+                                "18": {
+                                    "id": 18,
+                                    "pencil": {
+                                        "id": 1,
+                                        "label": "Little Panda",
+                                        "name": "pencil_panda_0",
+                                        "layer": 1
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
