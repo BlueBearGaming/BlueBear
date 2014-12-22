@@ -6,7 +6,6 @@ use BlueBear\CoreBundle\Entity\Behavior\HasEventDispatcher;
 use BlueBear\CoreBundle\Entity\Map\Map;
 use BlueBear\EngineBundle\Event\EngineEvent;
 use Exception;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Engine
@@ -56,12 +55,12 @@ class Engine
             // return event
             return $engineEvent;
         } catch (Exception $e) {
+            echo 'lol';
             echo $e->getMessage();
             echo "\n";
             echo $e->getTraceAsString();
             die;
             $response = $this->createResponse(self::RESPONSE_CODE_KO, $e->getMessage(), 200);
         }
-        return $response;
     }
 } 
