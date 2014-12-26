@@ -19,6 +19,10 @@ class PencilSet
 {
     use Id, Nameable, Label;
 
+    const TYPE_SQUARE = 'square';
+    const TYPE_ISOMETRIC = 'isometric';
+    const TYPE_HEXAGON = 'hexagon';
+
     /**
      * List of pencils attached to the pencil set
      *
@@ -31,6 +35,20 @@ class PencilSet
      * @var ArrayCollection
      */
     protected $maps;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    protected $type;
+
+    public static function getPencilSetType()
+    {
+        return [
+            self::TYPE_SQUARE => 'Square',
+            self::TYPE_HEXAGON => 'Hexagon',
+            self::TYPE_ISOMETRIC => 'Isometric',
+        ];
+    }
 
     public function __construct()
     {
@@ -68,13 +86,29 @@ class PencilSet
         $this->maps->remove($map->getId());
     }
 
+    /**
+     * @return mixed
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param mixed $type
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
+
     public function toArray()
     {
         $jsonPencils = [];
         foreach ($this->getPencils() as $pencil) {
             $jsonPencils[] = $pencil->toArray();
         }
-        
+
         $jsonPencilSet = [
             'name' => $this->getName(),
             'label' => $this->getLabel(),

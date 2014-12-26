@@ -16,7 +16,7 @@
             {# pencils #}
             {% for pencilSet in map.pencilSets %}
                 <ul class="accordion">
-                    <li><strong>{{ pencilSet.label }}</strong>
+                    <li><strong>{{ pencilSet.label }} - {{ pencilSet.type }}</strong>
                         <ul>
                             {% for pencil in pencilSet.pencils %}
                                 <li data-id="{{ pencil.id }}">
