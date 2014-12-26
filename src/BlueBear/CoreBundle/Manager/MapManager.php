@@ -51,13 +51,6 @@ class MapManager
             ->getOneOrNullResult();
     }
 
-    public function findOneBy($arguments)
-    {
-        return $this
-            ->getRepository()
-            ->findOneBy($arguments);
-    }
-
     /**
      * Return number of maps
      *

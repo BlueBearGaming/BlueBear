@@ -40,17 +40,18 @@ class ContextFactory
 
     /**
      * @param Map $map Current map
-     * @param array $tiles Altered
+     * @param array $mapItems
      * @return Context
      */
-    public function update(Map $map, array $tiles)
+    public function update(Map $map, array $mapItems)
     {
         $context = new Context();
         $context->setLabel($this->generateContextName());
-        $context->setTiles($tiles);
+        $context->setMapItems($mapItems);
         $context->setMap($map);
-        $context->setCurrentMap($map);
         $this->getMapManager()->save($context);
+        $map->setCurrentContext($context);
+        $this->getMapManager()->save($map);
 
         return $context;
     }

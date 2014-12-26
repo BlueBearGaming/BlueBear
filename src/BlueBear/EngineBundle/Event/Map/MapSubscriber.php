@@ -69,42 +69,36 @@ class MapSubscriber implements EventSubscriberInterface
             }
             // if mapItems were provided
             if ($this->propertyExists($data->context, 'mapItems')) {
-                $mapItems = $map->getCurrentContext()->getMapItemsById();
-                $ids = array_keys($mapItems);
+                $mapItems = [];
+                //$ids = array_keys($mapItems);
 
                 // update altered mapItems
                 foreach ($data->context->mapItems as $mapItemData) {
-                    // mapItems should exists
-                    if (!property_exists($mapItemData, 'id') or !array_key_exists($mapItemData->id, $ids)) {
-                        throw new Exception('Invalid mapItem id');
-                    }
                     // if a pencil was provided
                     if ($this->propertyExists($mapItemData, 'pencil')) {
                         if (!$this->propertyExists($mapItemData, 'id') and !$this->propertyExists($mapItemData, 'pencil')) {
                             throw new Exception('Invalid pencil data');
                         }
                         // get pencil and layer
-                        $pencil = $this->getContainer()->get('bluebear.manager.pencil')->find($mapItemData->pencil->id);
-                        $layer = $this->getContainer()->get('bluebear.manager.layer')->find($mapItemData->pencil->layer);
+                        $pencil = $this->getContainer()->get('bluebear.manager.pencil')->findOneBy([
+                            'name' => $mapItemData->pencil->name
+                        ]);
+                        $layer = $this->getContainer()->get('bluebear.manager.layer')->findOneBy([
+                            'name' => $mapItemData->layer->name
+                        ]);
                         // test if pencil data are valid
                         if (!$pencil) {
                             throw new Exception('Pencil not found for tileId : ' . $mapItemData->id);
                         }
-                        /** @var Tile $tile */
-                        $tile = $tiles[$tileData->id];
-                        // TODO set context
-                        $pencilTile = new MapItem();
-
-                        $pencilTile->setPencil($pencil);
-                        $pencilTile->setLayer($layer);
-                        // create liaison between pencil and tile for this context
-                        $tile->setPencilTiles($pencilTile);
+                        $mapItem = new MapItem();
+                        $mapItem->setPencil($pencil);
+                        $mapItem->setLayer($layer);
                         // add to list
-                        $alteredTiles[] = $tile;
+                        $mapItems[] = $mapItem;
                     }
                 }
-                //$context = $this->getContextFactory()->update($map, $alteredTiles);
-                //$event->setResponseData($context->toArray());
+                $context = $this->getContextFactory()->update($map, $mapItems);
+                $event->setResponseData($context->toArray());
             }
         }
     }

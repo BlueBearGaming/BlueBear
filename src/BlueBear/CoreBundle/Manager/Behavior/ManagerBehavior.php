@@ -96,6 +96,19 @@ trait ManagerBehavior
     }
 
     /**
+     * Return an entity by its property
+     *
+     * @param $arguments
+     * @return null|object
+     */
+    public function findOneBy($arguments)
+    {
+        return $this
+            ->getRepository()
+            ->findOneBy($arguments);
+    }
+
+    /**
      * Return current entity manager
      *
      * @return EntityManager

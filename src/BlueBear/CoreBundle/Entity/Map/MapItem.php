@@ -34,6 +34,11 @@ class MapItem
     protected $layer;
 
     /**
+     * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Context", inversedBy="mapItems")
+     */
+    protected $context;
+
+    /**
      * Absolute X position of the object in the map
      * @var int
      * @ORM\Column(type="integer")
