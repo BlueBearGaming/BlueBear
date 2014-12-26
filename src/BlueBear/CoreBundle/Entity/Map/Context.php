@@ -34,33 +34,6 @@ class Context
     protected $currentMap;
 
     /**
-     * Tiles for this context
-     *
-     * @ORM\OneToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\Tile", mappedBy="context")
-     */
-    protected $tiles;
-
-    /**
-     * Convert the context to an array
-     *
-     * @return array
-     */
-    public function toArray()
-    {
-        $tiles = $this->getTiles();
-        $tilesArray = [];
-
-        /** @var Tile $tile */
-        foreach ($tiles as $tile) {
-            $tilesArray[] = $tile->toArray();
-        }
-        return [
-            'id' => $this->getId(),
-            'tiles' => $tilesArray
-        ];
-    }
-
-    /**
      * @return Map
      */
     public function getMap()
@@ -90,36 +63,5 @@ class Context
     public function setCurrentMap($currentMap)
     {
         $this->currentMap = $currentMap;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getTiles()
-    {
-        return $this->tiles;
-    }
-
-    /**
-     * Return tiles with id as array key
-     *
-     * @return array
-     */
-    public function getTilesById()
-    {
-        $tiles = [];
-        /** @var Tile $tile */
-        foreach ($this->tiles as $tile) {
-            $tiles[$tile->getId()] = $tile;
-        }
-        return $tiles;
-    }
-
-    /**
-     * @param mixed $tiles
-     */
-    public function setTiles($tiles)
-    {
-        $this->tiles = $tiles;
     }
 } 

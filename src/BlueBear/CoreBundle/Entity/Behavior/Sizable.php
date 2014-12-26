@@ -9,12 +9,12 @@ trait Sizable
     /**
      * @ORM\Column(type="integer")
      */
-    protected $width;
+    protected $width = 0;
 
     /**
      * @ORM\Column(type="integer")
      */
-    protected $height;
+    protected $height = 0;
 
     public function getHeight()
     {

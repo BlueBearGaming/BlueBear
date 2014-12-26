@@ -63,19 +63,19 @@ class MapSubscriber implements EventSubscriberInterface
                 // invalid context
                 throw new Exception('Invalid context id. You should provided the last context id');
             }
-            // if tiles were provided
-            if (property_exists($data->context, 'tiles') and is_array($data->context->tiles)) {
-                $tiles = $map->getCurrentContext()->getTilesById();
-                $ids = array_keys($tiles);
+            // if mapItems were provided
+            if (property_exists($data->context, 'mapItems') and is_array($data->context->mapItems)) {
+                $mapItems = $map->getCurrentContext()->getMapItemsById();
+                $ids = array_keys($mapItems);
 
-                // update altered tiles
-                foreach ($data->context->tiles as $tileData) {
-                    // tiles should exists
-                    if (!property_exists($tileData, 'id') or !array_key_exists($tileData->id, $ids)) {
-                        throw new Exception('Invalid tile id');
+                // update altered mapItems
+                foreach ($data->context->mapItems as $mapItemData) {
+                    // mapItems should exists
+                    if (!property_exists($mapItemData, 'id') or !array_key_exists($mapItemData->id, $ids)) {
+                        throw new Exception('Invalid mapItem id');
                     }
                     // if a pencil was provided
-                    if (property_exists($tileData, 'pencil')) {
+                    if (property_exists($mapItemData, 'pencil')) {
 
                     }
 

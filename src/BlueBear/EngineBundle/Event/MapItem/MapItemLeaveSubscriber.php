@@ -1,11 +1,11 @@
 <?php
 
-namespace BlueBear\EngineBundle\Event\Tile;
+namespace BlueBear\EngineBundle\Event\MapItem;
 
 use BlueBear\EngineBundle\Event\EngineEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class TileLeaveSubscriber implements EventSubscriberInterface
+class MapItemLeaveSubscriber implements EventSubscriberInterface
 {
     public static function getSubscribedEvents()
     {

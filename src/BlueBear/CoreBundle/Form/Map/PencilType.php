@@ -80,20 +80,16 @@ class PencilType extends AbstractType
                 ->addModelTransformer($imageTransformer)
         );
         $builder->add('imageX', 'integer', [
-            'data' => 0,
             'help_block' => 'Image x position'
         ]);
         $builder->add('imageY', 'integer', [
             'help_block' => 'Image y position',
-            'data' => 0
         ]);
         $builder->add('width', 'integer', [
             'help_block' => 'Image width displayed (in px)',
-            'data' => 0
         ]);
         $builder->add('height', 'integer', [
             'help_block' => 'Image height displayed (in px)',
-            'data' => 0
         ]);
     }
 

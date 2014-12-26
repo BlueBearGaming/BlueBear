@@ -4,8 +4,8 @@ parameters:
     bluebear.engine.context_factory: BlueBear\EngineBundle\Engine\Context\ContextFactory
 
     # events subscribers
-    bluebear.engine.event.tile_leave_subscriber: BlueBear\EngineBundle\Event\Tile\TileLeaveSubscriber
-    bluebear.engine.event.tile_click_subscriber: BlueBear\EngineBundle\Event\Tile\TileClickSubscriber
+    bluebear.engine.event.mapitem_leave_subscriber: BlueBear\EngineBundle\Event\MapItem\MapItemLeaveSubscriber
+    bluebear.engine.event.mapitem_click_subscriber: BlueBear\EngineBundle\Event\MapItem\MapItemClickSubscriber
     bluebear.engine.event.map_subscriber: BlueBear\EngineBundle\Event\Map\MapSubscriber
     bluebear.engine.event.engine_subscriber: BlueBear\EngineBundle\Event\Engine\EngineSubscriber
 
@@ -17,13 +17,13 @@ services:
             - [setEventDispatcher, [@event_dispatcher]]
 
     # events subscribers
-    bluebear.engine.event.tile_leave_subscriber:
-        class: %bluebear.engine.event.tile_leave_subscriber%
+    bluebear.engine.event.mapitem_leave_subscriber:
+        class: %bluebear.engine.event.mapitem_leave_subscriber%
         tags:
             - {name: kernel.event_subscriber}
 
-    bluebear.engine.event.tile_click_subscriber:
-        class: %bluebear.engine.event.tile_click_subscriber%
+    bluebear.engine.event.mapitem_click_subscriber:
+        class: %bluebear.engine.event.mapitem_click_subscriber%
         tags:
             - {name: kernel.event_subscriber}
 

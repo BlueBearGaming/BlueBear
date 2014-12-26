@@ -20,7 +20,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Map
 {
-    use Id, Nameable, Label, Sizable, Timestampable, Typeable;
+    use Id, Nameable, Label, Timestampable, Typeable;
 
     const MAP_TYPE_EDITOR = 1;
     const MAP_TYPE_DEBUG = 2;
@@ -77,38 +77,28 @@ class Map
      */
     public function toArray()
     {
-        // export tiles to array
-        $jsonTiles = [];
-        $tiles = $this->getCurrentContext()->getTiles();
-        /** @var Tile $tile */
-        foreach ($tiles as $tile) {
-            $jsonTiles[$tile->getId()] = $tile->toArray();
-        }
-        // export layers to array
         $jsonLayers = [];
-        $layers = $this->getLayers();
-        /** @var Layer $layer */
-        foreach ($layers as $layer) {
+        foreach ($this->getLayers() as $layer) {
             $jsonLayers[$layer->getId()] = $layer->toArray();
         }
-        // export context to array
-        $contextJson = null;
 
-        if ($this->getCurrentContext()) {
-            $contextJson = $this->getCurrentContext()->toArray();
+        $jsonPencilSets = [];
+        foreach ($this->getPencilSets() as $pencilSet) {
+            $jsonPencilSets[] = $pencilSet->toArray();
         }
+
         $json = [
-            'id' => $this->getId(),
+            'name' => $this->getName(),
             'label' => $this->getLabel(),
-            //'tiles' => $jsonTiles,
+            'type' => $this->getType(),
             'layers' => $jsonLayers,
-            'context' => $contextJson
+            'pencilSets' => $jsonPencilSets,
         ];
         return $json;
     }
 
     /**
-     * @return mixed
+     * @return PencilSet[]
      */
     public function getPencilSets()
     {
@@ -124,7 +114,7 @@ class Map
     }
 
     /**
-     * @return ArrayCollection
+     * @return Layer[]
      */
     public function getLayers()
     {
@@ -140,7 +130,7 @@ class Map
     }
 
     /**
-     * @return mixed
+     * @return Context[]
      */
     public function getContexts()
     {

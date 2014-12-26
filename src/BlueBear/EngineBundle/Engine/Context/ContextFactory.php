@@ -5,7 +5,6 @@ namespace BlueBear\EngineBundle\Engine\Context;
 use BlueBear\CoreBundle\Entity\Behavior\HasMapManager;
 use BlueBear\CoreBundle\Entity\Map\Context;
 use BlueBear\CoreBundle\Entity\Map\Map;
-use BlueBear\CoreBundle\Entity\Map\Tile;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 
 class ContextFactory
@@ -35,25 +34,6 @@ class ContextFactory
         $map->setCurrentContext($context);
         $this->getMapManager()->save($context);
         $this->getMapManager()->save($map);
-        // on context creation, we create tiles
-        $x = 0;
-        $tiles = [];
-
-        while ($x < $map->getWidth()) {
-            $y = 0;
-
-            while ($y < $map->getHeight()) {
-                $tile = new Tile();
-                $tile->setX($x);
-                $tile->setY($y);
-                $tile->setContext($context);
-                $this->getMapManager()->save($tile);
-                $tiles[] = $tile;
-                $y++;
-            }
-            $x++;
-        }
-        $context->setTiles($tiles);
 
         return $context;
     }

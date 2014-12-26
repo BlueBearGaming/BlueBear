@@ -24,7 +24,7 @@ class PencilSetManager
         // map pencil set before form edition
         $pencilSets = $this
             ->getRepository()
-            ->findByMap($map->getId())
+            ->findByMap($map)
             ->getQuery()
             ->getResult();
         /** @var PencilSet $pencilSet */

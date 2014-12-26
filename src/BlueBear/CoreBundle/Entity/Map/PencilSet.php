@@ -67,4 +67,19 @@ class PencilSet
     {
         $this->maps->remove($map->getId());
     }
+
+    public function toArray()
+    {
+        $jsonPencils = [];
+        foreach ($this->getPencils() as $pencil) {
+            $jsonPencils[] = $pencil->toArray();
+        }
+        
+        $jsonPencilSet = [
+            'name' => $this->getName(),
+            'label' => $this->getLabel(),
+            'pencils' => $jsonPencils,
+        ];
+        return $jsonPencilSet;
+    }
 } 

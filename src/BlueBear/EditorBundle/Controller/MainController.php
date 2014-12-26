@@ -39,7 +39,7 @@ class MainController extends Controller
         /** @var Engine $engine */
         $engine = $this->get('bluebear.engine.engine');
         $data = new stdClass();
-        $data->mapId = $request->get('id');
+        $data->mapName = $request->get('mapName');
         $event = $engine->run(EngineEvent::ENGINE_ON_MAP_LOAD, $data);
 
         return [

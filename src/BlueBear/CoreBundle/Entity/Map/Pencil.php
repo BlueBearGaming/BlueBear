@@ -115,6 +115,10 @@ class Pencil
         $this->pencilSet = $pencilSet;
     }
 
+    /**
+     *
+     * @return Layer[]
+     */
     public function getAllowedLayers()
     {
         return $this->allowedLayers;
@@ -145,5 +149,25 @@ class Pencil
     {
         $this->image = $image;
         $image->setPencil($this);
+    }
+
+    public function toArray()
+    {
+        $jsonAllowedLayers = [];
+        foreach ($this->getAllowedLayers() as $allowedLayer) {
+            $jsonAllowedLayers[] = $allowedLayer->getName();
+        }
+        return [
+            'name' => $this->getName(),
+            'label' => $this->getLabel(),
+            'type' => $this->getType(),
+            'imageX' => $this->getImageX(),
+            'imageY' => $this->getImageY(),
+            'width' => $this->getWidth(),
+            'height' => $this->getHeight(),
+            'boundingBox' => $this->getBoundingBox(),
+            'allowedLayers' => $jsonAllowedLayers,
+            'image' => $this->getImage()->toArray(),
+        ];
     }
 }

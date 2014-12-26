@@ -147,7 +147,7 @@ class PencilController extends Controller
      */
     public function selectPencilSetAction(Request $request)
     {
-        $mapId = $request->get('mapId');
+        $mapName = $request->get('mapName');
         $pencilSetId = $request->get('pencilSetId');
 
         /**
@@ -155,7 +155,7 @@ class PencilController extends Controller
          * @var PencilSet $pencilSet
          */
         $pencilSet = $this->getPencilManager()->find($pencilSetId);
-        $map = $this->getMapManager()->find($mapId);
+        $map = $this->getMapManager()->findOneByName($mapName);
         $map->addPencilSets($pencilSet);
         $this->getMapManager()->save($map);
 

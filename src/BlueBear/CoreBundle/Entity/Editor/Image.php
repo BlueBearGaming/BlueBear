@@ -45,7 +45,7 @@ class Image
     }
 
     /**
-     * @return mixed
+     * @return Resource
      */
     public function getResource()
     {
@@ -58,5 +58,16 @@ class Image
     public function setResource($resource)
     {
         $this->resource = $resource;
+    }
+
+    public function toArray()
+    {
+        $r = $this->getResource();
+        return [
+            'name' => $this->getName(),
+            'fileName' => $r->getFileName(),
+            'filePath' => $r->getFilePath(),
+            'extension' => $r->getExtension(),
+        ];
     }
 } 

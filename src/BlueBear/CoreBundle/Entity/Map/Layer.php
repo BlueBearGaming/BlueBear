@@ -20,15 +20,21 @@ class Layer
     use Id, Nameable, Label, Typeable, Descriptionable;
 
     /**
-     * @ORM\OneToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\PencilTile", mappedBy="layer")
+     * @ORM\OneToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\MapItem", mappedBy="layer")
      */
-    protected $tiles;
+    protected $mapItems;
 
     public function toArray()
     {
+        $mapItemsJson = [];
+        foreach ($this->mapItems as $mapItem) {
+            $mapItemsJson[] = $mapItem->toArray();
+        }
         $json = [
-            'id' => $this->getId(),
-            'label' => $this->getLabel()
+            'name' => $this->getName(),
+            'label' => $this->getLabel(),
+            'description' => $this->getDescription(),
+            'mapItems' => $mapItemsJson,
         ];
         return $json;
     }
@@ -36,16 +42,16 @@ class Layer
     /**
      * @return mixed
      */
-    public function getTiles()
+    public function getMapItems()
     {
-        return $this->tiles;
+        return $this->mapItems;
     }
 
     /**
-     * @param mixed $tiles
+     * @param mixed $mapItems
      */
-    public function setTiles($tiles)
+    public function setMapItems($mapItems)
     {
-        $this->tiles = $tiles;
+        $this->mapItems = $mapItems;
     }
 }

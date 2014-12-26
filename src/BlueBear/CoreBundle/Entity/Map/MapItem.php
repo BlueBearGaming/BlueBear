@@ -25,8 +25,6 @@ class MapItem
      */
     protected $pencil;
 
-    protected $map;
-
     /**
      * Layer
      *
@@ -102,5 +100,15 @@ class MapItem
     {
         $this->y = $y;
         return $this;
+    }
+
+    public function toArray()
+    {
+        return [
+            'id' => $this->getId(),
+            'pencilName' => $this->getPencil()->getName(),
+            'x' => $this->getX(),
+            'y' => $this->getY(),
+        ];
     }
 }

@@ -40,12 +40,6 @@ class MapType extends AbstractType
         $builder->add('label', 'text', [
             'help_block' => 'Displayed map name (eg: My first Map)'
         ]);
-        $builder->add('width', 'integer', [
-            'help_block' => 'Number of map columns'
-        ]);
-        $builder->add('height', 'integer', [
-            'help_block' => 'Number of map rows'
-        ]);
         $builder->add('type', 'choice', [
             'choices' => Constant::getMapType(),
             'help_block' => 'Map type'

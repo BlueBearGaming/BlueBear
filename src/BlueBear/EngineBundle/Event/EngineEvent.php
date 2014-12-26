@@ -33,7 +33,7 @@ class EngineEvent extends Event
     const ENGINE_ON_MAP_SAVE = 'bluebear.engine.onMapSave';
 
     /**
-     * Tile events
+     * MapItem events
      */
     const ENGINE_ON_BEFORE_LEAVE = 'bluebear.engine.onBeforeLeave';
     const ENGINE_ON_LEAVE = 'bluebear.engine.onLeave';
@@ -41,7 +41,7 @@ class EngineEvent extends Event
     const ENGINE_ON_BEFORE_ENTER = 'bluebear.engine.onBeforeEnter';
     const ENGINE_ON_ENTER = 'bluebear.engine.onEnter';
     const ENGINE_ON_AFTER_ENTER = 'bluebear.engine.onAfterEnter';
-    const ENGINE_ON_TILE_CLICK = 'bluebear.engine.onTileClick';
+    const ENGINE_ON_MAPITEM_CLICK = 'bluebear.engine.onMapItemClick';
 
     /**
      * Engine event response code
@@ -57,7 +57,7 @@ class EngineEvent extends Event
     public static function getAllowedEvents()
     {
         return [
-            self::ENGINE_ON_TILE_CLICK,
+            self::ENGINE_ON_MAPITEM_CLICK,
             self::ENGINE_ON_MAP_LOAD,
             self::ENGINE_ON_MAP_SAVE
         ];

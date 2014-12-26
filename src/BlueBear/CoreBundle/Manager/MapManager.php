@@ -27,13 +27,12 @@ class MapManager
     }
 
     /**
-     * Save map and create linked tiles if required
+     * Save map
      *
      * @param Map $map
      */
     public function saveMap(Map $map)
     {
-
         $this->save($map);
     }
 
@@ -74,5 +73,11 @@ class MapManager
         return $this
             ->getEntityManager()
             ->getRepository('BlueBear\CoreBundle\Entity\Map\Map');
+    }
+
+    public function __call($name, $arguments)
+    {
+        $repo = $this->getRepository();
+        return call_user_method_array($name, $repo, $arguments);
     }
 }

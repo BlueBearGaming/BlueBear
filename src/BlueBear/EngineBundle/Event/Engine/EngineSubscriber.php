@@ -31,11 +31,11 @@ class EngineSubscriber implements EventSubscriberInterface
     {
         $eventData = $event->getData();
 
-        if (!$eventData->mapId) {
-            throw new Exception('Empty mapId : ' . $eventData->mapId);
+        if (!$eventData->mapName) {
+            throw new Exception('Empty mapName : ' . $eventData->mapName);
         }
         /** @var Map $map */
-        $map = $this->getMapManager()->find($eventData->mapId);
+        $map = $this->getMapManager()->findOneByName($eventData->mapName);
 
         if (!$map) {
             throw new Exception('Map not found');
