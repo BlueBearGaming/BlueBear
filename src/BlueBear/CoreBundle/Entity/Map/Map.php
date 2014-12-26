@@ -5,7 +5,6 @@ namespace BlueBear\CoreBundle\Entity\Map;
 use BlueBear\CoreBundle\Entity\Behavior\Id;
 use BlueBear\CoreBundle\Entity\Behavior\Label;
 use BlueBear\CoreBundle\Entity\Behavior\Nameable;
-use BlueBear\CoreBundle\Entity\Behavior\Sizable;
 use BlueBear\CoreBundle\Entity\Behavior\Timestampable;
 use BlueBear\CoreBundle\Entity\Behavior\Typeable;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -114,7 +113,7 @@ class Map
     }
 
     /**
-     * @return Layer[]
+     * @return ArrayCollection
      */
     public function getLayers()
     {

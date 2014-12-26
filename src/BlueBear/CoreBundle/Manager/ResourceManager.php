@@ -23,19 +23,19 @@ class ResourceManager
      */
     public function upload(UploadedFile $file, $uploadType, Image $image = null)
     {
-        $imagesDirectory = $this->getImageDirectory();
+        $imagesDirectory = $this->getResourcesDirectory();
 
         if ($uploadType == Image::IMAGE_TYPE_SINGLE_IMAGE) {
             // generate "unique" filename
             $fileName = $this->generateFileHash($file->getClientOriginalName()) . '.' . $file->getClientOriginalExtension();
-            $file->move($imagesDirectory, $fileName);
+            $file->move($imagesDirectory . '/images/', $fileName);
 
             // save resource into database
             $resource = new Resource();
             $resource->setLabel($file->getClientOriginalName());
             $resource->setName($file->getClientOriginalName());
             $resource->setFileName($fileName);
-            $resource->setFilePath($imagesDirectory);
+            $resource->setFilePath($this->getImageDirectory());
             // if no image was provided, we create a new one
             if (!$image) {
                 $image = new Image();
@@ -47,7 +47,7 @@ class ResourceManager
             $this->save($image);
         } else if ($uploadType == Image::IMAGE_TYPE_RPG_MAKER_SPRITE) {
             // cut sprite into multiple images
-            $images = $this->getImageManager()->splitSprite($file->getPathname(), $imagesDirectory);
+            $images = $this->getImageManager()->splitSprite($file->getPathname(), $imagesDirectory . '/sprite/');
 
             /** @var Image $image */
             foreach ($images as $image) {
@@ -79,22 +79,22 @@ class ResourceManager
 
     public function getImageDirectory()
     {
-        $imageDirectory = __DIR__ . '/../../../../resources/images';
-
-        if (!file_exists($imageDirectory)) {
-            throw new Exception('Image path ' . $imageDirectory . ' does not exist !');
-        }
-        return realpath($imageDirectory);
+        return '/resources/images/';
     }
 
     public function getSpriteDirectory()
     {
-        $imageDirectory = __DIR__ . '/../../../../resources/sprites/';
+        return '/resources/sprite/';
+    }
 
-        if (!file_exists($imageDirectory)) {
-            throw new Exception('Image path ' . $imageDirectory . ' does not exist !');
-        }
-        return realpath($imageDirectory);
+    public function getResourcesDirectory()
+    {
+        return __DIR__ . '/../../../../resources/';
+    }
+
+    public static function getApplicationDirectory()
+    {
+        return __DIR__ . '/../../../../';
     }
 
     /**

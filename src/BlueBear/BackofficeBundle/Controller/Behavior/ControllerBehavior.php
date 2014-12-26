@@ -52,8 +52,6 @@ trait ControllerBehavior
      *
      * @param $message
      * @param array $parameters
-     * @internal param bool $useTranslation
-     * @internal param array $translationParameters
      * @return void
      */
     protected function setMessage($message, $parameters = array())

@@ -3,6 +3,7 @@
 namespace BlueBear\BackofficeBundle\Controller;
 
 use BlueBear\BackofficeBundle\Controller\Behavior\ControllerBehavior;
+use BlueBear\CoreBundle\Entity\Map\Layer;
 use BlueBear\CoreBundle\Entity\Map\Pencil;
 use BlueBear\CoreBundle\Entity\Map\PencilSet;
 use BlueBear\CoreBundle\Manager\MapManager;
@@ -63,11 +64,17 @@ class ApiController extends Controller
                     foreach ($pencilSets as $pencilSet) {
                         $pencils = array_merge($pencils, $pencilSet->getPencils()->toArray());
                     }
+                    // if map has pencil, we choose one
                     if (count($pencils)) {
                         /** @var Pencil $pencil */
-                        $pencil = $pencils[0];
-                        $layers = $map->getLayers()->toArray();
-                        // @todo
+                        $pencil = $pencils[array_rand($pencils)];
+                        /** @var Layer $layer */
+                        $layer = $map->getLayers()[array_rand($map->getLayers()->toArray())];
+
+                        $mapItem = new stdClass();
+                        $mapItem->pencil = $pencil->toArray();
+                        $mapItem->layer = $layer->toArray();
+                        $snippet->context->mapItems[] = $mapItem;
                     }
                 }
                 $snippets[$event] = $snippet;

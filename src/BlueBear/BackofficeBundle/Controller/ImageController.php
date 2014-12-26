@@ -7,12 +7,14 @@ use BlueBear\BackofficeBundle\Controller\Behavior\ControllerBehavior;
 use BlueBear\CoreBundle\Entity\Editor\Image;
 use BlueBear\CoreBundle\Manager\ImageManager;
 use BlueBear\CoreBundle\Manager\ResourceManager;
+use Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class ImageController extends Controller
 {
@@ -78,8 +80,8 @@ class ImageController extends Controller
      * Upload an image into backoffice
      *
      * @param Request $request
-     * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
-     * @throws \Exception
+     * @return RedirectResponse|Response
+     * @throws Exception
      */
     public function uploadAction(Request $request)
     {

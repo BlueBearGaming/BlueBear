@@ -6,7 +6,9 @@ use BlueBear\CoreBundle\Entity\Behavior\Id;
 use BlueBear\CoreBundle\Entity\Behavior\Label;
 use BlueBear\CoreBundle\Entity\Behavior\Nameable;
 use BlueBear\CoreBundle\Entity\Behavior\Timestampable;
+use BlueBear\CoreBundle\Manager\ResourceManager;
 use Doctrine\ORM\Mapping as ORM;
+use Exception;
 
 /**
  * Upload
@@ -45,9 +47,14 @@ class Resource
         $this->filePath = $filePath;
     }
 
+    /**
+     * Get full path to resource file
+     *
+     * @return string
+     */
     public function getFullPath()
     {
-        return $this->getFilePath() . '/' . $this->getFileName();
+        return ResourceManager::getApplicationDirectory() . $this->getFilePath() . $this->getFileName();
     }
 
     public function getExtension()
@@ -73,10 +80,16 @@ class Resource
         $this->fileName = $fileName;
     }
 
+    /**
+     * Return file content
+     *
+     * @return string
+     * @throws Exception
+     */
     public function getFileContent()
     {
         if (strpos($this->getFilePath(), '../')) {
-            throw new \Exception('Security error in file path for file_get_content');
+            throw new Exception('Security error in file path for file_get_content');
         }
         return base64_encode(file_get_contents($this->getFullPath()));
     }
