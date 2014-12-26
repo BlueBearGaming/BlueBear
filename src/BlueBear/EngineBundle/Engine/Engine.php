@@ -55,7 +55,11 @@ class Engine
         } catch (Exception $e) {
             $engineEvent = new EngineEvent();
             $engineEvent->setResponseCode(EngineEvent::ENGINE_EVENT_RESPONSE_KO);
-            $engineEvent->setResponseData($e);
+            // TODO only return stack trace in debug
+            $engineEvent->setResponseData([
+                'message' => $e->getMessage(),
+                'stackTrace' => $e->getTraceAsString()
+            ]);
         }
         // return event
         return $engineEvent;

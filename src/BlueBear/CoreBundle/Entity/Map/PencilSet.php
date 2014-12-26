@@ -41,6 +41,11 @@ class PencilSet
      */
     protected $type;
 
+    /**
+     * Return pencil set type references
+     *
+     * @return array
+     */
     public static function getPencilSetType()
     {
         return [

@@ -34,6 +34,33 @@ class Context
     protected $currentMap;
 
     /**
+     * Map item for this context
+     *
+     * @ORM\OneToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\MapItem", mappedBy="context", cascade={"persist"})
+     */
+    protected $mapItems;
+
+    /**
+     * Convert the context to an array
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        $mapItem = $this->getMapItems();
+        $mapItemsArray = [];
+
+        /** @var MapItem $item */
+        foreach ($mapItem as $item) {
+            $mapItemsArray[] = $item->toArray();
+        }
+        return [
+            'id' => $this->getId(),
+            'mapItems' => $mapItemsArray
+        ];
+    }
+
+    /**
      * @return Map
      */
     public function getMap()
@@ -63,5 +90,32 @@ class Context
     public function setCurrentMap($currentMap)
     {
         $this->currentMap = $currentMap;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMapItems()
+    {
+        return $this->mapItems;
+    }
+
+    /**
+     * @param mixed $mapItems
+     */
+    public function setMapItems($mapItems)
+    {
+        $this->mapItems = $mapItems;
+    }
+
+    public function getMapItemsById()
+    {
+        $mapItems = [];
+
+        /** @var MapItem $item */
+        foreach ($this->mapItems as $item) {
+            $mapItems[$item->getId()] = $item;
+        }
+        return $mapItems;
     }
 } 

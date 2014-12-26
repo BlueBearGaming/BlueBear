@@ -3,6 +3,7 @@
 namespace BlueBear\EngineBundle\Event\Map;
 
 use BlueBear\CoreBundle\Entity\Behavior\HasContainer;
+use BlueBear\CoreBundle\Entity\Map\MapItem;
 use BlueBear\EngineBundle\Behavior\HasContextFactory;
 use BlueBear\EngineBundle\Event\EngineEvent;
 use Exception;
@@ -46,8 +47,11 @@ class MapSubscriber implements EventSubscriberInterface
         else if (!$map->getCurrentContext()) {
             $this->getContextFactory()->create($map);
         }
-        // return loaded map
-        $event->setResponseData($map->toArray());
+        // we set map as response only if required event is loading, not if onMapLoad come from event bubbling
+        if ($event->getEventName() == EngineEvent::ENGINE_ON_MAP_LOAD) {
+            // return loaded map
+            $event->setResponseData($map->toArray());
+        }
     }
 
     public function onMapSave(EngineEvent $event)
@@ -75,13 +79,33 @@ class MapSubscriber implements EventSubscriberInterface
                         throw new Exception('Invalid mapItem id');
                     }
                     // if a pencil was provided
-                    if (property_exists($mapItemData, 'pencil')) {
+                    if ($this->propertyExists($mapItemData, 'pencil')) {
+                        if (!$this->propertyExists($mapItemData, 'id') and !$this->propertyExists($mapItemData, 'pencil')) {
+                            throw new Exception('Invalid pencil data');
+                        }
+                        // get pencil and layer
+                        $pencil = $this->getContainer()->get('bluebear.manager.pencil')->find($mapItemData->pencil->id);
+                        $layer = $this->getContainer()->get('bluebear.manager.layer')->find($mapItemData->pencil->layer);
+                        // test if pencil data are valid
+                        if (!$pencil) {
+                            throw new Exception('Pencil not found for tileId : ' . $mapItemData->id);
+                        }
+                        /** @var Tile $tile */
+                        $tile = $tiles[$tileData->id];
+                        // TODO set context
+                        $pencilTile = new MapItem();
 
+                        $pencilTile->setPencil($pencil);
+                        $pencilTile->setLayer($layer);
+                        // create liaison between pencil and tile for this context
+                        $tile->setPencilTiles($pencilTile);
+                        // add to list
+                        $alteredTiles[] = $tile;
                     }
-
                 }
+                $context = $this->getContextFactory()->update($map, $alteredTiles);
+                $event->setResponseData($context->toArray());
             }
-
         }
     }
 
@@ -103,5 +127,10 @@ class MapSubscriber implements EventSubscriberInterface
         if (!$map->getCurrentContext()) {
             throw new Exception('Map should have a execution context');
         }
+    }
+
+    protected function propertyExists($object, $property)
+    {
+        return (property_exists($object, $property) and $object->$property);
     }
 }

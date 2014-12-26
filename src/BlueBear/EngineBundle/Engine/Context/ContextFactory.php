@@ -38,6 +38,23 @@ class ContextFactory
         return $context;
     }
 
+    /**
+     * @param Map $map Current map
+     * @param array $tiles Altered
+     * @return Context
+     */
+    public function update(Map $map, array $tiles)
+    {
+        $context = new Context();
+        $context->setLabel($this->generateContextName());
+        $context->setTiles($tiles);
+        $context->setMap($map);
+        $context->setCurrentMap($map);
+        $this->getMapManager()->save($context);
+
+        return $context;
+    }
+
     public function loadContext(Map $map, $contextId)
     {
         $context = $this->getDoctrine()->getRepository('BlueBearCoreBundle:Map\Context')->find($contextId);
@@ -61,5 +78,15 @@ class ContextFactory
     public function getDoctrine()
     {
         return $this->doctrine;
+    }
+
+    /**
+     * Generate unique context name
+     *
+     * @return string
+     */
+    protected function generateContextName()
+    {
+        return uniqid('context_', true);
     }
 } 
