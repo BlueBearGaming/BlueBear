@@ -18,7 +18,7 @@
                         <td>{{ map.id }}</td>
                         <td>{{ map.label }}</td>
                         <td>
-                            <a href="{{ path('bluebear_map_edit', {id: map.id}) }}" class="btn btn-sm">edit</a>
+                            <a href="{{ path('bluebear_map_edit', {mapName: map.name}) }}" class="btn btn-sm">edit</a>
                             <a href="{{ path('bluebear_map_delete', {id: map.id}) }}" class="item-delete btn btn-sm">delete</a>
                         </td>
                     </tr>

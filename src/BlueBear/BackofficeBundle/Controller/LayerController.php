@@ -6,9 +6,10 @@ namespace BlueBear\BackofficeBundle\Controller;
 use BlueBear\BackofficeBundle\Controller\Behavior\ControllerBehavior;
 use BlueBear\CoreBundle\Entity\Map\Layer;
 use BlueBear\CoreBundle\Manager\LayerManager;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 class LayerController extends Controller
 {
@@ -28,6 +29,8 @@ class LayerController extends Controller
 
     /**
      * @Template()
+     * @param Request $request
+     * @return array|RedirectResponse
      */
     public function editAction(Request $request)
     {

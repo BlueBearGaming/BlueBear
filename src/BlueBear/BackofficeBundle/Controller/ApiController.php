@@ -3,7 +3,6 @@
 namespace BlueBear\BackofficeBundle\Controller;
 
 use BlueBear\BackofficeBundle\Controller\Behavior\ControllerBehavior;
-use BlueBear\CoreBundle\Entity\Map\Layer;
 use BlueBear\CoreBundle\Entity\Map\Pencil;
 use BlueBear\CoreBundle\Entity\Map\PencilSet;
 use BlueBear\CoreBundle\Manager\MapManager;
@@ -50,7 +49,7 @@ class ApiController extends Controller
                 $snippet->contextId = null;
                 $snippets[$event] = $snippet;
             } else if ($event == EngineEvent::ENGINE_ON_MAP_SAVE) {
-                $snippet->mapName = $map->getId();
+                $snippet->mapName = $map->getName();
                 $snippet->context = new stdClass();
 
                 if ($map->getCurrentContext()) {

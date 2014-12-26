@@ -21,7 +21,7 @@ class MapItem
 
     /**
      * @var Pencil
-     *
+     * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Pencil", inversedBy="mapItems")
      */
     protected $pencil;
 

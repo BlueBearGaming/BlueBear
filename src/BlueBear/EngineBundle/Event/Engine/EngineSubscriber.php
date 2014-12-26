@@ -13,6 +13,11 @@ class EngineSubscriber implements EventSubscriberInterface
 {
     use HasEventDispatcher, HasMapManager;
 
+    /**
+     * Subscribes on engine event
+     *
+     * @return array
+     */
     public static function getSubscribedEvents()
     {
         return [
@@ -35,8 +40,9 @@ class EngineSubscriber implements EventSubscriberInterface
             throw new Exception('Empty mapName : ' . $eventData->mapName);
         }
         /** @var Map $map */
-        $map = $this->getMapManager()->findOneByName($eventData->mapName);
-
+        $map = $this->getMapManager()->findOneBy([
+            'name' => $eventData->mapName
+        ]);
         if (!$map) {
             throw new Exception('Map not found');
         }

@@ -60,15 +60,15 @@ class MapSubscriber implements EventSubscriberInterface
         $data = $event->getData();
         $map = $event->getMap();
 
-        if (property_exists($data, 'context')) {
+        if ($this->propertyExists($data, 'context')) {
             // provided id should be the same as the current map context
-            if (!property_exists($data->context, 'id') or
+            if (!$this->propertyExists($data->context, 'id') or
                 $data->context->id != $map->getCurrentContext()->getId()) {
                 // invalid context
                 throw new Exception('Invalid context id. You should provided the last context id');
             }
             // if mapItems were provided
-            if (property_exists($data->context, 'mapItems') and is_array($data->context->mapItems)) {
+            if ($this->propertyExists($data->context, 'mapItems')) {
                 $mapItems = $map->getCurrentContext()->getMapItemsById();
                 $ids = array_keys($mapItems);
 
@@ -103,8 +103,8 @@ class MapSubscriber implements EventSubscriberInterface
                         $alteredTiles[] = $tile;
                     }
                 }
-                $context = $this->getContextFactory()->update($map, $alteredTiles);
-                $event->setResponseData($context->toArray());
+                //$context = $this->getContextFactory()->update($map, $alteredTiles);
+                //$event->setResponseData($context->toArray());
             }
         }
     }

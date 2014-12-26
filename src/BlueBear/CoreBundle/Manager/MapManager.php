@@ -51,6 +51,13 @@ class MapManager
             ->getOneOrNullResult();
     }
 
+    public function findOneBy($arguments)
+    {
+        return $this
+            ->getRepository()
+            ->findOneBy($arguments);
+    }
+
     /**
      * Return number of maps
      *
@@ -73,11 +80,5 @@ class MapManager
         return $this
             ->getEntityManager()
             ->getRepository('BlueBear\CoreBundle\Entity\Map\Map');
-    }
-
-    public function __call($name, $arguments)
-    {
-        $repo = $this->getRepository();
-        return call_user_method_array($name, $repo, $arguments);
     }
 }
