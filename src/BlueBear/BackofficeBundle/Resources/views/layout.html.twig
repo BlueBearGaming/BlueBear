@@ -16,6 +16,12 @@
             <button type="button" class="close">×</button>
         </div>
     {% endfor %}
+    {% for flashMessage in app.session.flashbag.get('error') %}
+        <div class="alert alert-danger">
+            {{ flashMessage }}
+            <button type="button" class="close">×</button>
+        </div>
+    {% endfor %}
 </div>
 <div class="container">
     <div class="row-fluid">

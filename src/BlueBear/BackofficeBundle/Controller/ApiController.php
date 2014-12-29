@@ -4,6 +4,7 @@ namespace BlueBear\BackofficeBundle\Controller;
 
 use BlueBear\BackofficeBundle\Controller\Behavior\ControllerBehavior;
 use BlueBear\CoreBundle\Entity\Map\Layer;
+use BlueBear\CoreBundle\Entity\Map\Map;
 use BlueBear\CoreBundle\Entity\Map\Pencil;
 use BlueBear\CoreBundle\Entity\Map\PencilSet;
 use BlueBear\CoreBundle\Manager\MapManager;
@@ -24,7 +25,13 @@ class ApiController extends Controller
     public function indexAction()
     {
         $form = $this->createForm('engine_event_test');
-        $snippets = $this->getJsonSnippets();
+        $map = $this->getMapManager()->findOne();
+
+        if (!$map) {
+            $this->setMessage('You should create a map before calling api', 'error');
+            return $this->redirect('@bluebear_backoffice_map');
+        }
+        $snippets = $this->getJsonSnippets($map);
 
         return [
             'form' => $form->createView(),
@@ -35,12 +42,12 @@ class ApiController extends Controller
     /**
      * Return json snippets to help user to make a request to api
      *
+     * @param Map $map
      * @return string
      */
-    protected function getJsonSnippets()
+    protected function getJsonSnippets(Map $map)
     {
         $events = EngineEvent::getAllowedEvents();
-        $map = $this->getMapManager()->findOne();
         $snippets = [];
 
         foreach ($events as $event) {

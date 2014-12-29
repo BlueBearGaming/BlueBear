@@ -51,12 +51,12 @@ trait ControllerBehavior
      * Set a flash notice in session for next request. The message is translated
      *
      * @param $message
+     * @param string $type
      * @param array $parameters
-     * @return void
      */
-    protected function setMessage($message, $parameters = array())
+    protected function setMessage($message, $type = 'info', $parameters = array())
     {
-        $this->getSession()->getFlashBag()->add('notice', $this->translate($message, $parameters));
+        $this->getSession()->getFlashBag()->add($type, $this->translate($message, $parameters));
     }
 
     /**
