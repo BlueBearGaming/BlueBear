@@ -79,6 +79,8 @@ class ApiController extends Controller
                         $layer = $map->getLayers()[array_rand($map->getLayers()->toArray())];
 
                         $mapItem = new stdClass();
+                        $mapItem->x = 0;
+                        $mapItem->y = 0;
                         $mapItem->pencil = $pencil->toArray();
                         $mapItem->layer = $layer->toArray();
                         $snippet->context->mapItems[] = $mapItem;

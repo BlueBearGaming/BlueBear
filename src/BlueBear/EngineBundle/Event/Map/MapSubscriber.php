@@ -54,6 +54,12 @@ class MapSubscriber implements EventSubscriberInterface
         }
     }
 
+    /**
+     * Save map changes
+     *
+     * @param EngineEvent $event
+     * @throws Exception
+     */
     public function onMapSave(EngineEvent $event)
     {
         $this->check($event);
@@ -70,8 +76,7 @@ class MapSubscriber implements EventSubscriberInterface
             // if mapItems were provided
             if ($this->propertyExists($data->context, 'mapItems')) {
                 $mapItems = [];
-                //$ids = array_keys($mapItems);
-
+                
                 // update altered mapItems
                 foreach ($data->context->mapItems as $mapItemData) {
                     // if a pencil was provided
@@ -91,6 +96,8 @@ class MapSubscriber implements EventSubscriberInterface
                             throw new Exception('Pencil not found for tileId : ' . $mapItemData->id);
                         }
                         $mapItem = new MapItem();
+                        $mapItem->setX($mapItemData->x);
+                        $mapItem->setY($mapItemData->y);
                         $mapItem->setPencil($pencil);
                         $mapItem->setLayer($layer);
                         // add to list
@@ -98,7 +105,9 @@ class MapSubscriber implements EventSubscriberInterface
                     }
                 }
                 $context = $this->getContextFactory()->update($map, $mapItems);
-                $event->setResponseData($context->toArray());
+                $event->setResponseData([
+                    'context' => $context->toArray()
+                ]);
             }
         }
     }

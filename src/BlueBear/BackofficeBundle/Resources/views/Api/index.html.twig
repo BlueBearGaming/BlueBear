@@ -38,6 +38,7 @@
                     var form = $(this).parents('form');
                     var eventName = form.find('select').val();
                     var eventData = form.find('textarea').val();
+                    console.log('API event', eventName, eventData);
 
                     $.ajax({
                         url: form.attr('action').replace('__EVENT__', eventName).replace('__EVENT_DATA__', eventData),
