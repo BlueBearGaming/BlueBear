@@ -13,7 +13,7 @@
             Call events on PHP Engine®
         </div>
         <div class="panel-body">
-            <form action="{{ path('bluebear_engine_trigger_event', {eventName: '__EVENT__', eventData: '__EVENT_DATA__'}) }}"
+            <form action="{{ path('bluebear_engine_trigger_event', {eventName: '__EVENT__'}) }}"
                   method="post"
                   class="well">
                 {{ form_widget(form) }}
@@ -41,8 +41,9 @@
                     console.log('API event', eventName, eventData);
 
                     $.ajax({
-                        url: form.attr('action').replace('__EVENT__', eventName).replace('__EVENT_DATA__', eventData),
+                        url: form.attr('action').replace('__EVENT__', eventName),
                         type: 'post',
+                        data: 'eventData=' + eventData,
                         success: function (response) {
                             responseContainer.text(JSON.stringify(response, null, 8));
                             TestHelper.processSize(responseContainer);

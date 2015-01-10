@@ -3,12 +3,17 @@
 namespace BlueBear\CoreBundle\Entity\Map;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\AccessorOrder;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
 
 /**
  * A Map Item is an object that is positioned on the map at a specific layer and that will use the pencil as its renderer
  *
  * @ORM\Table(name="map_item")
  * @ORM\Entity(repositoryClass="BlueBear\CoreBundle\Entity\MapItemRepository")
+ * @ExclusionPolicy("all")
+ * @AccessorOrder("custom", custom={"id"})
  */
 class MapItem
 {
@@ -16,6 +21,7 @@ class MapItem
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Expose()
      */
     protected $id;
 
@@ -40,6 +46,7 @@ class MapItem
 
     /**
      * Absolute X position of the object in the map
+     *
      * @var int
      * @ORM\Column(type="integer")
      */
@@ -47,6 +54,7 @@ class MapItem
 
     /**
      * Absolute Y position of the object in the map
+     *
      * @var int
      * @ORM\Column(type="integer")
      */

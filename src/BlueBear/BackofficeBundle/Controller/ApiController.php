@@ -3,6 +3,7 @@
 namespace BlueBear\BackofficeBundle\Controller;
 
 use BlueBear\BackofficeBundle\Controller\Behavior\ControllerBehavior;
+use BlueBear\CoreBundle\Entity\Map\Context;
 use BlueBear\CoreBundle\Entity\Map\Layer;
 use BlueBear\CoreBundle\Entity\Map\Map;
 use BlueBear\CoreBundle\Entity\Map\Pencil;
@@ -49,19 +50,20 @@ class ApiController extends Controller
     {
         $events = EngineEvent::getAllowedEvents();
         $snippets = [];
+        /** @var Context $context */
+        $context = $map->getContexts()->first();
 
         foreach ($events as $event) {
             $snippet = new stdClass();
-            if ($event == EngineEvent::ENGINE_ON_MAP_LOAD) {
-                $snippet->mapName = $map->getName();
-                $snippet->contextId = null;
+            if ($event == EngineEvent::ENGINE_ON_CONTEXT_LOAD) {
+                $snippet->contextId = $context->getId();
                 $snippets[$event] = $snippet;
             } else if ($event == EngineEvent::ENGINE_ON_MAP_SAVE) {
                 $snippet->mapName = $map->getName();
                 $snippet->context = new stdClass();
 
-                if ($map->getCurrentContext()) {
-                    $snippet->context->id = $map->getCurrentContext()->getId();
+                if ($context) {
+                    $snippet->context->id = $context->getId();
                     $snippet->context->mapItems = [];
                     // get allowed pencils
                     $pencils = [];

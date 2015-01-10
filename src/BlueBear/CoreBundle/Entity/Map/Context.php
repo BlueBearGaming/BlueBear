@@ -7,6 +7,9 @@ use BlueBear\CoreBundle\Entity\Behavior\Id;
 use BlueBear\CoreBundle\Entity\Behavior\Label;
 use BlueBear\CoreBundle\Entity\Behavior\Timestampable;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\AccessorOrder;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
 
 /**
  * Context of a map
@@ -14,6 +17,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="context")
  * @ORM\Entity(repositoryClass="BlueBear\CoreBundle\Entity\Map\ContextRepository")
  * @ORM\HasLifecycleCallbacks()
+ * @AccessorOrder("custom", custom={"id", "label", "map", "mapItems"})
+ * @ExclusionPolicy("all")
  */
 class Context
 {
@@ -23,20 +28,20 @@ class Context
      * Map which this context belongs
      *
      * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Map", inversedBy="contexts")
+     * @Expose()
      */
     protected $map;
 
     /**
-     * Map with this context as current context
-     *
-     * @ORM\OneToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Map", inversedBy="currentContext")
+     * @ORM\OneToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\UserContext", mappedBy="context")
      */
-    protected $currentMap;
+    protected $userContexts;
 
     /**
      * Map item for this context
      *
      * @ORM\OneToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\MapItem", mappedBy="context", cascade={"persist"})
+     * @Expose()
      */
     protected $mapItems;
 
@@ -74,22 +79,6 @@ class Context
     public function setMap(Map $map)
     {
         $this->map = $map;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCurrentMap()
-    {
-        return $this->currentMap;
-    }
-
-    /**
-     * @param mixed $currentMap
-     */
-    public function setCurrentMap($currentMap)
-    {
-        $this->currentMap = $currentMap;
     }
 
     /**

@@ -1,8 +1,8 @@
 <?php
 
-
 namespace BlueBear\CoreBundle\Entity\Behavior;
 
+use JMS\Serializer\Annotation\Expose;
 
 trait Descriptionable
 {
@@ -10,6 +10,7 @@ trait Descriptionable
      * Entity description
      *
      * @ORM\Column(type="string", length=100, nullable=true)
+     * @Expose()
      */
     protected $description;
 

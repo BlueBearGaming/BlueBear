@@ -10,7 +10,7 @@ class MapItemClickSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            EngineEvent::ENGINE_ON_MAPITEM_CLICK => [
+            EngineEvent::ENGINE_ON_MAP_ITEM_CLICK => [
                 'onClick'
             ]
         ];

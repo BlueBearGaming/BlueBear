@@ -13,7 +13,7 @@ trait ManagerBehavior
     use HasContainer, HasEntityManager;
 
     /**
-     * Retourne le repository courant
+     * Return current manager repository
      *
      * @return EntityRepository
      */

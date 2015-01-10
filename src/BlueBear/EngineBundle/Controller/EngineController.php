@@ -4,9 +4,10 @@ namespace BlueBear\EngineBundle\Controller;
 
 use BlueBear\BackofficeBundle\Controller\Behavior\ControllerBehavior;
 use BlueBear\EngineBundle\Engine\Engine;
+use JMS\Serializer\Serializer;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class EngineController extends Controller
 {
@@ -20,15 +21,17 @@ class EngineController extends Controller
         $eventData = $request->get('eventData');
         /** @var Engine $engine */
         $engine = $this->get('bluebear.engine.engine');
-        $engineEvent = $engine->run($eventName, json_decode($eventData));
+        $engineEvent = $engine->run($eventName, $eventData);
 
-        $response = new JsonResponse();
+        /** @var Serializer $serializer */
+        $serializer = $this->get('jms_serializer');
+        $content = $serializer->serialize($engineEvent->getResponse(), 'json');
+
+        $response = new Response();
         $response->setStatusCode(200);
-        $response->setEncodingOptions(JSON_PRETTY_PRINT);
-        $response->setData([
-            'code' => $engineEvent->getResponseCode(),
-            'data' => $engineEvent->getResponseData()
-        ]);
+        $response->setContent($content);
+        $response->headers->set('Content-Type', 'application/json');
+
         return $response;
     }
 } 

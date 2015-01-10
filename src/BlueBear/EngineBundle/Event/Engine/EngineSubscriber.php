@@ -3,15 +3,20 @@
 namespace BlueBear\EngineBundle\Event\Engine;
 
 use BlueBear\CoreBundle\Entity\Behavior\HasEventDispatcher;
-use BlueBear\CoreBundle\Entity\Behavior\HasMapManager;
-use BlueBear\CoreBundle\Entity\Map\Map;
+use BlueBear\CoreBundle\Entity\Map\Context;
+use BlueBear\CoreBundle\Manager\ContextManager;
 use BlueBear\EngineBundle\Event\EngineEvent;
 use Exception;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class EngineSubscriber implements EventSubscriberInterface
 {
-    use HasEventDispatcher, HasMapManager;
+    use HasEventDispatcher;
+
+    /**
+     * @var ContextManager
+     */
+    protected $contextManager;
 
     /**
      * Subscribes on engine event
@@ -34,24 +39,35 @@ class EngineSubscriber implements EventSubscriberInterface
      */
     public function onEngineEvent(EngineEvent $event)
     {
-        $eventData = $event->getData();
+        $request = $event->getRequest();
+        /** @var Context $context */
+        $context = $this->getContextManager()->find($request->contextId);
 
-        if (!$eventData->mapName) {
-            throw new Exception('Empty mapName : ' . $eventData->mapName);
+        if (!$context or !$context->getMap()) {
+            throw new Exception('Context not found or invalid context map');
         }
-        /** @var Map $map */
-        $map = $this->getMapManager()->findOneBy([
-            'name' => $eventData->mapName
-        ]);
-        if (!$map) {
-            throw new Exception('Map not found');
-        }
-        $event->setMap($map);
+        $event->setContext($context);
         // we load map only if event is not map load to avoid calling subscribers twice
-        if ($event->getEventName() != EngineEvent::ENGINE_ON_MAP_LOAD) {
+        if ($event->getName() != EngineEvent::ENGINE_ON_CONTEXT_LOAD) {
             // dispatch map load event
-            $this->getEventDispatcher()->dispatch(EngineEvent::ENGINE_ON_MAP_LOAD, $event);
+            $this->getEventDispatcher()->dispatch(EngineEvent::ENGINE_ON_CONTEXT_LOAD, $event);
         }
         return $event;
+    }
+
+    /**
+     * @return ContextManager
+     */
+    public function getContextManager()
+    {
+        return $this->contextManager;
+    }
+
+    /**
+     * @param ContextManager $contextManager
+     */
+    public function setContextManager($contextManager)
+    {
+        $this->contextManager = $contextManager;
     }
 }

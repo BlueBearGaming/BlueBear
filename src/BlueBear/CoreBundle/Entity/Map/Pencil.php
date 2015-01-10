@@ -11,6 +11,9 @@ use BlueBear\CoreBundle\Entity\Behavior\Taggable;
 use BlueBear\CoreBundle\Entity\Behavior\Typeable;
 use BlueBear\CoreBundle\Entity\Editor\Image;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\AccessorOrder;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
 
 /**
  * A pencil is a model that is used to "paint" tiles and object on the map. Each map have a pencil
@@ -18,6 +21,8 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="pencil")
  * @ORM\Entity(repositoryClass="BlueBear\CoreBundle\Entity\Map\PencilRepository")
+ * @ExclusionPolicy("all")
+ * @AccessorOrder("custom", custom={"id", "name", "label", "description", "type", "imageX", "imageY", "width", "height", "boundingBox", "allowedLayers", "image"})
  */
 class Pencil
 {
@@ -57,6 +62,7 @@ class Pencil
      * Relative position of the center of the image to the center of the cell
      *
      * @ORM\Column(type="float")
+     * @Expose()
      */
     protected $imageX = 0;
 
@@ -64,6 +70,7 @@ class Pencil
      * Relative position of the center of the image to the center of the cell
      *
      * @ORM\Column(type="float")
+     * @Expose()
      */
     protected $imageY = 0;
 
@@ -71,6 +78,7 @@ class Pencil
      * Cells that physically contains the object (the one able to capture events)
      *
      * @ORM\Column(type="array")
+     * @Expose()
      */
     protected $boundingBox = [[0, 0]];
 

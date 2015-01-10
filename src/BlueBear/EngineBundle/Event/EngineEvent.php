@@ -2,24 +2,36 @@
 
 namespace BlueBear\EngineBundle\Event;
 
-use BlueBear\CoreBundle\Entity\Behavior\Data;
-use BlueBear\CoreBundle\Entity\Map\Map;
+use BlueBear\CoreBundle\Entity\Map\Context;
 use Symfony\Component\EventDispatcher\Event;
 
 class EngineEvent extends Event
 {
-    use Data;
-
-    protected $eventName;
-
-    protected $responseData = [];
-
-    protected $responseCode = self::ENGINE_EVENT_RESPONSE_OK;
+    /**
+     * Event name
+     *
+     * @var string
+     */
+    protected $name;
 
     /**
-     * @var Map $map
+     * Event request data
+     *
+     * @var EventRequest
      */
-    protected $map;
+    protected $request;
+
+    /**
+     * Event response data to be sent to the render engine
+     *
+     * @var EventResponse
+     */
+    protected $response;
+
+    /**
+     * @var Context
+     */
+    protected $context;
 
     /**
      * Engine events
@@ -29,7 +41,7 @@ class EngineEvent extends Event
     /**
      * Map events
      */
-    const ENGINE_ON_MAP_LOAD = 'bluebear.engine.onMapLoad';
+    const ENGINE_ON_CONTEXT_LOAD = 'bluebear.engine.onMapLoad';
     const ENGINE_ON_MAP_SAVE = 'bluebear.engine.onMapSave';
 
     /**
@@ -41,7 +53,7 @@ class EngineEvent extends Event
     const ENGINE_ON_BEFORE_ENTER = 'bluebear.engine.onBeforeEnter';
     const ENGINE_ON_ENTER = 'bluebear.engine.onEnter';
     const ENGINE_ON_AFTER_ENTER = 'bluebear.engine.onAfterEnter';
-    const ENGINE_ON_MAPITEM_CLICK = 'bluebear.engine.onMapItemClick';
+    const ENGINE_ON_MAP_ITEM_CLICK = 'bluebear.engine.onMapItemClick';
 
     /**
      * Engine event response code
@@ -57,78 +69,77 @@ class EngineEvent extends Event
     public static function getAllowedEvents()
     {
         return [
-            self::ENGINE_ON_MAPITEM_CLICK,
-            self::ENGINE_ON_MAP_LOAD,
+            self::ENGINE_ON_MAP_ITEM_CLICK,
+            self::ENGINE_ON_CONTEXT_LOAD,
             self::ENGINE_ON_MAP_SAVE
         ];
     }
 
     /**
-     * @return Map
+     * @return EventRequest
      */
-    public function getMap()
+    public function getRequest()
     {
-        return $this->map;
+        return $this->request;
     }
 
     /**
-     * @param Map $map
+     * @param EventRequest $request
      */
-    public function setMap(Map $map)
+    public function setRequest(EventRequest $request)
     {
-        $this->map = $map;
+        $this->request = $request;
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getEventName()
+    public function getName()
     {
-        return $this->eventName;
+        return $this->name;
     }
 
     /**
-     * @param mixed $eventName
+     * @param string $name
      */
-    public function setEventName($eventName)
+    public function setName($name)
     {
-        $this->eventName = $eventName;
+        $this->name = $name;
     }
 
     /**
-     * @return mixed
+     * Return event response
+     *
+     * @return EventResponse
      */
-    public function getResponseData()
+    public function getResponse()
     {
-        return $this->responseData;
+        return $this->response;
     }
 
     /**
-     * @param mixed $responseData
+     * Set event response
+     *
+     * @param EventResponse $response
      */
-    public function setResponseData($responseData)
+    public function setResponse(EventResponse $response)
     {
-        $this->responseData = $responseData;
+        $this->response = $response;
     }
 
     /**
-     * @return mixed
+     * @return Context
      */
-    public function getResponseCode()
+    public function getContext()
     {
-        return $this->responseCode;
+        return $this->context;
     }
 
     /**
-     * @param mixed $responseCode
+     * @param Context $context
      */
-    public function setResponseCode($responseCode)
+    public function setContext(Context $context)
     {
-        $this->responseCode = $responseCode;
-    }
-
-    public function addResponseData($responseData)
-    {
-        $this->responseData[] = $responseData;
+        $this->context = $context;
     }
 }

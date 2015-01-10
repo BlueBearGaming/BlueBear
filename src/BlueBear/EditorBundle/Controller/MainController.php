@@ -3,7 +3,6 @@
 namespace BlueBear\EditorBundle\Controller;
 
 use BlueBear\BackofficeBundle\Controller\Behavior\ControllerBehavior;
-use BlueBear\CoreBundle\Entity\Map\Map;
 use BlueBear\CoreBundle\Manager\MapManager;
 use BlueBear\EngineBundle\Engine\Engine;
 use BlueBear\EngineBundle\Event\EngineEvent;
@@ -40,7 +39,7 @@ class MainController extends Controller
         $engine = $this->get('bluebear.engine.engine');
         $data = new stdClass();
         $data->mapName = $request->get('mapName');
-        $event = $engine->run(EngineEvent::ENGINE_ON_MAP_LOAD, $data);
+        $event = $engine->run(EngineEvent::ENGINE_ON_CONTEXT_LOAD, $data);
 
         return [
             'map' => $event->getMap()

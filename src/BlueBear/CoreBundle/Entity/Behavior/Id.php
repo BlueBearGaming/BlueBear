@@ -2,18 +2,23 @@
 
 namespace BlueBear\CoreBundle\Entity\Behavior;
 
+use JMS\Serializer\Annotation\Expose;
+
 trait Id
 {
     /**
-     *
+     * Entity id
      *
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
+     * @Expose()
      */
     protected $id;
 
     /**
+     * Return entity id
+     *
      * @return mixed
      */
     public function getId()
@@ -22,6 +27,8 @@ trait Id
     }
 
     /**
+     * Set entity id
+     *
      * @param mixed $id
      */
     public function setId($id)

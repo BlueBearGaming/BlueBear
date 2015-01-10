@@ -9,13 +9,19 @@ use BlueBear\CoreBundle\Entity\Behavior\Timestampable;
 use BlueBear\CoreBundle\Entity\Behavior\Typeable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\AccessorOrder;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\SerializedName;
 
 /**
- * The map.
+ * The map
  *
  * @ORM\Table(name="map")
  * @ORM\Entity(repositoryClass="BlueBear\CoreBundle\Entity\Map\MapRepository")
  * @ORM\HasLifecycleCallbacks
+ * @ExclusionPolicy("all")
+ * @AccessorOrder("custom", custom={"id", "name", "label", "type", "layers", "pencilSets"})
  */
 class Map
 {
@@ -29,6 +35,8 @@ class Map
      * Map pencil sets
      *
      * @ORM\ManyToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\PencilSet", cascade={"persist"})
+     * @Expose()
+     * @SerializedName("pencilSets")
      */
     protected $pencilSets;
 
@@ -36,6 +44,7 @@ class Map
      * Map layers
      *
      * @ORM\ManyToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\Layer", cascade={"persist"})
+     * @Expose()
      */
     protected $layers;
 
@@ -45,12 +54,6 @@ class Map
      * @ORM\OneToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\Context", mappedBy="map", cascade={"persist", "remove"})
      */
     protected $contexts;
-
-    /**
-     * @ORM\OneToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Context", mappedBy="currentMap", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(name="current_context", nullable=true)
-     */
-    protected $currentContext;
 
     /**
      * Map mode :
@@ -69,7 +72,6 @@ class Map
     {
         $this->contexts = new ArrayCollection();
     }
-
 
     /**
      * @return array
@@ -129,7 +131,7 @@ class Map
     }
 
     /**
-     * @return Context[]
+     * @return ArrayCollection
      */
     public function getContexts()
     {
@@ -150,23 +152,6 @@ class Map
     public function addContext(Context $context)
     {
         $this->contexts[] = $context;
-    }
-
-    /**
-     * @return Context
-     */
-    public function getCurrentContext()
-    {
-        return $this->currentContext;
-    }
-
-    /**
-     * @param mixed $currentContext
-     */
-    public function setCurrentContext(Context $currentContext)
-    {
-        $this->currentContext = $currentContext;
-        $currentContext->setCurrentMap($this);
     }
 
     /**

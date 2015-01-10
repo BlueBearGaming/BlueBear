@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BlueBear\CoreBundle\Form\Map;
 
 use BlueBear\CoreBundle\Constant\Map\Constant;
@@ -17,6 +16,12 @@ class LayerType extends AbstractType
         ]);
         $builder->add('label', 'text', [
             'help_block' => 'Displayed name (eg: MyLabel)'
+        ]);
+        $builder->add('description', 'textarea', [
+            'help_block' => 'Layer description (eg: "What a beautiful layer !")'
+        ]);
+        $builder->add('index', 'integer', [
+            'help_block' => 'Layer index (eg: 0,1,2... Works like css z-index)'
         ]);
         $builder->add('type', 'choice', [
             'choices' => Constant::getLayerType(),

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BlueBear\CoreBundle\Entity\Map;
 
 use BlueBear\CoreBundle\Entity\Behavior\Id;
@@ -8,12 +7,17 @@ use BlueBear\CoreBundle\Entity\Behavior\Label;
 use BlueBear\CoreBundle\Entity\Behavior\Nameable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\AccessorOrder;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
 
 /**
  * A pencil set is a collection of pencil. Each have a pencil set.
  *
  * @ORM\Table(name="pencil_set")
  * @ORM\Entity(repositoryClass="BlueBear\CoreBundle\Entity\Map\PencilSetRepository")
+ * @ExclusionPolicy("all")
+ * @AccessorOrder("custom", custom={"id", "name", "label", "pencils"})
  */
 class PencilSet
 {
@@ -27,6 +31,7 @@ class PencilSet
      * List of pencils attached to the pencil set
      *
      * @ORM\OneToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\Pencil", mappedBy="pencilSet")
+     * @Expose()
      */
     protected $pencils;
 
@@ -107,6 +112,7 @@ class PencilSet
         $this->type = $type;
     }
 
+    // TODO remove after api controller refactoring
     public function toArray()
     {
         $jsonPencils = [];

@@ -15,6 +15,7 @@ services:
         class: %bluebear.engine.engine%
         calls:
             - [setEventDispatcher, [@event_dispatcher]]
+            - [setSerializer, [@jms_serializer]]
 
     # events subscribers
     bluebear.engine.event.mapitem_leave_subscriber:
@@ -41,7 +42,7 @@ services:
             - {name: kernel.event_subscriber}
         calls:
             - [setEventDispatcher, [@event_dispatcher]]
-            - [setMapManager, [@bluebear.manager.map]]
+            - [setContextManager, [@bluebear.manager.context]]
 
     bluebear.engine.context_factory:
         class: %bluebear.engine.context_factory%
