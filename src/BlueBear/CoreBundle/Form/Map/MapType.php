@@ -44,6 +44,13 @@ class MapType extends AbstractType
             'choices' => Constant::getMapType(),
             'help_block' => 'Map type'
         ]);
+        $builder->add('cellSize', 'choice', [
+            'choices' => [
+                '64' => '64px',
+                '128' => '128px',
+            ],
+            'help_block' => 'Cell size (in px)'
+        ]);
         $builder->add(
             $builder->create(
                 'pencilSets', 'choice', [

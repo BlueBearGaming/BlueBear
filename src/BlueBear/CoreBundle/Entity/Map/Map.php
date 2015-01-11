@@ -21,7 +21,7 @@ use JMS\Serializer\Annotation\SerializedName;
  * @ORM\Entity(repositoryClass="BlueBear\CoreBundle\Entity\Map\MapRepository")
  * @ORM\HasLifecycleCallbacks
  * @ExclusionPolicy("all")
- * @AccessorOrder("custom", custom={"id", "name", "label", "type", "layers", "pencilSets"})
+ * @AccessorOrder("custom", custom={"id", "name", "label", "type", "cellSize", "layers", "pencilSets"})
  */
 class Map
 {
@@ -54,6 +54,13 @@ class Map
      * @ORM\OneToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\Context", mappedBy="map", cascade={"persist", "remove"})
      */
     protected $contexts;
+
+    /**
+     * @ORM\Column(name="cell_size", type="integer")
+     * @Expose()
+     * @var int
+     */
+    protected $cellSize;
 
     /**
      * Map mode :
@@ -168,5 +175,21 @@ class Map
     public function setMode($mode)
     {
         $this->mode = $mode;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCellSize()
+    {
+        return $this->cellSize;
+    }
+
+    /**
+     * @param int $cellSize
+     */
+    public function setCellSize($cellSize)
+    {
+        $this->cellSize = $cellSize;
     }
 }
