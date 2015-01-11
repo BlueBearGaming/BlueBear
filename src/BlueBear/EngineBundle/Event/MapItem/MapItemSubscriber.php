@@ -5,7 +5,7 @@ namespace BlueBear\EngineBundle\Event\MapItem;
 use BlueBear\EngineBundle\Event\EngineEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class MapItemClickSubscriber implements EventSubscriberInterface
+class MapItemSubscriber implements EventSubscriberInterface
 {
     public static function getSubscribedEvents()
     {
@@ -18,8 +18,6 @@ class MapItemClickSubscriber implements EventSubscriberInterface
 
     public function onClick(EngineEvent $event)
     {
-        if (!is_numeric($event->getData()->x) or !is_numeric($event->getData()->x)) {
-            throw new \Exception('Invalid mapItem coordinates');
-        }
+        $event->setResponse(new MapItemClickResponse());
     }
 }

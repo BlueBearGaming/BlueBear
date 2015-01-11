@@ -5,7 +5,7 @@ parameters:
 
     # events subscribers
     bluebear.engine.event.mapitem_leave_subscriber: BlueBear\EngineBundle\Event\MapItem\MapItemLeaveSubscriber
-    bluebear.engine.event.mapitem_click_subscriber: BlueBear\EngineBundle\Event\MapItem\MapItemClickSubscriber
+    bluebear.engine.event.mapitem_subscriber: BlueBear\EngineBundle\Event\MapItem\MapItemSubscriber
     bluebear.engine.event.map_subscriber: BlueBear\EngineBundle\Event\Map\MapSubscriber
     bluebear.engine.event.engine_subscriber: BlueBear\EngineBundle\Event\Engine\EngineSubscriber
 
@@ -23,8 +23,8 @@ services:
         tags:
             - {name: kernel.event_subscriber}
 
-    bluebear.engine.event.mapitem_click_subscriber:
-        class: %bluebear.engine.event.mapitem_click_subscriber%
+    bluebear.engine.event.mapitem_subscriber:
+        class: %bluebear.engine.event.mapitem_subscriber%
         tags:
             - {name: kernel.event_subscriber}
 

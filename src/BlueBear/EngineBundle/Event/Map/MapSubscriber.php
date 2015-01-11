@@ -38,26 +38,8 @@ class MapSubscriber implements EventSubscriberInterface
         $data['context'] = $event->getContext();
         $response = new LoadContextResponse();
         $response->data = $data;
-
-
+        // set event response
         $event->setResponse($response);
-//
-//        $map = $event->getMap();
-//        $data = $event->getData();
-//
-//        // if a context id is provided, we try to load this context
-//        if (property_exists($data, 'contextId') and $data->contextId) {
-//            $this->getContextFactory()->loadContext($map, $data->contextId);
-//        }
-//        // if no context id, the last context should be loaded. If not we create the initial context
-//        else if (!$map->getCurrentContext()) {
-//            $this->getContextFactory()->create($map);
-//        }
-//        // we set map as response only if required event is loading, not if onMapLoad come from event bubbling
-//        if ($event->getEventName() == EngineEvent::ENGINE_ON_CONTEXT_LOAD) {
-//            // return loaded map
-//            $event->setResponseData($map->toArray());
-//        }
     }
 
     /**

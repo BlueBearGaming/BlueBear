@@ -79,6 +79,8 @@ class Engine
 
         if ($eventName == EngineEvent::ENGINE_ON_CONTEXT_LOAD) {
             $request = 'BlueBear\EngineBundle\Event\Map\LoadContextRequest';
+        } else if ($eventName == EngineEvent::ENGINE_ON_MAP_ITEM_CLICK) {
+            $request = 'BlueBear\EngineBundle\Event\Map\MapItemClickRequest';
         }
         if (!$request) {
             throw new Exception('Event request class not found for event : ' . $eventName);
