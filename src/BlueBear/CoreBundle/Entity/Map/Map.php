@@ -19,7 +19,7 @@ use JMS\Serializer\Annotation\SerializedName;
  *
  * @ORM\Table(name="map")
  * @ORM\Entity(repositoryClass="BlueBear\CoreBundle\Entity\Map\MapRepository")
- * @ORM\HasLifecycleCallbacks
+ * @ORM\HasLifecycleCallbacks()
  * @ExclusionPolicy("all")
  * @AccessorOrder("custom", custom={"id", "name", "label", "type", "cellSize", "layers", "pencilSets"})
  */

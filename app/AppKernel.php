@@ -23,7 +23,8 @@ class AppKernel extends Kernel
             new JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
             new Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle(),
-            new \JMS\SerializerBundle\JMSSerializerBundle(),
+            new JMS\SerializerBundle\JMSSerializerBundle(),
+            new FOS\UserBundle\FOSUserBundle(),
             // BlueBear
             new BlueBear\BackofficeBundle\BlueBearBackofficeBundle(),
             new BlueBear\EditorBundle\BlueBearEditorBundle(),

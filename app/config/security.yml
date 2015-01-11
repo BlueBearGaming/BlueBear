@@ -5,6 +5,7 @@ jms_security_extra:
 security:
     encoders:
         Symfony\Component\Security\Core\User\User: plaintext
+        FOS\UserBundle\Model\UserInterface: sha512
 
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER
@@ -14,42 +15,29 @@ security:
         in_memory:
             memory:
                 users:
-                    user:  { password: userpass, roles: [ 'ROLE_USER' ] }
-                    admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
+                    afrezet: { password: admin, roles: [ 'ROLE_ADMIN' ] }
+                    vchalnot: { password: admin, roles: [ 'ROLE_ADMIN' ] }
+                    lanzalone: { password: admin, roles: [ 'ROLE_ADMIN' ] }
 
     firewalls:
-        main:
-            pattern: ^/
-            form_login:
-                csrf_provider: form.csrf_provider
-            logout:       true
-            anonymous:    true
-
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
-
-        login:
-            pattern:  ^/demo/secured/login$
-            security: false
-
-        secured_area:
-            pattern:    ^/admin
+        main:
+            pattern: ^/
             form_login:
-                check_path: /admin/login_check
-                login_path: /admin/login
+                provider: in_memory
+                csrf_provider: form.csrf_provider
+                default_target_path: /
+                always_use_default_target_path: true
+            logout:       true
+            anonymous:    true
 
-            logout:
-                path:   _demo_logout
-                target: _demo
-            #anonymous: ~
-            #http_basic:
-            #    realm: "Secured Demo Area"
 
     access_control:
-        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
-        #- { path: ^/_internal/secure, roles: IS_AUTHENTICATED_ANONYMOUSLY, ip: 127.0.0.1 }
-         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
-         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-         - { path: ^/admin, role: ROLE_ADMIN }
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/, role: IS_AUTHENTICATED_FULLY }
+        - { path: ^/admin/, role: ROLE_ADMIN }

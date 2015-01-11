@@ -2,6 +2,7 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
 
+# Symfony Configuration
 framework:
     #esi:             ~
     translator:      { fallback: fr }
@@ -83,3 +84,12 @@ services:
 # Mopa
 mopa_bootstrap:
     form: ~
+
+# FOS User
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: BlueBear\UserBundle\Entity\User
+    registration:
+        form:
+            type: test
