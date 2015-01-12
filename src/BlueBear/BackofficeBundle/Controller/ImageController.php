@@ -96,7 +96,7 @@ class ImageController extends Controller
             $this->getResourceManager()->upload($file, $uploadType);
             $this->setMessage('Image has been successfully uploaded');
 
-            if ($uploadType == Image::IMAGE_TYPE_RPG_MAKER_SPRITE) {
+            if ($uploadType !== Image::IMAGE_TYPE_SINGLE_IMAGE) {
                 $this->setMessage('Sprite has been successfully cut');
             }
             return $this->redirect('@bluebear_backoffice_image');

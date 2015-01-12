@@ -19,7 +19,9 @@ use Doctrine\ORM\Mapping as ORM;
 class Image
 {
     const IMAGE_TYPE_SINGLE_IMAGE = 'image.type.single_image';
+    const IMAGE_TYPE_RPG_MAKER_TILESET = 'image.type.rpg_maker_tileset';
     const IMAGE_TYPE_RPG_MAKER_SPRITE = 'image.type.rpg_maker_sprite';
+    const IMAGE_TYPE_AUTO = 'image.type.auto';
 
     use Id, Nameable, Timestampable;
 

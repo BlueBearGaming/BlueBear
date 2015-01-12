@@ -6,10 +6,10 @@ namespace BlueBear\BackofficeBundle\Utils\Sprite;
 
 class SplitRules
 {
-    public $destinationX;
-    public $destinationY;
-    public $width;
-    public $height;
+    public $destinationX = 0;
+    public $destinationY = 0;
+    public $width = 64;
+    public $height = 64;
     public $sourceX;
     public $sourceY;
     public $sourceWidth;

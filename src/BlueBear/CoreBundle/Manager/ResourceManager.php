@@ -23,47 +23,55 @@ class ResourceManager
      */
     public function upload(UploadedFile $file, $uploadType, Image $image = null)
     {
+        if ($uploadType == Image::IMAGE_TYPE_SINGLE_IMAGE) {
+            $this->uploadSingleImage($file, $image);
+        } else {
+            $this->uploadSplittableImage($file, $uploadType, $image);
+        }
+    }
+    
+    protected function uploadSingleImage(UploadedFile $file, Image $image = null) {
+        $imagesDirectory = $this->getResourcesDirectory();
+        
+        // generate "unique" filename
+        $fileName = $this->generateFileHash($file->getClientOriginalName()) . '.' . $file->getClientOriginalExtension();
+        $file->move($imagesDirectory . '/images/', $fileName);
+
+        // save resource into database
+        $resource = new Resource();
+        $resource->setLabel($file->getClientOriginalName());
+        $resource->setName($file->getClientOriginalName());
+        $resource->setFileName($fileName);
+        $resource->setFilePath($this->getImageDirectory());
+        // if no image was provided, we create a new one
+        if (!$image) {
+            $image = new Image();
+        }
+        $image->setName($file->getClientOriginalName());
+        $image->setResource($resource);
+
+        $this->save($resource, false);
+        $this->save($image);
+    }
+    
+    protected function uploadSplittableImage(UploadedFile $file, $uploadType, Image $image = null) {
         $imagesDirectory = $this->getResourcesDirectory();
 
-        if ($uploadType == Image::IMAGE_TYPE_SINGLE_IMAGE) {
-            // generate "unique" filename
-            $fileName = $this->generateFileHash($file->getClientOriginalName()) . '.' . $file->getClientOriginalExtension();
-            $file->move($imagesDirectory . '/images/', $fileName);
+        // cut sprite into multiple images
+        $images = $this->getImageManager()->splitSprite($file->getPathname(), $imagesDirectory . '/sprite/', $uploadType);
 
+        /** @var Image $image */
+        foreach ($images as $image) {
             // save resource into database
             $resource = new Resource();
-            $resource->setLabel($file->getClientOriginalName());
-            $resource->setName($file->getClientOriginalName());
-            $resource->setFileName($fileName);
-            $resource->setFilePath($this->getImageDirectory());
-            // if no image was provided, we create a new one
-            if (!$image) {
-                $image = new Image();
-            }
-            $image->setName($file->getClientOriginalName());
+            $resource->setName($image->getName());
+            $resource->setFileName($this->generateFileHash($image->getName()) . '');
+            $resource->setFilePath($imagesDirectory);
             $image->setResource($resource);
-
             $this->save($resource, false);
-            $this->save($image);
-        } else if ($uploadType == Image::IMAGE_TYPE_RPG_MAKER_SPRITE) {
-            // cut sprite into multiple images
-            $images = $this->getImageManager()->splitSprite($file->getPathname(), $imagesDirectory . '/sprite/');
-
-            /** @var Image $image */
-            foreach ($images as $image) {
-                // save resource into database
-                $resource = new Resource();
-                $resource->setName($image->getName());
-                $resource->setFileName($this->generateFileHash($image->getName()) . '');
-                $resource->setFilePath($imagesDirectory);
-                $image->setResource($resource);
-                $this->save($resource, false);
-                $this->save($image, false);
-            }
-            $this->flush();
-        } else {
-            throw new Exception('Invalid upload type');
+            $this->save($image, false);
         }
+        $this->flush();
     }
 
     /**

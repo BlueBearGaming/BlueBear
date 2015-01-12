@@ -9,17 +9,26 @@ use BlueBear\CoreBundle\Entity\Behavior\Timestampable;
 use BlueBear\CoreBundle\Manager\ResourceManager;
 use Doctrine\ORM\Mapping as ORM;
 use Exception;
+use Symfony\Component\Finder\SplFileInfo;
 
 /**
  * Upload
  *
  * @ORM\Table(name="resource")
- * @ORM\Entity(repositoryClass="BlueBear\CoreBundle\Entity\Editor\ResourceRepository")
+ * @ORM\Entity(repositoryClass="ResourceRepository")
  * @ORM\HasLifecycleCallbacks
  */
 class Resource
 {
     use Id, Nameable, Label, Timestampable;
+    
+    public function __construct(SplFileInfo $file = null) {
+        if ($file) {
+            $this->fileName = $file->getBasename();
+            var_dump($file->getPath(), ResourceManager::getApplicationDirectory()); exit; // @todo set proper filePath
+            $this->filePath = $file->getPath();
+        }
+    }
 
     /**
      * @ORM\Column(name="file_path", type="string", length=255)

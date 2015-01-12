@@ -15,7 +15,9 @@ class UploadType extends AbstractType
         $builder->add('type', 'choice', [
             'choices' => [
                 Image::IMAGE_TYPE_SINGLE_IMAGE => 'Single image',
-                Image::IMAGE_TYPE_RPG_MAKER_SPRITE => 'RPG Maker sprite'
+                Image::IMAGE_TYPE_RPG_MAKER_TILESET => 'RPG Maker tileset',
+                Image::IMAGE_TYPE_RPG_MAKER_SPRITE => 'RPG Maker character sprite',
+                Image::IMAGE_TYPE_AUTO => 'Auto crop',
             ],
             'expanded' => true,
             'data' => Image::IMAGE_TYPE_SINGLE_IMAGE,
