@@ -11,8 +11,14 @@ class Constant
         return [
             'background' => 'Background',
             'land' => 'Land',
-            'unit' => 'Unit',
-            'event' => 'Event'
+            'grid' => 'Grid',
+            'selection' => 'Selection',
+            'buildings' => 'Buildings',
+            'props' => 'Props and Decals',
+            'objects' => 'Objects',
+            'units' => 'Units',
+            'effects' => 'Effects',
+            'events' => 'Events',
         ];
     }
 
@@ -21,16 +27,20 @@ class Constant
         return [
             'background' => 'Background',
             'land' => 'Land',
-            'unit' => 'Unit'
+            'building' => 'Building',
+            'prop' => 'Props',
+            'object' => 'Object',
+            'unit' => 'Unit',
+            'effect' => 'Effect',
         ];
     }
 
     public static function getMapType()
     {
         return [
-            'campaign' => 'Campaign',
-            'mini-game' => 'Mini Game',
-            'other' => 'Autres'
+            'square' => 'Square',
+            'isometric' => 'Isometric',
+            'hexagonal' => 'Hexagonal'
         ];
     }
 } 

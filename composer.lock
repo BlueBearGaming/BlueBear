@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b44d83f31a3af95dcfe7d61cf39a6039",
+    "hash": "f9c63c5bfbc7eb56a2e5ddea6711e9a5",
     "packages": [
         {
             "name": "andres-montanez/magallanes",
@@ -84,6 +84,43 @@
                 "transliterator"
             ],
             "time": "2014-05-15 22:08:22"
+        },
+        {
+            "name": "clever-gaming/jikpoze",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/CleverGaming/Jikpoze.git",
+                "reference": "83d8dcac210314eae8c1560bcc72d44ec50e55b3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/CleverGaming/Jikpoze/zipball/83d8dcac210314eae8c1560bcc72d44ec50e55b3",
+                "reference": "83d8dcac210314eae8c1560bcc72d44ec50e55b3",
+                "shasum": ""
+            },
+            "type": "game-engine",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL"
+            ],
+            "authors": [
+                {
+                    "name": "Vincent Chalnot",
+                    "email": "vchalnot@clever-age.com",
+                    "homepage": "http://chalnot.fr"
+                }
+            ],
+            "description": "2D game rendering engine with Dart and StageXL",
+            "homepage": "https://github.com/CleverGaming/Jikpoze",
+            "keywords": [
+                "dart",
+                "engine",
+                "game",
+                "stagexl",
+                "tiles"
+            ],
+            "time": "2015-01-12 20:47:03"
         },
         {
             "name": "components/jquery",
@@ -2847,7 +2884,8 @@
         "doctrine/data-fixtures": 20,
         "doctrine/doctrine-fixtures-bundle": 20,
         "gedmo/doctrine-extensions": 20,
-        "mopa/bootstrap-bundle": 20
+        "mopa/bootstrap-bundle": 20,
+        "clever-gaming/jikpoze": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
