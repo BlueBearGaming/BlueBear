@@ -18,5 +18,5 @@ blue_bear_user:
     resource: "@BlueBearUserBundle/Resources/config/routing.yml"
     prefix:   /
 
-fos_user_security:
+fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"

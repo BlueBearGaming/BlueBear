@@ -1,5 +1,5 @@
 bluebear_editor_homepage:
-    pattern:  /
+    pattern:  /editor
     defaults: { _controller: BlueBearEditorBundle:Main:index }
 
 bluebear_map_edit:

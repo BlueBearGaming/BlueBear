@@ -49,11 +49,11 @@ class Map
     protected $layers;
 
     /**
-     * Map contexts (ie snapshot of map state)
+     * Map user contexts (ie snapshot of map state for user)
      *
-     * @ORM\OneToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\Context", mappedBy="map", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\UserContext", mappedBy="map", cascade={"persist", "remove"})
      */
-    protected $contexts;
+    protected $userContexts;
 
     /**
      * @ORM\Column(name="cell_size", type="integer")
@@ -73,11 +73,11 @@ class Map
     protected $mode = self::MAP_TYPE_GAME;
 
     /**
-     *
+     * Initialize user context
      */
     public function __construct()
     {
-        $this->contexts = new ArrayCollection();
+        $this->userContexts = new ArrayCollection();
     }
 
     /**
@@ -136,31 +136,6 @@ class Map
     {
         $this->layers = $layers;
     }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getContexts()
-    {
-        return $this->contexts;
-    }
-
-    /**
-     * @param mixed $contexts
-     */
-    public function setContexts($contexts)
-    {
-        $this->contexts = $contexts;
-    }
-
-    /**
-     * @param Context $context
-     */
-    public function addContext(Context $context)
-    {
-        $this->contexts[] = $context;
-    }
-
     /**
      * @return int
      */
@@ -191,5 +166,29 @@ class Map
     public function setCellSize($cellSize)
     {
         $this->cellSize = $cellSize;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getUserContexts()
+    {
+        return $this->userContexts;
+    }
+
+    /**
+     * @param mixed $userContexts
+     */
+    public function setUserContexts($userContexts)
+    {
+        $this->userContexts = $userContexts;
+    }
+
+    /**
+     * @param UserContext $userContext
+     */
+    public function addUserContext(UserContext $userContext)
+    {
+        $this->userContexts->add($userContext);
     }
 }
