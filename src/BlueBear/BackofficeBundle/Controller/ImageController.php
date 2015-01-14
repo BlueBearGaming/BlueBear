@@ -52,7 +52,7 @@ class ImageController extends Controller
             // upload new file
             if ($file) {
                 // upload resource
-                $this->getResourceManager()->upload($file, Image::IMAGE_TYPE_SINGLE_IMAGE, $image);
+                $this->getResourceManager()->upload($file, $image);
                 $this->setMessage('Image has been successfully changed');
             }
             // redirect to image list
@@ -91,14 +91,10 @@ class ImageController extends Controller
         if ($form->isValid()) {
             /** @var UploadedFile $file */
             $file = $form->get('file')->getData();
-            $uploadType = $form->get('type')->getData();
             // upload file into resources directory, if it's a sprite it will vut into multiple images
-            $this->getResourceManager()->upload($file, $uploadType);
+            $this->getResourceManager()->upload($file);
             $this->setMessage('Image has been successfully uploaded');
-
-            if ($uploadType !== Image::IMAGE_TYPE_SINGLE_IMAGE) {
-                $this->setMessage('Sprite has been successfully cut');
-            }
+            
             return $this->redirect('@bluebear_backoffice_image');
         }
         return $this->render('BlueBearBackofficeBundle:Image:upload.html.twig', [

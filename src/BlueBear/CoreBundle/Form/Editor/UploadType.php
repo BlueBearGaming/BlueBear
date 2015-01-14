@@ -3,7 +3,6 @@
 
 namespace BlueBear\CoreBundle\Form\Editor;
 
-use BlueBear\CoreBundle\Entity\Editor\Image;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -12,19 +11,8 @@ class UploadType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options = [])
     {
-        $builder->add('type', 'choice', [
-            'choices' => [
-                Image::IMAGE_TYPE_SINGLE_IMAGE => 'Single image',
-                Image::IMAGE_TYPE_RPG_MAKER_TILESET => 'RPG Maker tileset',
-                Image::IMAGE_TYPE_RPG_MAKER_SPRITE => 'RPG Maker character sprite',
-                Image::IMAGE_TYPE_AUTO => 'Auto crop',
-            ],
-            'expanded' => true,
-            'data' => Image::IMAGE_TYPE_SINGLE_IMAGE,
-            'help_block' => 'Upload a single or a RPG-Maker sprite'
-        ]);
         $builder->add('file', 'file', [
-            'label' => 'Upload a sprite',
+            'label' => 'Upload an image',
             'help_block' => 'File to upload'
         ]);
     }

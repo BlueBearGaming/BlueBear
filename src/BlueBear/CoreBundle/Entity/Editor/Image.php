@@ -26,25 +26,9 @@ class Image
     use Id, Nameable, Timestampable;
 
     /**
-     * @ORM\JoinColumn(nullable=true)
-     * @ORM\OneToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Pencil")
-     */
-    protected $pencil;
-
-    /**
      * @ORM\OneToOne(targetEntity="BlueBear\CoreBundle\Entity\Editor\Resource", cascade={"persist"}, fetch="EAGER")
      */
     protected $resource;
-
-    public function getPencil()
-    {
-        return $this->pencil;
-    }
-
-    public function setPencil($pencil)
-    {
-        $this->pencil = $pencil;
-    }
 
     /**
      * @return Resource

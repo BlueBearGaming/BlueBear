@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\AccessorOrder;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
+use BlueBear\CoreBundle\Entity\Editor\Image;
 
 /**
  * A pencil set is a collection of pencil. Each have a pencil set.
@@ -45,6 +46,15 @@ class PencilSet
      * @ORM\Column(type="string", length=255)
      */
     protected $type;
+    
+    /**
+     * Image used in render
+     *
+     * @var Image
+     * @ORM\OneToOne(targetEntity="BlueBear\CoreBundle\Entity\Editor\Image", fetch="EAGER", cascade={"persist"});
+     * @ORM\JoinColumn(nullable=true)
+     */
+    protected $sprite;
 
     /**
      * Return pencil set type references
@@ -111,6 +121,29 @@ class PencilSet
     {
         $this->type = $type;
     }
+
+    /**
+     * Return pencil's set's sprite
+     *
+     * @return Image
+     */
+    public function getSprite()
+    {
+        return $this->sprite;
+    }
+
+    /**
+     * Set item's sprite
+     *
+     * @param Image $sprite
+     * @return $this
+     */
+    public function setSprite(Image $sprite)
+    {
+        $this->sprite = $sprite;
+        $sprite->setPencil($this);
+    }
+
 
     // TODO remove after api controller refactoring
     public function toArray()

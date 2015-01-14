@@ -21,16 +21,8 @@ class ResourceManager
      * @param Image $image
      * @throws Exception
      */
-    public function upload(UploadedFile $file, $uploadType, Image $image = null)
+    public function upload(UploadedFile $file, Image $image = null)
     {
-        if ($uploadType == Image::IMAGE_TYPE_SINGLE_IMAGE) {
-            $this->uploadSingleImage($file, $image);
-        } else {
-            $this->uploadSplittableImage($file, $uploadType, $image);
-        }
-    }
-    
-    protected function uploadSingleImage(UploadedFile $file, Image $image = null) {
         $imagesDirectory = $this->getResourcesDirectory();
         
         // generate "unique" filename
@@ -52,13 +44,6 @@ class ResourceManager
 
         $this->save($resource, false);
         $this->save($image);
-    }
-    
-    protected function uploadSplittableImage(UploadedFile $file, $uploadType, Image $image = null) {
-        $imagesDirectory = $this->getResourcesDirectory();
-
-        // cut sprite into multiple images
-        $this->getImageManager()->splitSprite($file->getPathname(), $imagesDirectory . '/sprite/', $uploadType);
     }
 
     /**

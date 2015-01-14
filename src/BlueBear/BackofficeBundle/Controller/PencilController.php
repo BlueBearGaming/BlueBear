@@ -4,15 +4,18 @@
 namespace BlueBear\BackofficeBundle\Controller;
 
 use BlueBear\BackofficeBundle\Controller\Behavior\ControllerBehavior;
+use BlueBear\CoreBundle\Entity\Editor\Image;
 use BlueBear\CoreBundle\Entity\Map\Map;
 use BlueBear\CoreBundle\Entity\Map\Pencil;
 use BlueBear\CoreBundle\Entity\Map\PencilSet;
+use BlueBear\CoreBundle\Manager\ImageManager;
 use BlueBear\CoreBundle\Manager\MapManager;
 use BlueBear\CoreBundle\Manager\PencilManager;
 use BlueBear\CoreBundle\Manager\PencilSetManager;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use BlueBear\CoreBundle\Manager\ResourceManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -89,6 +92,22 @@ class PencilController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+            $file = $form->get('file')->getData();
+            // upload new file
+            if ($file) {
+                if ($pencilSet->getSprite()) {
+                    $image = $pencilSet->getSprite();
+                } else {
+                    $image = new Image;
+                    $image->setName('sprite_' . $pencilSet->getName());
+                    $pencilSet->setSprite($image);
+                }
+                // save image object
+                $this->getImageManager()->save($image);
+                // upload resource
+                $this->getResourceManager()->upload($file, $image);
+                $this->setMessage('Image has been successfully uploaded');
+            }
             $this->getPencilSetManager()->save($pencilSet);
             $response = $this->redirect('@bluebear_backoffice_pencil');
 
@@ -192,5 +211,21 @@ class PencilController extends Controller
     protected function getMapManager()
     {
         return $this->get('bluebear.manager.map');
+    }
+    
+        /**
+     * @return ResourceManager
+     */
+    protected function getResourceManager()
+    {
+        return $this->get('bluebear.manager.resource');
+    }
+
+    /**
+     * @return ImageManager
+     */
+    protected function getImageManager()
+    {
+        return $this->get('bluebear.manager.image');
     }
 }

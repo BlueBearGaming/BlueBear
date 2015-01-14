@@ -1,10 +1,4 @@
-{% extends 'BlueBearBackofficeBundle::layout.html.twig' %}
-
-{% block rightMenu %}
-    <ul class="nav nav-pills nav-stacked">
-        <li><a href="{{ path('bluebear_backoffice_image_upload') }}">Upload an image</a></li>
-    </ul>
-{% endblock %}
+{% extends 'BlueBearBackofficeBundle:Image:index.html.twig' %}
 
 {% block content %}
     {% set title = 'Image Edit' %}

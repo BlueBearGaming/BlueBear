@@ -16,6 +16,12 @@ class PencilSetType extends AbstractType
         $builder->add('type', 'choice', [
             'choices' => PencilSet::getPencilSetType()
         ]);
+        $builder->add('file', 'file', [
+            'label' => 'Image',
+            'mapped' => false,
+            'required' => false,
+            'help_block' => 'File to upload',
+        ]);
     }
 
     public function getName()
