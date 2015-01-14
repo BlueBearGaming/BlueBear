@@ -26,4 +26,36 @@ class UserContext
      * @ORM\Id()
      */
     protected $context;
+
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getContext()
+    {
+        return $this->context;
+    }
+
+    /**
+     * @param mixed $context
+     */
+    public function setContext($context)
+    {
+        $this->context = $context;
+    }
 }

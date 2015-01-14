@@ -3,12 +3,12 @@
 namespace BlueBear\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use FOS\UserBundle\Model\User as BaseUser;
+use FOS\UserBundle\Entity\User as BaseUser;
 
 /**
  * User
  *
- * @ORM\Table(name="user")
+ * @ORM\Table(name="fos_user")
  * @ORM\Entity(repositoryClass="BlueBear\UserBundle\Entity\UserRepository")
  */
 class User extends BaseUser
@@ -22,6 +22,7 @@ class User extends BaseUser
 
     /**
      * @ORM\OneToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\UserContext", mappedBy="user")
+     * @ORM\JoinColumn(name="user_contexts")
      */
     protected $userContexts;
 
@@ -39,5 +40,21 @@ class User extends BaseUser
     public function setId($id)
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUserContexts()
+    {
+        return $this->userContexts;
+    }
+
+    /**
+     * @param mixed $userContexts
+     */
+    public function setUserContexts($userContexts)
+    {
+        $this->userContexts = $userContexts;
     }
 } 

@@ -47,8 +47,14 @@ class MapController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+
+
             $this->get('bluebear.manager.pencil_set')->removeFromMap($map);
-            $this->getMapManager()->saveMap($map);
+            $this->getMapManager()->saveMap($map, $this->getUser());
+
+            var_dump($this->getUser());
+            die;
+
             $this->setMessage('Map successfully saved');
 
             return $this->redirect('@bluebear_backoffice_map');
