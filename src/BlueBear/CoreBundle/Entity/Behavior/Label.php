@@ -14,7 +14,7 @@ trait Label
     /**
      * Entity displayed name
      *
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Expose()
      */
     protected $label;

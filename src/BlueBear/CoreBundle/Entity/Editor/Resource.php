@@ -9,7 +9,7 @@ use BlueBear\CoreBundle\Entity\Behavior\Timestampable;
 use BlueBear\CoreBundle\Manager\ResourceManager;
 use Doctrine\ORM\Mapping as ORM;
 use Exception;
-use Symfony\Component\Finder\SplFileInfo;
+use SplFileInfo;
 
 /**
  * Upload
@@ -24,9 +24,13 @@ class Resource
     
     public function __construct(SplFileInfo $file = null) {
         if ($file) {
+            $ad = realpath(ResourceManager::getApplicationDirectory());
             $this->fileName = $file->getBasename();
-            var_dump($file->getPath(), ResourceManager::getApplicationDirectory()); exit; // @todo set proper filePath
-            $this->filePath = $file->getPath();
+            if (0 === strpos($file->getRealPath(), $ad)) {
+                $this->filePath = dirname(str_replace($ad, '', $file->getRealPath()));
+            } else {
+                $this->filePath = dirname($file->getPath());
+            }
         }
     }
 
@@ -63,7 +67,7 @@ class Resource
      */
     public function getFullPath()
     {
-        return ResourceManager::getApplicationDirectory() . $this->getFilePath() . $this->getFileName();
+        return ResourceManager::getApplicationDirectory() . '/' . trim($this->getFilePath(), '/') . '/' . $this->getFileName();
     }
 
     public function getExtension()
@@ -97,9 +101,17 @@ class Resource
      */
     public function getFileContent()
     {
-        if (strpos($this->getFilePath(), '../')) {
-            throw new Exception('Security error in file path for file_get_content');
+        if (!$this->fileExists()) {
+            return null;
         }
         return base64_encode(file_get_contents($this->getFullPath()));
+    }
+    
+    public function __toString() {
+        return (string) $this->getFileName();
+    }
+    
+    public function fileExists() {
+        return file_exists($this->getFullPath());
     }
 } 

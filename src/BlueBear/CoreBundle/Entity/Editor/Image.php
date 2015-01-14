@@ -32,7 +32,7 @@ class Image
     protected $pencil;
 
     /**
-     * @ORM\OneToOne(targetEntity="BlueBear\CoreBundle\Entity\Editor\Resource")
+     * @ORM\OneToOne(targetEntity="BlueBear\CoreBundle\Entity\Editor\Resource", cascade={"persist"}, fetch="EAGER")
      */
     protected $resource;
 

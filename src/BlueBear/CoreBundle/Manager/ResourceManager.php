@@ -58,20 +58,7 @@ class ResourceManager
         $imagesDirectory = $this->getResourcesDirectory();
 
         // cut sprite into multiple images
-        $images = $this->getImageManager()->splitSprite($file->getPathname(), $imagesDirectory . '/sprite/', $uploadType);
-
-        /** @var Image $image */
-        foreach ($images as $image) {
-            // save resource into database
-            $resource = new Resource();
-            $resource->setName($image->getName());
-            $resource->setFileName($this->generateFileHash($image->getName()) . '');
-            $resource->setFilePath($imagesDirectory);
-            $image->setResource($resource);
-            $this->save($resource, false);
-            $this->save($image, false);
-        }
-        $this->flush();
+        $this->getImageManager()->splitSprite($file->getPathname(), $imagesDirectory . '/sprite/', $uploadType);
     }
 
     /**
@@ -102,7 +89,7 @@ class ResourceManager
 
     public static function getApplicationDirectory()
     {
-        return __DIR__ . '/../../../../';
+        return realpath(__DIR__ . '/../../../../');
     }
 
     /**

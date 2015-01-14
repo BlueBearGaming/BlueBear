@@ -19,6 +19,11 @@ class SpriteSplitter
         if (!count($splitRules)) {
             $splitRules = $this->getDefaultsRules();
         }
+        if (!file_exists($destinationDirectory)) {
+            if (!mkdir($destinationDirectory)) {
+                throw new \Symfony\Component\Filesystem\Exception\FileNotFoundException("Unable to find or create directory: {$destinationDirectory}");
+            }
+        }
         // get image size
         $sourceSize = getimagesize($imagePath);
         $sourceWidth = $sourceSize[0];

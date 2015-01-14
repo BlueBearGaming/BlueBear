@@ -11,6 +11,7 @@ use BlueBear\CoreBundle\Entity\Map\Pencil;
 use BlueBear\CoreBundle\Manager\Behavior\ManagerBehavior;
 use Doctrine\Common\Collections\ArrayCollection;
 use Exception;
+use SplFileInfo;
 use UnexpectedValueException;
 
 class ImageManager
@@ -49,7 +50,8 @@ class ImageManager
             // we create an image and associate it to an editor item
             $image = new Image();
             $image->setName($imageName);
-            $resource = new Resource($imagePath);
+            $resource = new Resource(new SplFileInfo($imagePath));
+            $resource->setName('sprite_'.$imageName);
             $image->setResource($resource);
             $this->save($image, false);
             $images[] = $image;

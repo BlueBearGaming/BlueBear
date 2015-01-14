@@ -14,7 +14,7 @@ trait Nameable
     /**
      * Entity name
      *
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Expose()
      */
     protected $name;
