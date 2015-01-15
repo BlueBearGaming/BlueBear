@@ -40,12 +40,15 @@ class MapManager
         // if map is new, we create a initial context
         if (!$map->getId()) {
             $context = new Context();
+            $context->setLabel('Initial context');
+            $context->setVersion(0);
+            $this->save($context);
+
             $userContext = new UserContext();
             $userContext->setUser($user);
             $userContext->setContext($context);
             $map->addUserContext($userContext);
         }
-
         $this->save($map);
     }
 

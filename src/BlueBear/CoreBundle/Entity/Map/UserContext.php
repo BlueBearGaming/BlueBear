@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="user_context")
  * @ORM\Entity(repositoryClass="BlueBear\CoreBundle\Entity\Map\ContextRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class UserContext 
 {

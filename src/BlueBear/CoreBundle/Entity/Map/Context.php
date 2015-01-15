@@ -46,12 +46,18 @@ class Context
     protected $mapItems;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    protected $version = 0;
+
+    /**
      * Convert the context to an array
      *
      * @return array
      */
     public function toArray()
     {
+        // TODO remove this method
         $mapItem = $this->getMapItems();
         $mapItemsArray = [];
 
@@ -106,5 +112,21 @@ class Context
             $mapItems[$item->getId()] = $item;
         }
         return $mapItems;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getVersion()
+    {
+        return $this->version;
+    }
+
+    /**
+     * @param mixed $version
+     */
+    public function setVersion($version)
+    {
+        $this->version = $version;
     }
 } 

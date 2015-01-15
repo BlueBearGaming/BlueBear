@@ -74,6 +74,11 @@ class Pencil
      */
     protected $imageY = 0;
 
+    protected $spriteX;
+    protected $spriteY;
+    protected $spriteWidth;
+    protected $spriteHeight;
+
     /**
      * Cells that physically contains the object (the one able to capture events)
      *
