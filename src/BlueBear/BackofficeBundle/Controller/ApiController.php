@@ -50,49 +50,15 @@ class ApiController extends Controller
         $events = EngineEvent::getAllowedEvents();
         $snippets = [];
         /** @var Context $context */
-        $context = $map->getContexts()->first();
+        $context = $map->getUserContexts()->first()->getContext();
         /** @var Serializer $serializer */
         $serializer = $this->get('jms_serializer');
 
-        // TODO refactoring with JMS Serializer Bundle
         foreach ($events as $event) {
             if ($event == EngineEvent::ENGINE_ON_CONTEXT_LOAD) {
                 $request = new LoadContextRequest();
                 $request->contextId = $context->getId();
                 $snippets[$event] = $request;
-            } else if ($event == EngineEvent::ENGINE_ON_MAP_SAVE) {
-//
-//
-//                $snippet->mapName = $map->getName();
-//                $snippet->context = new stdClass();
-//
-//                if ($context) {
-//                    $snippet->context->id = $context->getId();
-//                    $snippet->context->mapItems = [];
-//                    // get allowed pencils
-//                    $pencils = [];
-//                    $pencilSets = $map->getPencilSets();
-//
-//                    /** @var PencilSet $pencilSet */
-//                    foreach ($pencilSets as $pencilSet) {
-//                        $pencils = array_merge($pencils, $pencilSet->getPencils()->toArray());
-//                    }
-//                    // if map has pencil, we choose one
-//                    if (count($pencils)) {
-//                        /** @var Pencil $pencil */
-//                        $pencil = $pencils[array_rand($pencils)];
-//                        /** @var Layer $layer */
-//                        $layer = $map->getLayers()[array_rand($map->getLayers()->toArray())];
-//
-//                        $mapItem = new stdClass();
-//                        $mapItem->x = 0;
-//                        $mapItem->y = 0;
-//                        $mapItem->pencil = $pencil->toArray();
-//                        $mapItem->layer = $layer->toArray();
-//                        $snippet->context->mapItems[] = $mapItem;
-//                    }
-//                }
-//                $snippets[$event] = $snippet;
             } else if ($event == EngineEvent::ENGINE_ON_MAP_ITEM_CLICK) {
                 $request = new MapItemClickRequest();
                 $request->contextId = $context->getId();

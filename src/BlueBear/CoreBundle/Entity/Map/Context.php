@@ -25,14 +25,6 @@ class Context
     use Id, Label, Timestampable, Data;
 
     /**
-     * Map which this context belongs
-     *
-     * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Map", inversedBy="contexts")
-     * @Expose()
-     */
-    protected $map;
-
-    /**
      * @ORM\OneToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\UserContext", mappedBy="context")
      */
     protected $userContexts;
@@ -46,12 +38,18 @@ class Context
     protected $mapItems;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    protected $version = 0;
+
+    /**
      * Convert the context to an array
      *
      * @return array
      */
     public function toArray()
     {
+        // TODO remove this method
         $mapItem = $this->getMapItems();
         $mapItemsArray = [];
 
@@ -63,22 +61,6 @@ class Context
             'id' => $this->getId(),
             'mapItems' => $mapItemsArray
         ];
-    }
-
-    /**
-     * @return Map
-     */
-    public function getMap()
-    {
-        return $this->map;
-    }
-
-    /**
-     * @param mixed $map
-     */
-    public function setMap(Map $map)
-    {
-        $this->map = $map;
     }
 
     /**
@@ -106,5 +88,37 @@ class Context
             $mapItems[$item->getId()] = $item;
         }
         return $mapItems;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getVersion()
+    {
+        return $this->version;
+    }
+
+    /**
+     * @param mixed $version
+     */
+    public function setVersion($version)
+    {
+        $this->version = $version;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUserContexts()
+    {
+        return $this->userContexts;
+    }
+
+    /**
+     * @param mixed $userContexts
+     */
+    public function setUserContexts($userContexts)
+    {
+        $this->userContexts = $userContexts;
     }
 } 

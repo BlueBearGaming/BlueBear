@@ -6,6 +6,7 @@ namespace BlueBear\BackofficeBundle\Controller;
 use BlueBear\BackofficeBundle\Controller\Behavior\ControllerBehavior;
 use BlueBear\CoreBundle\Entity\Map\Map;
 use BlueBear\CoreBundle\Manager\MapManager;
+use BlueBear\CoreBundle\Manager\PencilSetManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -47,16 +48,9 @@ class MapController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-
-
-            $this->get('bluebear.manager.pencil_set')->removeFromMap($map);
+            $this->getPencilSetManager()->removeFromMap($map);
             $this->getMapManager()->saveMap($map, $this->getUser());
-
-            var_dump($this->getUser());
-            die;
-
             $this->setMessage('Map successfully saved');
-
             return $this->redirect('@bluebear_backoffice_map');
         }
         return [
@@ -87,5 +81,15 @@ class MapController extends Controller
     protected function getMapManager()
     {
         return $this->get('bluebear.manager.map');
+    }
+
+    /**
+     * Return pencil set manager
+     *
+     * @return PencilSetManager
+     */
+    protected function getPencilSetManager()
+    {
+        return $this->get('bluebear.manager.pencil_set');
     }
 }

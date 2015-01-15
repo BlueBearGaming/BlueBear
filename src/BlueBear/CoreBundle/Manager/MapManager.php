@@ -37,16 +37,25 @@ class MapManager
      */
     public function saveMap(Map $map, User $user)
     {
+        $isNew = !($map->getId());
+        $this->save($map);
+
         // if map is new, we create a initial context
-        if (!$map->getId()) {
+        if ($isNew) {
             $context = new Context();
+            $context->setLabel('Initial context');
+            $context->setVersion(0);
+
             $userContext = new UserContext();
             $userContext->setUser($user);
             $userContext->setContext($context);
+            $userContext->setMap($map);
             $map->addUserContext($userContext);
-        }
 
-        $this->save($map);
+            $this->save($context);
+            $this->save($userContext);
+            $this->save($map);
+        }
     }
 
     /**

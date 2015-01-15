@@ -23,8 +23,9 @@ class ImageManager
      *
      * @param $spriteFullPath
      * @param $destinationDirectory
-     * @throws Exception
+     * @param $splitType
      * @return array
+     * @throws Exception
      */
     public function splitSprite($spriteFullPath, $destinationDirectory, $splitType)
     {
