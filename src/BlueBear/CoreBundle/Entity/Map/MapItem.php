@@ -35,7 +35,7 @@ class MapItem
      * Layer
      *
      * @var Layer
-     * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Layer", fetch="EAGER");
+     * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Layer", inversedBy="mapItems", fetch="EAGER");
      */
     protected $layer;
 

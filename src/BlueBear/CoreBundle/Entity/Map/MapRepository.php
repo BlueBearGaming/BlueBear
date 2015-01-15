@@ -33,7 +33,7 @@ class MapRepository extends EntityRepository
     {
         return $this
             ->createQueryBuilder('map')
-            ->where('map.id = 1');
+            ->setMaxResults(1);
     }
 
     /**
