@@ -21,18 +21,6 @@ use SplFileInfo;
 class Resource
 {
     use Id, Nameable, Label, Timestampable;
-    
-    public function __construct(SplFileInfo $file = null) {
-        if ($file) {
-            $ad = realpath(ResourceManager::getApplicationDirectory());
-            $this->fileName = $file->getBasename();
-            if (0 === strpos($file->getRealPath(), $ad)) {
-                $this->filePath = dirname(str_replace($ad, '', $file->getRealPath()));
-            } else {
-                $this->filePath = dirname($file->getPath());
-            }
-        }
-    }
 
     /**
      * @ORM\Column(name="file_path", type="string", length=255)

@@ -69,12 +69,7 @@ class ResourceManager
 
     public function getResourcesDirectory()
     {
-        return __DIR__ . '/../../../../resources/';
-    }
-
-    public static function getApplicationDirectory()
-    {
-        return realpath(__DIR__ . '/../../../../');
+        return $this->getContainer()->getParameter('resources_dir');
     }
 
     /**
