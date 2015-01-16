@@ -30,6 +30,11 @@ class Context
     protected $userContexts;
 
     /**
+     * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Map", inversedBy="contexts")
+     */
+    protected $map;
+
+    /**
      * Map item for this context
      *
      * @ORM\OneToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\MapItem", mappedBy="context", cascade={"persist"})
@@ -120,5 +125,21 @@ class Context
     public function setUserContexts($userContexts)
     {
         $this->userContexts = $userContexts;
+    }
+
+    /**
+     * @return Map
+     */
+    public function getMap()
+    {
+        return $this->map;
+    }
+
+    /**
+     * @param Map $map
+     */
+    public function setMap(Map $map)
+    {
+        $this->map = $map;
     }
 } 

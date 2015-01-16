@@ -23,12 +23,6 @@ class UserContext
     protected $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Map", inversedBy="userContexts")
-     * @ORM\Id()
-     */
-    protected $map;
-
-    /**
      * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Context", inversedBy="userContexts", cascade={"remove"})
      * @ORM\Id()
      */
@@ -64,21 +58,5 @@ class UserContext
     public function setContext(Context $context)
     {
         $this->context = $context;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getMap()
-    {
-        return $this->map;
-    }
-
-    /**
-     * @param mixed $map
-     */
-    public function setMap($map)
-    {
-        $this->map = $map;
     }
 }

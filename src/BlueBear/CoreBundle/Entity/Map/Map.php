@@ -51,9 +51,9 @@ class Map
     /**
      * Map user contexts (ie snapshot of map state for user)
      *
-     * @ORM\OneToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\UserContext", mappedBy="map", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\Context", mappedBy="map", cascade={"persist", "remove"})
      */
-    protected $userContexts;
+    protected $contexts;
 
     /**
      * @ORM\Column(name="cell_size", type="integer")
@@ -77,7 +77,7 @@ class Map
      */
     public function __construct()
     {
-        $this->userContexts = new ArrayCollection();
+        $this->contexts = new ArrayCollection();
     }
 
     /**
@@ -106,7 +106,7 @@ class Map
     }
 
     /**
-     * @return PencilSet[]
+     * @return ArrayCollection
      */
     public function getPencilSets()
     {
@@ -171,24 +171,16 @@ class Map
     /**
      * @return ArrayCollection
      */
-    public function getUserContexts()
+    public function getContexts()
     {
-        return $this->userContexts;
+        return $this->contexts;
     }
 
     /**
-     * @param mixed $userContexts
+     * @param mixed $contexts
      */
-    public function setUserContexts($userContexts)
+    public function setContexts($contexts)
     {
-        $this->userContexts = $userContexts;
-    }
-
-    /**
-     * @param UserContext $userContext
-     */
-    public function addUserContext(UserContext $userContext)
-    {
-        $this->userContexts->add($userContext);
+        $this->contexts = $contexts;
     }
 }

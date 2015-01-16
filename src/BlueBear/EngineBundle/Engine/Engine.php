@@ -75,18 +75,16 @@ class Engine
 
     protected function getRequestClassForEvent($eventName)
     {
-        $request = null;
+        $request = 'BlueBear\EngineBundle\Event\EventRequest';
 
         if ($eventName == EngineEvent::ENGINE_ON_CONTEXT_LOAD) {
             $request = 'BlueBear\EngineBundle\Event\Map\LoadContextRequest';
         } else if ($eventName == EngineEvent::ENGINE_ON_MAP_ITEM_CLICK) {
-            $request = 'BlueBear\EngineBundle\Event\Map\MapItemClickRequest';
+            $request = 'BlueBear\EngineBundle\Event\MapItem\MapItemClickRequest';
         }
         if (!$request) {
             throw new Exception('Event request class not found for event : ' . $eventName);
         }
-        $request = 'BlueBear\EngineBundle\Event\EventRequest';
-
         return $request;
     }
 } 

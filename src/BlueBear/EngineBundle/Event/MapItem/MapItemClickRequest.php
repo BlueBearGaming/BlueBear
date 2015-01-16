@@ -19,4 +19,16 @@ class MapItemClickRequest extends EventRequest
      * @Type("integer")
      */
     public $y;
+
+    /**
+     * @Expose()
+     * @Type("integer")
+     */
+    public $pencil;
+
+    /**
+     * @Expose()
+     * @Type("integer")
+     */
+    public $layer;
 }

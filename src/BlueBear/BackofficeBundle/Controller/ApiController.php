@@ -5,6 +5,8 @@ namespace BlueBear\BackofficeBundle\Controller;
 use BlueBear\BackofficeBundle\Controller\Behavior\ControllerBehavior;
 use BlueBear\CoreBundle\Entity\Map\Context;
 use BlueBear\CoreBundle\Entity\Map\Map;
+use BlueBear\CoreBundle\Entity\Map\Pencil;
+use BlueBear\CoreBundle\Entity\Map\PencilSet;
 use BlueBear\CoreBundle\Manager\MapManager;
 use BlueBear\EngineBundle\Event\EngineEvent;
 use BlueBear\EngineBundle\Event\Map\LoadContextRequest;
@@ -50,7 +52,7 @@ class ApiController extends Controller
         $events = EngineEvent::getAllowedEvents();
         $snippets = [];
         /** @var Context $context */
-        $context = $map->getUserContexts()->first()->getContext();
+        $context = $map->getContexts()->first();
         /** @var Serializer $serializer */
         $serializer = $this->get('jms_serializer');
 
@@ -60,10 +62,20 @@ class ApiController extends Controller
                 $request->contextId = $context->getId();
                 $snippets[$event] = $request;
             } else if ($event == EngineEvent::ENGINE_ON_MAP_ITEM_CLICK) {
+                /** @var PencilSet $pencilSet */
+                $pencilSet = $map->getPencilSets()->first();
+                /** @var Pencil $pencil */
+                $pencil = $pencilSet->getPencils()->first();
+
                 $request = new MapItemClickRequest();
                 $request->contextId = $context->getId();
                 $request->x = 5;
                 $request->y = 5;
+
+                if ($pencil) {
+                    $request->pencil = $pencil->getId();
+                    $request->layer = $map->getLayers()->first()->getId();
+                }
                 $snippets[$event] = $request;
             }
         }
