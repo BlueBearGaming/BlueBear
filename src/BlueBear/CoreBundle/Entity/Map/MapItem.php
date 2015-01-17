@@ -11,9 +11,9 @@ use JMS\Serializer\Annotation\Expose;
  * A Map Item is an object that is positioned on the map at a specific layer and that will use the pencil as its renderer
  *
  * @ORM\Table(name="map_item")
- * @ORM\Entity(repositoryClass="BlueBear\CoreBundle\Entity\MapItemRepository")
+ * @ORM\Entity(repositoryClass="BlueBear\CoreBundle\Entity\Map\MapItemRepository")
  * @ExclusionPolicy("all")
- * @AccessorOrder("custom", custom={"id"})
+ * @AccessorOrder("custom", custom={"id", "x", "y", "pencil", "layer"})
  */
 class MapItem
 {
@@ -28,6 +28,7 @@ class MapItem
     /**
      * @var Pencil
      * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Pencil", inversedBy="mapItems")
+     * @Expose()
      */
     protected $pencil;
 
@@ -36,6 +37,7 @@ class MapItem
      *
      * @var Layer
      * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Layer", inversedBy="mapItems", fetch="EAGER");
+     * @Expose()
      */
     protected $layer;
 
@@ -47,16 +49,18 @@ class MapItem
     /**
      * Absolute X position of the object in the map
      *
-     * @var int
      * @ORM\Column(type="integer")
+     * @Expose()
+     * @var int
      */
     protected $x;
 
     /**
      * Absolute Y position of the object in the map
      *
-     * @var int
      * @ORM\Column(type="integer")
+     * @Expose()
+     * @var int
      */
     protected $y;
 
@@ -123,5 +127,21 @@ class MapItem
             'x' => $this->getX(),
             'y' => $this->getY(),
         ];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getContext()
+    {
+        return $this->context;
+    }
+
+    /**
+     * @param Context $context
+     */
+    public function setContext(Context $context)
+    {
+        $this->context = $context;
     }
 }

@@ -51,9 +51,11 @@ class ApiController extends Controller
     {
         $events = EngineEvent::getAllowedEvents();
         $snippets = [];
-        /** @var Context $context */
+        /**
+         * @var Context $context
+         * @var Serializer $serializer
+         */
         $context = $map->getContexts()->first();
-        /** @var Serializer $serializer */
         $serializer = $this->get('jms_serializer');
 
         foreach ($events as $event) {
