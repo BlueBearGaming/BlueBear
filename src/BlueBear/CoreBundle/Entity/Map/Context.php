@@ -7,9 +7,7 @@ use BlueBear\CoreBundle\Entity\Behavior\Id;
 use BlueBear\CoreBundle\Entity\Behavior\Label;
 use BlueBear\CoreBundle\Entity\Behavior\Timestampable;
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation\AccessorOrder;
-use JMS\Serializer\Annotation\ExclusionPolicy;
-use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * Context of a map
@@ -17,8 +15,7 @@ use JMS\Serializer\Annotation\Expose;
  * @ORM\Table(name="context")
  * @ORM\Entity(repositoryClass="BlueBear\CoreBundle\Entity\Map\ContextRepository")
  * @ORM\HasLifecycleCallbacks()
- * @AccessorOrder("custom", custom={"id", "label", "map", "mapItems"})
- * @ExclusionPolicy("all")
+ * @Serializer\ExclusionPolicy("all")
  */
 class Context
 {
@@ -31,7 +28,7 @@ class Context
 
     /**
      * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Map", inversedBy="contexts")
-     * @Expose()
+     * @Serializer\Expose()
      */
     protected $map;
 
@@ -39,7 +36,7 @@ class Context
      * Map item for this context
      *
      * @ORM\OneToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\MapItem", mappedBy="context", cascade={"persist", "remove"})
-     * @Expose()
+     * @Serializer\Expose()
      */
     protected $mapItems;
 
@@ -47,27 +44,6 @@ class Context
      * @ORM\Column(type="integer")
      */
     protected $version = 0;
-
-    /**
-     * Convert the context to an array
-     *
-     * @return array
-     */
-    public function toArray()
-    {
-        // TODO remove this method
-        $mapItem = $this->getMapItems();
-        $mapItemsArray = [];
-
-        /** @var MapItem $item */
-        foreach ($mapItem as $item) {
-            $mapItemsArray[] = $item->toArray();
-        }
-        return [
-            'id' => $this->getId(),
-            'mapItems' => $mapItemsArray
-        ];
-    }
 
     /**
      * @return mixed
@@ -83,17 +59,6 @@ class Context
     public function setMapItems($mapItems)
     {
         $this->mapItems = $mapItems;
-    }
-
-    public function getMapItemsById()
-    {
-        $mapItems = [];
-
-        /** @var MapItem $item */
-        foreach ($this->mapItems as $item) {
-            $mapItems[$item->getId()] = $item;
-        }
-        return $mapItems;
     }
 
     /**
@@ -143,4 +108,4 @@ class Context
     {
         $this->map = $map;
     }
-} 
+}

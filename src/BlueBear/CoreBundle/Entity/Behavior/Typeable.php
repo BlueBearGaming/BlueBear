@@ -3,6 +3,8 @@
 
 namespace BlueBear\CoreBundle\Entity\Behavior;
 
+use JMS\Serializer\Annotation as Serializer;
+
 /**
  * Nameable
  *
@@ -14,6 +16,7 @@ trait Typeable
      * Entity type
      *
      * @ORM\Column(type="string", length=255)
+     * @Serializer\Expose()
      */
     protected $type;
 

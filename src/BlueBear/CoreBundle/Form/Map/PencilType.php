@@ -64,9 +64,9 @@ class PencilType extends AbstractType
         );
         $builder->add(
             $builder->create(
-                'allowedLayers', 'choice', [
+                'allowedLayerTypes', 'choice', [
                     'choices' => $this->getSortedEntityForChoice($this->layerManager->findAll()),
-                    'data' => $pencil->getAllowedLayers(),
+                    'data' => $pencil->getAllowedLayerTypes(),
                     'multiple' => true,
                     'expanded' => true,
                     'help_block' => 'Allowed layers for this pencil (it means that the pencil can only be added in

@@ -12,9 +12,7 @@ use BlueBear\CoreBundle\Entity\Behavior\Typeable;
 use BlueBear\CoreBundle\Entity\Editor\Image;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation\AccessorOrder;
-use JMS\Serializer\Annotation\ExclusionPolicy;
-use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * A pencil is a model that is used to "paint" tiles and object on the map. Each map have a pencil
@@ -22,8 +20,7 @@ use JMS\Serializer\Annotation\Expose;
  *
  * @ORM\Table(name="pencil")
  * @ORM\Entity(repositoryClass="BlueBear\CoreBundle\Entity\Map\PencilRepository")
- * @ExclusionPolicy("all")
- * @AccessorOrder("custom", custom={"id", "name", "label", "description", "type", "imageX", "imageY", "width", "height", "boundingBox", "allowedLayers", "image"})
+ * @Serializer\ExclusionPolicy("all")
  */
 class Pencil
 {
@@ -35,6 +32,7 @@ class Pencil
      * @var Image
      * @ORM\OneToOne(targetEntity="BlueBear\CoreBundle\Entity\Editor\Image", fetch="EAGER", cascade={"persist"});
      * @ORM\JoinColumn(nullable=true)
+     * @Serializer\Expose()
      */
     protected $image;
 
@@ -54,37 +52,64 @@ class Pencil
     /**
      * Allowed layers for this pencil
      *
-     * @ORM\ManyToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\Layer")
-     * @ORM\JoinTable(name="pencil_allowed_layers")
+     * @ORM\Column(name="allowed_layer_types", type="simple_array")
+     * @Serializer\Expose()
      */
-    protected $allowedLayers;
+    protected $allowedLayerTypes;
 
     /**
      * Relative position of the center of the image to the center of the cell
      *
-     * @ORM\Column(type="float")
-     * @Expose()
+     * @ORM\Column(name="image_x", type="float")
+     * @Serializer\Expose()
      */
     protected $imageX = 0;
 
     /**
      * Relative position of the center of the image to the center of the cell
      *
-     * @ORM\Column(type="float")
-     * @Expose()
+     * @ORM\Column(name="image_y", type="float")
+     * @Serializer\Expose()
      */
     protected $imageY = 0;
 
+    /**
+     * Position of the image inside the sprite sheet in pixels
+     *
+     * @ORM\Column(name="sprite_x", type="integer")
+     * @Serializer\Expose()
+     */
     protected $spriteX;
+
+    /**
+     * Position of the image inside the sprite sheet in pixels
+     *
+     * @ORM\Column(name="sprite_y", type="integer")
+     * @Serializer\Expose()
+     */
     protected $spriteY;
+
+    /**
+     * Size of the image in pixels
+     *
+     * @ORM\Column(name="sprite_width", type="integer")
+     * @Serializer\Expose()
+     */
     protected $spriteWidth;
+
+    /**
+     * Size of the image in pixels
+     *
+     * @ORM\Column(name="sprite_height", type="integer")
+     * @Serializer\Expose()
+     */
     protected $spriteHeight;
 
     /**
      * Cells that physically contains the object (the one able to capture events)
      *
      * @ORM\Column(type="array")
-     * @Expose()
+     * @Serializer\Expose()
      */
     protected $boundingBox = [[0, 0]];
 
@@ -138,14 +163,14 @@ class Pencil
      *
      * @return ArrayCollection
      */
-    public function getAllowedLayers()
+    public function getAllowedLayerTypes()
     {
-        return $this->allowedLayers;
+        return $this->allowedLayerTypes;
     }
 
-    public function setAllowedLayers($allowedLayers)
+    public function setAllowedLayerTypes(array $allowedLayerTypes = null)
     {
-        $this->allowedLayers = $allowedLayers;
+        $this->allowedLayerTypes = $allowedLayerTypes;
     }
 
     /**
@@ -167,26 +192,6 @@ class Pencil
     public function setImage(Image $image)
     {
         $this->image = $image;
-        $image->setPencil($this);
-    }
-
-    public function toArray()
-    {
-        $jsonAllowedLayers = [];
-        foreach ($this->getAllowedLayers() as $allowedLayer) {
-            $jsonAllowedLayers[] = $allowedLayer->getName();
-        }
-        return [
-            'name' => $this->getName(),
-            'label' => $this->getLabel(),
-            'type' => $this->getType(),
-            'imageX' => $this->getImageX(),
-            'imageY' => $this->getImageY(),
-            'width' => $this->getWidth(),
-            'height' => $this->getHeight(),
-            'boundingBox' => $this->getBoundingBox(),
-            'allowedLayers' => $jsonAllowedLayers,
-            'image' => $this->getImage()->toArray(),
-        ];
+        return $this;
     }
 }

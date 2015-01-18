@@ -3,6 +3,8 @@
 
 namespace BlueBear\CoreBundle\Entity\Behavior;
 
+use JMS\Serializer\Annotation as Serializer;
+
 /**
  * Positionable
  *
@@ -14,6 +16,7 @@ trait Positionable
      * X entity position
      *
      * @ORM\Column(name="x", type="integer")
+     * @Serializer\Expose()
      */
     protected $x;
 
@@ -21,6 +24,7 @@ trait Positionable
      * Y entity position
      *
      * @ORM\Column(name="y", type="integer")
+     * @Serializer\Expose()
      */
     protected $y;
 

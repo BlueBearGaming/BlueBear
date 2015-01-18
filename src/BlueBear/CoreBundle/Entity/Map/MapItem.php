@@ -2,33 +2,26 @@
 
 namespace BlueBear\CoreBundle\Entity\Map;
 
+use BlueBear\CoreBundle\Entity\Behavior\Id;
+use BlueBear\CoreBundle\Entity\Behavior\Positionable;
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation\AccessorOrder;
-use JMS\Serializer\Annotation\ExclusionPolicy;
-use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * A Map Item is an object that is positioned on the map at a specific layer and that will use the pencil as its renderer
  *
  * @ORM\Table(name="map_item")
  * @ORM\Entity(repositoryClass="BlueBear\CoreBundle\Entity\Map\MapItemRepository")
- * @ExclusionPolicy("all")
- * @AccessorOrder("custom", custom={"id", "x", "y", "pencil", "layer"})
+ * @Serializer\ExclusionPolicy("all")
  */
 class MapItem
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     * @Expose()
-     */
-    protected $id;
+    use Id, Positionable;
 
     /**
      * @var Pencil
      * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Pencil", inversedBy="mapItems")
-     * @Expose()
+     * @Serializer\Expose()
      */
     protected $pencil;
 
@@ -37,7 +30,7 @@ class MapItem
      *
      * @var Layer
      * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Layer", inversedBy="mapItems", fetch="EAGER");
-     * @Expose()
+     * @Serializer\Expose()
      */
     protected $layer;
 
@@ -45,35 +38,6 @@ class MapItem
      * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Context", inversedBy="mapItems")
      */
     protected $context;
-
-    /**
-     * Absolute X position of the object in the map
-     *
-     * @ORM\Column(type="integer")
-     * @Expose()
-     * @var int
-     */
-    protected $x;
-
-    /**
-     * Absolute Y position of the object in the map
-     *
-     * @ORM\Column(type="integer")
-     * @Expose()
-     * @var int
-     */
-    protected $y;
-
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    public function setId($id)
-    {
-        $this->id = $id;
-        return $this;
-    }
 
     public function getPencil()
     {
@@ -95,38 +59,6 @@ class MapItem
     {
         $this->layer = $layer;
         return $this;
-    }
-
-    public function getX()
-    {
-        return $this->x;
-    }
-
-    public function setX($x)
-    {
-        $this->x = $x;
-        return $this;
-    }
-
-    public function getY()
-    {
-        return $this->y;
-    }
-
-    public function setY($y)
-    {
-        $this->y = $y;
-        return $this;
-    }
-
-    public function toArray()
-    {
-        return [
-            'id' => $this->getId(),
-            'pencilName' => $this->getPencil()->getName(),
-            'x' => $this->getX(),
-            'y' => $this->getY(),
-        ];
     }
 
     /**

@@ -2,7 +2,7 @@
 
 namespace BlueBear\CoreBundle\Entity\Behavior;
 
-use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * Label
@@ -15,7 +15,7 @@ trait Label
      * Entity displayed name
      *
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Expose()
+     * @Serializer\Expose()
      */
     protected $label;
 

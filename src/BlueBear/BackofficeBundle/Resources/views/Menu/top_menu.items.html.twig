@@ -1,0 +1,35 @@
+<li class="{{ route[:'bluebear_backoffice_pencil'|length] == 'bluebear_backoffice_pencil' ? 'active' : '' }}">
+    <a href="{{ path('bluebear_backoffice_pencil') }}">Pencils</a>
+</li>
+<li class="{{ route[:'bluebear_backoffice_layer'|length] == 'bluebear_backoffice_layer' ? 'active' : '' }}">
+    <a href="{{ path('bluebear_backoffice_layer') }}">Layers</a>
+</li>
+<li class="{{ route[:'bluebear_backoffice_map'|length] == 'bluebear_backoffice_map' ? 'active' : '' }}">
+    <a href="{{ path('bluebear_backoffice_map') }}">Maps</a>
+</li>
+<li class="{{ route[:'bluebear_backoffice_api'|length] == 'bluebear_backoffice_api' ? 'active' : '' }}">
+    <a href="{{ path('bluebear_backoffice_api') }}">Api</a>
+</li>
+<li class="{{ route[:'bluebear_backoffice_documentation'|length] == 'bluebear_backoffice_documentation' ? 'active' : '' }}">
+    <a href="{{ path('bluebear_backoffice_documentation') }}">Docs</a>
+</li>
+<li class="dropdown">
+    <a href="#" class="dropdown-toggle"
+       data-toggle="dropdown" role="button"
+       aria-expanded="false">Content <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu" role="menu">
+        <li>
+            <a href="{{ path('bluebear_content_index') }}">Stories / Campaign</a>
+        </li>
+        <li>
+            <a href="{{ path('bluebear_backoffice_unit') }}">Units</a>
+        </li>
+    </ul>
+</li>
+<li class="{{ route[:'bluebear_editor'|length] == 'bluebear_editor' ? 'active' : '' }}">
+    <a href="{{ path('bluebear_editor_homepage') }}">Editor</a>
+</li>
+<li class="{{ getClassForRoute('fos_user_security_logout') }}">
+    <a href="{{ path('fos_user_security_logout') }}">Logout ({{ app.user.username}})</a>
+</li>

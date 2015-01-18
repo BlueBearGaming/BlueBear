@@ -33,6 +33,8 @@
         "components/jquery": "1.11.*",
         "components/jqueryui": "1.11.*",
         "jms/serializer-bundle": "0.13.*",
+        "nc/elephantio-bundle": "dev-master",
+        "oneup/uploader-bundle": "1.3.*",
         "clever-gaming/jikpoze": "dev-master"
     },
     "scripts": {

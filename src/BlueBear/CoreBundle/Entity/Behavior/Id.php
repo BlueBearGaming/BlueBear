@@ -2,7 +2,7 @@
 
 namespace BlueBear\CoreBundle\Entity\Behavior;
 
-use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation as Serializer;
 
 trait Id
 {
@@ -12,7 +12,7 @@ trait Id
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
-     * @Expose()
+     * @Serializer\Expose()
      */
     protected $id;
 

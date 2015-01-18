@@ -8,17 +8,14 @@ use BlueBear\CoreBundle\Entity\Behavior\Label;
 use BlueBear\CoreBundle\Entity\Behavior\Nameable;
 use BlueBear\CoreBundle\Entity\Behavior\Typeable;
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation\AccessorOrder;
-use JMS\Serializer\Annotation\ExclusionPolicy;
-use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * A layer of the map, containing a collection of positioned mapItems
  *
  * @ORM\Table(name="layer")
  * @ORM\Entity(repositoryClass="BlueBear\CoreBundle\Entity\Map\LayerRepository")
- * @ExclusionPolicy("all")
- * @AccessorOrder("custom", custom={"id", "name", "label", "description", "index"})
+ * @Serializer\ExclusionPolicy("all")
  */
 class Layer
 {
@@ -33,41 +30,9 @@ class Layer
      * Layer index (works similarly to css z-index; higher index means on the top of the screen layers)
      *
      * @ORM\Column(name="z_index", type="integer")
-     * @Expose()
+     * @Serializer\Expose()
      */
     protected $index;
-
-    // TODO remove this method after api test controller refactoring
-    public function toArray()
-    {
-        $mapItemsJson = [];
-        foreach ($this->mapItems as $mapItem) {
-            $mapItemsJson[] = $mapItem->toArray();
-        }
-        $json = [
-            'name' => $this->getName(),
-            'label' => $this->getLabel(),
-            'description' => $this->getDescription(),
-            'mapItems' => $mapItemsJson,
-        ];
-        return $json;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getMapItems()
-    {
-        return $this->mapItems;
-    }
-
-    /**
-     * @param mixed $mapItems
-     */
-    public function setMapItems($mapItems)
-    {
-        $this->mapItems = $mapItems;
-    }
 
     /**
      * @return mixed

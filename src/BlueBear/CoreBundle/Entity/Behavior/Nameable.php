@@ -2,7 +2,7 @@
 
 namespace BlueBear\CoreBundle\Entity\Behavior;
 
-use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * Nameable
@@ -15,7 +15,7 @@ trait Nameable
      * Entity name
      *
      * @ORM\Column(type="string", length=255)
-     * @Expose()
+     * @Serializer\Expose()
      */
     protected $name;
 

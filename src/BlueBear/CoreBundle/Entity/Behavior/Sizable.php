@@ -2,7 +2,7 @@
 
 namespace BlueBear\CoreBundle\Entity\Behavior;
 
-use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * Sizable
@@ -15,7 +15,7 @@ trait Sizable
      * Entity width
      *
      * @ORM\Column(type="integer")
-     * @Expose()
+     * @Serializer\Expose()
      */
     protected $width = 0;
 
@@ -23,7 +23,7 @@ trait Sizable
      * Entity height
      *
      * @ORM\Column(type="integer")
-     * @Expose()
+     * @Serializer\Expose()
      */
     protected $height = 0;
 

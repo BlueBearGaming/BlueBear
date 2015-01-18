@@ -2,7 +2,7 @@
 
 namespace BlueBear\CoreBundle\Entity\Behavior;
 
-use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation as Serializer;
 
 trait Descriptionable
 {
@@ -10,7 +10,7 @@ trait Descriptionable
      * Entity description
      *
      * @ORM\Column(type="string", length=100, nullable=true)
-     * @Expose()
+     * @Serializer\Expose()
      */
     protected $description;
 
