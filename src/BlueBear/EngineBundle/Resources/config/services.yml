@@ -18,15 +18,12 @@ services:
             - [setSerializer, [@jms_serializer]]
 
     # events subscribers
-    bluebear.engine.event.mapitem_leave_subscriber:
-        class: %bluebear.engine.event.mapitem_leave_subscriber%
-        tags:
-            - {name: kernel.event_subscriber}
-
     bluebear.engine.event.mapitem_subscriber:
         class: %bluebear.engine.event.mapitem_subscriber%
         tags:
             - {name: kernel.event_subscriber}
+        calls:
+            - [setContainer, [@service_container]]
 
     bluebear.engine.event.map_subscriber:
         class: %bluebear.engine.event.map_subscriber%

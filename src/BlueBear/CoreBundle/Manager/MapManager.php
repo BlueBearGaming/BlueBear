@@ -45,12 +45,11 @@ class MapManager
             $context = new Context();
             $context->setLabel('Initial context');
             $context->setVersion(0);
+            $context->setMap($map);
 
             $userContext = new UserContext();
             $userContext->setUser($user);
             $userContext->setContext($context);
-            $userContext->setMap($map);
-            $map->addUserContext($userContext);
 
             $this->save($context);
             $this->save($userContext);

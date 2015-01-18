@@ -25,14 +25,20 @@ class Context
     use Id, Label, Timestampable, Data;
 
     /**
-     * @ORM\OneToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\UserContext", mappedBy="context")
+     * @ORM\OneToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\UserContext", mappedBy="context", cascade={"persist", "remove"})
      */
     protected $userContexts;
 
     /**
+     * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Map", inversedBy="contexts")
+     * @Expose()
+     */
+    protected $map;
+
+    /**
      * Map item for this context
      *
-     * @ORM\OneToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\MapItem", mappedBy="context", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\MapItem", mappedBy="context", cascade={"persist", "remove"})
      * @Expose()
      */
     protected $mapItems;
@@ -99,11 +105,11 @@ class Context
     }
 
     /**
-     * @param mixed $version
+     * @ORM\PrePersist()
      */
-    public function setVersion($version)
+    public function setVersion()
     {
-        $this->version = $version;
+        $this->version = $this->version + 1;
     }
 
     /**
@@ -120,5 +126,21 @@ class Context
     public function setUserContexts($userContexts)
     {
         $this->userContexts = $userContexts;
+    }
+
+    /**
+     * @return Map
+     */
+    public function getMap()
+    {
+        return $this->map;
+    }
+
+    /**
+     * @param Map $map
+     */
+    public function setMap(Map $map)
+    {
+        $this->map = $map;
     }
 } 

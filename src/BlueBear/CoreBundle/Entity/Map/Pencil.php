@@ -10,6 +10,7 @@ use BlueBear\CoreBundle\Entity\Behavior\Sizable;
 use BlueBear\CoreBundle\Entity\Behavior\Taggable;
 use BlueBear\CoreBundle\Entity\Behavior\Typeable;
 use BlueBear\CoreBundle\Entity\Editor\Image;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\AccessorOrder;
 use JMS\Serializer\Annotation\ExclusionPolicy;
@@ -135,7 +136,7 @@ class Pencil
 
     /**
      *
-     * @return Layer[]
+     * @return ArrayCollection
      */
     public function getAllowedLayers()
     {
