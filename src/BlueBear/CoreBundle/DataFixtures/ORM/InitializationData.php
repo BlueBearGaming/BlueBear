@@ -50,29 +50,61 @@ class InitializationData implements FixtureInterface
         return $user;
     }
 
+    /**
+     * Create default layers
+     *
+     * @param ObjectManager $manager
+     */
     protected function createLayers(ObjectManager $manager)
     {
         $types = Constant::getLayerTypes();
+        $layer = $this->createLayer('layer_0', 'Background', $types['background'], 'Map background', 0);
+        $manager->persist($layer);
 
+        $layer = $this->createLayer('layer_1', 'Land', $types['land'], 'Map land (plains, forests...)', 1);
+        $manager->persist($layer);
+
+        $layer = $this->createLayer('layer_2', 'Grid', $types['grid'], 'Grid (displayed or not)', 2);
+        $manager->persist($layer);
+
+        $layer = $this->createLayer('layer_3', 'Selection', $types['selection'], 'Unit, object or building selection (hover..)', 3);
+        $manager->persist($layer);
+
+        $layer = $this->createLayer('layer_4', 'Props and decals', $types['props'], '????', 4);
+        $manager->persist($layer);
+
+        $layer = $this->createLayer('layer_5', 'Objects', $types['objects'], 'Objects (item...) on the map', 5);
+        $manager->persist($layer);
+
+        $layer = $this->createLayer('layer_6', 'Units', $types['units'], 'Units on the map', 6);
+        $manager->persist($layer);
+
+        $layer = $this->createLayer('layer_7', 'Effects', $types['effects'], 'Map Effects', 7);
+        $manager->persist($layer);
+
+        $layer = $this->createLayer('layer_8', 'Events', $types['events'], 'Events on map', 8);
+        $manager->persist($layer);
+    }
+
+    /**
+     * Return new layer
+     *
+     * @param $name
+     * @param $label
+     * @param $type
+     * @param $description
+     * @param $index
+     * @return Layer
+     */
+    protected function createLayer($name, $label, $type, $description, $index)
+    {
         $layer = new Layer();
-        $layer->setName('layer_0');
-        $layer->setLabel('Background');
-        $layer->setType($types['background']);
-        $layer->setDescription('Maps background');
-        $layer->setIndex(0);
+        $layer->setName($name);
+        $layer->setLabel($label);
+        $layer->setType($type);
+        $layer->setDescription($description);
+        $layer->setIndex($index);
 
-        /*
-         * 'background' => 'Background',
-            'land' => 'Land',
-            'grid' => 'Grid',
-            'selection' => 'Selection',
-            'buildings' => 'Buildings',
-            'props' => 'Props and Decals',
-            'objects' => 'Objects',
-            'units' => 'Units',
-            'effects' => 'Effects',
-            'events' => 'Events',
-         */
-        //
+        return $layer;
     }
 }
