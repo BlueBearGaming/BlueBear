@@ -16,6 +16,7 @@ use JMS\Serializer\Annotation as Serializer;
  * @ORM\Entity(repositoryClass="BlueBear\CoreBundle\Entity\Map\ContextRepository")
  * @ORM\HasLifecycleCallbacks()
  * @Serializer\ExclusionPolicy("all")
+ * @Serializer\AccessorOrder("custom", custom={"id", "label", "map", "mapItems"})
  */
 class Context
 {

@@ -3,6 +3,7 @@
 
 namespace BlueBear\CoreBundle\Entity\Editor;
 
+use BlueBear\CoreBundle\Entity\Behavior\Nameable;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -12,5 +13,5 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Image extends Resource
 {
-
+    use Nameable;
 } 

@@ -22,20 +22,7 @@ class Constant
         ];
     }
 
-    public static function getPencilType()
-    {
-        return [
-            'background' => 'Background',
-            'land' => 'Land',
-            'building' => 'Building',
-            'prop' => 'Props',
-            'object' => 'Object',
-            'unit' => 'Unit',
-            'effect' => 'Effect',
-        ];
-    }
-
-    public static function getMapType()
+    public static function getMapTypes()
     {
         return [
             'square' => 'Square',

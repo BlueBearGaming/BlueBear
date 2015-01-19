@@ -41,7 +41,7 @@ class MapType extends AbstractType
             'help_block' => 'Displayed map name (eg: My first Map)'
         ]);
         $builder->add('type', 'choice', [
-            'choices' => Constant::getMapType(),
+            'choices' => Constant::getMapTypes(),
             'help_block' => 'Map type'
         ]);
         $builder->add('cellSize', 'choice', [

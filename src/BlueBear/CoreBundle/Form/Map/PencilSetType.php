@@ -15,7 +15,7 @@ class PencilSetType extends AbstractType
         $builder->add('name');
         $builder->add('label');
         $builder->add('type', 'choice', [
-            'choices' => Constant::getMapType(),
+            'choices' => Constant::getMapTypes(),
         ]);
         $builder->add('file', 'file', [
             'label' => 'Image',

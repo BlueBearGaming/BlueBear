@@ -16,6 +16,7 @@ use JMS\Serializer\Annotation as Serializer;
  * @ORM\Table(name="layer")
  * @ORM\Entity(repositoryClass="BlueBear\CoreBundle\Entity\Map\LayerRepository")
  * @Serializer\ExclusionPolicy("all")
+ * @Serializer\AccessorOrder("custom", custom={"id", "name", "label", "description", "index"})
  */
 class Layer
 {

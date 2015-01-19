@@ -50,7 +50,7 @@ class PencilType extends AbstractType
             'help_block' => 'Pencil description'
         ]);
         $builder->add('type', 'choice', [
-            'choices' => Constant::getPencilType(),
+            'choices' => Constant::getLayerTypes(),
             'help_block' => 'Pencil type'
         ]);
         $builder->add(

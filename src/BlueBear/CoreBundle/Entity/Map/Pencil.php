@@ -21,6 +21,7 @@ use JMS\Serializer\Annotation as Serializer;
  * @ORM\Table(name="pencil")
  * @ORM\Entity(repositoryClass="BlueBear\CoreBundle\Entity\Map\PencilRepository")
  * @Serializer\ExclusionPolicy("all")
+ * @Serializer\AccessorOrder("custom", custom={"id", "name", "label", "description", "type", "imageX", "imageY", "width", "height", "boundingBox", "allowedLayers", "image"})
  */
 class Pencil
 {

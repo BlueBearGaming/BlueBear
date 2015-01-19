@@ -13,7 +13,6 @@ use BlueBear\CoreBundle\Manager\MapManager;
 use BlueBear\CoreBundle\Manager\PencilManager;
 use BlueBear\CoreBundle\Manager\PencilSetManager;
 use BlueBear\CoreBundle\Manager\ResourceManager;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -98,7 +97,7 @@ class PencilController extends Controller
                 if ($pencilSet->getSprite()) {
                     $image = $pencilSet->getSprite();
                 } else {
-                    $image = new Image;
+                    $image = new Image();
                     $image->setName('sprite_' . $pencilSet->getName());
                     $pencilSet->setSprite($image);
                 }
