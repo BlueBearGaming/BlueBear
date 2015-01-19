@@ -6,7 +6,7 @@ namespace BlueBear\CoreBundle\Constant\Map;
 
 class Constant
 {
-    public static function getLayerType()
+    public static function getLayerTypes()
     {
         return [
             'background' => 'Background',

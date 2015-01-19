@@ -35,8 +35,6 @@ class PencilType extends AbstractType
         /** @var Pencil $pencil */
         $pencil = $options['data'];
         // Transformers (yeh !)
-        $layerTransformer = new EntityToChoiceTransformer();
-        $layerTransformer->setManager($this->layerManager);
         $pencilSetTransformer = new EntityToIdTransformer();
         $pencilSetTransformer->setManager($this->pencilSetManager);
         $imageTransformer = new EntityToIdTransformer();
@@ -62,18 +60,12 @@ class PencilType extends AbstractType
                 'help_block' => 'Pencil set which this pencil belongs'
             ])->addModelTransformer($pencilSetTransformer)
         );
-        $builder->add(
-            $builder->create(
-                'allowedLayerTypes', 'choice', [
-                    'choices' => $this->getSortedEntityForChoice($this->layerManager->findAll()),
-                    'data' => $pencil->getAllowedLayerTypes(),
-                    'multiple' => true,
-                    'expanded' => true,
-                    'help_block' => 'Allowed layers for this pencil (it means that the pencil can only be added in
-                    those layers)'
-                ]
-            )->addModelTransformer($layerTransformer)
-        );
+        $builder->add('allowedLayerTypes', 'choice', [
+            'choices' => Constant::getLayerTypes(),
+            'data' => $pencil->getAllowedLayerTypes(),
+            'multiple' => true,
+            'expanded' => true,
+        ]);
         $builder->add(
             $builder
                 ->create('image', 'image_list', [])

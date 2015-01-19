@@ -24,7 +24,7 @@ class LayerType extends AbstractType
             'help_block' => 'Layer index (eg: 0,1,2... Works like css z-index)'
         ]);
         $builder->add('type', 'choice', [
-            'choices' => Constant::getLayerType(),
+            'choices' => Constant::getLayerTypes(),
             'help_block' => 'Layer type'
         ]);
     }
