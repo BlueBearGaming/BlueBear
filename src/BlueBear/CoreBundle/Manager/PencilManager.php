@@ -7,16 +7,7 @@ use BlueBear\CoreBundle\Manager\Behavior\ManagerBehavior;
 
 class PencilManager
 {
-    use ManagerBehavior {
-        save as parentSave;
-    }
-
-    public function save($pencil, $flush = true)
-    {
-        // removing previous image link before saving new one
-        $this->getContainer()->get('bluebear.manager.image')->unlinkPencil($pencil);
-        $this->parentSave($pencil, $flush);
-    }
+    use ManagerBehavior;
 
     /**
      * Return pencils repository
