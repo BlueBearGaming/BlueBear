@@ -19,6 +19,7 @@ var PencilForm = {
 
             return false;
         });
+        container.find('.fileupload-widget').blueBearFileUpload();
     },
 
     bindAjaxForm: function (ajaxForm) {

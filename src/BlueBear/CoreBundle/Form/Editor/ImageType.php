@@ -1,32 +1,23 @@
 <?php
 
-
 namespace BlueBear\CoreBundle\Form\Editor;
 
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use BlueBear\CoreBundle\Entity\Editor\ImageRepository;
 
-class ImageType extends AbstractType
+class ImageType extends ResourceType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options = [])
-    {
-        $builder->add('name');
-        $builder->add('file', 'file', [
-            'mapped' => false,
-            'required' => false
-        ]);
-    }
-
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver->setDefaults([
-            'label' => false
-        ]);
-    }
+    protected $className = 'BlueBear\CoreBundle\Entity\Editor\Image';
+    protected $endpoint = 'image';
 
     public function getName()
     {
-        return 'image';
+        return 'resource_image';
     }
-} 
+
+    protected function getQueryBuilder()
+    {
+        return function(ImageRepository $repo) {
+            return $repo->getQbForOrphans();
+        };
+    }
+}

@@ -21,18 +21,14 @@
 
 @import "../../../../../web/bundles/mopabootstrap/sass/font-awesome/font-awesome.scss";
 
+@import "partials/forms";
+
 body {
   margin-top: 80px;
 }
 
-form {
-  input, select {
-    color: #dddddd;
-  }
-  textarea {
-    min-height: 150px;
-    resize: vertical;
-  }
+.clear {
+  clear: both;
 }
 
 table {

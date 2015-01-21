@@ -8,6 +8,7 @@ resources
 vendor
 web/bundles
 web/assets
+web/resources
 *.log
 
 # IDE

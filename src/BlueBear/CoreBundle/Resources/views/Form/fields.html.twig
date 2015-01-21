@@ -1,49 +1,3 @@
-{# list of images widget #}
-{% block image_list_widget %}
-    {% set image = form.vars.value %}
-    {{ form_label(form) }}
-
-    <div class="form-group">
-        <div class="col-sm-9 image-widget">
-            {% if orphans|length > 0 %}
-                <ul class="">
-                    {% for oprhan in orphans %}
-                        {% set active = (oprhan.id == form.vars.value) ? ' active' : '' %}
-
-                        <li class="image{{ active }}">
-                            <a href="#" class="select-image" data-id="{{ oprhan.id }}">
-                                <img src="data:image/{{ oprhan.resource.extension }};base64,{{ oprhan.resource.fileContent }}"
-                                     height="50" width="50"/>
-                            </a>
-                            <br/>
-                            <a href="#" class="select-image" data-id="{{ oprhan.id }}"
-                               title="{{ oprhan.name }}">{{ oprhan.name|truncate(15, false, '...') }}</a>
-                        </li>
-                    {% endfor %}
-                </ul>
-            {% else %}
-                <strong>All existing images have already been linked to a pencil</strong>
-            {% endif %}
-            <input type="hidden" name="{{ form.vars.full_name }}" class="hidden-value"
-                   value="{{ form.vars.value ? form.vars.value : 1 }}"/>
-            {{ form_errors(form) }}
-        </div>
-        <script>
-            $(document).on('ready', function () {
-                var container = $('.image-widget');
-
-                container.find('.select-image').on('click', function () {
-                    container.find('.hidden-value').val($(this).data('id'));
-                    container.find('.image').removeClass('active');
-                    $(this).parents('.image').addClass('active');
-
-                    return false;
-                });
-            });
-        </script>
-    </div>
-{% endblock %}
-
 {# list of pencil set #}
 {% block pencil_set_list_widget %}
     {{ form_widget(form) }}
@@ -135,4 +89,47 @@
             </div>
         </form>
     </div>
+{% endblock %}
+
+{% block resource_widget %}
+    {% set file = form.vars.data %}
+    <div class="fileupload-widget">
+        <input type="hidden" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+        <span class="btn btn-labeled btn-info fileupload-button{% if file %} disabled{% endif %}">
+            <span class="btn-label icon fa fa-plus"></span>
+            Upload a file
+            <input type="file"
+                   data-url="{{ oneup_uploader_endpoint(form.vars.endpoint) }}"
+                   data-maxsize="{{ oneup_uploader_maxsize(form.vars.endpoint) }}">
+        </span>
+
+        {% if file %}
+            <span class="btn btn-outline fileupload-file">
+                <button class="close" type="button">×</button>
+                <span class="fileupload-filename">
+                    {{ file.originalFileName }}
+                </span>
+            </span>
+        {% else %}
+            <span class="btn btn-outline fileupload-file" style="display: none">
+                <button class="close" type="button">×</button>
+                <span class="fileupload-filename"></span>
+            </span>
+        {% endif %}
+        <br>
+        <div class="progress" style="display: none; height:2px">
+            <div class="progress-bar"></div>
+        </div>
+        <div class="alert alert-danger" style="display:none;"></div>
+    </div>
+{% endblock %}
+
+{% block resource_image_widget %}
+    {% set file = form.vars.data %}
+    {% if file %}
+        {% set fileUrl = asset('resources/images/' ~ file.fileName) %}
+        <a href="{{ fileUrl }}" title="{{ file.originalFileName }}"><img src="{{ fileUrl }}" class="img-thumbnail col-lg-4 pull-right"></a>
+    {% endif %}
+    {{ block('resource_widget') }}
+    <div class="clear"></div>
 {% endblock %}

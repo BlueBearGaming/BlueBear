@@ -11054,70 +11054,111 @@ textarea:focus {
   content: "";
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/www\/bluebear\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/backoffice\.scss}line{font-family:\0000324}}
-body {
-  margin-top: 80px;
-}
-
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/www\/bluebear\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/backoffice\.scss}line{font-family:\0000329}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/www\/bluebear\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/partials\/_forms\.scss}line{font-family:\000033}}
 form input, form select {
   color: #dddddd;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/www\/bluebear\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/backoffice\.scss}line{font-family:\0000332}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/www\/bluebear\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/partials\/_forms\.scss}line{font-family:\000036}}
 form textarea {
   min-height: 150px;
   resize: vertical;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/www\/bluebear\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/backoffice\.scss}line{font-family:\0000340}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/www\/bluebear\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/partials\/_forms\.scss}line{font-family:\0000313}}
+.form-inline-checkboxes .checkbox {
+  display: inline-block;
+  width: 33%;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/www\/bluebear\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/partials\/_forms\.scss}line{font-family:\0000320}}
+.fileupload-file {
+  margin-left: 10px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/www\/bluebear\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/partials\/_forms\.scss}line{font-family:\0000324}}
+.fileupload-filename {
+  padding-right: 12px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/www\/bluebear\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/partials\/_forms\.scss}line{font-family:\0000328}}
+.fileupload-button {
+  position: relative;
+  overflow: hidden;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/www\/bluebear\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/partials\/_forms\.scss}line{font-family:\0000333}}
+.fileupload-button input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  opacity: 0;
+  -ms-filter: 'alpha(opacity=0)';
+  font-size: 200px;
+  direction: ltr;
+  cursor: pointer;
+  height: 100px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/www\/bluebear\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/backoffice\.scss}line{font-family:\0000326}}
+body {
+  margin-top: 80px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/www\/bluebear\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/backoffice\.scss}line{font-family:\0000330}}
+.clear {
+  clear: both;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/www\/bluebear\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/backoffice\.scss}line{font-family:\0000336}}
 table td .btn {
   line-height: 1;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/www\/bluebear\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/backoffice\.scss}line{font-family:\0000348}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/www\/bluebear\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/backoffice\.scss}line{font-family:\0000344}}
 .dropdown-menu > li > a {
   padding: 10px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/www\/bluebear\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/backoffice\.scss}line{font-family:\0000354}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/www\/bluebear\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/backoffice\.scss}line{font-family:\0000350}}
 .image-list a {
   display: block;
   float: left;
   margin-left: 10px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/www\/bluebear\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/backoffice\.scss}line{font-family:\0000359}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/www\/bluebear\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/backoffice\.scss}line{font-family:\0000355}}
 .image-list a:hover {
   text-decoration: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/www\/bluebear\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/backoffice\.scss}line{font-family:\0000363}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/www\/bluebear\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/backoffice\.scss}line{font-family:\0000359}}
 .image-list img {
   height: 100px;
   width: 100px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/www\/bluebear\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/backoffice\.scss}line{font-family:\0000367}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/www\/bluebear\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/backoffice\.scss}line{font-family:\0000363}}
 .image-list img:hover {
   border-width: 2px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/www\/bluebear\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/backoffice\.scss}line{font-family:\0000372}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/www\/bluebear\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/backoffice\.scss}line{font-family:\0000368}}
 .orphans-image-list {
   clear: both;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/www\/bluebear\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/backoffice\.scss}line{font-family:\0000378}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/www\/bluebear\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/backoffice\.scss}line{font-family:\0000374}}
 .edit-pencil .image-widget .image {
   display: inline-block;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/www\/bluebear\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/backoffice\.scss}line{font-family:\0000381}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/www\/bluebear\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/backoffice\.scss}line{font-family:\0000377}}
 .edit-pencil .image-widget .image.active {
   border: 1px solid #428BCA;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/www\/bluebear\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/backoffice\.scss}line{font-family:\0000386}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/www\/bluebear\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/backoffice\.scss}line{font-family:\0000382}}
 .edit-pencil .submit {
   clear: both;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/www\/bluebear\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/backoffice\.scss}line{font-family:\0000392}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/www\/bluebear\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/backoffice\.scss}line{font-family:\0000388}}
 .tests #php-response {
   height: 400px;
 }

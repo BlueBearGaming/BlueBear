@@ -93,5 +93,8 @@ fos_user:
 
 oneup_uploader:
     mappings:
-        gallery:
+        image:
             frontend: blueimp
+            allowed_mimetypes: [ "image/jpg", "image/jpeg", "image/png", "image/gif" ]
+            storage:
+                directory: %resources_dir%/images

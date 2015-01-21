@@ -31,8 +31,8 @@ class Pencil
      * Image used in render
      *
      * @var Image
-     * @ORM\OneToOne(targetEntity="BlueBear\CoreBundle\Entity\Editor\Image", fetch="EAGER", cascade={"persist"});
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\OneToOne(targetEntity="BlueBear\CoreBundle\Entity\Editor\Image", inversedBy="pencil", fetch="EAGER", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="image_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      * @Serializer\Expose()
      */
     protected $image;
@@ -53,7 +53,7 @@ class Pencil
     /**
      * Allowed layers for this pencil
      *
-     * @ORM\Column(name="allowed_layer_types", type="simple_array")
+     * @ORM\Column(name="allowed_layer_types", type="simple_array", nullable=true)
      * @Serializer\Expose()
      */
     protected $allowedLayerTypes;
@@ -61,7 +61,7 @@ class Pencil
     /**
      * Relative position of the center of the image to the center of the cell
      *
-     * @ORM\Column(name="image_x", type="float")
+     * @ORM\Column(name="image_x", type="float", nullable=true)
      * @Serializer\Expose()
      */
     protected $imageX = 0;
@@ -69,7 +69,7 @@ class Pencil
     /**
      * Relative position of the center of the image to the center of the cell
      *
-     * @ORM\Column(name="image_y", type="float")
+     * @ORM\Column(name="image_y", type="float", nullable=true)
      * @Serializer\Expose()
      */
     protected $imageY = 0;
@@ -77,7 +77,7 @@ class Pencil
     /**
      * Position of the image inside the sprite sheet in pixels
      *
-     * @ORM\Column(name="sprite_x", type="integer")
+     * @ORM\Column(name="sprite_x", type="integer", nullable=true)
      * @Serializer\Expose()
      */
     protected $spriteX;
@@ -85,7 +85,7 @@ class Pencil
     /**
      * Position of the image inside the sprite sheet in pixels
      *
-     * @ORM\Column(name="sprite_y", type="integer")
+     * @ORM\Column(name="sprite_y", type="integer", nullable=true)
      * @Serializer\Expose()
      */
     protected $spriteY;
@@ -93,7 +93,7 @@ class Pencil
     /**
      * Size of the image in pixels
      *
-     * @ORM\Column(name="sprite_width", type="integer")
+     * @ORM\Column(name="sprite_width", type="integer", nullable=true)
      * @Serializer\Expose()
      */
     protected $spriteWidth;
@@ -101,7 +101,7 @@ class Pencil
     /**
      * Size of the image in pixels
      *
-     * @ORM\Column(name="sprite_height", type="integer")
+     * @ORM\Column(name="sprite_height", type="integer", nullable=true)
      * @Serializer\Expose()
      */
     protected $spriteHeight;
@@ -109,7 +109,7 @@ class Pencil
     /**
      * Cells that physically contains the object (the one able to capture events)
      *
-     * @ORM\Column(type="array")
+     * @ORM\Column(name="bounding_box", type="array", nullable=true)
      * @Serializer\Expose()
      */
     protected $boundingBox = [[0, 0]];

@@ -2,9 +2,19 @@ imports:
     - { resource: managers.yml }
     - { resource: forms.yml }
 
+parameters:
+    bluebear.resource.uploader.class: BlueBear\CoreBundle\EventListener\ResourceUploader
+    bluebear.resource.subscriber.class: BlueBear\CoreBundle\EventListener\ResourceSubscriber
+
 services:
     bluebear.resource.uploader:
-        class: BlueBear\CoreBundle\Service\ResourceUploader
-        arguments: [ "@service_container" ]
+        class: %bluebear.resource.uploader.class%
+        arguments: [ "@bluebear.manager.resource" ]
         tags:
             - { name: kernel.event_listener, event: oneup_uploader.post_persist, method: onUpload }
+
+    bluebear.resource.subscriber:
+        class: %bluebear.resource.subscriber.class%
+        arguments: [ "@bluebear.manager.resource" ]
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }

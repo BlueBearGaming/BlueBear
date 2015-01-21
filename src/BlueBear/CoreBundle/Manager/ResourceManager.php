@@ -4,89 +4,117 @@ namespace BlueBear\CoreBundle\Manager;
 
 use BlueBear\CoreBundle\Entity\Editor\Image;
 use BlueBear\CoreBundle\Entity\Editor\Resource;
+use BlueBear\CoreBundle\Entity\Editor\ResourceRepository;
 use BlueBear\CoreBundle\Manager\Behavior\ManagerBehavior;
-use Doctrine\ORM\EntityRepository;
-use Exception;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\File\File;
+use \UnexpectedValueException;
 
 class ResourceManager
 {
     use ManagerBehavior;
 
-    /**
-     * Upload a file into images directory. Cut it if it's a sprite
-     *
-     * @param UploadedFile $file
-     * @param $uploadType
-     * @param Image $image
-     * @throws Exception
-     */
-    public function upload(UploadedFile $file, Image $image = null)
+    public function cleanUploads()
     {
-        $imagesDirectory = $this->getResourcesDirectory();
-        
-        // generate "unique" filename
-        $fileName = $this->generateFileHash($file->getClientOriginalName()) . '.' . $file->getClientOriginalExtension();
-        $file->move($imagesDirectory . '/images/', $fileName);
-
-        // save resource into database
-        $resource = new Resource();
-        $resource->setLabel($file->getClientOriginalName());
-        $resource->setName($file->getClientOriginalName());
-        $resource->setFileName($fileName);
-        $resource->setFilePath($this->getImageDirectory());
-        // if no image was provided, we create a new one
-        if (!$image) {
-            $image = new Image();
+        $em = $this->getEntityManager();
+        $orphans = $em->getRepository('BlueBearCoreBundle:Editor\Image')->findOrphans();
+        foreach ($orphans as $orphan) {
+            $em->remove($orphan);
         }
-        $image->setName($file->getClientOriginalName());
-        $image->setResource($resource);
-
-        $this->save($resource, false);
-        $this->save($image);
     }
 
     /**
-     * Return hash file name to upload
+     * Add an entry for Resource entity in database at each upload
      *
-     * @param $fileName
+     * @param File $file
+     * @param string $originalFilename
+     * @param string $type
+     * @return Resource
+     */
+    public function addFile(File $file, $originalFilename, $type = null)
+    {
+        // @todo dynamic instanciation
+        if ($type === 'image') {
+            $resource = new Image;
+        } else {
+            $resource = new Resource;
+        }
+        $resource->setOriginalFileName($originalFilename)
+            ->setFileName($file->getFilename());
+
+        $em = $this->getEntityManager();
+        $em->persist($resource);
+        $em->flush();
+
+        return $resource;
+    }
+
+    /**
+     * Remove a Resource from the hard drive
+     * DOES NOT REMOVE THE ENTITY
+     * @param Resource $resource
+     */
+    public function removeResourceFile(Resource $resource)
+    {
+        $fs = new Filesystem;
+        try {
+            $fs->remove($this->getUploadedFilePath($resource));
+        } catch (UnexpectedValueException $e) {
+
+        }
+    }
+
+    /**
+     * Get the url of a "Resource" (for the web), only works if inside the web root directory
+     * @param Resource $resource
      * @return string
      */
-    public function generateFileHash($fileName)
+    public function getUploadedFileUrl(Resource $resource)
     {
-        return uniqid(md5($fileName . '-' . time()));
-    }
-
-    public function getImageDirectory()
-    {
-        return '/resources/images/';
-    }
-
-    public function getSpriteDirectory()
-    {
-        return '/resources/sprite/';
-    }
-
-    public function getResourcesDirectory()
-    {
-        return $this->getContainer()->getParameter('resources_dir');
+        $webRoot = $this->container->getParameter('kernel.root_dir') . '/../web';
+        $path = $this->getUploadedFilePath($resource);
+        if (0 !== strpos($path, $webRoot)) {
+            return $path;
+        }
+        return substr($path, strlen($webRoot));
     }
 
     /**
-     * @return ImageManager
+     * Get the path for an uploaded file, does not check if file exists
+     * @throws UnexpectedValueException
+     * @param Resource $resource
+     * @return string
      */
-    protected function getImageManager()
+    public function getUploadedFilePath(Resource $resource)
     {
-        return $this->getContainer()->get('bluebear.manager.image');
+        $directory = $this->getFileUploadBasePath($resource->getType());
+        return $directory . '/' . $resource->getFileName();
     }
 
     /**
-     * Retourne le repository courant
-     *
-     * @return EntityRepository
+     * Get the base directory for a type of file upload configuration
+     * @param string $type
+     * @return string
+     * @throws UnexpectedValueException
+     */
+    public function getFileUploadBasePath($type)
+    {
+        if (!$this->container->hasParameter('oneup_uploader.config.' . $type)) {
+            throw new UnexpectedValueException("Unknown file upload configuration type '{$type}'");
+        }
+        $config = $this->container->getParameter('oneup_uploader.config.' . $type);
+        $directory = $config['storage']['directory'];
+        if (!$directory) {
+            $directory = $this->container->getParameter('uploads.base_directory') . '/' . $type;
+        }
+        return rtrim($directory, '/');
+    }
+
+    /**
+     * @return ResourceRepository
      */
     protected function getRepository()
     {
-        // TODO: Implement getRepository() method.
+        return $this->getEntityManager()->getRepository('BlueBear\CoreBundle\Entity\Editor\Resource');
     }
 }

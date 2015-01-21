@@ -3,15 +3,22 @@
 
 namespace BlueBear\CoreBundle\Entity\Editor;
 
-use BlueBear\CoreBundle\Entity\Behavior\Nameable;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Image are used in the editor
  *
- * @ORM\Entity(repositoryClass="BlueBear\CoreBundle\Entity\Editor\ResourceRepository")
+ * @ORM\Entity(repositoryClass="BlueBear\CoreBundle\Entity\Editor\ImageRepository")
  */
 class Image extends Resource
 {
-    use Nameable;
+    /**
+     * @var Image
+     * @ORM\OneToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Pencil", mappedBy="image")
+     */
+    protected $pencil;
+
+    public function getType() {
+        return 'image';
+    }
 } 

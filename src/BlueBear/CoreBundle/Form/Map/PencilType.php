@@ -65,26 +65,23 @@ class PencilType extends AbstractType
             'data' => $pencil->getAllowedLayerTypes(),
             'multiple' => true,
             'expanded' => true,
+            'horizontal_input_wrapper_class' => 'col-sm-9 form-inline-checkboxes',
         ]);
-        $builder->add(
-            $builder
-                ->create('image', 'image_list', [])
-                ->addModelTransformer($imageTransformer)
-        );
-        $builder->add('imageX', 'integer', [
+        $builder->add('imageX', 'number', [
             'help_block' => 'Image x position'
         ]);
-        $builder->add('imageY', 'integer', [
+        $builder->add('imageY', 'number', [
             'help_block' => 'Image y position',
         ]);
-        $builder->add('width', 'integer', [
+        $builder->add('width', 'number', [
             'data' => 1, // by default, image take 1 tile
             'help_block' => 'Image width in tiles ("1" means that image width take 1 x Map.CellSize)',
         ]);
-        $builder->add('height', 'integer', [
+        $builder->add('height', 'number', [
             'data' => 1, // by default, image take 1 tile
             'help_block' => 'Image height in tiles ("1" means that image height take 1 x Map.CellSize)',
         ]);
+        $builder->add('image', 'resource_image');
     }
 
     public function getName()

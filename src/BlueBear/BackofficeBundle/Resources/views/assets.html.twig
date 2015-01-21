@@ -4,9 +4,28 @@
     <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
 {% endstylesheets %}
 
-<script src="/js/jquery.min.js"></script>
-<script src="{{ asset('assets/jquery-ui/jquery-ui.min.js') }}"></script>
-<script src="{{ asset('bundles/bluebearbackoffice/js/backoffice.js') }}"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-<script src="{{ asset('bundles/mopabootstrap/js/mopabootstrap-collection.js') }}"></script>
+{% javascripts
+        'assets/jquery/jquery.min.js'
+        'assets/jquery-ui/ui/minified/core.min.js'
+        'assets/jquery-ui/ui/minified/widget.min.js'
+        'assets/jquery-ui/ui/minified/mouse.min.js'
+        'assets/jquery-ui/ui/minified/sortable.min.js'
+        '@MopaBootstrapBundle/Resources/public/bootstrap-sass/assets/javascripts/bootstrap.js'
+        '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-collection.js'
+        '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-subnav.js'
+        '@MopaBootstrapBundle/Resources/public/components/smalot-bootstrap-datetimepicker/js/bootstrap-datetimepicker.js'
+        '@MopaBootstrapBundle/Resources/public/components/smalot-bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.fr.js'
+        'bundles/bluebearbackoffice/js/jquery.iframe-transport.js'
+        'bundles/bluebearbackoffice/js/jquery.fileupload.js'
+        'bundles/bluebearbackoffice/js/jquery.fileupload-process.js'
+        'bundles/bluebearbackoffice/js/jquery.fileupload-image.js'
+        'bundles/bluebearbackoffice/js/jquery.fileupload-audio.js'
+        'bundles/bluebearbackoffice/js/jquery.fileupload-video.js'
+        'bundles/bluebearbackoffice/js/jquery.fileupload-validate.js'
+        'bundles/bluebearbackoffice/js/jquery.fileupload-ui.js'
+        'bundles/bluebearbackoffice/js/jquery.fileupload.bluebear.js'
+        'bundles/bluebearbackoffice/js/backoffice.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
 <script src="http://code.highcharts.com/highcharts.js"></script>

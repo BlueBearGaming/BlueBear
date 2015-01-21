@@ -15,4 +15,4 @@ parameters:
     locale:            en
     secret:            PandasAreAwesome
 
-    resources_dir:     %kernel.root_dir%/../resources
+    resources_dir:     %kernel.root_dir%/../web/resources

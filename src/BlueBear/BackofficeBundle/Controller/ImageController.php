@@ -26,7 +26,6 @@ class ImageController extends Controller
     public function indexAction()
     {
         $images = $this->getImageManager()->findAll();
-        //$imagesWithoutPencil = $this->getImageManager()->findOrphans();
 
         return [
             'images' => $images
@@ -60,19 +59,6 @@ class ImageController extends Controller
         }
         return [
             'form' => $form->createView()
-        ];
-    }
-
-    /**
-     * @Template()
-     */
-    public function listOrphansAction()
-    {
-        // find all orphan images
-        $images = $this->getImageManager()->findOrphans();
-
-        return [
-            'images' => $images
         ];
     }
 

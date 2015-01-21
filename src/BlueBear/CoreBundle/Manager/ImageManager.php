@@ -3,11 +3,9 @@
 namespace BlueBear\CoreBundle\Manager;
 
 use BlueBear\CoreBundle\Entity\Editor\ImageRepository;
-use BlueBear\CoreBundle\Manager\Behavior\ManagerBehavior;
 
-class ImageManager
+class ImageManager extends ResourceManager
 {
-    use ManagerBehavior;
 
     /**
      *

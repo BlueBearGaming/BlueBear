@@ -1,21 +1,14 @@
 parameters:
-    bluebear.form.image_type: BlueBear\CoreBundle\Form\Editor\ImageType
     bluebear.form.pencil_type: BlueBear\CoreBundle\Form\Map\PencilType
     bluebear.form.pencil_set_type: BlueBear\CoreBundle\Form\Map\PencilSetType
     bluebear.form.pencil_set_list_type: BlueBear\CoreBundle\Form\Map\PencilSetListType
     bluebear.form.layer_type: BlueBear\CoreBundle\Form\Map\LayerType
     bluebear.form.map_type: BlueBear\CoreBundle\Form\Map\MapType
-    bluebear.form.image_list_type: BlueBear\CoreBundle\Form\Editor\ImageListType
-    bluebear.form.upload_type: BlueBear\CoreBundle\Form\Editor\UploadType
+    bluebear.form.resource_type: BlueBear\CoreBundle\Form\Editor\ResourceType
+    bluebear.form.resource_image_type: BlueBear\CoreBundle\Form\Editor\ImageType
     bluebear.form.engine_event_test_type: BlueBear\CoreBundle\Form\Engine\EngineEventTestType
 
 services:
-    # ImageType
-    bluebear.form.image_type:
-        class: %bluebear.form.image_type%
-        tags:
-            - { name: form.type, alias: image }
-
     # PencilType
     bluebear.form.pencil_type:
         class: %bluebear.form.pencil_type%
@@ -53,20 +46,17 @@ services:
             - [setPencilSetManager, [@bluebear.manager.pencil_set]]
             - [setLayerManager, [@bluebear.manager.layer]]
 
-    # UploadType
-    bluebear.form.upload:
-        class: %bluebear.form.upload_type%
+    # Resources (uploadable entities)
+    bluebear.form.resource:
+        class: %bluebear.form.resource_type%
         tags:
-            - { name: form.type, alias: upload }
+            - { name: form.type, alias: resource }
+    bluebear.form.resource_image:
+        class: %bluebear.form.resource_image_type%
+        tags:
+            - { name: form.type, alias: resource_image }
 
     # utils
-    bluebear.form.image_list_type:
-        class: %bluebear.form.image_list_type%
-        tags:
-            - { name: form.type, alias: image_list }
-        calls:
-            - [setImageManager, [@bluebear.manager.image]]
-
     bluebear.form.engine_event_test_type:
         class: %bluebear.form.engine_event_test_type%
         tags:

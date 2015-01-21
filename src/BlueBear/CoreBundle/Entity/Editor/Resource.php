@@ -18,7 +18,7 @@ use JMS\Serializer\Annotation as Serializer;
  * @ORM\DiscriminatorMap({"image" = "Image"})
  * @Serializer\ExclusionPolicy("all")
  */
-class Resource
+class Resource implements \JsonSerializable
 {
     use Id, Timestampable;
 
@@ -48,10 +48,12 @@ class Resource
 
     /**
      * @param string $originalFileName
+     * @return $this
      */
     public function setOriginalFileName($originalFileName)
     {
         $this->originalFileName = $originalFileName;
+        return $this;
     }
 
     /**
@@ -64,13 +66,41 @@ class Resource
 
     /**
      * @param string $fileName
+     * @return $this
      */
     public function setFileName($fileName)
     {
         $this->fileName = $fileName;
+        return $this;
     }
     
-    public function __toString() {
+    public function __toString()
+    {
         return (string) $this->getFileName();
+    }
+
+    /**
+     * Serialize automatically the entity when passed to json_encode
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        return [
+            'id' => $this->getId(),
+            'fileName' => $this->getFileName(),
+            'originalFileName' => $this->getOriginalFileName(),
+        ];
+    }
+
+    public function getExtension()
+    {
+        $pos = strrpos($this->getOriginalFileName(), '.');
+        if ($pos) {
+            return substr($this->getOriginalFileName(), $pos + 1);
+        }
+    }
+
+    public function getType() {
+        return 'resource';
     }
 }
