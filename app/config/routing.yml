@@ -8,6 +8,11 @@ blue_bear_editor:
     resource: "@BlueBearEditorBundle/Resources/config/routing.yml"
     prefix:   /
 
+# BlueBear editor
+blue_bear_core:
+    resource: "@BlueBearCoreBundle/Resources/config/routing.yml"
+    prefix:   /
+
 # BlueBear backoffice
 blue_bear_backoffice:
     resource: "@BlueBearBackofficeBundle/Resources/config/routing.yml"
@@ -20,3 +25,7 @@ blue_bear_user:
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+
+oneup_uploader:
+    resource: .
+    type: uploader

@@ -1,3 +1,10 @@
 imports:
     - { resource: managers.yml }
     - { resource: forms.yml }
+
+services:
+    bluebear.resource.uploader:
+        class: BlueBear\CoreBundle\Service\ResourceUploader
+        arguments: [ "@service_container" ]
+        tags:
+            - { name: kernel.event_listener, event: oneup_uploader.post_persist, method: onUpload }

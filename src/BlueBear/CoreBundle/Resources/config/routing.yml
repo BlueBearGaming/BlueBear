@@ -1,0 +1,3 @@
+bluebear_resource_proxy:
+    path:     /resources/{filename}
+    defaults: { _controller: BlueBearCoreBundle:Resource:proxy }

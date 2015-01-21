@@ -90,3 +90,8 @@ fos_user:
     db_driver: orm
     firewall_name: main
     user_class: BlueBear\UserBundle\Entity\User
+
+oneup_uploader:
+    mappings:
+        gallery:
+            frontend: blueimp

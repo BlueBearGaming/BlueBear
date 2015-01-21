@@ -25,6 +25,7 @@ class AppKernel extends Kernel
             new Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new FOS\UserBundle\FOSUserBundle(),
+            new Oneup\UploaderBundle\OneupUploaderBundle(),
             // BlueBear
             new BlueBear\BackofficeBundle\BlueBearBackofficeBundle(),
             new BlueBear\EditorBundle\BlueBearEditorBundle(),
