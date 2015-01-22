@@ -39,7 +39,7 @@ class MapItemSubscriber implements EventSubscriberInterface
         // check if layer is allowed for pencil
         $this->throwUnless($pencil, 'Pencil not found');
         $this->throwUnless($layer, 'Layer not found');
-        $this->throwUnless(in_array($layer, $pencil->getAllowedLayerTypes()->toArray()), 'Unauthorized layer for pencil');
+        $this->throwUnless($pencil->isLayerTypeAllowed($layer->getType()), 'Unauthorized layer for pencil');
 
         // removing existing map item at this position in this layer
         $mapItemManager = $this->getContainer()->get('bluebear.manager.map_item');
