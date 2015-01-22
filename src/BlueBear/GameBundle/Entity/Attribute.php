@@ -1,6 +1,6 @@
 <?php
 
-namespace BlueBear\GameBundle\Entity\Map;
+namespace BlueBear\GameBundle\Entity;
 
 use BlueBear\CoreBundle\Entity\Behavior\Id;
 use BlueBear\CoreBundle\Entity\Behavior\Nameable;
@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Generic attributes
  *
  * @ORM\Table(name="attributes")
- * @ORM\Entity(repositoryClass="BlueBear\GameBundle\Entity\GameRepository")
+ * @ORM\Entity(repositoryClass="BlueBear\GameBundle\Entity\AttributeRepository")
  * @ORM\HasLifecycleCallbacks()
  */
 class Attribute

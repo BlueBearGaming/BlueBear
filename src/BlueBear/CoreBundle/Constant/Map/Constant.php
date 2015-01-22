@@ -30,4 +30,12 @@ class Constant
             'hexagonal' => 'Hexagonal'
         ];
     }
+
+    public static function getUnitsType()
+    {
+        return [
+            'unit_panda' => 'Panda',
+            'unit_bad_guy' => 'Bad Guy'
+        ];
+    }
 } 

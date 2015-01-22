@@ -1,8 +1,8 @@
 {% extends 'BlueBearBackofficeBundle:Pencil:index.html.twig' %}
 
 {% block content %}
-    <h1>Pencil Edit</h1>
-    {% set action = 'bluebear_backoffice_unit_edit' %}
+    <h1>Unit Edit</h1>
+    {% set action = app.request.get('_route') %}
     {% set returnRoute = 'bluebear_backoffice_unit' %}
     {% set containerClass = 'edit-unit' %}
 

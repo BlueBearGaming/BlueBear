@@ -1,3 +1,5 @@
+{% extends 'BlueBearBackofficeBundle::layout.html.twig' %}
+
 {% block rightMenu %}
     <ul class="nav nav-pills nav-stacked">
         <li><a href="{{ path('bluebear_backoffice_unit_create') }}">Add new unit</a></li>
@@ -7,8 +9,8 @@
 {% block content %}
     <h1>Units</h1>
 
-    <div class="pencils-list">
-        {% set list = pencils %}
+    <div class="units-list">
+        {% set list = units %}
         {% set editRoute = 'bluebear_backoffice_unit_edit' %}
         {% set deleteRoute = 'bluebear_backoffice_pencil_delete' %}
         {% set fields = ['id', 'name'] %}

@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * A unit
  *
  * @ORM\Table(name="unit")
- * @ORM\Entity(repositoryClass="BlueBear\GameBundle\Entity\GameRepository")
+ * @ORM\Entity(repositoryClass="BlueBear\GameBundle\Entity\UnitRepository")
  * @ORM\HasLifecycleCallbacks
  */
 class Unit
@@ -22,7 +22,7 @@ class Unit
 
     /**
      * @var
-     * @ORM\ManyToMany(targetEntity="BlueBear\GameBundle\Entity\Map\Attribute")
+     * @ORM\ManyToMany(targetEntity="BlueBear\GameBundle\Entity\Attribute", cascade={"persist"})
      */
     protected $attributes;
 

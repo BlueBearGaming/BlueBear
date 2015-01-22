@@ -1,8 +1,14 @@
 parameters:
     bluebear.form.unit: BlueBear\GameBundle\Form\UnitType
+    bluebear.form.attribute: BlueBear\GameBundle\Form\AttributeType
 
 services:
     bluebear.form.unit:
         class: %bluebear.form.unit%
         tags:
             - { name: form.type, alias: unit }
+
+    bluebear.form.attribute:
+        class: %bluebear.form.attribute%
+        tags:
+            - { name: form.type, alias: attribute }

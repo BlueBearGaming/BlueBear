@@ -3,6 +3,11 @@ bluebear_backoffice_unit:
     pattern: /units
     defaults: { _controller: BlueBearGameBundle:Unit:index }
 
+bluebear_backoffice_unit_create:
+    pattern: /units/create
+    defaults: { _controller: BlueBearGameBundle:Unit:create }
+
+
 bluebear_backoffice_unit_edit:
-    pattern: /units/edit
+    pattern: /units/edit/{id}
     defaults: { _controller: BlueBearGameBundle:Unit:edit }

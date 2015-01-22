@@ -19,7 +19,7 @@ class UnitController extends Controller
      */
     public function indexAction()
     {
-        $units = [];
+        $units = $this->getUnitManager()->findAll();
 
         return [
             'units' => $units
@@ -27,18 +27,23 @@ class UnitController extends Controller
     }
 
     /**
-     * @Template()
+     * @Template("BlueBearGameBundle:Unit:edit.html.twig")
      * @param Request $request
      * @return array|RedirectResponse
      */
-    public function editAction(Request $request)
+    public function createAction(Request $request)
     {
-        if ($id = $request->get('id')) {
-            $unit = $this->getUnitManager()->find($id);
-            $this->redirect404Unless($unit);
-        } else {
-            $unit = new Unit();
-        }
+        return $this->editAction($request, new Unit());
+    }
+
+    /**
+     * @Template()
+     * @param Request $request
+     * @param Unit $unit
+     * @return array|RedirectResponse
+     */
+    public function editAction(Request $request, Unit $unit)
+    {
         $form = $this->createForm('unit', $unit);
         $form->handleRequest($request);
 
