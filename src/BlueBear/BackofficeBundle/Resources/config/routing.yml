@@ -44,6 +44,10 @@ bluebear_backoffice_layer:
     pattern: /layers
     defaults: { _controller: BlueBearBackofficeBundle:Layer:index }
 
+bluebear_backoffice_layer_create:
+    pattern: /layers/create
+    defaults: { _controller: BlueBearBackofficeBundle:Layer:edit }
+
 bluebear_backoffice_layer_edit:
     pattern: /layers/edit
     defaults: { _controller: BlueBearBackofficeBundle:Layer:edit }
@@ -51,17 +55,6 @@ bluebear_backoffice_layer_edit:
 bluebear_backoffice_layer_delete:
     pattern: /layers/delete/{id}
     defaults: { _controller: BlueBearBackofficeBundle:Layer:delete }
-
-
-
-# Units
-bluebear_backoffice_unit:
-    pattern: /units
-    defaults: { _controller: BlueBearBackofficeBundle:Unit:index }
-
-bluebear_backoffice_unit_edit:
-    pattern: /units/edit
-    defaults: { _controller: BlueBearBackofficeBundle:Unit:edit }
 
 
 # Map

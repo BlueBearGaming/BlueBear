@@ -1,0 +1,18 @@
+{% block rightMenu %}
+    <ul class="nav nav-pills nav-stacked">
+        <li><a href="{{ path('bluebear_backoffice_unit_create') }}">Add new unit</a></li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+    <h1>Units</h1>
+
+    <div class="pencils-list">
+        {% set list = pencils %}
+        {% set editRoute = 'bluebear_backoffice_unit_edit' %}
+        {% set deleteRoute = 'bluebear_backoffice_pencil_delete' %}
+        {% set fields = ['id', 'name'] %}
+
+        {{ block('table_list') }}
+    </div>
+{% endblock %}

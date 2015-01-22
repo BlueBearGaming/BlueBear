@@ -1,3 +1,8 @@
-blue_bear_game_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: BlueBearGameBundle:Default:index }
+# Units
+bluebear_backoffice_unit:
+    pattern: /units
+    defaults: { _controller: BlueBearGameBundle:Unit:index }
+
+bluebear_backoffice_unit_edit:
+    pattern: /units/edit
+    defaults: { _controller: BlueBearGameBundle:Unit:edit }

@@ -39,6 +39,7 @@ class PencilController extends Controller
     /**
      * @Template()
      * @param Request $request
+     * @param Pencil $pencil
      * @return array|RedirectResponse
      */
     public function editAction(Request $request, Pencil $pencil)
@@ -57,6 +58,7 @@ class PencilController extends Controller
     }
 
     /**
+     * @param Pencil $pencil
      * @return RedirectResponse
      */
     public function deleteAction(Pencil $pencil)

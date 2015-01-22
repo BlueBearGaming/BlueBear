@@ -6,7 +6,6 @@ use BlueBear\CoreBundle\Entity\Editor\ImageRepository;
 
 class ImageManager extends ResourceManager
 {
-
     /**
      *
      *

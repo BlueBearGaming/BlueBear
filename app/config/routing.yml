@@ -18,6 +18,11 @@ blue_bear_backoffice:
     resource: "@BlueBearBackofficeBundle/Resources/config/routing.yml"
     prefix:   /
 
+# BlueBear backoffice
+blue_bear_game:
+    resource: "@BlueBearGameBundle/Resources/config/routing.yml"
+    prefix:   /
+
 # User security
 blue_bear_user:
     resource: "@BlueBearUserBundle/Resources/config/routing.yml"

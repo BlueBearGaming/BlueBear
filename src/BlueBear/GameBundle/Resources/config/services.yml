@@ -1,3 +1,7 @@
+imports:
+    - { resource: managers.yml }
+    - { resource: forms.yml }
+
 services:
 #    blue_bear_game.example:
 #        class: BlueBear\GameBundle\Example
