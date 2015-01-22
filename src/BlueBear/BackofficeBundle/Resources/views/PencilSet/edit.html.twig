@@ -1,0 +1,15 @@
+{% extends 'BlueBearBackofficeBundle:PencilSet:index.html.twig' %}
+
+{% block content %}
+    {% set title = 'Pencil Set Edit' %}
+    {% set action = 'bluebear_backoffice_pencil_set_edit' %}
+    {% set returnRoute = 'bluebear_backoffice_pencil' %}
+    {% set containerClass = 'edit-pencil_set' %}
+
+    {{ block('generic_form') }}
+    <script>
+        $(document).on('ready', function () {
+            $('.edit-pencil_set').find('.fileupload-widget').blueBearFileUpload();
+        });
+    </script>
+{% endblock %}

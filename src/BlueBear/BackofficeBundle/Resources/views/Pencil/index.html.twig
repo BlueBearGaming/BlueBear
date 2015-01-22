@@ -2,8 +2,7 @@
 
 {% block rightMenu %}
     <ul class="nav nav-pills nav-stacked">
-        <li><a href="{{ path('bluebear_backoffice_pencil_edit') }}">Add new pencil</a></li>
-        <li><a href="{{ path('bluebear_backoffice_pencil_set_edit') }}">Add new pencil set</a></li>
+        <li><a href="{{ path('bluebear_backoffice_pencil_create') }}">Add new pencil</a></li>
     </ul>
 {% endblock %}
 
@@ -15,17 +14,6 @@
         {% set editRoute = 'bluebear_backoffice_pencil_edit' %}
         {% set deleteRoute = 'bluebear_backoffice_pencil_edit' %}
         {% set fields = ['id', 'label', 'pencilSet'] %}
-
-        {{ block('table_list') }}
-    </div>
-
-    <h1>Pencils Set</h1>
-
-    <div class="pencils-list">
-        {% set list = pencilSets %}
-        {% set editRoute = 'bluebear_backoffice_pencil_set_edit' %}
-        {% set deleteRoute = 'bluebear_backoffice_pencil_set_delete' %}
-        {% set fields = ['id', 'label'] %}
 
         {{ block('table_list') }}
     </div>

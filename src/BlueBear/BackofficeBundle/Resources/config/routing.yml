@@ -3,49 +3,40 @@ bluebear_backoffice_homepage:
     defaults: {_controller: BlueBearBackofficeBundle:Main:homepage}
 
 
-# Images
-bluebear_backoffice_image:
-    pattern: /images
-    defaults: { _controller: BlueBearBackofficeBundle:Image:index }
-
-bluebear_backoffice_image_upload:
-    pattern: /upload
-    defaults: { _controller: BlueBearBackofficeBundle:Image:upload }
-
-bluebear_backoffice_image_orphans:
-    pattern: /images/orphans
-    defaults: { _controller: BlueBearBackofficeBundle:Image:listOrphans }
-
-bluebear_backoffice_image_edit:
-    pattern: /images/edit/{id}
-    defaults: { _controller: BlueBearBackofficeBundle:Image:edit }
-
-
-
 # Pencils
 bluebear_backoffice_pencil:
     pattern: /pencils
     defaults: { _controller: BlueBearBackofficeBundle:Pencil:index }
 
+bluebear_backoffice_pencil_create:
+    pattern: /pencils/create
+    defaults: { _controller: BlueBearBackofficeBundle:Pencil:create }
+    
 bluebear_backoffice_pencil_edit:
-    pattern: /pencils/edit
+    pattern: /pencils/edit/{id}
     defaults: { _controller: BlueBearBackofficeBundle:Pencil:edit }
 
 bluebear_backoffice_pencil_delete:
     pattern: /pencils/delete/{id}
     defaults: { _controller: BlueBearBackofficeBundle:Pencil:delete }
 
+
+# PencilSets
+bluebear_backoffice_pencil_set:
+    pattern: /pencils-sets
+    defaults: { _controller: BlueBearBackofficeBundle:PencilSet:index }
+
+bluebear_backoffice_pencil_set_create:
+    pattern: /pencils-sets/create
+    defaults: { _controller: BlueBearBackofficeBundle:PencilSet:create }
+
 bluebear_backoffice_pencil_set_edit:
-    pattern: /pencils/sets/editPencil
-    defaults: { _controller: BlueBearBackofficeBundle:Pencil:editPencilSet }
+    pattern: /pencils-sets/edit/{id}
+    defaults: { _controller: BlueBearBackofficeBundle:PencilSet:edit }
 
 bluebear_backoffice_pencil_set_delete:
-    pattern: /pencils/sets/delete/{id}
-    defaults: { _controller: BlueBearBackofficeBundle:Pencil:deletePencilSet }
-
-bluebear_backoffice_select_pencil_set:
-    pattern: pencils/selectPencilSet
-    defaults: { _controller: BlueBearBackofficeBundle:Pencil:selectPencilSet }
+    pattern: /pencils-sets/delete/{id}
+    defaults: { _controller: BlueBearBackofficeBundle:PencilSet:delete }
 
 
 # Layers

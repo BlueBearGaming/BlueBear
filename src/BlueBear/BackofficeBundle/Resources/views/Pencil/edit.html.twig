@@ -1,4 +1,4 @@
-{% extends 'BlueBearBackofficeBundle::layout.html.twig' %}
+{% extends 'BlueBearBackofficeBundle:Pencil:index.html.twig' %}
 
 {% block content %}
     <h1>Pencil Edit</h1>
@@ -9,7 +9,7 @@
     {{ block('generic_form') }}
     <script>
         $(document).on('ready', function () {
-            PencilForm.init($('.edit-pencil'));
+            $('.edit-pencil').find('.fileupload-widget').blueBearFileUpload();
         });
     </script>
 {% endblock %}

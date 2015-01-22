@@ -1,0 +1,20 @@
+{% extends 'BlueBearBackofficeBundle::layout.html.twig' %}
+
+{% block rightMenu %}
+    <ul class="nav nav-pills nav-stacked">
+        <li><a href="{{ path('bluebear_backoffice_pencil_set_create') }}">Add new pencil set</a></li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+    <h1>Pencil Sets</h1>
+
+    <div class="pencils-list">
+        {% set list = pencilSets %}
+        {% set editRoute = 'bluebear_backoffice_pencil_set_edit' %}
+        {% set deleteRoute = 'bluebear_backoffice_pencil_set_delete' %}
+        {% set fields = ['id', 'label'] %}
+
+        {{ block('table_list') }}
+    </div>
+{% endblock %}
