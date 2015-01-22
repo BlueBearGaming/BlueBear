@@ -3,17 +3,18 @@
 
 namespace BlueBear\CoreBundle\Entity\Behavior;
 
+use DateTime;
 
 trait Timestampable
 {
     /**
-     * @var \DateTime
+     * @var DateTime
      * @ORM\Column(name="created_at", type="datetime")
      */
     protected $createdAt;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      * @ORM\Column(name="updated_at", type="datetime", nullable=true)
      */
     protected $updatedAt;
@@ -24,12 +25,12 @@ trait Timestampable
      */
     public function setCreatedAt()
     {
-        $this->createdAt = new \DateTime();
+        $this->createdAt = new DateTime();
         return $this;
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getCreatedAt()
     {
@@ -43,12 +44,12 @@ trait Timestampable
      */
     public function setUpdatedAt()
     {
-        $this->updatedAt = new \DateTime();
+        $this->updatedAt = new DateTime();
         return $this;
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getUpdatedAt()
     {

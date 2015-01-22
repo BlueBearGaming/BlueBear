@@ -4,9 +4,9 @@ namespace BlueBear\BackofficeBundle\Controller;
 
 use BlueBear\BackofficeBundle\Controller\Behavior\ControllerBehavior;
 use BlueBear\CoreBundle\Entity\Map\Context;
+use BlueBear\CoreBundle\Entity\Map\Layer;
 use BlueBear\CoreBundle\Entity\Map\Map;
 use BlueBear\CoreBundle\Entity\Map\Pencil;
-use BlueBear\CoreBundle\Entity\Map\PencilSet;
 use BlueBear\CoreBundle\Manager\MapManager;
 use BlueBear\EngineBundle\Event\EngineEvent;
 use BlueBear\EngineBundle\Event\Map\LoadContextRequest;
@@ -64,19 +64,33 @@ class ApiController extends Controller
                 $request->contextId = $context->getId();
                 $snippets[$event] = $request;
             } else if ($event == EngineEvent::ENGINE_ON_MAP_ITEM_CLICK) {
-                /** @var PencilSet $pencilSet */
                 $pencilSet = $map->getPencilSets()->first();
-                /** @var Pencil $pencil */
-                $pencil = $pencilSet->getPencils()->first();
-
+                // event request
                 $request = new MapItemClickRequest();
                 $request->contextId = $context->getId();
                 $request->x = 5;
                 $request->y = 5;
 
-                if ($pencil) {
-                    $request->pencil = $pencil->getId();
-                    $request->layer = $map->getLayers()->first()->getId();
+                if ($pencilSet) {
+                    /** @var Pencil $pencil */
+                    $pencil = $pencilSet->getPencils()->first();
+                    $layers = [];
+
+                    /** @var Layer $layer */
+                    foreach ($map->getLayers() as $layer) {
+                        if ($pencil->isLayerTypeAllowed($layer->getType())) {
+                            $layers[] = $layer;
+                        }
+                    }
+                    if ($pencil) {
+                        $request->pencil = $pencil->getId();
+                        $layer = $layers[array_rand($layers)];
+                        $request->layer =  $layer->getId();
+                    } else {
+                        $this->addFlash('warning', 'No layer was found. Try to create at least one');
+                    }
+                } else {
+                    $this->addFlash('warning', 'No pencil set was found. Try to create at least one');
                 }
                 $snippets[$event] = $request;
             }
