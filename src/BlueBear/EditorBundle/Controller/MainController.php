@@ -2,7 +2,7 @@
 
 namespace BlueBear\EditorBundle\Controller;
 
-use BlueBear\BackofficeBundle\Controller\Behavior\ControllerBehavior;
+use BlueBear\BaseBundle\Behavior\ControllerTrait;
 use BlueBear\CoreBundle\Manager\MapManager;
 use BlueBear\EngineBundle\Engine\Engine;
 use BlueBear\EngineBundle\Event\EngineEvent;
@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class MainController extends Controller
 {
-    use ControllerBehavior;
+    use ControllerTrait;
 
     /**
      * @Template()

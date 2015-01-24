@@ -1,4 +1,4 @@
-# php engine
+# PHP engine
 blue_bear_engine:
     resource: "@BlueBearEngineBundle/Resources/config/routing.yml"
     prefix:   /
@@ -34,3 +34,8 @@ fos_user:
 oneup_uploader:
     resource: .
     type: uploader
+
+# BlueBear AdminBundle
+blue_bear_admin:
+    resource: .
+    type: extra

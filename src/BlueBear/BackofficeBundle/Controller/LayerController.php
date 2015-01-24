@@ -3,7 +3,7 @@
 
 namespace BlueBear\BackofficeBundle\Controller;
 
-use BlueBear\BackofficeBundle\Controller\Behavior\ControllerBehavior;
+use BlueBear\BaseBundle\Behavior\ControllerTrait;
 use BlueBear\CoreBundle\Entity\Map\Layer;
 use BlueBear\CoreBundle\Manager\LayerManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class LayerController extends Controller
 {
-    use ControllerBehavior;
+    use ControllerTrait;
 
     /**
      * @Template()

@@ -3,7 +3,7 @@
 
 namespace BlueBear\BackofficeBundle\Controller;
 
-use BlueBear\BackofficeBundle\Controller\Behavior\ControllerBehavior;
+use BlueBear\BaseBundle\Behavior\ControllerTrait;
 use BlueBear\CoreBundle\Entity\Map\Pencil;
 use BlueBear\CoreBundle\Manager\PencilManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class PencilController extends Controller
 {
-    use ControllerBehavior;
+    use ControllerTrait;
 
     /**
      * @Template()

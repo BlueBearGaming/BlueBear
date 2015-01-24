@@ -3,13 +3,13 @@
 
 namespace BlueBear\BackofficeBundle\Controller;
 
-use BlueBear\BackofficeBundle\Controller\Behavior\ControllerBehavior;
+use BlueBear\BaseBundle\Behavior\ControllerTrait;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class ItemController extends Controller
 {
-    use ControllerBehavior;
+    use ControllerTrait;
 
     public function indexAction()
     {

@@ -2,14 +2,14 @@
 
 namespace BlueBear\CoreBundle\Twig;
 
-use BlueBear\CoreBundle\Entity\Behavior\HasContainer;
+use BlueBear\BaseBundle\Behavior\ContainerTrait;
 use Symfony\Component\HttpFoundation\Request;
 use Twig_Extension;
 use Twig_SimpleFunction;
 
 class UtilsExtension extends Twig_Extension
 {
-    use HasContainer;
+    use ContainerTrait;
 
     /**
      * @return array

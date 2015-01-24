@@ -1,0 +1,19 @@
+parameters:
+    # routing
+    bluebear.admin.routing: BlueBear\AdminBundle\Routing\RoutingLoader
+    # admin factory
+    bluebear.admin.factory: BlueBear\AdminBundle\Admin\AdminFactory
+
+services:
+    # routing
+    bluebear.admin.routing:
+        class: %bluebear.admin.routing%
+        tags:
+            - { name: routing.loader }
+        calls:
+            - [setContainer, [@service_container]]
+
+    # factory
+    bluebear.admin.factory:
+        class: %bluebear.admin.factory%
+        arguments: [@service_container]

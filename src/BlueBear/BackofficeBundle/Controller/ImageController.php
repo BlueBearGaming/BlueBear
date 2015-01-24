@@ -3,14 +3,14 @@
 
 namespace BlueBear\BackofficeBundle\Controller;
 
-use BlueBear\BackofficeBundle\Controller\Behavior\ControllerBehavior;
+use BlueBear\BaseBundle\Behavior\ControllerTrait;
 use BlueBear\CoreBundle\Manager\ImageManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class ImageController extends Controller
 {
-    use ControllerBehavior;
+    use ControllerTrait;
 
     /**
      * @Template()

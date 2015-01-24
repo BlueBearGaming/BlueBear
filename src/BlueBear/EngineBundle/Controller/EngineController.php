@@ -2,7 +2,7 @@
 
 namespace BlueBear\EngineBundle\Controller;
 
-use BlueBear\BackofficeBundle\Controller\Behavior\ControllerBehavior;
+use BlueBear\BaseBundle\Behavior\ControllerTrait;
 use BlueBear\EngineBundle\Engine\Engine;
 use JMS\Serializer\Serializer;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class EngineController extends Controller
 {
-    use ControllerBehavior;
+    use ControllerTrait;
 
     public function triggerEventAction(Request $request)
     {

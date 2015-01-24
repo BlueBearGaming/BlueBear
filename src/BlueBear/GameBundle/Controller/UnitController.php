@@ -2,7 +2,7 @@
 
 namespace BlueBear\GameBundle\Controller;
 
-use BlueBear\BackofficeBundle\Controller\Behavior\ControllerBehavior;
+use BlueBear\BaseBundle\Behavior\ControllerTrait;
 use BlueBear\GameBundle\Entity\Unit;
 use BlueBear\GameBundle\Manager\UnitManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class UnitController extends Controller
 {
-    use ControllerBehavior;
+    use ControllerTrait;
 
     /**
      * @Template()

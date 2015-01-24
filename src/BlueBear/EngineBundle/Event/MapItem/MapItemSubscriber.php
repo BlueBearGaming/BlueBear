@@ -2,7 +2,7 @@
 
 namespace BlueBear\EngineBundle\Event\MapItem;
 
-use BlueBear\CoreBundle\Entity\Behavior\HasContainer;
+use BlueBear\BaseBundle\Behavior\ContainerTrait;
 use BlueBear\CoreBundle\Entity\Map\Layer;
 use BlueBear\CoreBundle\Entity\Map\MapItem;
 use BlueBear\CoreBundle\Entity\Map\Pencil;
@@ -12,7 +12,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class MapItemSubscriber implements EventSubscriberInterface
 {
-    use HasContainer, HasException;
+    use ContainerTrait, HasException;
 
     public static function getSubscribedEvents()
     {

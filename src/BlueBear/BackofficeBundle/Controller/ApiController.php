@@ -2,7 +2,7 @@
 
 namespace BlueBear\BackofficeBundle\Controller;
 
-use BlueBear\BackofficeBundle\Controller\Behavior\ControllerBehavior;
+use BlueBear\BaseBundle\Behavior\ControllerTrait;
 use BlueBear\CoreBundle\Entity\Map\Context;
 use BlueBear\CoreBundle\Entity\Map\Layer;
 use BlueBear\CoreBundle\Entity\Map\Map;
@@ -17,7 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class ApiController extends Controller
 {
-    use ControllerBehavior;
+    use ControllerTrait;
 
     /**
      * Display api interface to send event and receive response from api

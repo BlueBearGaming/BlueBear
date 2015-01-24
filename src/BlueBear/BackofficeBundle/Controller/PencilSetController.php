@@ -3,25 +3,17 @@
 
 namespace BlueBear\BackofficeBundle\Controller;
 
-use BlueBear\BackofficeBundle\Controller\Behavior\ControllerBehavior;
-use BlueBear\CoreBundle\Entity\Editor\Image;
-use BlueBear\CoreBundle\Entity\Map\Map;
-use BlueBear\CoreBundle\Entity\Map\Pencil;
+use BlueBear\BaseBundle\Behavior\ControllerTrait;
 use BlueBear\CoreBundle\Entity\Map\PencilSet;
-use BlueBear\CoreBundle\Manager\ImageManager;
-use BlueBear\CoreBundle\Manager\MapManager;
-use BlueBear\CoreBundle\Manager\PencilManager;
 use BlueBear\CoreBundle\Manager\PencilSetManager;
-use BlueBear\CoreBundle\Manager\ResourceManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class PencilSetController extends Controller
 {
-    use ControllerBehavior;
+    use ControllerTrait;
 
     /**
      * @Template()
@@ -47,6 +39,7 @@ class PencilSetController extends Controller
     /**
      * @Template()
      * @param Request $request
+     * @param PencilSet $pencilSet
      * @return array|RedirectResponse
      */
     public function editAction(Request $request, PencilSet $pencilSet)

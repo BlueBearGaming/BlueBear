@@ -4,21 +4,21 @@ bluebear_backoffice_homepage:
 
 
 # Pencils
-bluebear_backoffice_pencil:
-    pattern: /pencils
-    defaults: { _controller: BlueBearBackofficeBundle:Pencil:index }
-
-bluebear_backoffice_pencil_create:
-    pattern: /pencils/create
-    defaults: { _controller: BlueBearBackofficeBundle:Pencil:create }
-    
-bluebear_backoffice_pencil_edit:
-    pattern: /pencils/edit/{id}
-    defaults: { _controller: BlueBearBackofficeBundle:Pencil:edit }
-
-bluebear_backoffice_pencil_delete:
-    pattern: /pencils/delete/{id}
-    defaults: { _controller: BlueBearBackofficeBundle:Pencil:delete }
+#bluebear_backoffice_pencil:
+#    pattern: /pencils
+#    defaults: { _controller: BlueBearBackofficeBundle:Pencil:index }
+#
+#bluebear_backoffice_pencil_create:
+#    pattern: /pencils/create
+#    defaults: { _controller: BlueBearBackofficeBundle:Pencil:create }
+#
+#bluebear_backoffice_pencil_edit:
+#    pattern: /pencils/edit/{id}
+#    defaults: { _controller: BlueBearBackofficeBundle:Pencil:edit }
+#
+#bluebear_backoffice_pencil_delete:
+#    pattern: /pencils/delete/{id}
+#    defaults: { _controller: BlueBearBackofficeBundle:Pencil:delete }
 
 
 # PencilSets

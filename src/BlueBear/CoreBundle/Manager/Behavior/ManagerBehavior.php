@@ -2,7 +2,7 @@
 
 namespace BlueBear\CoreBundle\Manager\Behavior;
 
-use BlueBear\CoreBundle\Entity\Behavior\HasContainer;
+use BlueBear\BaseBundle\Behavior\ContainerTrait;
 use BlueBear\CoreBundle\Entity\Behavior\HasEntityManager;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 trait ManagerBehavior
 {
-    use HasContainer, HasEntityManager;
+    use ContainerTrait, HasEntityManager;
 
     /**
      * Return current manager repository

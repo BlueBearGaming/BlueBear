@@ -1,10 +1,15 @@
 <?php
 
-namespace BlueBear\CoreBundle\Entity\Behavior;
+namespace BlueBear\BaseBundle\Behavior;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-trait HasContainer
+/**
+ * ContainerTrait
+ *
+ * Capacity to have a ContainerInterface
+ */
+trait ContainerTrait
 {
     /**
      * @var ContainerInterface
@@ -22,7 +27,7 @@ trait HasContainer
     /**
      * @param ContainerInterface $container
      */
-    public function setContainer(ContainerInterface $container)
+    public function setContainer(ContainerInterface $container = null)
     {
         $this->container = $container;
     }

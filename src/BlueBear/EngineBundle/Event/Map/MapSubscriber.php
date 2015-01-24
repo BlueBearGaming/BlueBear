@@ -2,7 +2,7 @@
 
 namespace BlueBear\EngineBundle\Event\Map;
 
-use BlueBear\CoreBundle\Entity\Behavior\HasContainer;
+use BlueBear\BaseBundle\Behavior\ContainerTrait;
 use BlueBear\CoreBundle\Entity\Map\MapItem;
 use BlueBear\EngineBundle\Behavior\HasContextFactory;
 use BlueBear\EngineBundle\Event\EngineEvent;
@@ -11,7 +11,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class MapSubscriber implements EventSubscriberInterface
 {
-    use HasContextFactory, HasContainer;
+    use HasContextFactory, ContainerTrait;
 
     /**
      * Subscribe on mapLoad, mapSave events

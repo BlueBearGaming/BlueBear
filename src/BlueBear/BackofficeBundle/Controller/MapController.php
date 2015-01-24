@@ -3,7 +3,7 @@
 
 namespace BlueBear\BackofficeBundle\Controller;
 
-use BlueBear\BackofficeBundle\Controller\Behavior\ControllerBehavior;
+use BlueBear\BaseBundle\Behavior\ControllerTrait;
 use BlueBear\CoreBundle\Entity\Map\Map;
 use BlueBear\CoreBundle\Manager\MapManager;
 use BlueBear\CoreBundle\Manager\PencilSetManager;
@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class MapController extends Controller
 {
-    use ControllerBehavior;
+    use ControllerTrait;
 
     /**
      * List all maps

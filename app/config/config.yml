@@ -1,6 +1,7 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
+    - { resource: admins.yml }
 
 # Symfony Configuration
 framework:
@@ -91,6 +92,7 @@ fos_user:
     firewall_name: main
     user_class: BlueBear\UserBundle\Entity\User
 
+# one uploader
 oneup_uploader:
     mappings:
         image:

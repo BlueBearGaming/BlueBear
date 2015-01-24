@@ -1,22 +1,52 @@
 <?php
 
+namespace BlueBear\BaseBundle\Behavior;
 
-namespace BlueBear\BackofficeBundle\Controller\Behavior;
-
+use Exception;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
-trait ControllerBehavior
+/**
+ * ControllerTrait
+ *
+ * Helper trait for Symfony controllers
+ */
+trait ControllerTrait
 {
-    // Symfony controllers methods
-    abstract function createNotFoundException($message = 'Not Found', \Exception $previous = NULL);
+    use ContainerTrait;
 
-    abstract function generateUrl($route, $parameters = array(), $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH);
+    /**
+     * Abstract create not found exception method. Should return a NotFoundException
+     *
+     * @param string $message
+     * @param Exception $previous
+     * @return NotFoundHttpException
+     */
+    public abstract function createNotFoundException($message = 'Not Found', Exception $previous = NULL);
 
-    abstract function get($id);
+    /**
+     * Abstract generate url method. Should return a url string
+     *
+     * @param $route
+     * @param array $parameters
+     * @param bool $referenceType
+     * @return string
+     */
+    public abstract function generateUrl($route, $parameters = array(), $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH);
+
+    /**
+     * Abstract get method. Should return a container interface
+     *
+     * @param $id
+     * @return ContainerInterface
+     */
+    public abstract function get($id);
 
     /**
      * Throw a 404 Exception if $boolean is false or null
@@ -24,7 +54,7 @@ trait ControllerBehavior
      * @param $boolean
      * @param string $message
      */
-    public function redirect404Unless($boolean, $message = 'Error 404')
+    public function forward404Unless($boolean, $message = '404 Not Found')
     {
         if (!$boolean) {
             throw $this->createNotFoundException($message);
@@ -32,11 +62,11 @@ trait ControllerBehavior
     }
 
     /**
-     * Redirects response to an url or a route
+     * Redirect response to an url or a route
      *
      * @param string $url
      * @param int $status
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return RedirectResponse
      */
     public function redirect($url, $status = 302)
     {
@@ -44,7 +74,7 @@ trait ControllerBehavior
             $route = substr($url, 1);
             $url = $this->generateUrl($route);
         }
-        return parent::redirect($url, $status);
+        return new RedirectResponse($url, $status);
     }
 
     /**
@@ -54,7 +84,7 @@ trait ControllerBehavior
      * @param string $type
      * @param array $parameters
      */
-    protected function setMessage($message, $type = 'info', $parameters = array())
+    public function setMessage($message, $type = 'info', $parameters = [])
     {
         $this->getSession()->getFlashBag()->add($type, $this->translate($message, $parameters));
     }
@@ -67,7 +97,7 @@ trait ControllerBehavior
      */
     public function getConfig($key)
     {
-        return $this->container->getParameter($key);
+        return $this->getContainer()->getParameter($key);
     }
 
     /**

@@ -1,0 +1,35 @@
+# bluebear admin
+blue_bear_admin:
+    # list of managed admins
+    admins:
+        # entities
+        pencil:
+            # orm entity class
+            entity: BlueBear\CoreBundle\Entity\Map\Pencil
+            # associated form type
+            form: BlueBear\CoreBundle\Form\Map\Pencil
+            # associated controller
+            controller: BlueBearAdminBundle:Generic
+            # availables actions
+            actions:
+                - {name: list}
+                - {name: create}
+                - {name: edit}
+                - {name: delete}
+    menus:
+        main:
+            # by default
+            template: BlueBearAdminBundle:Menu:main_menu.html.twig
+            items:
+                - {admin: pencil, actions: [list]}
+
+
+
+
+
+
+
+
+
+
+

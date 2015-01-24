@@ -27,12 +27,14 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new Oneup\UploaderBundle\OneupUploaderBundle(),
             // BlueBear
+            new BlueBear\AdminBundle\BlueBearAdminBundle(),
+            new BlueBear\BaseBundle\BlueBearBaseBundle(),
             new BlueBear\BackofficeBundle\BlueBearBackofficeBundle(),
             new BlueBear\EditorBundle\BlueBearEditorBundle(),
             new BlueBear\CoreBundle\BlueBearCoreBundle(),
             new BlueBear\EngineBundle\BlueBearEngineBundle(),
             new BlueBear\UserBundle\BlueBearUserBundle(),
-            new BlueBear\GameBundle\BlueBearGameBundle(),
+            new BlueBear\GameBundle\BlueBearGameBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
