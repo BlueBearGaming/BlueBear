@@ -3,7 +3,6 @@
 namespace BlueBear\BaseBundle\Behavior;
 
 use Exception;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -44,7 +43,7 @@ trait ControllerTrait
      * Abstract get method. Should return a container interface
      *
      * @param $id
-     * @return ContainerInterface
+     * @return mixed
      */
     public abstract function get($id);
 

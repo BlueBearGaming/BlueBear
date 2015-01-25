@@ -45,13 +45,23 @@ class RoutingLoader implements LoaderInterface
                     $path .= '/{id}';
                 }
                 // adding route to collection
-                $routes->add('bluebear_admin_' . $admin->getName() . '_' . $action['name'],
+                $routes->add($this->generateRouteForAction($admin, $action['name']),
                     new Route($path, $defaults, $requirements));
             }
         }
         $this->loaded = true;
 
         return $routes;
+    }
+
+    public function generateRouteForAction(Admin $admin, $action)
+    {
+        $path = 'bluebear_admin_' . strtolower($admin->getName()) . '/' . $action;
+
+        if (in_array($action, ['delete', 'list'])) {
+
+        }
+        return $path;
     }
 
     public function supports($resource, $type = null)

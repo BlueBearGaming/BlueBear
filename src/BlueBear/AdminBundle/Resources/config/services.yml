@@ -3,6 +3,8 @@ parameters:
     bluebear.admin.routing: BlueBear\AdminBundle\Routing\RoutingLoader
     # admin factory
     bluebear.admin.factory: BlueBear\AdminBundle\Admin\AdminFactory
+    # menu factory
+    bluebear.menu.factory: BlueBear\AdminBundle\Menu\MenuFactory
 
 services:
     # routing
@@ -17,3 +19,7 @@ services:
     bluebear.admin.factory:
         class: %bluebear.admin.factory%
         arguments: [@service_container]
+
+    bluebear.menu.factory:
+        class: %bluebear.menu.factory%
+        arguments: [@service_container, @bluebear.admin.routing]

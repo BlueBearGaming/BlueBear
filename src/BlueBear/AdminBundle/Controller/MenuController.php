@@ -2,6 +2,7 @@
 
 namespace BlueBear\AdminBundle\Controller;
 
+use BlueBear\AdminBundle\Admin\AdminFactory;
 use BlueBear\BaseBundle\Behavior\ControllerTrait;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,11 +25,13 @@ class MenuController extends Controller
         return new Response('lol');
     }
 
-    protected function loadMenuConfiguration()
-    {
-        $menuConfig = $this->getContainer()->getParameter('bluebear.menus');
 
-        //var_dump($menuConfig);
-        //die;
+
+    /**
+     * @return AdminFactory
+     */
+    protected function getAdminFactory()
+    {
+        return $this->get('bluebear.admin.factory');
     }
 }
