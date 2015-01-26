@@ -10,10 +10,25 @@ class MenuItem
 
     protected $label;
 
-    public function __construct($route, $parameters = [], $label = '')
+    public function __construct($label, $route, $parameters = [])
     {
         $this->label = $label;
         $this->route = $route;
         $this->parameters = $parameters;
+    }
+
+    public function getRoute()
+    {
+        return $this->route;
+    }
+
+    public function getParameters()
+    {
+        return $this->parameters;
+    }
+
+    public function getLabel()
+    {
+        return $this->label;
     }
 }

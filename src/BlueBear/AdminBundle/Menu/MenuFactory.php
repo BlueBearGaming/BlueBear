@@ -14,31 +14,49 @@ class MenuFactory
     public function __construct(ContainerInterface $container, RoutingLoader $routingLoader)
     {
         $menuConfigs = $container->getParameter('bluebear.menus');
-        $admins = $container->get('bluebear.admin.factory')->getAdmins();
 
         foreach ($menuConfigs as $menuName => $menuConfig) {
-            // check if an admin with correct name exists
-            if (!array_key_exists($menuName, $admins)) {
-                throw new Exception('Invalid menu name. It should be an admin name');
-            }
-            /** @var Admin $admin */
-            $admin = $admins[$menuName];
-            $menu = new Menu($menuName);
+            $mainItem = array_key_exists('main_item', $menuConfig) ? $menuConfig['main_item'] : '';
+            $menu = new Menu($menuName, $menuConfig['template'], $mainItem);
 
             foreach ($menuConfig['items'] as $item) {
-                $actions = $item['actions'];
-
-                foreach ($actions as $action) {
-                    // check if action is granted for admin
-                    if (!array_key_exists($action, $admin->getActions())) {
-                        throw new Exception('Action ' . $action . ' is not allowed for admin ' . $admin->getName());
-                    }
-                    $route = $routingLoader->generateRouteForAction($admin, $action);
-                    $menuItem = new MenuItem($route);
-                    $menu->addItem($menuItem);
+                // TODO handle custom menus, not related to an admin
+                // check if an admin with correct name exists
+                if (!array_key_exists('admin', $item)) {
+                    throw new Exception('Invalid menu name. It should be an admin name');
                 }
+                /** @var Admin $admin */
+                $admin = $container->get('bluebear.admin.factory')->getAdmin($item['admin']);
+                // check if action is granted for admin
+                if (!$admin->isActionGranted($item['action'])) {
+                    throw new Exception('Action ' . $item['action'] . ' is not allowed for admin ' . $admin->getName());
+                }
+                $route = $routingLoader->generateRouteForAction($admin, $item['action']);
+                $menuItem = new MenuItem($item['label'],  $route);
+                $menu->addItem($menuItem);
             }
-            $this->menus[] = $menu;
+            $this->menus[$menu->getName()] = $menu;
         }
+    }
+
+    /**
+     * @return Menu[]
+     */
+    public function getMenus()
+    {
+        return $this->menus;
+    }
+
+    /**
+     * @param $name
+     * @return Menu
+     * @throws Exception
+     */
+    public function getMenu($name)
+    {
+        if (!array_key_exists($name, $this->menus)) {
+            throw new Exception('Invalid menu name');
+        }
+        return $this->menus[$name];
     }
 }

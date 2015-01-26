@@ -10,14 +10,40 @@ class Menu
 
     protected $template;
 
-    public function __construct($name, $template = '')
+    protected $mainItem;
+
+    public function __construct($name, $template = '', $mainItem = '')
     {
         $this->name = $name;
         $this->template = $template;
+        $this->mainItem = $mainItem;
     }
 
     public function addItem(MenuItem $menuItem)
     {
         $this->items[] = $menuItem;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function getTemplate()
+    {
+        return $this->template;
+    }
+
+    /**
+     * @return MenuItem
+     */
+    public function getItems()
+    {
+        return $this->items;
+    }
+
+    public function getMainItem()
+    {
+        return $this->mainItem;
     }
 }

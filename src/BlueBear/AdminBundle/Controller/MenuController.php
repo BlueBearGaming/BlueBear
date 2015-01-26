@@ -3,10 +3,10 @@
 namespace BlueBear\AdminBundle\Controller;
 
 use BlueBear\AdminBundle\Admin\AdminFactory;
+use BlueBear\AdminBundle\Menu\Menu;
 use BlueBear\BaseBundle\Behavior\ControllerTrait;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class MenuController extends Controller
 {
@@ -16,13 +16,12 @@ class MenuController extends Controller
 
     public function menuAction(Request $request)
     {
-        $admins = $this->get('bluebear.admin.factory');
-        $this->loadMenuConfiguration();
+        /** @var Menu $menu */
+        $menu = $this->get('bluebear.menu.factory')->getMenu($request->get('name'));
 
-
-
-
-        return new Response('lol');
+        return $this->render($menu->getTemplate(), [
+            'menu' => $menu
+        ]);
     }
 
 

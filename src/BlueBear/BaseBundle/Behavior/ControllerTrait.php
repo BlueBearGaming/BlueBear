@@ -2,6 +2,7 @@
 
 namespace BlueBear\BaseBundle\Behavior;
 
+use Doctrine\ORM\EntityManager;
 use Exception;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -38,14 +39,6 @@ trait ControllerTrait
      * @return string
      */
     public abstract function generateUrl($route, $parameters = array(), $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH);
-
-    /**
-     * Abstract get method. Should return a container interface
-     *
-     * @param $id
-     * @return mixed
-     */
-    public abstract function get($id);
 
     /**
      * Throw a 404 Exception if $boolean is false or null
@@ -106,7 +99,7 @@ trait ControllerTrait
      */
     public function getRouting()
     {
-        return $this->get('router');
+        return $this->getContainer()->get('router');
     }
 
     /**
@@ -116,7 +109,7 @@ trait ControllerTrait
      */
     protected function getTranslator()
     {
-        return $this->get('translator');
+        return $this->getContainer()->get('translator');
     }
 
     /**
@@ -126,7 +119,7 @@ trait ControllerTrait
      */
     protected function getSession()
     {
-        return $this->get('session');
+        return $this->getContainer()->get('session');
     }
 
     /**
@@ -136,7 +129,15 @@ trait ControllerTrait
      */
     protected function getEventDispatcher()
     {
-        return $this->get('event_dispatcher');
+        return $this->getContainer()->get('event_dispatcher');
+    }
+
+    /**
+     * @return EntityManager
+     */
+    protected function getEntityManager()
+    {
+        return $this->getContainer()->get('doctrine.orm.default_entity_manager');
     }
 
     /**

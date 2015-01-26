@@ -13,6 +13,11 @@ blue_bear_core:
     resource: "@BlueBearCoreBundle/Resources/config/routing.yml"
     prefix:   /
 
+# BlueBear AdminBundle
+blue_bear_admin:
+    resource: .
+    type: extra
+
 # BlueBear backoffice
 blue_bear_backoffice:
     resource: "@BlueBearBackofficeBundle/Resources/config/routing.yml"
@@ -34,8 +39,3 @@ fos_user:
 oneup_uploader:
     resource: .
     type: uploader
-
-# BlueBear AdminBundle
-blue_bear_admin:
-    resource: .
-    type: extra

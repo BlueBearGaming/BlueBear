@@ -10,7 +10,26 @@ class Admin
 
     protected $controller;
 
-    protected $actions;
+    protected $actions = [];
+
+    protected $layout = '';
+
+    /**
+     * @param string $actionName Le plus grand de tous les héros
+     * @return bool
+     */
+    public function isActionGranted($actionName)
+    {
+        $isGranted = false;
+
+        // TODO add security roles checking
+        foreach ($this->actions as $action) {
+            if ($action['name'] == $actionName) {
+                $isGranted = true;
+            }
+        }
+        return $isGranted;
+    }
 
     /**
      * @return string
@@ -34,6 +53,17 @@ class Admin
     public function getEntity()
     {
         return $this->entity;
+    }
+
+    /**
+     * Return entity path for routing (for example, MyNamespace\EntityName => entityname)
+     *
+     * @return string
+     */
+    public function getEntityPath()
+    {
+        // TODO sanitize string, uncamelize it
+        return strtolower(array_pop(explode('\\', $this->getEntity())));
     }
 
     /**
@@ -79,5 +109,21 @@ class Admin
     public function addAction($action)
     {
         $this->actions[] = $action;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLayout()
+    {
+        return $this->layout;
+    }
+
+    /**
+     * @param string $layout
+     */
+    public function setLayout($layout)
+    {
+        $this->layout = $layout;
     }
 }

@@ -28,12 +28,12 @@ class RoutingLoader implements LoaderInterface
         }
         $routes = new RouteCollection();
         //$admins = $this->getContainer()->getParameter('bluebear.admins');
-        $admins = $this->getContainer()->get('bluebear.admin.factory');
+        $admins = $this->getContainer()->get('bluebear.admin.factory')->getAdmins();
         // creating a route by admin and action
         /** @var Admin $admin */
         foreach ($admins as $admin) {
             $requirements = [];
-            $entityPath = strtolower(array_pop(explode('\\', $admin['entity'])));
+            $entityPath = $admin->getEntityPath();
             $actions = $admin->getActions();
             // by default, actions are create, edit, delete, list
             foreach ($actions as $action) {
@@ -56,10 +56,10 @@ class RoutingLoader implements LoaderInterface
 
     public function generateRouteForAction(Admin $admin, $action)
     {
-        $path = 'bluebear_admin_' . strtolower($admin->getName()) . '/' . $action;
+        $path = 'bluebear_admin_' . strtolower($admin->getName()) . '_' . $action;
 
         if (in_array($action, ['delete', 'list'])) {
-
+            // TODO add parameters id ?
         }
         return $path;
     }
