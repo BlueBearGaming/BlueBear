@@ -2,8 +2,10 @@
 
 namespace BlueBear\AdminBundle\Controller;
 
+use BlueBear\AdminBundle\Admin\Admin;
 use BlueBear\AdminBundle\Admin\AdminFactory;
 use BlueBear\BaseBundle\Behavior\ControllerTrait;
+use Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,24 +25,21 @@ class GenericController extends Controller
      */
     public function listAction(Request $request)
     {
-        $requestParameters = explode('/', $request->getPathInfo());
-        // remove empty string
-        array_shift($requestParameters);
-        $admin = $requestParameters[0];
+        $admin = $this->getAdminFromRequest($request);
         $action = $requestParameters[1];
-        $admin = $this->getAdminFactory()->getAdmin($admin);
-        // check permissions and actions
-        $this->forward404Unless($admin->isActionGranted($action));
 
-        $entities = $this->getEntityManager()->getRepository($admin->getEntity())->findAll();
+        // check permissions and actions
+        $this->forward404Unless($admin->isActionGranted($action, $this->getUser()->getRoles()),
+            'User not allowed for action '.$action);
+        // set entities list
+        $admin->setEntities($admin->getRepository()->findAll());
 
         return [
-            'admin' => $admin,
-            'entities' => $entities
+            'admin' => $admin
         ];
     }
 
-    public function editAction()
+    public function editAction(Request $request)
     {
         $form = $this->createForm('pencil', $pencil);
         $form->handleRequest($request);
@@ -63,6 +62,27 @@ class GenericController extends Controller
     public function deleteAction()
     {
 
+    }
+
+    /**
+     * @param Request $request
+     * @return Admin
+     * @throws Exception
+     */
+    protected function getAdminFromRequest(Request $request)
+    {
+        $requestParameters = explode('/', $request->getPathInfo());
+        // remove empty string
+        array_shift($requestParameters);
+        // get configured admin
+        return $this->getAdminFactory()->getAdmin($requestParameters[0]);
+    }
+
+    protected function getActionFromRequest(Request $request)
+    {
+        $requestParameters = explode('/', $request->getPathInfo());
+        // remove empty string
+        array_shift($requestParameters);
     }
 
     /**

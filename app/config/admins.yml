@@ -17,16 +17,32 @@ blue_bear_admin:
             controller: BlueBearAdminBundle:Generic
             # availables actions (by default)
             actions:
-                - {name: list}
-                - {name: create}
-                - {name: edit}
-                - {name: delete}
+                list:
+                    title: Pencils list
+                    permissions: [ROLE_ADMIN, ROLE_USER]
+                    # available fields for this action
+                    fields:
+                        id: ~
+                        name: ~
+                        label: ~
+                        # displayed only 50 first characters in list action
+                        description: {length: 50}
+                create: ~
+                edit: ~
+                delete: ~
     menus:
         main:
             # main menu route (optionnal)
             main_item: {route: bluebear_backoffice_homepage, label: BlueBear by CleverGaming}
             # (by default)
-            template: BlueBearAdminBundle:Menu:main_menu.html.twig
+            template: BlueBearAdminBundle:Menu:main.html.twig
             # menu items
             items:
-                - {admin: pencil, action: list, label: Pencils}
+                - {admin: pencil, action: list, label: Pencils, permissions: [ROLE_USER]}
+        right:
+            # (by default)
+            template: BlueBearAdminBundle:Menu:right.html.twig
+            # menu items
+            items:
+                - {admin: pencil, action: list, label: Pencils list}
+                - {admin: pencil, action: create, label: Create a pencil}

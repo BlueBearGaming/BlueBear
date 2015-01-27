@@ -1,2 +1,18 @@
-{% extends admin.layout %}
+{% extends admin.layout is defined ? admin.layout : '' %}
 
+{% block right %}
+    {{ render(controller('BlueBearAdminBundle:Menu:menu', {name: 'right'})) }}
+{% endblock %}
+
+{% block content %}
+    <h1>Pencils</h1>
+
+    <div class="pencils-list">
+        {% set list = admin.entities %}
+        {% set editRoute = 'bluebear_backoffice_pencil_edit' %}
+        {% set deleteRoute = 'bluebear_backoffice_pencil_edit' %}
+        {% set fields = ['id', 'label', 'pencilSet'] %}
+
+        {{ block('admin_list') }}
+    </div>
+{% endblock %}

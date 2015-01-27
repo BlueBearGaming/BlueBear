@@ -16,11 +16,13 @@ class MenuController extends Controller
 
     public function menuAction(Request $request)
     {
+        $masterRequest = $this->getContainer()->get('request_stack')->getMasterRequest();
         /** @var Menu $menu */
         $menu = $this->get('bluebear.menu.factory')->getMenu($request->get('name'));
 
         return $this->render($menu->getTemplate(), [
-            'menu' => $menu
+            'menu' => $menu,
+            'currentRoute' => $masterRequest->get('_route')
         ]);
     }
 

@@ -28,10 +28,10 @@ class MenuFactory
                 /** @var Admin $admin */
                 $admin = $container->get('bluebear.admin.factory')->getAdmin($item['admin']);
                 // check if action is granted for admin
-                if (!$admin->isActionGranted($item['action'])) {
+                if (!$admin->isActionGranted($item['action'], $item['permissions'])) {
                     throw new Exception('Action ' . $item['action'] . ' is not allowed for admin ' . $admin->getName());
                 }
-                $route = $routingLoader->generateRouteForAction($admin, $item['action']);
+                $route = $routingLoader->generateRouteForAction($admin, $admin->getAction($item['action']));
                 $menuItem = new MenuItem($item['label'],  $route);
                 $menu->addItem($menuItem);
             }

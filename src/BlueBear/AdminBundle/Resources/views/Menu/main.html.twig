@@ -2,7 +2,7 @@
     <div class="container">
         {% if menu.mainItem %}
             <div class="navbar-header">
-                {% set activeClass = (menu.mainItem == app.request.get('route')) ? ' active' : '' %}
+                {% set activeClass = (menu.mainItem == currentRoute) ? ' active' : '' %}
                 <a class="navbar-brand{{ activeClass }}"  href="{{ path(menu.mainItem.route) }}">
                     {{ menu.mainItem.label }}</a>
             </div>
@@ -10,7 +10,7 @@
         <div class="navbar-collapse collapse navbar-responsive-collapse">
             <ul class="nav navbar-nav">
                 {% for item in menu.items %}
-                    {% set activeClass = (item.route == app.request.get('route')) ? 'active' : '' %}
+                    {% set activeClass = (item.route == currentRoute) ? 'active' : '' %}
 
                     <li class="{{ activeClass }}">
                         <a href="{{ path(item.route, item.parameters) }}">{{ item.label }}</a>
@@ -20,4 +20,3 @@
         </div>
     </div>
 </div>
-lol ?

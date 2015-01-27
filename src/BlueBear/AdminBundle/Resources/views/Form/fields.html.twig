@@ -1,0 +1,71 @@
+{% block admin_list %}
+
+    {% if admin.entities|length > 0 %}
+        {% set fields = fields is defined ? fields : ['id', 'label'] %}
+
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    {% for field in fields %}
+                        <th>{{ field | capitalize }}</th>
+                    {% endfor %}
+                </tr>
+                </thead>
+                <tbody>
+                {% for entity in list %}
+                    <tr>
+                        {% for field in fields %}
+                            <td>{{ attribute(entity, field) }}</td>
+                        {% endfor %}
+                        <td>
+                            <a href="{{ path(editRoute, {id: entity.id}) }}"
+                               class="btn btn-sm">edit</a>
+                            <a href="{{ path(deleteRoute, {id: entity.id}) }}"
+                               class="item-delete btn btn-sm">delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        No record yet
+    {% endif %}
+{% endblock %}
+
+{# list of generic items #}
+{% block table_list %}
+    {% if list|length > 0 %}
+        {% set fields = fields is defined ? fields : ['id', 'label'] %}
+
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    {% for field in fields %}
+                        <th>{{ field | capitalize }}</th>
+                    {% endfor %}
+                </tr>
+                </thead>
+                <tbody>
+                {% for entity in list %}
+                    <tr>
+                        {% for field in fields %}
+                            <td>{{ attribute(entity, field) }}</td>
+                        {% endfor %}
+                        <td>
+                            <a href="{{ path(editRoute, {id: entity.id}) }}"
+                               class="btn btn-sm">edit</a>
+                            <a href="{{ path(deleteRoute, {id: entity.id}) }}"
+                               class="item-delete btn btn-sm">delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        No record yet
+    {% endif %}
+{% endblock %}

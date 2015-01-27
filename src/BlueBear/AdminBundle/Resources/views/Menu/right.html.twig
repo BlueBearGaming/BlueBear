@@ -1,0 +1,11 @@
+{% if menu.items | length > 0 %}
+    <ul class="nav nav-pills nav-stacked">
+        {% for item in menu.items %}
+            {% set activeClass = (currentRoute == item.route) ? 'active' : '' %}
+
+            <li class="{{ activeClass }}">
+                <a href="{{ path(item.route) }}">{{ item.label }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}

@@ -6,7 +6,7 @@
 <body>
 {% use 'BlueBearCoreBundle:Form:fields.html.twig' %}
 {% block topMenu %}
-    {{ render(controller('BlueBearAdminBundle:Menu:menu', {name: 'main'})) }}
+    {{ render(controller('BlueBearAdminBundle:Menu:menu', {name: 'main', route: app.request.get('_route')})) }}
 {% endblock %}
 <!-- flash messages -->
 <div class="alert-container container">
@@ -32,7 +32,7 @@
 <div class="container">
     <div class="row-fluid">
         <div class="col-md-2">
-            {% block rightMenu %}{% endblock %}
+            {% block right %}{% endblock %}
         </div>
         <div class="col-md-10">
             {% block content %}{% endblock %}

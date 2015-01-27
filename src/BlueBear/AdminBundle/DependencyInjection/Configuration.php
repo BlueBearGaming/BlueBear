@@ -35,12 +35,23 @@ class Configuration implements ConfigurationInterface
                                     ['name' => 'list'],
                                     ['name' => 'create'],
                                     ['name' => 'edit'],
-                                    ['name' => 'edit']
+                                    ['name' => 'delete']
                                 ])
                                 ->prototype('array')
                                     ->children()
-                                        ->scalarNode('name')->end()
-                                        ->scalarNode('label')->end()
+                                        ->scalarNode('title')->end()
+                                        ->arrayNode('permissions')
+                                            ->defaultValue(['ROLE_USER'])
+                                            ->prototype('scalar')
+                                            ->end()
+                                        ->end()
+                                        ->arrayNode('fields')
+                                            ->prototype('array')
+                                                ->children()
+                                                    ->scalarNode('length')->end()
+                                                ->end()
+                                            ->end()
+                                        ->end()
                                     ->end()
                                 ->end()
                             ->end()
@@ -64,6 +75,11 @@ class Configuration implements ConfigurationInterface
                                         ->scalarNode('admin')->end()
                                         ->scalarNode('action')->end()
                                         ->scalarNode('label')->end()
+                                        ->arrayNode('permissions')
+                                            ->defaultValue(['ROLE_USER'])
+                                            ->prototype('scalar')
+                                            ->end()
+                                        ->end()
                                     ->end()
                                 ->end()
                             ->end()

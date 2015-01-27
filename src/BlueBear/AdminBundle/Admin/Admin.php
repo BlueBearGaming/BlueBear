@@ -2,30 +2,52 @@
 
 namespace BlueBear\AdminBundle\Admin;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\EntityRepository;
+use Exception;
+
 class Admin
 {
     protected $name;
 
-    protected $entity;
+    protected $entityNamespace;
+
+    protected $entities;
+
+    protected $repository;
 
     protected $controller;
+
+    protected $formType;
 
     protected $actions = [];
 
     protected $layout = '';
 
+    public function __construct()
+    {
+        $this->entities = new ArrayCollection();
+    }
+
     /**
      * @param string $actionName Le plus grand de tous les héros
+     * @param array $roles
      * @return bool
      */
-    public function isActionGranted($actionName)
+    public function isActionGranted($actionName, array $roles)
     {
-        $isGranted = false;
+        $isGranted = array_key_exists($actionName, $this->actions);
 
-        // TODO add security roles checking
-        foreach ($this->actions as $action) {
-            if ($action['name'] == $actionName) {
-                $isGranted = true;
+        // if action exists
+        if ($isGranted) {
+            $isGranted = false;
+            /** @var Action $action */
+            $action = $this->actions[$actionName];
+            // checking roles permissions
+            foreach ($roles as $role) {
+                if (in_array($role, $action->getPermissions())) {
+                    $isGranted = true;
+                }
             }
         }
         return $isGranted;
@@ -48,14 +70,6 @@ class Admin
     }
 
     /**
-     * @return string
-     */
-    public function getEntity()
-    {
-        return $this->entity;
-    }
-
-    /**
      * Return entity path for routing (for example, MyNamespace\EntityName => entityname)
      *
      * @return string
@@ -63,23 +77,7 @@ class Admin
     public function getEntityPath()
     {
         // TODO sanitize string, uncamelize it
-        return strtolower(array_pop(explode('\\', $this->getEntity())));
-    }
-
-    /**
-     * @param string $entity
-     */
-    public function setEntity($entity)
-    {
-        $this->entity = $entity;
-    }
-
-    /**
-     * @return string
-     */
-    public function getController()
-    {
-        return $this->controller;
+        return strtolower(array_pop(explode('\\', $this->getEntityNamespace())));
     }
 
     /**
@@ -99,6 +97,19 @@ class Admin
     }
 
     /**
+     * @param $name
+     * @return Action
+     * @throws Exception
+     */
+    public function getAction($name)
+    {
+        if (!array_key_exists($name, $this->getActions())) {
+            throw new Exception('Invalid action name for admin ' . $this->getName());
+        }
+        return $this->actions[$name];
+    }
+
+    /**
      * @param array $actions
      */
     public function setActions(array $actions)
@@ -106,9 +117,12 @@ class Admin
         $this->actions = $actions;
     }
 
-    public function addAction($action)
+    /**
+     * @param Action $action
+     */
+    public function addAction(Action $action)
     {
-        $this->actions[] = $action;
+        $this->actions[$action->getName()] = $action;
     }
 
     /**
@@ -125,5 +139,77 @@ class Admin
     public function setLayout($layout)
     {
         $this->layout = $layout;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEntityNamespace()
+    {
+        return $this->entityNamespace;
+    }
+
+    /**
+     * @param mixed $entityNamespace
+     */
+    public function setEntityNamespace($entityNamespace)
+    {
+        $this->entityNamespace = $entityNamespace;
+    }
+
+    /**
+     * @return EntityRepository
+     */
+    public function getRepository()
+    {
+        return $this->repository;
+    }
+
+    /**
+     * @param EntityRepository $repository
+     */
+    public function setRepository(EntityRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEntities()
+    {
+        return $this->entities;
+    }
+
+    /**
+     * @param mixed $entities
+     */
+    public function setEntities($entities)
+    {
+        $this->entities = $entities;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFormType()
+    {
+        return $this->formType;
+    }
+
+    /**
+     * @param mixed $formType
+     */
+    public function setFormType($formType)
+    {
+        $this->formType = $formType;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getController()
+    {
+        return $this->controller;
     }
 }
