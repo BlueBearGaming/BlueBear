@@ -42,6 +42,7 @@ class AdminFactory
                 $action->setName($actionName);
                 $action->setTitle($title);
                 $action->setPermissions($actionConfig['permissions']);
+                $action->setRoute($admin->generateRouteName($admin, $action));
                 // adding items to actions
                 foreach ($actionConfig['fields'] as $fieldName => $fieldConfig) {
                     $field = new Field();

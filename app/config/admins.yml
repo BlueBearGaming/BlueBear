@@ -12,7 +12,7 @@ blue_bear_admin:
             # orm entity class
             entity: BlueBear\CoreBundle\Entity\Map\Pencil
             # associated form type
-            form: BlueBear\CoreBundle\Form\Map\Pencil
+            form: pencil
             # associated controller (by default)
             controller: BlueBearAdminBundle:Generic
             # availables actions (by default)

@@ -24,6 +24,10 @@ class Action
      */
     protected $permissions = [];
 
+    protected $route;
+
+    protected $parameters;
+
     /**
      * @return string
      */
@@ -91,5 +95,37 @@ class Action
     public function setPermissions($permissions)
     {
         $this->permissions = $permissions;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRoute()
+    {
+        return $this->route;
+    }
+
+    /**
+     * @param mixed $route
+     */
+    public function setRoute($route)
+    {
+        $this->route = $route;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getParameters()
+    {
+        return $this->parameters;
+    }
+
+    /**
+     * @param mixed $parameters
+     */
+    public function setParameters($parameters)
+    {
+        $this->parameters = $parameters;
     }
 }

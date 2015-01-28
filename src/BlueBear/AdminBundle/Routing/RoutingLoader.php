@@ -33,37 +33,45 @@ class RoutingLoader implements LoaderInterface
         // creating a route by admin and action
         /** @var Admin $admin */
         foreach ($admins as $admin) {
-            $requirements = [];
-            $entityPath = $admin->getEntityPath();
             $actions = $admin->getActions();
             // by default, actions are create, edit, delete, list
             /** @var Action $action */
             foreach ($actions as $action) {
-                $path = '/' . $entityPath . '/' . $action->getName();
-                $defaults = [
-                    '_controller' => $admin->getController() . ':' . $action->getName(),
-                ];
-                if (in_array($action, ['delete', 'edit'])) {
-                    $path .= '/{id}';
-                }
-                // adding route to collection
-                $routes->add($this->generateRouteForAction($admin, $action),
-                    new Route($path, $defaults, $requirements));
+                // load route into collection
+                $this->loadRouteForAction($admin, $action, $routes);
             }
         }
+        // loader is loaded
         $this->loaded = true;
 
         return $routes;
     }
 
-    public function generateRouteForAction(Admin $admin, Action $action)
-    {
-        $path = 'bluebear_admin_' . strtolower($admin->getName()) . '_' . $action->getName();
 
-        if (in_array($action, ['delete', 'list'])) {
-            // TODO add parameters id ?
+    protected function loadRouteForAction(Admin $admin, Action $action, RouteCollection $routeCollection)
+    {
+        // route path by entity name and action name
+        $path = '/' . $admin->getEntityPath() . '/' . $action->getName();
+        // by default, generic controller
+        $defaults = [
+            '_controller' => $admin->getController() . ':' . $action->getName(),
+        ];
+        // by default, no requirements
+        $requirements = [];
+        // for delete and edit action, an id is required
+        if (in_array($action, ['delete', 'edit'])) {
+            $path .= '/{id}';
+            $requirements = [
+                'id' => '\d+'
+            ];
         }
-        return $path;
+        // creating new route
+        $route = new Route($path, $defaults, $requirements);
+        $routeName = $admin->generateRouteName($admin, $action);
+        // set route to action
+        $action->setRoute($routeName);
+        // adding route to symfony collection
+        $routeCollection->add($routeName, $route);
     }
 
     public function supports($resource, $type = null)

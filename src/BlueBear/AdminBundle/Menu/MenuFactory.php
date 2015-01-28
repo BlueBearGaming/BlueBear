@@ -31,8 +31,7 @@ class MenuFactory
                 if (!$admin->isActionGranted($item['action'], $item['permissions'])) {
                     throw new Exception('Action ' . $item['action'] . ' is not allowed for admin ' . $admin->getName());
                 }
-                $route = $routingLoader->generateRouteForAction($admin, $admin->getAction($item['action']));
-                $menuItem = new MenuItem($item['label'],  $route);
+                $menuItem = new MenuItem($item['label'], $admin->getAction($item['action'])->getRoute());
                 $menu->addItem($menuItem);
             }
             $this->menus[$menu->getName()] = $menu;

@@ -2,6 +2,7 @@
 
 namespace BlueBear\AdminBundle\Controller;
 
+use BlueBear\AdminBundle\Admin\Action;
 use BlueBear\AdminBundle\Admin\Admin;
 use BlueBear\AdminBundle\Admin\AdminFactory;
 use BlueBear\BaseBundle\Behavior\ControllerTrait;
@@ -26,37 +27,67 @@ class GenericController extends Controller
     public function listAction(Request $request)
     {
         $admin = $this->getAdminFromRequest($request);
-        $action = $requestParameters[1];
+        $action = $this->getActionFromRequest($request, $admin);
 
         // check permissions and actions
-        $this->forward404Unless($admin->isActionGranted($action, $this->getUser()->getRoles()),
-            'User not allowed for action '.$action);
+        $this->forward404Unless($admin->isActionGranted($action->getName(), $this->getUser()->getRoles()),
+            'User not allowed for action ' . $action->getName());
         // set entities list
         $admin->setEntities($admin->getRepository()->findAll());
 
         return [
-            'admin' => $admin
+            'admin' => $admin,
+            'action' => $action
+        ];
+    }
+
+    /**
+     * @Template("BlueBearAdminBundle:Generic:edit.html.twig")
+     * @param Request $request
+     * @return array
+     */
+    public function createAction(Request $request)
+    {
+        $admin = $this->getAdminFromRequest($request);
+        $action = $this->getActionFromRequest($request, $admin);
+        $entity = $admin->getEntityNamespace();
+
+        $admin->setEntity(new $entity);
+        $admin->setCurrentAction($action);
+        $form = $this->createForm($admin->getFormType(), $admin->getEntity());
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $this->getEntityManager()->persist($admin->getEntity());
+            $this->getEntityManager()->flush($admin->getEntity());
+
+            $this->setMessage('Pencil successfully saved');
+            return $this->redirect('@bluebear_backoffice_pencil');
+        }
+        return [
+            'admin' => $admin,
+            'form' => $form->createView()
         ];
     }
 
     public function editAction(Request $request)
     {
-        $form = $this->createForm('pencil', $pencil);
+        $admin = $this->getAdminFromRequest($request);
+        $admin->setEntity($admin->getRepository()->find($request->get('id')));
+
+        $form = $this->createForm($admin->getFormType(), $admin->getEntity());
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $this->getPencilManager()->save($pencil);
+            $this->getEntityManager()->persist($admin);
+            $this->getEntityManager()->flush($admin);
             $this->setMessage('Pencil successfully saved');
             return $this->redirect('@bluebear_backoffice_pencil');
         }
         return [
+            'admin' => $admin,
             'form' => $form->createView()
         ];
-    }
-
-    public function createAction()
-    {
-
     }
 
     public function deleteAction()
@@ -78,11 +109,19 @@ class GenericController extends Controller
         return $this->getAdminFactory()->getAdmin($requestParameters[0]);
     }
 
-    protected function getActionFromRequest(Request $request)
+    /**
+     * @param Request $request
+     * @param Admin $admin
+     * @return Action
+     * @throws Exception
+     */
+    protected function getActionFromRequest(Request $request, Admin $admin)
     {
         $requestParameters = explode('/', $request->getPathInfo());
         // remove empty string
         array_shift($requestParameters);
+
+        return $admin->getAction($requestParameters[1]);
     }
 
     /**

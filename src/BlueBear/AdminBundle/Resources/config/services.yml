@@ -19,6 +19,7 @@ services:
     bluebear.admin.factory:
         class: %bluebear.admin.factory%
         arguments: [@service_container]
+        scope: container
 
     bluebear.menu.factory:
         class: %bluebear.menu.factory%

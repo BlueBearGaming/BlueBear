@@ -14,11 +14,15 @@ class Admin
 
     protected $entities;
 
+    protected $entity;
+
     protected $repository;
 
     protected $controller;
 
     protected $formType;
+
+    protected $currentAction;
 
     protected $actions = [];
 
@@ -51,6 +55,11 @@ class Admin
             }
         }
         return $isGranted;
+    }
+
+    public function generateRouteName(Admin $admin, Action $action)
+    {
+        return 'bluebear_admin_' . strtolower($admin->getName()) . '_' . $action->getName();
     }
 
     /**
@@ -211,5 +220,37 @@ class Admin
     public function getController()
     {
         return $this->controller;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEntity()
+    {
+        return $this->entity;
+    }
+
+    /**
+     * @param mixed $entity
+     */
+    public function setEntity($entity)
+    {
+        $this->entity = $entity;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCurrentAction()
+    {
+        return $this->currentAction;
+    }
+
+    /**
+     * @param Action $currentAction
+     */
+    public function setCurrentAction(Action $currentAction)
+    {
+        $this->currentAction = $currentAction;
     }
 }
