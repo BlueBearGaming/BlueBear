@@ -4,7 +4,6 @@
     {% include 'BlueBearBackofficeBundle::assets.html.twig' %}
 </head>
 <body>
-{% use 'BlueBearCoreBundle:Form:fields.html.twig' %}
 {% block topMenu %}
     {{ render(controller('BlueBearAdminBundle:Menu:menu', {name: 'main', route: app.request.get('_route')})) }}
 {% endblock %}

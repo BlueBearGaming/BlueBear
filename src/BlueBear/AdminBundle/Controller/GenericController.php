@@ -9,6 +9,7 @@ use BlueBear\BaseBundle\Behavior\ControllerTrait;
 use Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class GenericController extends Controller
@@ -70,17 +71,23 @@ class GenericController extends Controller
         ];
     }
 
+    /**
+     * @Template("BlueBearAdminBundle:Generic:edit.html.twig")
+     * @param Request $request
+     * @return array|RedirectResponse
+     */
     public function editAction(Request $request)
     {
         $admin = $this->getAdminFromRequest($request);
         $admin->setEntity($admin->getRepository()->find($request->get('id')));
+        $admin->setCurrentAction($this->getActionFromRequest($request, $admin));
 
         $form = $this->createForm($admin->getFormType(), $admin->getEntity());
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $this->getEntityManager()->persist($admin);
-            $this->getEntityManager()->flush($admin);
+            $this->getEntityManager()->persist($admin->getEntity());
+            $this->getEntityManager()->flush($admin->getEntity());
             $this->setMessage('Pencil successfully saved');
             return $this->redirect('@bluebear_backoffice_pencil');
         }

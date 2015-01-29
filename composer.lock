@@ -542,12 +542,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/data-fixtures.git",
-                "reference": "ac36ccc812454e057aec564e0725509e74ce6b35"
+                "reference": "80401e8a3b6364287b80922fa303fc86d75714db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/data-fixtures/zipball/ac36ccc812454e057aec564e0725509e74ce6b35",
-                "reference": "ac36ccc812454e057aec564e0725509e74ce6b35",
+                "url": "https://api.github.com/repos/doctrine/data-fixtures/zipball/80401e8a3b6364287b80922fa303fc86d75714db",
+                "reference": "80401e8a3b6364287b80922fa303fc86d75714db",
                 "shasum": ""
             },
             "require": {
@@ -555,7 +555,7 @@
                 "php": ">=5.3.2"
             },
             "require-dev": {
-                "doctrine/orm": "~2.2"
+                "doctrine/orm": "~2.4"
             },
             "suggest": {
                 "doctrine/mongodb-odm": "For loading MongoDB ODM fixtures",
@@ -588,7 +588,7 @@
             "keywords": [
                 "database"
             ],
-            "time": "2014-08-18 12:52:16"
+            "time": "2015-01-19 01:52:30"
         },
         {
             "name": "doctrine/dbal",
@@ -831,12 +831,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineFixturesBundle.git",
-                "reference": "9a5b5289eb22079ec139ba1eb06043d4b89c6677"
+                "reference": "c5ff0542772102ddd4e2fbe173e9ad40ad67c22f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineFixturesBundle/zipball/9a5b5289eb22079ec139ba1eb06043d4b89c6677",
-                "reference": "9a5b5289eb22079ec139ba1eb06043d4b89c6677",
+                "url": "https://api.github.com/repos/doctrine/DoctrineFixturesBundle/zipball/c5ff0542772102ddd4e2fbe173e9ad40ad67c22f",
+                "reference": "c5ff0542772102ddd4e2fbe173e9ad40ad67c22f",
                 "shasum": ""
             },
             "require": {
@@ -880,7 +880,7 @@
                 "Fixture",
                 "persistence"
             ],
-            "time": "2014-09-16 05:03:04"
+            "time": "2015-01-19 02:21:37"
         },
         {
             "name": "doctrine/inflector",
@@ -1149,12 +1149,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Atlantic18/DoctrineExtensions.git",
-                "reference": "b1c364389992c248fcf50d6793e2fe4042021682"
+                "reference": "5e19886a64ef7e3540bb362eacfdf7d60c5608e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/b1c364389992c248fcf50d6793e2fe4042021682",
-                "reference": "b1c364389992c248fcf50d6793e2fe4042021682",
+                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/5e19886a64ef7e3540bb362eacfdf7d60c5608e6",
+                "reference": "5e19886a64ef7e3540bb362eacfdf7d60c5608e6",
                 "shasum": ""
             },
             "require": {
@@ -1163,8 +1163,10 @@
                 "php": ">=5.3.2"
             },
             "require-dev": {
-                "doctrine/mongodb-odm": "~1.0-BETA10",
+                "doctrine/mongodb-odm": ">=1.0.0-BETA11",
                 "doctrine/orm": "~2.4",
+                "phpunit/phpunit": "~4.4",
+                "phpunit/phpunit-mock-objects": "~2.3",
                 "symfony/yaml": "~2.3"
             },
             "suggest": {
@@ -1217,7 +1219,7 @@
                 "tree",
                 "uploadable"
             ],
-            "time": "2014-10-05 20:50:56"
+            "time": "2015-01-28 09:12:46"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -1929,12 +1931,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phiamo/MopaBootstrapBundle.git",
-                "reference": "e0bd518828711b799b6b5c1e000dc5c6f8417a8b"
+                "reference": "b74fcd2e1682fa14d13cf532a41cf4d81e51fc22"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phiamo/MopaBootstrapBundle/zipball/e0bd518828711b799b6b5c1e000dc5c6f8417a8b",
-                "reference": "e0bd518828711b799b6b5c1e000dc5c6f8417a8b",
+                "url": "https://api.github.com/repos/phiamo/MopaBootstrapBundle/zipball/b74fcd2e1682fa14d13cf532a41cf4d81e51fc22",
+                "reference": "b74fcd2e1682fa14d13cf532a41cf4d81e51fc22",
                 "shasum": ""
             },
             "require": {
@@ -1985,7 +1987,7 @@
                 "form",
                 "template"
             ],
-            "time": "2015-01-17 22:55:18"
+            "time": "2015-01-21 14:38:07"
         },
         {
             "name": "mopa/composer-bridge",
@@ -2534,32 +2536,33 @@
         },
         {
             "name": "symfony/assetic-bundle",
-            "version": "v2.5.0",
+            "version": "v2.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/AsseticBundle.git",
-                "reference": "90ea7fb66d6d5245fd4afc16e4c8070214254fec"
+                "reference": "422b0add2110f0cf9bc7a873a386ea053f4a89f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/AsseticBundle/zipball/90ea7fb66d6d5245fd4afc16e4c8070214254fec",
-                "reference": "90ea7fb66d6d5245fd4afc16e4c8070214254fec",
+                "url": "https://api.github.com/repos/symfony/AsseticBundle/zipball/422b0add2110f0cf9bc7a873a386ea053f4a89f0",
+                "reference": "422b0add2110f0cf9bc7a873a386ea053f4a89f0",
                 "shasum": ""
             },
             "require": {
                 "kriswallsmith/assetic": "~1.2",
                 "php": ">=5.3.0",
-                "symfony/console": "~2.1",
-                "symfony/framework-bundle": "~2.1",
-                "symfony/yaml": "~2.1"
+                "symfony/console": "~2.3",
+                "symfony/dependency-injection": "~2.3",
+                "symfony/framework-bundle": "~2.3",
+                "symfony/yaml": "~2.3"
             },
             "require-dev": {
                 "kriswallsmith/spork": "~0.2",
                 "patchwork/jsqueeze": "~1.0",
-                "symfony/class-loader": "~2.1",
-                "symfony/css-selector": "~2.1",
-                "symfony/dom-crawler": "~2.1",
-                "symfony/twig-bundle": "~2.1"
+                "symfony/class-loader": "~2.3",
+                "symfony/css-selector": "~2.3",
+                "symfony/dom-crawler": "~2.3",
+                "symfony/twig-bundle": "~2.3"
             },
             "suggest": {
                 "kriswallsmith/spork": "to be able to dump assets in parallel",
@@ -2594,7 +2597,7 @@
                 "compression",
                 "minification"
             ],
-            "time": "2014-10-15 12:03:38"
+            "time": "2015-01-27 12:45:16"
         },
         {
             "name": "symfony/monolog-bundle",
@@ -2935,16 +2938,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v1.17.0",
+            "version": "v1.18.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "2493970fa4d587eca73f77e6d8bd48a8bdd4c608"
+                "reference": "4cf7464348e7f9893a93f7096a90b73722be99cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/2493970fa4d587eca73f77e6d8bd48a8bdd4c608",
-                "reference": "2493970fa4d587eca73f77e6d8bd48a8bdd4c608",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/4cf7464348e7f9893a93f7096a90b73722be99cf",
+                "reference": "4cf7464348e7f9893a93f7096a90b73722be99cf",
                 "shasum": ""
             },
             "require": {
@@ -2953,7 +2956,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.17-dev"
+                    "dev-master": "1.18-dev"
                 }
             },
             "autoload": {
@@ -2988,7 +2991,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2015-01-14 10:15:49"
+            "time": "2015-01-25 17:32:08"
         },
         {
             "name": "wisembly/elephant.io",

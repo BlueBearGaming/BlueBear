@@ -1,5 +1,7 @@
 {% extends admin.layout is defined ? admin.layout : '' %}
 
+{% use "BlueBearAdminBundle:Form:fields.html.twig" %}
+
 {% block right %}
     {{ render(controller('BlueBearAdminBundle:Menu:menu', {name: 'right'})) }}
 {% endblock %}
@@ -8,11 +10,11 @@
     <h1>Pencils</h1>
 
     <div class="pencils-list">
-        {% set list = admin.entities %}
-        {% set editRoute = 'bluebear_backoffice_pencil_edit' %}
-        {% set deleteRoute = 'bluebear_backoffice_pencil_edit' %}
-        {% set fields = ['id', 'label', 'pencilSet'] %}
-lol ?
+        {#{% set list = admin.entities %}#}
+        {#{% set editRoute = 'bluebear_backoffice_pencil_edit' %}#}
+        {#{% set deleteRoute = 'bluebear_backoffice_pencil_edit' %}#}
+        {#{% set fields = ['id', 'label', 'pencilSet'] %}#}
+
         {{ block('admin_list') }}
     </div>
 {% endblock %}

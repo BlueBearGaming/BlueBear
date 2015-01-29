@@ -57,9 +57,9 @@ class Admin
         return $isGranted;
     }
 
-    public function generateRouteName(Admin $admin, Action $action)
+    public function generateRouteName($actionName)
     {
-        return 'bluebear_admin_' . strtolower($admin->getName()) . '_' . $action->getName();
+        return 'bluebear_admin_' . strtolower($this->getName()) . '_' . $actionName;
     }
 
     /**

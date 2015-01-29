@@ -6,7 +6,6 @@
 
 {% block content %}
     {% set containerClass = containerClass is defined ? containerClass : '' %}
-    {% set title = title is defined ? title : null %}
     {% set encType = (form.vars.multipart) ? 'multipart/form-data' : 'application/x-www-form-urlencoded' %}
 
     <h1>{{ admin.currentAction.title }}</h1>
@@ -17,8 +16,8 @@
             {{ form_widget(form) }}
 
             <div class="form-group">
-                <div class="col-lg-12 col-lg-offset-9">
-                    <a href="{{ path(admin.currentAction.route) }}" class="right btn"><i class="fa fa-arrow-circle-left"></i>&nbsp;
+                <div class="col-lg-offset-9">
+                    <a href="{{ path(admin.action('list').route) }}" class="right btn"><i class="fa fa-arrow-circle-left"></i>&nbsp;
                         &nbsp;cancel</a>
                     <input type="submit" value="save" class="right btn btn-default"/>
                 </div>
