@@ -2,12 +2,15 @@
 
 namespace BlueBear\AdminBundle\Admin;
 
+use BlueBear\BaseBundle\Behavior\StringUtilsTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository;
 use Exception;
 
 class Admin
 {
+    use StringUtilsTrait;
+
     protected $name;
 
     protected $entityNamespace;
@@ -28,12 +31,16 @@ class Admin
 
     protected $layout = '';
 
+    protected $blockTemplate;
+
     public function __construct()
     {
         $this->entities = new ArrayCollection();
     }
 
     /**
+     * Return true if current action is granted for user
+     *
      * @param string $actionName Le plus grand de tous les héros
      * @param array $roles
      * @return bool
@@ -57,9 +64,15 @@ class Admin
         return $isGranted;
     }
 
+    /**
+     * Generate a route for admin and route name
+     *
+     * @param $actionName
+     * @return string
+     */
     public function generateRouteName($actionName)
     {
-        return 'bluebear_admin_' . strtolower($this->getName()) . '_' . $actionName;
+        return 'bluebear_admin_' . $this->underscore($this->getName()) . '_' . $actionName;
     }
 
     /**
@@ -79,14 +92,16 @@ class Admin
     }
 
     /**
-     * Return entity path for routing (for example, MyNamespace\EntityName => entityname)
+     * Return entity path for routing (for example, MyNamespace\EntityName => entityName)
      *
      * @return string
      */
     public function getEntityPath()
     {
-        // TODO sanitize string, uncamelize it
-        return strtolower(array_pop(explode('\\', $this->getEntityNamespace())));
+        $path = array_pop(explode('\\', $this->getEntityNamespace()));
+        $path = strtolower(substr($path, 0, 1)) . substr($path, 1);
+
+        return $path;
     }
 
     /**
@@ -239,7 +254,7 @@ class Admin
     }
 
     /**
-     * @return mixed
+     * @return Action
      */
     public function getCurrentAction()
     {
@@ -252,5 +267,21 @@ class Admin
     public function setCurrentAction(Action $currentAction)
     {
         $this->currentAction = $currentAction;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBlockTemplate()
+    {
+        return $this->blockTemplate;
+    }
+
+    /**
+     * @param mixed $blockTemplate
+     */
+    public function setBlockTemplate($blockTemplate)
+    {
+        $this->blockTemplate = $blockTemplate;
     }
 }

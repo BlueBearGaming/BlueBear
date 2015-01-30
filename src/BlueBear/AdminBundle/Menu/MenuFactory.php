@@ -16,8 +16,19 @@ class MenuFactory
         $menuConfigs = $container->getParameter('bluebear.menus');
 
         foreach ($menuConfigs as $menuName => $menuConfig) {
-            $mainItem = array_key_exists('main_item', $menuConfig) ? $menuConfig['main_item'] : '';
-            $menu = new Menu($menuName, $menuConfig['template'], $mainItem);
+            $menu = new Menu();
+            $menu->setName($menuName);
+            $menu->setTemplate($menuConfig['template']);
+            //, $menuConfig['template'], $mainItem
+            $mainItemConfig = array_key_exists('main_item', $menuConfig) ? $menuConfig['main_item'] : '';
+
+            if ($mainItemConfig) {
+                $mainItem = new MenuItem();
+                $mainItem->setTitle($mainItemConfig['title']);
+                $mainItem->setRoute($mainItemConfig['route']);
+                $menu->setMainItem($mainItem);
+            }
+            //$menuName, $menuConfig['template'], $mainItem
 
             foreach ($menuConfig['items'] as $item) {
                 // TODO handle custom menus, not related to an admin

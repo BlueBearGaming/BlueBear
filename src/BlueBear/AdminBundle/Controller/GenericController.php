@@ -27,9 +27,10 @@ class GenericController extends Controller
      */
     public function listAction(Request $request)
     {
-        $admin = $this->getAdminFromRequest($request);
+        $admin = $this->get('bluebear.admin.factory')->getAdminFromRequest($request);
         $action = $this->getActionFromRequest($request, $admin);
-
+        $admin->setCurrentAction($action);
+        // TODO adding pagination
         // check permissions and actions
         $this->forward404Unless($admin->isActionGranted($action->getName(), $this->getUser()->getRoles()),
             'User not allowed for action ' . $action->getName());
@@ -49,7 +50,7 @@ class GenericController extends Controller
      */
     public function createAction(Request $request)
     {
-        $admin = $this->getAdminFromRequest($request);
+        $admin = $this->get('bluebear.admin.factory')->getAdminFromRequest($request);
         $action = $this->getActionFromRequest($request, $admin);
         $entity = $admin->getEntityNamespace();
 
@@ -62,8 +63,8 @@ class GenericController extends Controller
             $this->getEntityManager()->persist($admin->getEntity());
             $this->getEntityManager()->flush($admin->getEntity());
 
-            $this->setMessage('Pencil successfully saved');
-            return $this->redirect('@bluebear_backoffice_pencil');
+            $this->setMessage('bluebear.admin.' . $admin->getName() . '.saved');
+            return $this->redirect($this->generateUrl($admin->generateRouteName('list')));
         }
         return [
             'admin' => $admin,
@@ -78,7 +79,7 @@ class GenericController extends Controller
      */
     public function editAction(Request $request)
     {
-        $admin = $this->getAdminFromRequest($request);
+        $admin = $this->get('bluebear.admin.factory')->getAdminFromRequest($request);
         $admin->setEntity($admin->getRepository()->find($request->get('id')));
         $admin->setCurrentAction($this->getActionFromRequest($request, $admin));
 
@@ -88,8 +89,8 @@ class GenericController extends Controller
         if ($form->isValid()) {
             $this->getEntityManager()->persist($admin->getEntity());
             $this->getEntityManager()->flush($admin->getEntity());
-            $this->setMessage('Pencil successfully saved');
-            return $this->redirect('@bluebear_backoffice_pencil');
+            $this->setMessage('bluebear.admin.' . $admin->getName() . '.saved');
+            return $this->redirect('@' . $admin->generateRouteName('list'));
         }
         return [
             'admin' => $admin,
@@ -100,20 +101,6 @@ class GenericController extends Controller
     public function deleteAction()
     {
 
-    }
-
-    /**
-     * @param Request $request
-     * @return Admin
-     * @throws Exception
-     */
-    protected function getAdminFromRequest(Request $request)
-    {
-        $requestParameters = explode('/', $request->getPathInfo());
-        // remove empty string
-        array_shift($requestParameters);
-        // get configured admin
-        return $this->getAdminFactory()->getAdmin($requestParameters[0]);
     }
 
     /**

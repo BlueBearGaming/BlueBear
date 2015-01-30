@@ -12,13 +12,6 @@ class Menu
 
     protected $mainItem;
 
-    public function __construct($name, $template = '', $mainItem = '')
-    {
-        $this->name = $name;
-        $this->template = $template;
-        $this->mainItem = $mainItem;
-    }
-
     public function addItem(MenuItem $menuItem)
     {
         $this->items[] = $menuItem;
@@ -45,5 +38,37 @@ class Menu
     public function getMainItem()
     {
         return $this->mainItem;
+    }
+
+    /**
+     * @param mixed $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @param array $items
+     */
+    public function setItems($items)
+    {
+        $this->items = $items;
+    }
+
+    /**
+     * @param mixed $template
+     */
+    public function setTemplate($template)
+    {
+        $this->template = $template;
+    }
+
+    /**
+     * @param mixed $mainItem
+     */
+    public function setMainItem(MenuItem $mainItem)
+    {
+        $this->mainItem = $mainItem;
     }
 }

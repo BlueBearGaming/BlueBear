@@ -4,7 +4,7 @@
             {% set activeClass = (currentRoute == item.route) ? 'active' : '' %}
 
             <li class="{{ activeClass }}">
-                <a href="{{ path(item.route) }}">{{ item.label }}</a>
+                <a href="{{ path(item.route) }}">{{ item.title }}</a>
             </li>
         {% endfor %}
     </ul>

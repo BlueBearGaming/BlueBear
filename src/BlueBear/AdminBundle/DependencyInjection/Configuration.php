@@ -23,6 +23,7 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->scalarNode('layout')->end()
+                ->scalarNode('blocks_template')->defaultValue('BlueBearAdminBundle:Form:fields.html.twig')->end()
                 // admins configuration
                 ->arrayNode('admins')
                     ->prototype('array')
@@ -31,12 +32,6 @@ class Configuration implements ConfigurationInterface
                             ->scalarNode('form')->end()
                             ->scalarNode('controller')->defaultValue('BlueBearAdminBundle:Generic')->end()
                             ->arrayNode('actions')
-                                ->defaultValue([
-                                    ['name' => 'list'],
-                                    ['name' => 'create'],
-                                    ['name' => 'edit'],
-                                    ['name' => 'delete']
-                                ])
                                 ->prototype('array')
                                     ->children()
                                         ->scalarNode('title')->end()
@@ -46,7 +41,7 @@ class Configuration implements ConfigurationInterface
                                             ->end()
                                         ->end()
                                         ->arrayNode('fields')
-                                            ->prototype('array')
+                                                ->prototype('array')
                                                 ->children()
                                                     ->scalarNode('length')->end()
                                                 ->end()
@@ -66,7 +61,7 @@ class Configuration implements ConfigurationInterface
                             ->arrayNode('main_item')
                                 ->children()
                                     ->scalarNode('route')->end()
-                                    ->scalarNode('label')->end()
+                                    ->scalarNode('title')->end()
                                 ->end()
                             ->end()
                             ->arrayNode('items')

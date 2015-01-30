@@ -4,7 +4,7 @@
             <div class="navbar-header">
                 {% set activeClass = (menu.mainItem == currentRoute) ? ' active' : '' %}
                 <a class="navbar-brand{{ activeClass }}"  href="{{ path(menu.mainItem.route) }}">
-                    {{ menu.mainItem.label }}</a>
+                    {{ menu.mainItem.title }}</a>
             </div>
         {% endif %}
         <div class="navbar-collapse collapse navbar-responsive-collapse">
@@ -13,7 +13,8 @@
                     {% set activeClass = (item.route == currentRoute) ? 'active' : '' %}
 
                     <li class="{{ activeClass }}">
-                        <a href="{{ path(item.route, item.parameters) }}">{{ item.label }}</a>
+                        {{ dump(item) }}
+                        {#<a href="{{ path(item.route, item.parameters) }}">{{ item.title }}</a>#}
                     </li>
                 {% endfor %}
             </ul>

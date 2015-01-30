@@ -22,21 +22,21 @@ bluebear_backoffice_homepage:
 
 
 # PencilSets
-bluebear_backoffice_pencil_set:
-    pattern: /pencils-sets
-    defaults: { _controller: BlueBearBackofficeBundle:PencilSet:index }
-
-bluebear_backoffice_pencil_set_create:
-    pattern: /pencils-sets/create
-    defaults: { _controller: BlueBearBackofficeBundle:PencilSet:create }
-
-bluebear_backoffice_pencil_set_edit:
-    pattern: /pencils-sets/edit/{id}
-    defaults: { _controller: BlueBearBackofficeBundle:PencilSet:edit }
-
-bluebear_backoffice_pencil_set_delete:
-    pattern: /pencils-sets/delete/{id}
-    defaults: { _controller: BlueBearBackofficeBundle:PencilSet:delete }
+#bluebear_backoffice_pencil_set:
+#    pattern: /pencils-sets
+#    defaults: { _controller: BlueBearBackofficeBundle:PencilSet:index }
+#
+#bluebear_backoffice_pencil_set_create:
+#    pattern: /pencils-sets/create
+#    defaults: { _controller: BlueBearBackofficeBundle:PencilSet:create }
+#
+#bluebear_backoffice_pencil_set_edit:
+#    pattern: /pencils-sets/edit/{id}
+#    defaults: { _controller: BlueBearBackofficeBundle:PencilSet:edit }
+#
+#bluebear_backoffice_pencil_set_delete:
+#    pattern: /pencils-sets/delete/{id}
+#    defaults: { _controller: BlueBearBackofficeBundle:PencilSet:delete }
 
 
 # Layers

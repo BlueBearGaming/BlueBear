@@ -5,6 +5,8 @@
 blue_bear_admin:
     # main layout
     layout: BlueBearBackofficeBundle::layout.html.twig
+    # block layout (by default)
+    blocks_template: BlueBearAdminBundle:Form:fields.html.twig
     # list of managed admins
     admins:
         # entities
@@ -30,15 +32,21 @@ blue_bear_admin:
                 create: ~
                 edit: ~
                 delete: ~
+        pencil_set:
+            # orm entity class
+            entity: BlueBear\CoreBundle\Entity\Map\PencilSet
+            # associated form type
+            form: pencil_set
     menus:
         main:
             # main menu route (optionnal)
-            main_item: {route: bluebear_backoffice_homepage, label: BlueBear by CleverGaming}
+            main_item: {route: bluebear_backoffice_homepage, title: BlueBear by CleverGaming}
             # (by default)
             template: BlueBearAdminBundle:Menu:main.html.twig
             # menu items
             items:
                 - {admin: pencil, action: list, label: Pencils, permissions: [ROLE_USER]}
+                - {admin: pencil_set, action: list, label: Pencil sets, permissions: [ROLE_USER]}
         right:
             # (by default)
             template: BlueBearAdminBundle:Menu:right.html.twig
