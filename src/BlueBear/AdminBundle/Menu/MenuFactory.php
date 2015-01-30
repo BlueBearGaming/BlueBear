@@ -42,10 +42,17 @@ class MenuFactory
                 if (!$admin->isActionGranted($item['action'], $item['permissions'])) {
                     throw new Exception('Action ' . $item['action'] . ' is not allowed for admin ' . $admin->getName());
                 }
-                $menuItem = new MenuItem($item['label'], $admin->getAction($item['action'])->getRoute());
+                $action = $admin->getAction($item['action']);
+
+                $menuItem = new MenuItem();
+                $menuItem->setTitle($item['title']);
+                $menuItem->setRoute($action->getRoute());
+                $menuItem->setParameters($action->getParameters());
                 $menu->addItem($menuItem);
             }
             $this->menus[$menu->getName()] = $menu;
+            //var_dump($this->menus);
+            //die;
         }
     }
 

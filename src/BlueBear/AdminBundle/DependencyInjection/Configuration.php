@@ -69,7 +69,7 @@ class Configuration implements ConfigurationInterface
                                     ->children()
                                         ->scalarNode('admin')->end()
                                         ->scalarNode('action')->end()
-                                        ->scalarNode('label')->end()
+                                        ->scalarNode('title')->end()
                                         ->arrayNode('permissions')
                                             ->defaultValue(['ROLE_USER'])
                                             ->prototype('scalar')

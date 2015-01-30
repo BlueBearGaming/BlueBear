@@ -13,8 +13,7 @@
                     {% set activeClass = (item.route == currentRoute) ? 'active' : '' %}
 
                     <li class="{{ activeClass }}">
-                        {{ dump(item) }}
-                        {#<a href="{{ path(item.route, item.parameters) }}">{{ item.title }}</a>#}
+                        <a href="{{ path(item.route) }}">{{ item.title }}</a>
                     </li>
                 {% endfor %}
             </ul>
