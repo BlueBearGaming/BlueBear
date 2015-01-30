@@ -20,7 +20,7 @@ class AdminFactory
     protected $admins = [];
 
     /**
-     * Read configuration from container, then create admin with its actions adn fields
+     * Read configuration from container, then create admin with its actions and fields
      *
      * @param ContainerInterface $container
      */

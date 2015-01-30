@@ -1,6 +1,6 @@
 <?php
 
-namespace BlueBear\AdminBundle\Menu;
+namespace BlueBear\MenuBundle\Menu;
 
 use BlueBear\AdminBundle\Admin\Admin;
 use BlueBear\AdminBundle\Routing\RoutingLoader;
@@ -16,20 +16,23 @@ class MenuFactory
         $menuConfigs = $container->getParameter('bluebear.menus');
 
         foreach ($menuConfigs as $menuName => $menuConfig) {
+            $configuration = new MenuConfiguration();
+            $configuration->hydrateFromConfiguration($menuConfig);
+
             $menu = new Menu();
-            $menu->setName($menuName);
-            $menu->setTemplate($menuConfig['template']);
-            //, $menuConfig['template'], $mainItem
+            $menu->setName($configuration->getName());
+            $menu->setTemplate($configuration->getTemplate());
             $mainItemConfig = array_key_exists('main_item', $menuConfig) ? $menuConfig['main_item'] : '';
 
-            if ($mainItemConfig) {
+            if ($configuration->hasMainItemConfiguration()) {
+                $mainItemConfiguration = new ItemConfiguration();
+                $mainItemConfiguration->hydrateFromConfiguration($configuration->getMainItemConfiguration());
+
                 $mainItem = new MenuItem();
-                $mainItem->setTitle($mainItemConfig['title']);
-                $mainItem->setRoute($mainItemConfig['route']);
+                $mainItem->setTitle($mainItemConfiguration->getTitle());
+                $mainItem->setRoute($mainItemConfiguration->getRoute());
                 $menu->setMainItem($mainItem);
             }
-            //$menuName, $menuConfig['template'], $mainItem
-
             foreach ($menuConfig['items'] as $item) {
                 // TODO handle custom menus, not related to an admin
                 // check if an admin with correct name exists
@@ -51,8 +54,6 @@ class MenuFactory
                 $menu->addItem($menuItem);
             }
             $this->menus[$menu->getName()] = $menu;
-            //var_dump($this->menus);
-            //die;
         }
     }
 

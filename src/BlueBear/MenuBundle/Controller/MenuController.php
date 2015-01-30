@@ -1,6 +1,6 @@
 <?php
 
-namespace BlueBear\AdminBundle\Controller;
+namespace BlueBear\MenuBundle\Controller;
 
 use BlueBear\AdminBundle\Admin\AdminFactory;
 use BlueBear\AdminBundle\Menu\Menu;

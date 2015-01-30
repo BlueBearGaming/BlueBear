@@ -3,12 +3,12 @@ blue_bear_engine:
     resource: "@BlueBearEngineBundle/Resources/config/routing.yml"
     prefix:   /
 
-# BlueBear editor
+# BlueBear Editor
 blue_bear_editor:
     resource: "@BlueBearEditorBundle/Resources/config/routing.yml"
     prefix:   /
 
-# BlueBear editor
+# BlueBear Core
 blue_bear_core:
     resource: "@BlueBearCoreBundle/Resources/config/routing.yml"
     prefix:   /
@@ -18,17 +18,17 @@ blue_bear_admin:
     resource: .
     type: extra
 
-# BlueBear backoffice
+# BlueBear Backoffice
 blue_bear_backoffice:
     resource: "@BlueBearBackofficeBundle/Resources/config/routing.yml"
     prefix:   /
 
-# BlueBear backoffice
+# BlueBear Game
 blue_bear_game:
     resource: "@BlueBearGameBundle/Resources/config/routing.yml"
     prefix:   /
 
-# User security
+# User Security
 blue_bear_user:
     resource: "@BlueBearUserBundle/Resources/config/routing.yml"
     prefix:   /

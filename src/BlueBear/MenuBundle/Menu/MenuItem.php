@@ -1,6 +1,6 @@
 <?php
 
-namespace BlueBear\AdminBundle\Menu;
+namespace BlueBear\MenuBundle\Menu;
 
 class MenuItem
 {
