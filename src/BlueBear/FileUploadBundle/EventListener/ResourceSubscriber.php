@@ -1,9 +1,9 @@
 <?php
 
-namespace BlueBear\CoreBundle\EventListener;
+namespace BlueBear\FileUploadBundle\EventListener;
 
-use BlueBear\CoreBundle\Entity\Editor\Resource;
-use BlueBear\CoreBundle\Manager\ResourceManager;
+use BlueBear\FileUploadBundle\Entity\Resource;
+use BlueBear\FileUploadBundle\Manager\ResourceManager;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 

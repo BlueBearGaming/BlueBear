@@ -19,10 +19,10 @@
         define([
             'jquery',
             'tmpl',
-            './jquery.fileupload-image',
-            './jquery.fileupload-audio',
-            './jquery.fileupload-video',
-            './jquery.fileupload-validate'
+            './jquery.fileupload-image.js',
+            './jquery.fileupload-audio.js',
+            './jquery.fileupload-video.js',
+            './jquery.fileupload-validate.js'
         ], factory);
     } else {
         // Browser globals:

@@ -3,6 +3,8 @@
 
 namespace BlueBear\CoreBundle\Entity\Editor;
 
+use BlueBear\CoreBundle\Entity\Behavior\Id;
+use BlueBear\FileUploadBundle\Entity\Resource;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -12,6 +14,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Image extends Resource
 {
+    use Id;
+
     /**
      * @var \BlueBear\CoreBundle\Entity\Map\Pencil
      * @ORM\OneToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Pencil", mappedBy="image")

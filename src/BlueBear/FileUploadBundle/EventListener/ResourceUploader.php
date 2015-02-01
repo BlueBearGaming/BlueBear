@@ -1,10 +1,10 @@
 <?php
 
-namespace BlueBear\CoreBundle\EventListener;
+namespace BlueBear\FileUploadBundle\EventListener;
 
 use Exception;
 use Oneup\UploaderBundle\Event\PostPersistEvent;
-use BlueBear\CoreBundle\Manager\ResourceManager;
+use BlueBear\FileUploadBundle\Manager\ResourceManager;
 
 class ResourceUploader
 {

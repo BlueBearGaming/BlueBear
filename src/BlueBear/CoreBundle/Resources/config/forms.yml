@@ -4,7 +4,6 @@ parameters:
     bluebear.form.pencil_set_list_type: BlueBear\CoreBundle\Form\Map\PencilSetListType
     bluebear.form.layer_type: BlueBear\CoreBundle\Form\Map\LayerType
     bluebear.form.map_type: BlueBear\CoreBundle\Form\Map\MapType
-    bluebear.form.resource_type: BlueBear\CoreBundle\Form\Editor\ResourceType
     bluebear.form.resource_image_type: BlueBear\CoreBundle\Form\Editor\ImageType
     bluebear.form.engine_event_test_type: BlueBear\CoreBundle\Form\Engine\EngineEventTestType
 
@@ -47,10 +46,6 @@ services:
             - [setLayerManager, [@bluebear.manager.layer]]
 
     # Resources (uploadable entities)
-    bluebear.form.resource:
-        class: %bluebear.form.resource_type%
-        tags:
-            - { name: form.type, alias: resource }
     bluebear.form.resource_image:
         class: %bluebear.form.resource_image_type%
         tags:

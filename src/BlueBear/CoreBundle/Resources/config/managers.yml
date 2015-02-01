@@ -7,7 +7,6 @@ parameters:
     bluebear.manager.map: BlueBear\CoreBundle\Manager\MapManager
     bluebear.manager.map_item: BlueBear\CoreBundle\Manager\MapItemManager
     bluebear.manager.context: BlueBear\CoreBundle\Manager\ContextManager
-    bluebear.manager.resource: BlueBear\CoreBundle\Manager\ResourceManager
 
 services:
     # ImageManager
@@ -53,11 +52,5 @@ services:
     # ContextManager
     bluebear.manager.context:
         class: %bluebear.manager.context%
-        calls:
-            - [setContainer, [@service_container]]
-
-    # ResourceManager
-    bluebear.manager.resource:
-        class: %bluebear.manager.resource%
         calls:
             - [setContainer, [@service_container]]

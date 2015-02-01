@@ -1,6 +1,6 @@
 <?php
 
-namespace BlueBear\CoreBundle\Manager\Behavior;
+namespace BlueBear\BaseBundle\Behavior;
 
 use BlueBear\BaseBundle\Behavior\ContainerTrait;
 use BlueBear\CoreBundle\Entity\Behavior\HasEntityManager;

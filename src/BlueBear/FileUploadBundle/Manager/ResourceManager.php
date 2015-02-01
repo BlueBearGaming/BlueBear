@@ -1,26 +1,29 @@
 <?php
 
-namespace BlueBear\CoreBundle\Manager;
+namespace BlueBear\FileUploadBundle\Manager;
 
+use BlueBear\BaseBundle\Behavior\ManagerBehavior;
 use BlueBear\CoreBundle\Entity\Editor\Image;
-use BlueBear\CoreBundle\Entity\Editor\Resource;
-use BlueBear\CoreBundle\Entity\Editor\ResourceRepository;
-use BlueBear\CoreBundle\Manager\Behavior\ManagerBehavior;
+use BlueBear\FileUploadBundle\Entity\Resource;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\File;
-use \UnexpectedValueException;
+use UnexpectedValueException;
 
 class ResourceManager
 {
     use ManagerBehavior;
 
+    /**
+     * @todo REFACTOR
+     */
     public function cleanUploads()
     {
-        $em = $this->getEntityManager();
-        $orphans = $em->getRepository('BlueBearCoreBundle:Editor\Image')->findOrphans();
-        foreach ($orphans as $orphan) {
-            $em->remove($orphan);
-        }
+//        $em = $this->getEntityManager();
+//        $orphans = $em->getRepository('BlueBearCoreBundle:Editor\Image')->findOrphans();
+//        foreach ($orphans as $orphan) {
+//            $em->remove($orphan);
+//        }
     }
 
     /**
@@ -36,8 +39,6 @@ class ResourceManager
         // @todo dynamic instanciation
         if ($type === 'image') {
             $resource = new Image;
-        } else {
-            $resource = new Resource;
         }
         $resource->setOriginalFileName($originalFilename)
             ->setFileName($file->getFilename());
@@ -60,7 +61,7 @@ class ResourceManager
         try {
             $fs->remove($this->getUploadedFilePath($resource));
         } catch (UnexpectedValueException $e) {
-
+            // @todo log error
         }
     }
 
@@ -111,10 +112,12 @@ class ResourceManager
     }
 
     /**
-     * @return ResourceRepository
+     * Return current manager repository
+     *
+     * @return EntityRepository
      */
     protected function getRepository()
     {
-        return $this->getEntityManager()->getRepository('BlueBear\CoreBundle\Entity\Editor\Resource');
+        // TODO: Implement getRepository() method.
     }
 }

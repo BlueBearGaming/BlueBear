@@ -7188,43 +7188,14 @@ textarea {
 .fa-meanpath:before {
   content: ""; }
 
+body {
+  margin-top: 80px; }
+
 form input, form select {
   color: #dddddd; }
 form textarea {
   min-height: 150px;
   resize: vertical; }
-
-.form-inline-checkboxes .checkbox {
-  display: inline-block;
-  width: 33%; }
-
-.fileupload-file {
-  margin-left: 10px; }
-
-.fileupload-filename {
-  padding-right: 12px; }
-
-.fileupload-button {
-  position: relative;
-  overflow: hidden; }
-
-.fileupload-button input {
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin: 0;
-  opacity: 0;
-  -ms-filter: 'alpha(opacity=0)';
-  font-size: 200px;
-  direction: ltr;
-  cursor: pointer;
-  height: 100px; }
-
-body {
-  margin-top: 80px; }
-
-.clear {
-  clear: both; }
 
 table td .btn {
   line-height: 1; }

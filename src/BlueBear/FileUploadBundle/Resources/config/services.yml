@@ -1,0 +1,30 @@
+parameters:
+    blue_bear_file_upload.resource.uploader.class: BlueBear\FileUploadBundle\EventListener\ResourceUploader
+    blue_bear_file_upload.resource.subscriber.class: BlueBear\FileUploadBundle\EventListener\ResourceSubscriber
+    blue_bear_file_upload.manager.resource.class: BlueBear\FileUploadBundle\Manager\ResourceManager
+    blue_bear_file_upload.form.resource_type.class: BlueBear\FileUploadBundle\Form\Editor\ResourceType
+
+services:
+    blue_bear_file_upload.resource.uploader:
+        class: %blue_bear_file_upload.resource.uploader.class%
+        arguments: [ "@blue_bear_file_upload.manager.resource" ]
+        tags:
+            - { name: kernel.event_listener, event: oneup_uploader.post_persist, method: onUpload }
+
+    blue_bear_file_upload.resource.subscriber:
+        class: %blue_bear_file_upload.resource.subscriber.class%
+        arguments: [ "@blue_bear_file_upload.manager.resource" ]
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+
+    # ResourceManager
+    blue_bear_file_upload.manager.resource:
+        class: %blue_bear_file_upload.manager.resource.class%
+        calls:
+            - [setContainer, [@service_container]]
+
+    # Resources (uploadable entities)
+    blue_bear_file_upload.form.resource_type:
+        class: %blue_bear_file_upload.form.resource_type.class%
+        tags:
+            - { name: form.type, alias: resource }

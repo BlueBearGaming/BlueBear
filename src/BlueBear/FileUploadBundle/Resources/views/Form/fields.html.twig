@@ -1,0 +1,32 @@
+{% block resource_widget %}
+    {% set file = form.vars.data %}
+    <div class="fileupload-widget">
+        <input type="hidden" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+        <span class="btn btn-labeled btn-info fileupload-button{% if file %} disabled{% endif %}">
+            <span class="btn-label icon fa fa-plus"></span>
+            Upload a file
+            <input type="file"
+                   data-url="{{ oneup_uploader_endpoint(form.vars.endpoint) }}"
+                   data-maxsize="{{ oneup_uploader_maxsize(form.vars.endpoint) }}">
+        </span>
+
+        {% if file %}
+            <span class="btn btn-outline fileupload-file">
+                <button class="close" type="button">×</button>
+                <span class="fileupload-filename">
+                    {{ file.originalFileName }}
+                </span>
+            </span>
+        {% else %}
+            <span class="btn btn-outline fileupload-file" style="display: none">
+                <button class="close" type="button">×</button>
+                <span class="fileupload-filename"></span>
+            </span>
+        {% endif %}
+        <br>
+        <div class="progress" style="display: none; height:2px">
+            <div class="progress-bar"></div>
+        </div>
+        <div class="alert alert-danger" style="display:none;"></div>
+    </div>
+{% endblock %}

@@ -3,6 +3,7 @@
 namespace BlueBear\CoreBundle\Form\Editor;
 
 use BlueBear\CoreBundle\Entity\Editor\ImageRepository;
+use BlueBear\FileUploadBundle\Form\Type\ResourceType;
 
 class ImageType extends ResourceType
 {

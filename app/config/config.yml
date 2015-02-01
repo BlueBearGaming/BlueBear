@@ -3,6 +3,7 @@ imports:
     - { resource: security.yml }
     - { resource: admins.yml }
     - { resource: menus.yml }
+    - { resource: fileupload.yml }
 
 # Symfony Configuration
 framework:
@@ -93,12 +94,3 @@ fos_user:
     db_driver: orm
     firewall_name: main
     user_class: BlueBear\UserBundle\Entity\User
-
-# one uploader
-oneup_uploader:
-    mappings:
-        image:
-            frontend: blueimp
-            allowed_mimetypes: [ "image/jpg", "image/jpeg", "image/png", "image/gif" ]
-            storage:
-                directory: %resources_dir%/images

@@ -1,0 +1,9 @@
+
+# one uploader
+oneup_uploader:
+    mappings:
+        image:
+            frontend: blueimp
+            allowed_mimetypes: [ "image/jpg", "image/jpeg", "image/png", "image/gif" ]
+            storage:
+                directory: %resources_dir%/images

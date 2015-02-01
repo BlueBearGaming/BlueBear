@@ -28,6 +28,12 @@ blue_bear_game:
     resource: "@BlueBearGameBundle/Resources/config/routing.yml"
     prefix:   /
 
+# File upload (includes oneup routing)
+blue_bear_file_upload:
+    resource: "@BlueBearFileUploadBundle/Resources/config/routing.yml"
+    prefix:   /
+
+
 # User Security
 blue_bear_user:
     resource: "@BlueBearUserBundle/Resources/config/routing.yml"
@@ -35,7 +41,3 @@ blue_bear_user:
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
-
-oneup_uploader:
-    resource: .
-    type: uploader

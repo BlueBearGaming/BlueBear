@@ -1,14 +1,14 @@
 <?php
 
-namespace BlueBear\CoreBundle\Form\Editor;
+namespace BlueBear\FileUploadBundle\Form\Type;
 
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use BlueBear\CoreBundle\Entity\Editor\ResourceRepository;
 
-class ResourceType extends AbstractType
+abstract class ResourceType extends AbstractType
 {
     protected $className = 'BlueBear\CoreBundle\Entity\Editor\Resource';
     protected $endpoint = 'resource';
@@ -38,7 +38,7 @@ class ResourceType extends AbstractType
 
     protected function getQueryBuilder()
     {
-        return function(ResourceRepository $repo) {
+        return function(EntityRepository $repo) {
             return $repo->createQueryBuilder('e');
         };
     }
