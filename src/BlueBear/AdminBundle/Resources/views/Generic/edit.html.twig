@@ -1,7 +1,7 @@
 {% extends admin.layout is defined ? admin.layout : '' %}
 
 {% block right %}
-    {{ render(controller('BlueBearAdminBundle:Menu:menu', {name: 'right'})) }}
+    {{ render(controller('BlueBearMenuBundle:Menu:menu', {name: 'right'})) }}
 {% endblock %}
 
 {% block content %}

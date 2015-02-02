@@ -57,6 +57,6 @@ class MenuConfiguration
      */
     public function hasMainItemConfiguration()
     {
-        return filter_var($this->mainItemConfiguration, FILTER_VALIDATE_BOOLEAN);
+        return $this->mainItemConfiguration != null;
     }
 }
