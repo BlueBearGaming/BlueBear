@@ -23,12 +23,9 @@ class MenuFactory
             $menu->setTemplate($configuration->getTemplate());
 
             if ($configuration->hasMainItemConfiguration()) {
-                $mainItemConfiguration = new ItemConfiguration();
-                $mainItemConfiguration->hydrateFromConfiguration($menuConfig['main_item'], 'main');
-
                 $mainItem = new MenuItem();
-                $mainItem->setTitle($mainItemConfiguration->getTitle());
-                $mainItem->setRoute($mainItemConfiguration->getRoute());
+                $mainItem->setTitle($configuration->getMainItemConfiguration()->getTitle());
+                $mainItem->setRoute($configuration->getMainItemConfiguration()->getRoute());
                 $menu->setMainItem($mainItem);
             }
             foreach ($menuConfig['items'] as $item) {

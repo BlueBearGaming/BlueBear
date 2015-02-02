@@ -3,7 +3,7 @@
 namespace BlueBear\MenuBundle\Controller;
 
 use BlueBear\AdminBundle\Admin\AdminFactory;
-use BlueBear\AdminBundle\Menu\Menu;
+use BlueBear\MenuBundle\Menu\Menu;
 use BlueBear\BaseBundle\Behavior\ControllerTrait;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
