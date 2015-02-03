@@ -5,6 +5,7 @@ namespace BlueBear\GameBundle\Entity;
 use BlueBear\CoreBundle\Entity\Behavior\Id;
 use BlueBear\CoreBundle\Entity\Behavior\Label;
 use BlueBear\CoreBundle\Entity\Behavior\Nameable;
+use BlueBear\CoreBundle\Entity\Behavior\Positionable;
 use BlueBear\CoreBundle\Entity\Behavior\Timestampable;
 use BlueBear\CoreBundle\Entity\Behavior\Typeable;
 use Doctrine\ORM\Mapping as ORM;
@@ -18,7 +19,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Unit
 {
-    use Id, Nameable, Label, Timestampable, Typeable;
+    use Id, Nameable, Label, Positionable, Timestampable, Typeable;
 
     /**
      * @var
