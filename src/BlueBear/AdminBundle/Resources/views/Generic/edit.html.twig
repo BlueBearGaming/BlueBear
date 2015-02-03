@@ -1,6 +1,7 @@
 {% extends admin.layout is defined ? admin.layout : '' %}
 
 {% block right %}
+    lol
     {{ render(controller('BlueBearMenuBundle:Menu:menu', {name: 'right'})) }}
 {% endblock %}
 
@@ -9,6 +10,7 @@
     {% set encType = (form.vars.multipart) ? 'multipart/form-data' : 'application/x-www-form-urlencoded' %}
 
     <h1>{{ admin.currentAction.title }}</h1>
+    {{ dump(admin.layout) }}
 
     <div class="well {{ containerClass }}">
         <form action="{{ path(admin.currentAction.route, { id: form.vars.value.id}) }}" method="post" class="form-horizontal"

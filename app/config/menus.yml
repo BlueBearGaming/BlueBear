@@ -12,3 +12,4 @@ blue_bear_menu:
                 - {admin: pencil_set, action: list, title: Pencil sets, permissions: [ROLE_USER]}
         right:
             type: dynamic
+            template: BlueBearMenuBundle:Menu:right.html.twig

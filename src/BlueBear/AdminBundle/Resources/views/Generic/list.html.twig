@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block content %}
-
+    {{ dump(admin.layout) }}
     <h1>{{ admin.currentAction.title }}</h1>
     <div class="pencils-list">
         {{ block('admin_list') }}
