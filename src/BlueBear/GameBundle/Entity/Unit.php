@@ -22,7 +22,7 @@ class Unit
 
     /**
      * @var
-     * @ORM\ManyToMany(targetEntity="BlueBear\GameBundle\Entity\Attribute", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="BlueBear\GameBundle\Entity\Attribute", cascade={"persist"}, fetch="EAGER")
      */
     protected $attributes;
 
