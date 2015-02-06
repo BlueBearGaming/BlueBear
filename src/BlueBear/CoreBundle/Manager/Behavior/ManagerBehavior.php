@@ -78,7 +78,7 @@ trait ManagerBehavior
     /**
      * Find all entities in current repository
      *
-     * @return object
+     * @return array
      */
     public function findAll()
     {

@@ -10,13 +10,13 @@ use BlueBear\CoreBundle\Entity\Behavior\Typeable;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * A unit
+ * UnitInstance
  *
- * @ORM\Table(name="unit")
- * @ORM\Entity(repositoryClass="BlueBear\GameBundle\Entity\UnitRepository")
+ * @ORM\Table(name="unit_instance")
+ * @ORM\Entity()
  * @ORM\HasLifecycleCallbacks()
  */
-class Unit
+class UnitInstance
 {
     use Id, Nameable, Label, Timestampable, Typeable;
 
@@ -27,18 +27,16 @@ class Unit
     protected $attributes;
 
     /**
-     * @return mixed
+     * @ORM\OneToOne(targetEntity="BlueBear\CoreBundle\Entity\MapItem", inversedBy="unit")
      */
-    public function getAttributes()
-    {
-        return $this->attributes;
-    }
+    protected $mapItem;
 
-    /**
-     * @param mixed $attributes
-     */
-    public function setAttributes($attributes)
+    public function hydrateFromUnit(Unit $unit)
     {
-        $this->attributes = $attributes;
+        $this->id = $unit->getId();
+        $this->name = $unit->getName();
+        $this->label = $unit->getLabel();
+        $this->type = $unit->getType();
+        $this->attributes = $unit->getAttributes();
     }
 }

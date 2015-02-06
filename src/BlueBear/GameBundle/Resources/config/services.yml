@@ -2,7 +2,15 @@ imports:
     - { resource: managers.yml }
     - { resource: forms.yml }
 
+parameters:
+    # events subscribers
+    bluebear.engine.event.mapitem_subscriber: BlueBear\GameBundle\Event\MapItem\MapItemSubscriber
+
 services:
-#    blue_bear_game.example:
-#        class: BlueBear\GameBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+    # events subscribers
+    bluebear.engine.event.mapitem_subscriber:
+        class: %bluebear.engine.event.mapitem_subscriber%
+        tags:
+            - {name: kernel.event_subscriber}
+        calls:
+            - [setContainer, [@service_container]]

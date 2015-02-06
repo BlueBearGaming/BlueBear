@@ -54,6 +54,7 @@ class EngineEvent extends Event
     const ENGINE_ON_ENTER = 'bluebear.engine.onEnter';
     const ENGINE_ON_AFTER_ENTER = 'bluebear.engine.onAfterEnter';
     const ENGINE_ON_MAP_ITEM_CLICK = 'bluebear.engine.onMapItemClick';
+    const ENGINE_ON_MAP_PUT_UNIT = 'bluebear.engine.onMapPutUnit';
 
     /**
      * Engine event response code
@@ -71,7 +72,8 @@ class EngineEvent extends Event
         return [
             self::ENGINE_ON_MAP_ITEM_CLICK,
             self::ENGINE_ON_CONTEXT_LOAD,
-            self::ENGINE_ON_MAP_SAVE
+            self::ENGINE_ON_MAP_SAVE,
+            self::ENGINE_ON_MAP_PUT_UNIT
         ];
     }
 

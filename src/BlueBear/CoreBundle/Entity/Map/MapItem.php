@@ -10,8 +10,8 @@ use JMS\Serializer\Annotation as Serializer;
 /**
  * A Map Item is an object that is positioned on the map at a specific layer and that will use the pencil as its renderer
  *
- * @ORM\Table(name="map_item")
  * @ORM\Entity(repositoryClass="BlueBear\CoreBundle\Entity\Map\MapItemRepository")
+ * @ORM\Table(name="map_item")
  * @Serializer\ExclusionPolicy("all")
  */
 class MapItem
@@ -36,6 +36,7 @@ class MapItem
 
     /**
      * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Context", inversedBy="mapItems")
+     * @Serializer\Expose()
      */
     protected $context;
 
