@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 
 /**
+ * MapItem
  * A Map Item is an object that is positioned on the map at a specific layer and that will use the pencil as its renderer
  *
  * @ORM\Entity(repositoryClass="BlueBear\CoreBundle\Entity\Map\MapItemRepository")
@@ -30,12 +31,14 @@ class MapItem
      *
      * @var Layer
      * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Layer", inversedBy="mapItems", fetch="EAGER");
+     * @ORM\JoinColumn(nullable=false)
      * @Serializer\Expose()
      */
     protected $layer;
 
     /**
      * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Context", inversedBy="mapItems")
+     * @ORM\JoinColumn(nullable=false)
      * @Serializer\Expose()
      */
     protected $context;
@@ -63,7 +66,7 @@ class MapItem
     }
 
     /**
-     * @return mixed
+     * @return Context
      */
     public function getContext()
     {

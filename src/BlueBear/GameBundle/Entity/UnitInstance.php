@@ -12,8 +12,10 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * UnitInstance
  *
+ * Represents a instance of a unit on map
+ *
  * @ORM\Table(name="unit_instance")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="BlueBear\GameBundle\Entity\UnitInstanceRepository")
  * @ORM\HasLifecycleCallbacks()
  */
 class UnitInstance
@@ -27,7 +29,7 @@ class UnitInstance
     protected $attributes;
 
     /**
-     * @ORM\OneToOne(targetEntity="BlueBear\CoreBundle\Entity\MapItem", inversedBy="unit")
+     * @ORM\OneToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\MapItem")
      */
     protected $mapItem;
 
@@ -38,5 +40,21 @@ class UnitInstance
         $this->label = $unit->getLabel();
         $this->type = $unit->getType();
         $this->attributes = $unit->getAttributes();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMapItem()
+    {
+        return $this->mapItem;
+    }
+
+    /**
+     * @param mixed $mapItem
+     */
+    public function setMapItem($mapItem)
+    {
+        $this->mapItem = $mapItem;
     }
 }

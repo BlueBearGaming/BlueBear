@@ -17,4 +17,20 @@ class PutUnitRequest extends EventRequest
      * @SerializedName("unitId")
      */
     public $unitId;
+
+    /**
+     * Unit x position
+     *
+     * @Expose()
+     * @Type("integer")
+     */
+    public $x;
+
+    /**
+     * Unit y position
+     *
+     * @Expose()
+     * @Type("integer")
+     */
+    public $y;
 }

@@ -104,6 +104,8 @@ class ApiController extends Controller
                     $request = new PutUnitRequest();
                     $request->contextId = $context->getId();
                     $request->unitId = $unit->getId();
+                    $request->x = 4;
+                    $request->y = 2;
 
                     $snippets[$event] = $request;
                 } else {

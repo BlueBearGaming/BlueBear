@@ -11,6 +11,6 @@ class Position
     public function __construct($x = null, $y = null)
     {
         $this->x = $x;
-        $this->Y = $y;
+        $this->y = $y;
     }
 }
