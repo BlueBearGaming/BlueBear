@@ -17,20 +17,15 @@ class MenuFactory
 
         foreach ($menuConfigs as $menuName => $menuConfig) {
             $configuration = new MenuConfiguration();
-            $configuration->hydrateFromConfiguration($menuConfig);
-
+            $configuration->hydrateFromConfiguration($menuConfig, $menuName);
             $menu = new Menu();
             $menu->setName($configuration->getName());
             $menu->setTemplate($configuration->getTemplate());
-            $mainItemConfig = array_key_exists('main_item', $menuConfig) ? $menuConfig['main_item'] : '';
 
             if ($configuration->hasMainItemConfiguration()) {
-                $mainItemConfiguration = new ItemConfiguration();
-                $mainItemConfiguration->hydrateFromConfiguration($configuration->getMainItemConfiguration());
-
                 $mainItem = new MenuItem();
-                $mainItem->setTitle($mainItemConfiguration->getTitle());
-                $mainItem->setRoute($mainItemConfiguration->getRoute());
+                $mainItem->setTitle($configuration->getMainItemConfiguration()->getTitle());
+                $mainItem->setRoute($configuration->getMainItemConfiguration()->getRoute());
                 $menu->setMainItem($mainItem);
             }
             foreach ($menuConfig['items'] as $item) {

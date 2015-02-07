@@ -20,10 +20,12 @@ class MenuConfiguration
 
         if (array_key_exists('template', $menuConfiguration)) {
             $this->template = $menuConfiguration['template'];
+        } else {
+            $this->template = 'BlueBearMenuBundle:Menu:main.html.twig';
         }
         if (array_key_exists('main_item', $menuConfiguration)) {
             $mainItemConfiguration = new ItemConfiguration();
-            $mainItemConfiguration->hydrateFromConfiguration($menuConfiguration, 'main');
+            $mainItemConfiguration->hydrateFromConfiguration($menuConfiguration['main_item'], 'main');
             $this->mainItemConfiguration = $mainItemConfiguration;
         }
     }
@@ -57,6 +59,6 @@ class MenuConfiguration
      */
     public function hasMainItemConfiguration()
     {
-        return filter_var($this->mainItemConfiguration, FILTER_VALIDATE_BOOLEAN);
+        return $this->mainItemConfiguration != null;
     }
 }

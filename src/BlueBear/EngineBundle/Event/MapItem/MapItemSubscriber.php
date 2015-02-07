@@ -6,8 +6,10 @@ use BlueBear\BaseBundle\Behavior\ContainerTrait;
 use BlueBear\CoreBundle\Entity\Map\Layer;
 use BlueBear\CoreBundle\Entity\Map\MapItem;
 use BlueBear\CoreBundle\Entity\Map\Pencil;
+use BlueBear\CoreBundle\Utils\Position;
 use BlueBear\EngineBundle\Behavior\HasException;
 use BlueBear\EngineBundle\Event\EngineEvent;
+use Exception;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class MapItemSubscriber implements EventSubscriberInterface
@@ -23,6 +25,12 @@ class MapItemSubscriber implements EventSubscriberInterface
         ];
     }
 
+    /**
+     * Default on click response
+     *
+     * @param EngineEvent $event
+     * @throws Exception
+     */
     public function onClick(EngineEvent $event)
     {
         /** @var MapItemClickRequest $request */
@@ -43,7 +51,7 @@ class MapItemSubscriber implements EventSubscriberInterface
 
         // removing existing map item at this position in this layer
         $mapItemManager = $this->getContainer()->get('bluebear.manager.map_item');
-        $mapItem = $mapItemManager->findByPositionAndLayer($request->x, $request->y, $layer);
+        $mapItem = $mapItemManager->findByPositionAndLayer(new Position($request->x, $request->y), $layer);
 
         if ($mapItem) {
             $mapItemManager->delete($mapItem);

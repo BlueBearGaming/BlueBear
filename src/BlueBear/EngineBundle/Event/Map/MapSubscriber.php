@@ -50,6 +50,7 @@ class MapSubscriber implements EventSubscriberInterface
      */
     public function onMapSave(EngineEvent $event)
     {
+        die('refactoring in progress');
         $this->check($event);
         $data = $event->getData();
         $map = $event->getMap();

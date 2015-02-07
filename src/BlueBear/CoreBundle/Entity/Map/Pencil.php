@@ -199,4 +199,20 @@ class Pencil
         $this->image = $image;
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getMapItems()
+    {
+        return $this->mapItems;
+    }
+
+    /**
+     * @param mixed $mapItems
+     */
+    public function setMapItems($mapItems)
+    {
+        $this->mapItems = $mapItems;
+    }
 }

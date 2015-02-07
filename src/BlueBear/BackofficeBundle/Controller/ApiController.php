@@ -11,6 +11,8 @@ use BlueBear\CoreBundle\Manager\MapManager;
 use BlueBear\EngineBundle\Event\EngineEvent;
 use BlueBear\EngineBundle\Event\Map\LoadContextRequest;
 use BlueBear\EngineBundle\Event\MapItem\MapItemClickRequest;
+use BlueBear\GameBundle\Entity\Unit;
+use BlueBear\GameBundle\Event\Unit\PutUnitRequest;
 use JMS\Serializer\Serializer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -85,7 +87,7 @@ class ApiController extends Controller
                     if ($pencil) {
                         $request->pencil = $pencil->getId();
                         $layer = $layers[array_rand($layers)];
-                        $request->layer =  $layer->getId();
+                        $request->layer = $layer->getId();
                     } else {
                         $this->addFlash('warning', 'No layer was found. Try to create at least one');
                     }
@@ -93,6 +95,22 @@ class ApiController extends Controller
                     $this->addFlash('warning', 'No pencil set was found. Try to create at least one');
                 }
                 $snippets[$event] = $request;
+            } else if ($event == EngineEvent::ENGINE_ON_MAP_PUT_UNIT) {
+                $units = $this->get('bluebear.manager.unit')->findAll();
+
+                if ($units) {
+                    /** @var Unit $unit */
+                    $unit = $units[array_rand($units)];
+                    $request = new PutUnitRequest();
+                    $request->contextId = $context->getId();
+                    $request->unitId = $unit->getId();
+                    $request->x = 4;
+                    $request->y = 2;
+
+                    $snippets[$event] = $request;
+                } else {
+                    $this->addFlash('warning', 'You have no unit configured. PutUnit event is not available');
+                }
             }
         }
         return $serializer->serialize($snippets, 'json');

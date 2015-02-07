@@ -3,6 +3,7 @@
 namespace BlueBear\CoreBundle\DataFixtures\ORM;
 
 use BlueBear\CoreBundle\Entity\Map\Layer;
+use BlueBear\GameBundle\Entity\Attribute;
 use BlueBear\UserBundle\Entity\User;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -82,6 +83,11 @@ class InitializationData implements FixtureInterface
 
         $layer = $this->createLayer('layer_8', 'Events', 'events', 'Events on map', 8);
         $manager->persist($layer);
+    }
+
+    protected function createAttributes(ObjectManager $manager)
+    {
+        $attribute = new Attribute();
     }
 
     /**
