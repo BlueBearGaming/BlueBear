@@ -1,0 +1,4 @@
+services:
+#    blue_bear_action.example:
+#        class: BlueBear\ActionBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
