@@ -20,7 +20,8 @@ class InitializationData implements FixtureInterface
         // create users
         $manager->persist($this->createUser('afrezet', 'admin'));
         $manager->persist($this->createUser('vchalnot', 'admin'));
-        $manager->persist($this->createUser('lanzalone', 'admin'));
+        $manager->persist($this->createUser('lanzalone', 'LudoEstUneGrosseTapette'));
+        $manager->persist($this->createUser('lutangar', 'password', 'johan.dufour@gmail.com'));
         // create layers
         $this->createLayers($manager);
 
