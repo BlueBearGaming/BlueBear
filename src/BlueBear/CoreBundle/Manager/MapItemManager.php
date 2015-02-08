@@ -5,7 +5,7 @@ namespace BlueBear\CoreBundle\Manager;
 use BlueBear\CoreBundle\Entity\Map\Layer;
 use BlueBear\CoreBundle\Entity\Map\MapItem;
 use BlueBear\CoreBundle\Entity\Map\MapItemRepository;
-use BlueBear\CoreBundle\Manager\Behavior\ManagerBehavior;
+use BlueBear\BaseBundle\Behavior\ManagerBehavior;
 use BlueBear\CoreBundle\Utils\Position;
 
 class MapItemManager

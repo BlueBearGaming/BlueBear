@@ -7,3 +7,10 @@ oneup_uploader:
             allowed_mimetypes: [ "image/jpg", "image/jpeg", "image/png", "image/gif" ]
             storage:
                 directory: %resources_dir%/images
+
+dcs_dynamic_discriminator_map:
+    mapping:
+        resource:
+            entity: BlueBear\FileUploadBundle\Entity\Resource
+            map:
+                image: BlueBear\CoreBundle\Entity\Editor\Image

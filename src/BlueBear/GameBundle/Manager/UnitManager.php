@@ -3,7 +3,7 @@
 namespace BlueBear\GameBundle\Manager;
 
 use BlueBear\CoreBundle\Entity\Map\Context;
-use BlueBear\CoreBundle\Manager\Behavior\ManagerBehavior;
+use BlueBear\BaseBundle\Behavior\ManagerBehavior;
 use BlueBear\CoreBundle\Utils\Position;
 use BlueBear\GameBundle\Entity\UnitInstance;
 use BlueBear\GameBundle\Entity\UnitInstanceRepository;

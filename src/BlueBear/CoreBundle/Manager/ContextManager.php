@@ -2,7 +2,7 @@
 
 namespace BlueBear\CoreBundle\Manager;
 
-use BlueBear\CoreBundle\Manager\Behavior\ManagerBehavior;
+use BlueBear\BaseBundle\Behavior\ManagerBehavior;
 use Doctrine\ORM\EntityRepository;
 
 class ContextManager

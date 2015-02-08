@@ -57,31 +57,31 @@ class InitializationData implements FixtureInterface
      */
     protected function createLayers(ObjectManager $manager)
     {
-        $layer = $this->createLayer('layer_0', 'Background', 'background', 'Map background', 0);
+        $layer = $this->createLayer('background', 'Background', 'background', 'Map background', 0);
         $manager->persist($layer);
 
-        $layer = $this->createLayer('layer_1', 'Land', 'land', 'Map land (plains, forests...)', 1);
+        $layer = $this->createLayer('land', 'Land', 'land', 'Map land (plains, forests...)', 1);
         $manager->persist($layer);
 
-        $layer = $this->createLayer('layer_2', 'Grid', 'grid', 'Grid (displayed or not)', 2);
+        $layer = $this->createLayer('grid', 'Grid', 'grid', 'Grid (displayed or not)', 2);
         $manager->persist($layer);
 
-        $layer = $this->createLayer('layer_3', 'Selection', 'selection', 'Unit, object or building selection (hover..)', 3);
+        $layer = $this->createLayer('selection', 'Selection', 'selection', 'Unit, object or building selection (hover..)', 3);
         $manager->persist($layer);
 
-        $layer = $this->createLayer('layer_4', 'Props and decals', 'props', 'Decorations (flowers, broken wall...)', 4);
+        $layer = $this->createLayer('props', 'Props and decals', 'props', 'Decorations (flowers, broken wall...)', 4);
         $manager->persist($layer);
 
-        $layer = $this->createLayer('layer_5', 'Objects', 'objects', 'Objects (item...) on the map', 5);
+        $layer = $this->createLayer('objects', 'Objects', 'objects', 'Objects (item...) on the map', 5);
         $manager->persist($layer);
 
-        $layer = $this->createLayer('layer_6', 'Units', 'units', 'Units on the map', 6);
+        $layer = $this->createLayer('units', 'Units', 'units', 'Units on the map', 6);
         $manager->persist($layer);
 
-        $layer = $this->createLayer('layer_7', 'Effects', 'effects', 'Map Effects', 7);
+        $layer = $this->createLayer('effects', 'Effects', 'effects', 'Map Effects', 7);
         $manager->persist($layer);
 
-        $layer = $this->createLayer('layer_8', 'Events', 'events', 'Events on map', 8);
+        $layer = $this->createLayer('events', 'Events', 'events', 'Events on map', 8);
         $manager->persist($layer);
     }
 

@@ -4,6 +4,7 @@
 namespace BlueBear\CoreBundle\Entity\Editor;
 
 use Doctrine\ORM\Query\Expr\Join;
+use BlueBear\FileUploadBundle\Entity\ResourceRepository;
 
 class ImageRepository extends ResourceRepository
 {

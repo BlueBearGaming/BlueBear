@@ -2,68 +2,41 @@
 
 namespace BlueBear\FileUploadBundle\Entity;
 
+use BlueBear\FileUploadBundle\Model\BaseResource;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Uploaded resource
+ * Upload
  *
- * @ORM\Entity()
+ * @ORM\Table(name="bluebear_resource")
+ * @ORM\Entity(repositoryClass="BlueBear\FileUploadBundle\Entity\ResourceRepository")
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="type", type="string")
+ * @ORM\DiscriminatorMap({"resource" = "BlueBear\FileUploadBundle\Entity\Resource"})
  */
-abstract class Resource implements \JsonSerializable
+class Resource extends BaseResource
 {
     /**
-     * Generated real file name
-     * @var string
-     * @ORM\Column(name="file_name", type="string", length=255, unique=true)
+     * @ORM\Id()
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(type="integer")
      */
-    protected $fileName;
+    protected $id;
 
     /**
-     * Original fileName from upload or import script
-     * @var string
-     * @ORM\Column(name="original_file_name", type="string", length=255)
+     * @return mixed
      */
-    protected $originalFileName;
-
-    /**
-     * @return string
-     */
-    public function getOriginalFileName()
+    public function getId()
     {
-        return $this->originalFileName;
+        return $this->id;
     }
 
     /**
-     * @param string $originalFileName
-     * @return $this
+     * @param mixed $id
      */
-    public function setOriginalFileName($originalFileName)
+    public function setId($id)
     {
-        $this->originalFileName = $originalFileName;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getFileName()
-    {
-        return $this->fileName;
-    }
-
-    /**
-     * @param string $fileName
-     * @return $this
-     */
-    public function setFileName($fileName)
-    {
-        $this->fileName = $fileName;
-        return $this;
-    }
-
-    public function __toString()
-    {
-        return (string) $this->getFileName();
+        $this->id = $id;
     }
 
     /**
@@ -72,9 +45,13 @@ abstract class Resource implements \JsonSerializable
      */
     public function jsonSerialize()
     {
-        return [
-            'fileName' => $this->getFileName(),
-            'originalFileName' => $this->getOriginalFileName(),
-        ];
+        $json = parent::jsonSerialize();
+        $json['id'] = $this->getId();
+        return $json;
+    }
+
+    public function getType()
+    {
+        return 'resource';
     }
 }

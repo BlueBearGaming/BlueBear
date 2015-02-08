@@ -5,7 +5,7 @@ namespace BlueBear\CoreBundle\Manager;
 use BlueBear\CoreBundle\Entity\Map\Map;
 use BlueBear\CoreBundle\Entity\Map\PencilSet;
 use BlueBear\CoreBundle\Entity\Map\PencilSetRepository;
-use BlueBear\CoreBundle\Manager\Behavior\ManagerBehavior;
+use BlueBear\BaseBundle\Behavior\ManagerBehavior;
 
 class PencilSetManager
 {

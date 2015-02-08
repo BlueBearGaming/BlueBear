@@ -3,7 +3,7 @@
 namespace BlueBear\CoreBundle\Manager;
 
 use BlueBear\CoreBundle\Entity\Editor\ItemRepository;
-use BlueBear\CoreBundle\Manager\Behavior\ManagerBehavior;
+use BlueBear\BaseBundle\Behavior\ManagerBehavior;
 
 class ItemManager
 {

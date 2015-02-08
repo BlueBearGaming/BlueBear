@@ -98,7 +98,8 @@ class Admin
      */
     public function getEntityPath()
     {
-        $path = array_pop(explode('\\', $this->getEntityNamespace()));
+        $array = explode('\\', $this->getEntityNamespace());
+        $path = array_pop($array);
         $path = strtolower(substr($path, 0, 1)) . substr($path, 1);
 
         return $path;

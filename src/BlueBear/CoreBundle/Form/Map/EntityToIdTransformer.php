@@ -3,7 +3,7 @@
 namespace BlueBear\CoreBundle\Form\Map;
 
 use BlueBear\CoreBundle\Entity\Behavior\Id;
-use BlueBear\CoreBundle\Manager\Behavior\ManagerBehavior;
+use BlueBear\BaseBundle\Behavior\ManagerBehavior;
 use Symfony\Component\Form\DataTransformerInterface;
 
 /**

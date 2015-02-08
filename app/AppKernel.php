@@ -26,6 +26,7 @@ class AppKernel extends Kernel
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new Oneup\UploaderBundle\OneupUploaderBundle(),
+            new DCS\DynamicDiscriminatorMapBundle\DCSDynamicDiscriminatorMapBundle(),
             // BlueBear
             new BlueBear\AdminBundle\BlueBearAdminBundle(),
             new BlueBear\BaseBundle\BlueBearBaseBundle(),
