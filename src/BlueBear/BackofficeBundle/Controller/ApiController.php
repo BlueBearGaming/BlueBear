@@ -80,7 +80,7 @@ class ApiController extends Controller
 
                     /** @var Layer $layer */
                     foreach ($map->getLayers() as $layer) {
-                        if ($pencil->isLayerTypeAllowed($layer->getType())) {
+                        if ($pencil and $pencil->isLayerTypeAllowed($layer->getType())) {
                             $layers[] = $layer;
                         }
                     }

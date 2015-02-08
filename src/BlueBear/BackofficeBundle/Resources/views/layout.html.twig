@@ -4,6 +4,7 @@
     {% include 'BlueBearBackofficeBundle::assets.html.twig' %}
 </head>
 <body>
+{% use "BlueBearCoreBundle:Form:fields.html.twig" %}
 {% block topMenu %}
     {% include 'BlueBearBackofficeBundle::top.html.twig' %}
 {% endblock %}
@@ -31,7 +32,7 @@
 <div class="container">
     <div class="row-fluid">
         <div class="col-md-2">
-            {% block right %}{% endblock %}
+            {% block rightMenu %}{% endblock %}
         </div>
         <div class="col-md-10">
             {% block content %}{% endblock %}

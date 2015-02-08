@@ -2,7 +2,7 @@
 
 {% block content %}
     <h1>Pencil Edit</h1>
-    {% set action = 'bluebear_backoffice_pencil_edit' %}
+    {% set action = app.request.get('_route') %}
     {% set returnRoute = 'bluebear_backoffice_pencil' %}
     {% set containerClass = 'edit-pencil' %}
 

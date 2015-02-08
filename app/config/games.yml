@@ -1,0 +1,17 @@
+blue_bear_game:
+    entity_type:
+        door:
+            attributes: [hp, armor]
+        unit:
+            attributes: [hp, race, class, intelligence, dexterity, force]
+        item_container:
+        item:
+        weapon:
+    attribute:
+        hp: {label: Hit point, type: int}
+        race: {label: Race, type: string}
+        class: {label: Class, type: string}
+        intelligence: {label: Intelligence, type: string}
+        # attack and defence are calculated from dexterity and force
+        dexterity: {label: Dexterity, type: string}
+        force: {label: Force, type: string}

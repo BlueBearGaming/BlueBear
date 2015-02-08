@@ -2,11 +2,11 @@
 
 {% block content %}
     {% set title = 'Pencil Set Edit' %}
-    {% set action = 'bluebear_backoffice_pencil_set_edit' %}
+    {% set action = app.request.get('_route') %}
     {% set returnRoute = 'bluebear_backoffice_pencil' %}
     {% set containerClass = 'edit-pencil_set' %}
 
-    {{ block('generic_form') }}
+    {{ block('generic_list') }}
     <script>
         $(document).on('ready', function () {
             $('.edit-pencil_set').find('.fileupload-widget').blueBearFileUpload();

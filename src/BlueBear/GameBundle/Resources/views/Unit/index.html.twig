@@ -10,11 +10,11 @@
     <h1>Units</h1>
 
     <div class="units-list">
-        {% set list = units %}
+        {% set entities = units %}
         {% set editRoute = 'bluebear_backoffice_unit_edit' %}
         {% set deleteRoute = 'bluebear_backoffice_pencil_delete' %}
         {% set fields = ['id', 'name'] %}
 
-        {{ block('table_list') }}
+        {{ block('generic_list') }}
     </div>
 {% endblock %}
