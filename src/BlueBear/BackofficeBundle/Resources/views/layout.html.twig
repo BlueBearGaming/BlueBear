@@ -5,8 +5,7 @@
 </head>
 <body>
 {% block topMenu %}
-    lol
-    {{ render(controller('BlueBearMenuBundle:Menu:menu', {name: 'main'})) }}
+    {% include 'BlueBearBackofficeBundle::top.html.twig' %}
 {% endblock %}
 <!-- flash messages -->
 <div class="alert-container container">
