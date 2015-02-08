@@ -3,6 +3,7 @@ imports:
     - { resource: security.yml }
     - { resource: admins.yml }
     - { resource: menus.yml }
+    - { resource: actions.yml }
     - { resource: fileupload.yml }
 
 # Symfony Configuration
