@@ -3,8 +3,10 @@
 namespace BlueBear\GameBundle\Controller;
 
 use BlueBear\BaseBundle\Behavior\ControllerTrait;
-use BlueBear\GameBundle\Entity\Unit;
-use BlueBear\GameBundle\Manager\UnitManager;
+use BlueBear\GameBundle\Entity\UnitInstance;
+use BlueBear\GameBundle\Entity\UnitModel;
+use BlueBear\GameBundle\Manager\UnitInstanceManager;
+use BlueBear\GameBundle\Manager\UnitModelManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -19,10 +21,12 @@ class UnitController extends Controller
      */
     public function indexAction()
     {
-        $units = $this->getUnitManager()->findAll();
+        $unitInstances = $this->getUnitInstanceManager()->findAll();
+        $unitModels = $this->getUnitModelManager()->findAll();
 
         return [
-            'units' => $units
+            'unitInstances' => $unitInstances,
+            'unitModels' => $unitModels
         ];
     }
 
@@ -31,24 +35,24 @@ class UnitController extends Controller
      * @param Request $request
      * @return array|RedirectResponse
      */
-    public function createAction(Request $request)
+    public function createInstanceAction(Request $request)
     {
         return $this->editAction($request, new Unit());
     }
 
     /**
-     * @Template()
+     * @Template("BlueBearGameBundle:Unit:edit.html.twig")
      * @param Request $request
-     * @param Unit $unit
+     * @param UnitInstance $unit
      * @return array|RedirectResponse
      */
-    public function editAction(Request $request, Unit $unit)
+    public function editInstanceAction(Request $request, UnitInstance $unit)
     {
-        $form = $this->createForm('unit', $unit);
+        $form = $this->createForm('unit_instance', $unit);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $this->getUnitManager()->save($unit);
+            $this->getUnitInstanceManager()->save($unit);
             $this->setMessage('Unit successfully saved');
             return $this->redirect('@bluebear_backoffice_unit');
         }
@@ -57,11 +61,60 @@ class UnitController extends Controller
         ];
     }
 
-    /**
-     * @return UnitManager
-     */
-    protected function getUnitManager()
+    public function deleteInstanceAction()
     {
-        return $this->get('bluebear.manager.unit');
+
+    }
+
+    /**
+     * @Template("BlueBearGameBundle:Unit:edit.html.twig")
+     * @param Request $request
+     * @return array|RedirectResponse
+     */
+    public function createModelAction(Request $request)
+    {
+        return $this->editAction($request, new UnitModel());
+    }
+
+    /**
+     * @Template("BlueBearGameBundle:Unit:edit.html.twig")
+     * @param Request $request
+     * @param UnitModel $unitModel
+     * @return array|RedirectResponse
+     */
+    public function editModelAction(Request $request, UnitModel $unitModel)
+    {
+        $form = $this->createForm('unit_model', $unitModel);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $this->getUnitInstanceManager()->save($unitModel);
+            $this->setMessage('Unit successfully saved');
+            return $this->redirect('@bluebear_backoffice_unit');
+        }
+        return [
+            'form' => $form->createView()
+        ];
+    }
+
+    public function deleteModelAction()
+    {
+
+    }
+
+    /**
+     * @return UnitInstanceManager
+     */
+    protected function getUnitInstanceManager()
+    {
+        return $this->get('bluebear.manager.unit_instance');
+    }
+
+    /**
+     * @return UnitModelManager
+     */
+    protected function getUnitModelManager()
+    {
+        return $this->get('bluebear.manager.unit_model');
     }
 }

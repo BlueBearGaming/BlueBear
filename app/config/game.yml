@@ -11,10 +11,12 @@ blue_bear_game:
             attributes: [hp, armor]
         weapon:
     attribute:
-        hp: {label: Hit point, type: int}
-        race: {label: Race, type: string}
-        class: {label: Class, type: string}
-        intelligence: {label: Intelligence, type: string}
+        # race, class
+        race: {label: bluebear.attributes.race, type: string}
+        class: {label: bluebear.attributes.class, type: string}
         # attack and defence are calculated from dexterity and force
-        dexterity: {label: Dexterity, type: string}
-        force: {label: Force, type: string}
+        hp: {label: bluebear.attributes.hit_point, type: int}
+        intelligence: {label: bluebear.attributes.intelligence, type: int}
+        dexterity: {label: bluebear.attributes.dexterity, type: int}
+        force: {label: bluebear.attributes.force, type: int}
+        level: {label: bluebear.attributes.level, type: int}

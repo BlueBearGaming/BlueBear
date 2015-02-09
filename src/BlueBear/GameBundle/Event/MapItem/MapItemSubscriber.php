@@ -7,7 +7,6 @@ use BlueBear\CoreBundle\Utils\Position;
 use BlueBear\EngineBundle\Event\EngineEvent;
 use BlueBear\EngineBundle\Event\MapItem\MapItemClickRequest;
 use BlueBear\EngineBundle\Event\MapItem\MapItemClickResponse;
-use BlueBear\GameBundle\Manager\UnitManager;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class MapItemSubscriber implements EventSubscriberInterface
@@ -35,7 +34,6 @@ class MapItemSubscriber implements EventSubscriberInterface
         if ($unitInstance) {
             $this->getContainer()->get('bluebear.path.finder');
         }
-
         $response = new MapItemClickResponse();
         $event->setResponse($response);
     }

@@ -24,7 +24,7 @@ class UnitInstance
 
     /**
      * @var
-     * @ORM\ManyToMany(targetEntity="BlueBear\GameBundle\Entity\Attribute", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="BlueBear\GameBundle\Entity\UnitInstanceAttribute", cascade={"persist"})
      */
     protected $attributes;
 
@@ -33,7 +33,7 @@ class UnitInstance
      */
     protected $mapItem;
 
-    public function hydrateFromUnit(Unit $unit)
+    public function hydrateFromModel(UnitModel $unit)
     {
         $this->id = $unit->getId();
         $this->name = $unit->getName();
@@ -56,5 +56,21 @@ class UnitInstance
     public function setMapItem($mapItem)
     {
         $this->mapItem = $mapItem;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAttributes()
+    {
+        return $this->attributes;
+    }
+
+    /**
+     * @param mixed $attributes
+     */
+    public function setAttributes($attributes)
+    {
+        $this->attributes = $attributes;
     }
 }

@@ -30,9 +30,9 @@ class UtilsExtension extends Twig_Extension
         return $route == $request->get('_route');
     }
 
-    public function getClassForRoute($route)
+    public function getClassForRoute($route, $cssClass = 'active')
     {
-        return ($this->isCurrentRoute($route)) ? 'active' : '';
+        return ($this->isCurrentRoute($route)) ? $cssClass : '';
     }
 
     public function getName()

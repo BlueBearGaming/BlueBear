@@ -1,14 +1,14 @@
 parameters:
-    bluebear.form.unit: BlueBear\GameBundle\Form\UnitType
-    bluebear.form.attribute: BlueBear\GameBundle\Form\AttributeType
+    bluebear.form.unit_instance: BlueBear\GameBundle\Form\UnitInstanceType
+    bluebear.form.unit_instance_attribute: BlueBear\GameBundle\Form\UnitInstanceAttributeType
 
 services:
-    bluebear.form.unit:
-        class: %bluebear.form.unit%
+    bluebear.form.unit_instance:
+        class: %bluebear.form.unit_instance%
         tags:
-            - { name: form.type, alias: unit }
+            - { name: form.type, alias: unit_instance }
 
     bluebear.form.attribute:
-        class: %bluebear.form.attribute%
+        class: %bluebear.form.unit_instance_attribute%
         tags:
-            - { name: form.type, alias: attribute }
+            - { name: form.type, alias: unit_instance_attribute }

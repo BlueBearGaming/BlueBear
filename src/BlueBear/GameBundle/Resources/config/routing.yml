@@ -3,11 +3,29 @@ bluebear_backoffice_unit:
     pattern: /units
     defaults: { _controller: BlueBearGameBundle:Unit:index }
 
-bluebear_backoffice_unit_create:
-    pattern: /units/create
-    defaults: { _controller: BlueBearGameBundle:Unit:create }
+# Units instances
+bluebear_backoffice_unit_instance_create:
+    pattern: /units/instances/create
+    defaults: { _controller: BlueBearGameBundle:Unit:createInstance }
+
+bluebear_backoffice_unit_instance_edit:
+    pattern: /units/instances/edit/{id}
+    defaults: { _controller: BlueBearGameBundle:Unit:editInstance }
+
+bluebear_backoffice_unit_instance_delete:
+    pattern: /units/instances/delete/{id}
+    defaults: { _controller: BlueBearGameBundle:Unit:deleteInstance }
+
+# Units models
+bluebear_backoffice_unit_model_create:
+    pattern: /units/models/create
+    defaults: { _controller: BlueBearGameBundle:Unit:createModel }
 
 
-bluebear_backoffice_unit_edit:
-    pattern: /units/edit/{id}
-    defaults: { _controller: BlueBearGameBundle:Unit:edit }
+bluebear_backoffice_unit_model_edit:
+    pattern: /units/models/edit/{id}
+    defaults: { _controller: BlueBearGameBundle:Unit:editModel }
+
+bluebear_backoffice_unit_model_delete:
+    pattern: /units/models/delete/{id}
+    defaults: { _controller: BlueBearGameBundle:Unit:deleteModel }

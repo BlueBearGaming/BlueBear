@@ -1,8 +1,14 @@
 parameters:
-    bluebear.manager.unit: BlueBear\GameBundle\Manager\UnitManager
+    bluebear.manager.unit_instance: BlueBear\GameBundle\Manager\UnitInstanceManager
+    bluebear.manager.unit_model: BlueBear\GameBundle\Manager\UnitModelManager
 
 services:
-    bluebear.manager.unit:
-        class: %bluebear.manager.unit%
+    bluebear.manager.unit_instance:
+        class: %bluebear.manager.unit_instance%
+        calls:
+            - [setContainer, [@service_container]]
+
+    bluebear.manager.unit_model:
+        class: %bluebear.manager.unit_model%
         calls:
             - [setContainer, [@service_container]]

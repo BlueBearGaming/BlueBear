@@ -6,7 +6,7 @@ use BlueBear\CoreBundle\Constant\Map\Constant;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class UnitType extends AbstractType
+class UnitInstanceType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -17,7 +17,7 @@ class UnitType extends AbstractType
             'choices' => Constant::getUnitsType()
         ]);
         $builder->add('attributes', 'collection', [
-            'type' => 'attribute',
+            'type' => 'unit_instance_attribute',
             'allow_add' => true,
             'widget_add_btn' => [
                 'label' => 'Add attribute'
@@ -29,6 +29,6 @@ class UnitType extends AbstractType
 
     public function getName()
     {
-        return 'unit';
+        return 'unit_instance';
     }
 }

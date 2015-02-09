@@ -13,15 +13,15 @@
 <li class="{{ route[:'bluebear_backoffice_documentation'|length] == 'bluebear_backoffice_documentation' ? 'active' : '' }}">
     <a href="{{ path('bluebear_backoffice_documentation') }}">Docs</a>
 </li>
+<li class="{{ getClassForRoute('bluebear_backoffice_unit') }}">
+    <a href="{{ path('bluebear_backoffice_unit') }}">Units</a>
+</li>
 <li class="dropdown">
     <a href="#" class="dropdown-toggle"
        data-toggle="dropdown" role="button"
        aria-expanded="false">Content <span class="caret"></span>
     </a>
     <ul class="dropdown-menu" role="menu">
-        <li>
-            <a href="{{ path('bluebear_content_index') }}">Stories / Campaign</a>
-        </li>
         <li>
             <a href="{{ path('bluebear_backoffice_unit') }}">Units</a>
         </li>

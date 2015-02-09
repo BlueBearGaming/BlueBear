@@ -11,12 +11,18 @@ use BlueBear\CoreBundle\Manager\MapItemManager;
 use BlueBear\CoreBundle\Utils\Position;
 use BlueBear\GameBundle\Entity\Unit;
 use BlueBear\GameBundle\Entity\UnitInstance;
+use BlueBear\GameBundle\Entity\UnitModel;
 use BlueBear\GameBundle\Manager\UnitManager;
 use Exception;
 
 class UnitFactory
 {
     use ContainerTrait;
+
+    /**
+     * @var UnitModel[]
+     */
+    protected $unitsModel = [];
 
     /**
      * Create a instance of a unit with its "pattern" on map in a specific position

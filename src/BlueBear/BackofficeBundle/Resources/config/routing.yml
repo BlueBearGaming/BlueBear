@@ -80,12 +80,6 @@ bluebear_backoffice_api_test_php:
     pattern: /tests/php
     defaults: { _controller: BlueBearBackofficeBundle:Api:testPHP }
 
-
-# Content
-bluebear_content_index:
-    pattern: /content/unit
-    defaults: { _controller: BlueBearBackofficeBundle:Content:index }
-
 # Documentation
 bluebear_backoffice_documentation:
     pattern: /docs
