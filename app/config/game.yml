@@ -4,8 +4,11 @@ blue_bear_game:
             attributes: [hp, armor]
         unit:
             attributes: [hp, race, class, intelligence, dexterity, force]
+        # item container represents a item which can holding other items, like a chest
         item_container:
+            attributes: [hp, armor]
         item:
+            attributes: [hp, armor]
         weapon:
     attribute:
         hp: {label: Hit point, type: int}
