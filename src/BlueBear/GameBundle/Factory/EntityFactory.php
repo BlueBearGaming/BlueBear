@@ -35,9 +35,6 @@ class EntityFactory
         if (!count($entityAttributesConfig)) {
             throw new Exception('Invalid entity attribute configuration');
         }
-        //var_dump($entityTypesConfig);
-        //var_dump($entityAttributesConfig);
-
         foreach ($entityAttributesConfig as $name => $entityAttributeConfig) {
             $attribute = new EntityTypeAttribute();
             $attribute->setName($name);
@@ -45,8 +42,6 @@ class EntityFactory
             $attribute->setType($entityAttributeConfig['type']);
             $this->entityTypeAttributes[$name] = $attribute;
         }
-
-
         foreach ($entityTypesConfig as $name => $entityTypeConfig) {
             $entityType = new EntityType();
             $entityType->setName($name);
@@ -61,10 +56,13 @@ class EntityFactory
             $this->entityTypes[] = $entityType;
 
         }
-        var_dump($this->entityTypes);
-
-        die;
-
     }
 
+    /**
+     * @return EntityType[]
+     */
+    public function getEntityTypes()
+    {
+        return $this->entityTypes;
+    }
 }

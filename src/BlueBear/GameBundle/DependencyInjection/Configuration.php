@@ -26,6 +26,7 @@ class Configuration implements ConfigurationInterface
                                 ->prototype('scalar')->end()
                             ->end()
                             ->scalarNode('label')->isRequired()->end()
+                            ->scalarNode('description')->isRequired()->end()
                         ->end()
                     ->end()
                 ->end()

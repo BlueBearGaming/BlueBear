@@ -2,7 +2,7 @@ parameters:
     bluebear.form.entity_instance: BlueBear\GameBundle\Form\EntityInstanceType
     bluebear.form.entity_model: BlueBear\GameBundle\Form\EntityModelType
     bluebear.form.entity_instance_attribute: BlueBear\GameBundle\Form\EntityInstanceAttributeType
-    bluebear.form.entity_model_attribute: BlueBear\GameBundle\Form\EntityInstanceModelType
+    bluebear.form.entity_model_attribute: BlueBear\GameBundle\Form\EntityModelAttributeType
 
 services:
     bluebear.form.entity_instance:

@@ -2,6 +2,7 @@
 
 namespace BlueBear\GameBundle\Form;
 
+use BlueBear\GameBundle\Game\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -13,19 +14,20 @@ class EntityModelType extends AbstractType
         $builder->add('name', 'text', [
             'help_block' => 'Name of the unit'
         ]);
-//        $builder->add('type', 'choice', [
-//            'choices' => []
-//        ]);
-        $builder->add('attributes', 'collection', [
-            'type' => 'unit_model_attribute',
-            'allow_add' => true,
-            'widget_add_btn' => [
-                'label' => 'Add attribute'
-            ],
-            'options' => [
-                'entity_types' => $options['entity_types']
-            ]
+        $builder->add('type', 'choice', [
+            'choices' => $this->sortEntityTypes($options['entity_types'])
         ]);
+        //var_dump($options['data']);
+//        $builder->add('attributes', 'collection', [
+//            'type' => 'entity_model_attribute',
+//            'allow_add' => true,
+//            'widget_add_btn' => [
+//                'label' => 'Add attribute'
+//            ],
+//            'options' => [
+//
+//            ]
+//        ]);
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
@@ -38,6 +40,16 @@ class EntityModelType extends AbstractType
 
     public function getName()
     {
-        return 'unit_model';
+        return 'entity_model';
+    }
+
+    protected function sortEntityTypes(array $entityTypes)
+    {
+        $sorted = [];
+        /** @var EntityType $entityType */
+        foreach ($entityTypes as $entityType) {
+            $sorted[$entityType->getName()] = $entityType;
+        }
+        return $entityTypes;
     }
 }

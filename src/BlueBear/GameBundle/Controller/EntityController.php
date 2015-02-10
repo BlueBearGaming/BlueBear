@@ -84,8 +84,10 @@ class EntityController extends Controller
      */
     public function editModelAction(Request $request, EntityModel $entityModel)
     {
-        $entityTypes = $this->get('bluebear.game.entity_factory');
-        $form = $this->createForm('entity_model', $entityModel);
+        $entityTypes = $this->get('bluebear.game.entity_factory')->getEntityTypes();
+        $form = $this->createForm('entity_model', $entityModel, [
+            'entity_types' => $entityTypes
+        ]);
         $form->handleRequest($request);
 
         if ($form->isValid()) {

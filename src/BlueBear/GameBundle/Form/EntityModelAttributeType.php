@@ -6,13 +6,10 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class EntityInstanceModelType extends AbstractType
+class EntityModelAttributeType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        var_dump($options['entity_types']);
-        die;
-
         $builder->add('id', 'choice', [
             'choices' => []
         ]);
@@ -21,13 +18,12 @@ class EntityInstanceModelType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'BlueBear\GameBundle\Entity\EntityModelAttribute',
-            'entity_types' => []
+            'data_class' => 'BlueBear\GameBundle\Entity\EntityModelAttribute'
         ]);
     }
 
     public function getName()
     {
-        return 'unit_model_attribute';
+        return 'entity_model_attribute';
     }
 }

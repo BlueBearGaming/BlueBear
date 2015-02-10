@@ -3,23 +3,29 @@ blue_bear_game:
         door:
             label: Door
             attributes: [hp, armor]
+            description: A way to go into another room
         unit:
-            label: Door
+            label: Unit
             attributes: [hp, race, class, intelligence, dexterity, force]
+            description: Unit on map (panda or foes)
         # item container represents a item which can holding other items, like a chest
         item_container:
-            label: Door
+            label: ItemContainer
             attributes: [hp, armor]
+            description: An item container can hold other items, like a chest...
         item:
-            label: Door
+            label: Item
             attributes: [hp, armor]
+            description: An item on the map
         weapon:
-            label: Door
+            label: Weapon
             attributes: [hp, armor]
+            description: A weapon to deal damage
     attribute:
         # race, class
         race: {label: bluebear.attributes.race, type: string}
         class: {label: bluebear.attributes.class, type: string}
+        armor: {label: bluebear.attributes.armor, type: int}
         # attack and defence are calculated from dexterity and force
         hp: {label: bluebear.attributes.hit_point, type: int}
         intelligence: {label: bluebear.attributes.intelligence, type: int}
