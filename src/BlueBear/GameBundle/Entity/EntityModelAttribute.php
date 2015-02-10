@@ -10,11 +10,11 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Generic attributes
  *
- * @ORM\Table(name="unit_model_attribute")
- * @ORM\Entity(repositoryClass="BlueBear\GameBundle\Entity\UnitModelAttributeRepository")
+ * @ORM\Table(name="entity_model_attribute")
+ * @ORM\Entity(repositoryClass="BlueBear\GameBundle\Entity\EntityModelAttributeRepository")
  * @ORM\HasLifecycleCallbacks()
  */
-class UnitModelAttribute
+class EntityModelAttribute
 {
     use Id, Nameable, Valuable;
 }

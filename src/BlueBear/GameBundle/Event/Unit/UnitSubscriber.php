@@ -48,7 +48,7 @@ class UnitSubscriber implements EventSubscriberInterface
         }
         $position = new Position($request->x, $request->y);
         // create an instance of the unit into the map
-        $this->getContainer()->get('bluebear.factory.unit')->create($event->getContext(), $unit, $position);
+        $this->getContainer()->get('bluebear.game.unit_factory')->create($event->getContext(), $unit, $position);
         // set event response
         $response = new PutUnitResponse();
         $event->setResponse($response);

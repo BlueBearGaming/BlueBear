@@ -12,17 +12,17 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * A unit
  *
- * @ORM\Table(name="unit_model")
- * @ORM\Entity(repositoryClass="BlueBear\GameBundle\Entity\UnitModelRepository")
+ * @ORM\Table(name="entity_model")
+ * @ORM\Entity(repositoryClass="BlueBear\GameBundle\Entity\EntityModelRepository")
  * @ORM\HasLifecycleCallbacks()
  */
-class UnitModel
+class EntityModel
 {
     use Id, Nameable, Label, Timestampable, Typeable;
 
     /**
      * @var
-     * @ORM\ManyToMany(targetEntity="BlueBear\GameBundle\Entity\UnitModelAttribute", cascade={"persist"}, fetch="EAGER")
+     * @ORM\ManyToMany(targetEntity="BlueBear\GameBundle\Entity\EntityModelAttribute", cascade={"persist"}, fetch="EAGER")
      */
     protected $attributes;
 

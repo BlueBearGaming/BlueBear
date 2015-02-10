@@ -4,17 +4,18 @@ imports:
 
 parameters:
     # unit factory
-    bluebear.factory.unit: BlueBear\GameBundle\Factory\UnitFactory
+    bluebear.game.unit_factory: BlueBear\GameBundle\Factory\UnitFactory
     # events subscribers
     bluebear.engine.event.mapitem_subscriber: BlueBear\GameBundle\Event\MapItem\MapItemSubscriber
     bluebear.engine.event.unit_subscriber: BlueBear\GameBundle\Event\Unit\UnitSubscriber
 
 services:
     # factory
-    bluebear.factory.unit:
-        class: %bluebear.factory.unit%
+    bluebear.game.unit_factory:
+        class: %bluebear.game.unit_factory%
         calls:
             - [setContainer, [@service_container]]
+            - [setEntityTypes, [%bluebear.game.entity_type%, %bluebear.game.attribute%]]
 
     # events subscribers
     bluebear.engine.event.mapitem_subscriber:

@@ -1,15 +1,21 @@
 blue_bear_game:
     entity_type:
         door:
+            label: Door
             attributes: [hp, armor]
         unit:
+            label: Door
             attributes: [hp, race, class, intelligence, dexterity, force]
         # item container represents a item which can holding other items, like a chest
         item_container:
+            label: Door
             attributes: [hp, armor]
         item:
+            label: Door
             attributes: [hp, armor]
         weapon:
+            label: Door
+            attributes: [hp, armor]
     attribute:
         # race, class
         race: {label: bluebear.attributes.race, type: string}

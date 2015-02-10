@@ -1,6 +1,8 @@
 parameters:
     bluebear.form.unit_instance: BlueBear\GameBundle\Form\UnitInstanceType
+    bluebear.form.unit_model: BlueBear\GameBundle\Form\UnitModelType
     bluebear.form.unit_instance_attribute: BlueBear\GameBundle\Form\UnitInstanceAttributeType
+    bluebear.form.unit_model_attribute: BlueBear\GameBundle\Form\UnitInstanceModelType
 
 services:
     bluebear.form.unit_instance:
@@ -8,7 +10,17 @@ services:
         tags:
             - { name: form.type, alias: unit_instance }
 
+    bluebear.form.unit_model:
+        class: %bluebear.form.unit_model%
+        tags:
+            - { name: form.type, alias: unit_model }
+
     bluebear.form.attribute:
         class: %bluebear.form.unit_instance_attribute%
         tags:
             - { name: form.type, alias: unit_instance_attribute }
+
+    bluebear.form.model:
+        class: %bluebear.form.unit_model_attribute%
+        tags:
+            - { name: form.type, alias: unit_model_attribute }

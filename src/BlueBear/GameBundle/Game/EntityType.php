@@ -2,11 +2,12 @@
 
 namespace BlueBear\GameBundle\Game;
 
+use BlueBear\CoreBundle\Entity\Behavior\Label;
 use BlueBear\CoreBundle\Entity\Behavior\Nameable;
 
 class EntityType
 {
-    use Nameable;
+    use Nameable, Label;
 
     /**
      * @var EntityTypeAttribute[]

@@ -3,8 +3,8 @@
 namespace BlueBear\GameBundle\Controller;
 
 use BlueBear\BaseBundle\Behavior\ControllerTrait;
+use BlueBear\GameBundle\Entity\EntityModel;
 use BlueBear\GameBundle\Entity\UnitInstance;
-use BlueBear\GameBundle\Entity\UnitModel;
 use BlueBear\GameBundle\Manager\UnitInstanceManager;
 use BlueBear\GameBundle\Manager\UnitModelManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -37,7 +37,7 @@ class UnitController extends Controller
      */
     public function createInstanceAction(Request $request)
     {
-        return $this->editAction($request, new Unit());
+        return $this->editInstanceAction($request, new UnitInstance());
     }
 
     /**
@@ -73,17 +73,18 @@ class UnitController extends Controller
      */
     public function createModelAction(Request $request)
     {
-        return $this->editAction($request, new UnitModel());
+        return $this->editModelAction($request, new EntityModel());
     }
 
     /**
      * @Template("BlueBearGameBundle:Unit:edit.html.twig")
      * @param Request $request
-     * @param UnitModel $unitModel
+     * @param EntityModel $unitModel
      * @return array|RedirectResponse
      */
-    public function editModelAction(Request $request, UnitModel $unitModel)
+    public function editModelAction(Request $request, EntityModel $unitModel)
     {
+        $entityTypes = $this->get('bluebear.game.unit_factory');
         $form = $this->createForm('unit_model', $unitModel);
         $form->handleRequest($request);
 
