@@ -1,6 +1,6 @@
 <?php
 
-namespace BlueBear\GameBundle\Event\Unit;
+namespace BlueBear\GameBundle\Event\Entity;
 
 use BlueBear\EngineBundle\Event\EventRequest;
 use JMS\Serializer\Annotation\Expose;

@@ -5,19 +5,19 @@ namespace BlueBear\GameBundle\Manager;
 use BlueBear\BaseBundle\Behavior\ManagerBehavior;
 use BlueBear\CoreBundle\Entity\Map\Context;
 use BlueBear\CoreBundle\Utils\Position;
-use BlueBear\GameBundle\Entity\UnitInstance;
-use BlueBear\GameBundle\Entity\UnitInstanceRepository;
+use BlueBear\GameBundle\Entity\EntityInstance;
+use BlueBear\GameBundle\Entity\EntityInstanceRepository;
 
-class UnitInstanceManager
+class EntityInstanceManager
 {
     use ManagerBehavior;
 
     /**
-     * Return a unit instance by its position and its context
+     * Return a entity instance by its position and its context
      *
      * @param Context $context
      * @param Position $position
-     * @return UnitInstance
+     * @return EntityInstance
      */
     public function findByPosition(Context $context, Position $position)
     {
@@ -31,10 +31,10 @@ class UnitInstanceManager
     /**
      * Return current manager repository
      *
-     * @return UnitInstanceRepository
+     * @return EntityInstanceRepository
      */
     protected function getRepository()
     {
-        return $this->getEntityManager()->getRepository('BlueBearGameBundle:UnitInstance');
+        return $this->getEntityManager()->getRepository('BlueBearGameBundle:EntityInstance');
     }
 }

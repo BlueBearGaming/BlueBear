@@ -1,26 +1,26 @@
 parameters:
-    bluebear.form.unit_instance: BlueBear\GameBundle\Form\UnitInstanceType
-    bluebear.form.unit_model: BlueBear\GameBundle\Form\UnitModelType
-    bluebear.form.unit_instance_attribute: BlueBear\GameBundle\Form\UnitInstanceAttributeType
-    bluebear.form.unit_model_attribute: BlueBear\GameBundle\Form\UnitInstanceModelType
+    bluebear.form.entity_instance: BlueBear\GameBundle\Form\EntityInstanceType
+    bluebear.form.entity_model: BlueBear\GameBundle\Form\EntityModelType
+    bluebear.form.entity_instance_attribute: BlueBear\GameBundle\Form\EntityInstanceAttributeType
+    bluebear.form.entity_model_attribute: BlueBear\GameBundle\Form\EntityInstanceModelType
 
 services:
-    bluebear.form.unit_instance:
-        class: %bluebear.form.unit_instance%
+    bluebear.form.entity_instance:
+        class: %bluebear.form.entity_instance%
         tags:
-            - { name: form.type, alias: unit_instance }
+            - { name: form.type, alias: entity_instance }
 
-    bluebear.form.unit_model:
-        class: %bluebear.form.unit_model%
+    bluebear.form.entity_model:
+        class: %bluebear.form.entity_model%
         tags:
-            - { name: form.type, alias: unit_model }
+            - { name: form.type, alias: entity_model }
 
     bluebear.form.attribute:
-        class: %bluebear.form.unit_instance_attribute%
+        class: %bluebear.form.entity_instance_attribute%
         tags:
-            - { name: form.type, alias: unit_instance_attribute }
+            - { name: form.type, alias: entity_instance_attribute }
 
     bluebear.form.model:
-        class: %bluebear.form.unit_model_attribute%
+        class: %bluebear.form.entity_model_attribute%
         tags:
-            - { name: form.type, alias: unit_model_attribute }
+            - { name: form.type, alias: entity_model_attribute }

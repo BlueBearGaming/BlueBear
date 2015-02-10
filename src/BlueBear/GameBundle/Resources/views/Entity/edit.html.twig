@@ -3,7 +3,7 @@
 {% block content %}
     <h1>Unit Edit</h1>
     {% set action = app.request.get('_route') %}
-    {% set returnRoute = 'bluebear_backoffice_unit' %}
+    {% set returnRoute = 'bluebear_backoffice_entity' %}
     {% set containerClass = 'edit-unit' %}
 
     {{ block('generic_form') }}

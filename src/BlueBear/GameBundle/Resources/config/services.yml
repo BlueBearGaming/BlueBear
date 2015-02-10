@@ -3,16 +3,16 @@ imports:
     - { resource: forms.yml }
 
 parameters:
-    # unit factory
-    bluebear.game.unit_factory: BlueBear\GameBundle\Factory\UnitFactory
+    # entity factory
+    bluebear.game.entity_factory: BlueBear\GameBundle\Factory\EntityFactory
     # events subscribers
     bluebear.engine.event.mapitem_subscriber: BlueBear\GameBundle\Event\MapItem\MapItemSubscriber
-    bluebear.engine.event.unit_subscriber: BlueBear\GameBundle\Event\Unit\UnitSubscriber
+    bluebear.engine.event.entity_subscriber: BlueBear\GameBundle\Event\Entity\EntitySubscriber
 
 services:
     # factory
-    bluebear.game.unit_factory:
-        class: %bluebear.game.unit_factory%
+    bluebear.game.entity_factory:
+        class: %bluebear.game.entity_factory%
         calls:
             - [setContainer, [@service_container]]
             - [setEntityTypes, [%bluebear.game.entity_type%, %bluebear.game.attribute%]]
@@ -25,8 +25,8 @@ services:
         calls:
             - [setContainer, [@service_container]]
 
-    bluebear.engine.event.unit_subscriber:
-        class: %bluebear.engine.event.unit_subscriber%
+    bluebear.engine.event.entity_subscriber:
+        class: %bluebear.engine.event.entity_subscriber%
         tags:
             - {name: kernel.event_subscriber}
         calls:

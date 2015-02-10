@@ -9,11 +9,17 @@ use BlueBear\CoreBundle\Entity\Map\Layer;
 use BlueBear\CoreBundle\Entity\Map\MapItem;
 use BlueBear\CoreBundle\Manager\MapItemManager;
 use BlueBear\CoreBundle\Utils\Position;
+use BlueBear\GameBundle\Entity\EntityModel;
 use BlueBear\GameBundle\Entity\UnitInstance;
 use BlueBear\GameBundle\Game\EntityType;
 use BlueBear\GameBundle\Game\EntityTypeAttribute;
 use Exception;
 
+/**
+ * UnitFactory
+ *
+ * @toRemove()
+ */
 class UnitFactory
 {
     use ContainerTrait;
@@ -29,49 +35,10 @@ class UnitFactory
     protected $entityTypes = [];
 
     /**
-     * @var UnitModel[]
+     * @var EntityModel[]
      */
     protected $unitsModels = [];
 
-    public function setEntityTypes(array $entityTypesConfig, array $entityAttributesConfig)
-    {
-        if (!count($entityTypesConfig)) {
-            throw new Exception('Invalid entity types configuration');
-        }
-        if (!count($entityAttributesConfig)) {
-            throw new Exception('Invalid entity attribute configuration');
-        }
-        //var_dump($entityTypesConfig);
-        //var_dump($entityAttributesConfig);
-        
-        foreach ($entityAttributesConfig as $name => $entityAttributeConfig) {
-            $attribute = new EntityTypeAttribute();
-            $attribute->setName($name);
-            $attribute->setLabel($entityAttributeConfig['label']);
-            $attribute->setType($entityAttributeConfig['type']);
-            $this->entityTypeAttributes[$name] = $attribute;
-        }
-
-
-        foreach ($entityTypesConfig as $name => $entityTypeConfig) {
-            $entityType = new EntityType();
-            $entityType->setName($name);
-            $entityType->setLabel($entityTypeConfig['label']);
-
-            foreach ($entityTypeConfig['attributes'] as $attributeName) {
-                if (!array_key_exists($attributeName, $this->entityTypeAttributes)) {
-                    throw new Exception('Unknown entity attribute type : ' . $attributeName);
-                }
-                $entityType->addAttribute($this->entityTypeAttributes[$attributeName]);
-            }
-            $this->entityTypes[] = $entityType;
-
-        }
-        var_dump($this->entityTypes);
-
-        die;
-
-    }
 
     /**
      * Create a instance of a unit with its "pattern" on map in a specific position

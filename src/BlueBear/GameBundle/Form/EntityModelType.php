@@ -2,21 +2,20 @@
 
 namespace BlueBear\GameBundle\Form;
 
-use BlueBear\CoreBundle\Constant\Map\Constant;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class UnitModelType extends AbstractType
+class EntityModelType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('name', 'text', [
             'help_block' => 'Name of the unit'
         ]);
-        $builder->add('type', 'choice', [
-            'choices' => Constant::getUnitsType()
-        ]);
+//        $builder->add('type', 'choice', [
+//            'choices' => []
+//        ]);
         $builder->add('attributes', 'collection', [
             'type' => 'unit_model_attribute',
             'allow_add' => true,

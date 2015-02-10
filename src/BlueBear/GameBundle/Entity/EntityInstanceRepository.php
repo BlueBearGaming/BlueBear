@@ -5,10 +5,10 @@ namespace BlueBear\GameBundle\Entity;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 
-class UnitInstanceRepository extends EntityRepository
+class EntityInstanceRepository extends EntityRepository
 {
     /**
-     * Return an unit instance by its context and its position
+     * Return an entity instance by its context and its position
      *
      * @param $contextId
      * @param $x

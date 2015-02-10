@@ -4,6 +4,6 @@ namespace BlueBear\GameBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 
-class UnitInstanceAttributeRepository extends EntityRepository
+class EntityInstanceAttributeRepository extends EntityRepository
 {
 }

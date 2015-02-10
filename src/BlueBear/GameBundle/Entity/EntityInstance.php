@@ -14,17 +14,17 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * Represents a instance of a unit on map
  *
- * @ORM\Table(name="unit_instance")
- * @ORM\Entity(repositoryClass="BlueBear\GameBundle\Entity\UnitInstanceRepository")
+ * @ORM\Table(name="entity_instance")
+ * @ORM\Entity(repositoryClass="BlueBear\GameBundle\Entity\EntityInstanceRepository")
  * @ORM\HasLifecycleCallbacks()
  */
-class UnitInstance
+class EntityInstance
 {
     use Id, Nameable, Label, Timestampable, Typeable;
 
     /**
      * @var
-     * @ORM\ManyToMany(targetEntity="BlueBear\GameBundle\Entity\UnitInstanceAttribute", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="BlueBear\GameBundle\Entity\EntityInstanceAttribute", cascade={"persist"})
      */
     protected $attributes;
 
@@ -33,8 +33,9 @@ class UnitInstance
      */
     protected $mapItem;
 
-    public function hydrateFromModel(UnitModel $unit)
+    public function hydrateFromModel(EntityInstance $unit)
     {
+        die('hydrate');
         $this->id = $unit->getId();
         $this->name = $unit->getName();
         $this->label = $unit->getLabel();

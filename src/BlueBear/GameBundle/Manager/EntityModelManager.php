@@ -4,12 +4,12 @@ namespace BlueBear\GameBundle\Manager;
 
 use BlueBear\BaseBundle\Behavior\ManagerBehavior;
 
-class UnitModelManager
+class EntityModelManager
 {
     use ManagerBehavior;
 
     protected function getRepository()
     {
-        return $this->getEntityManager()->getRepository('BlueBearGameBundle:UnitModel');
+        return $this->getEntityManager()->getRepository('BlueBearGameBundle:EntityModel');
     }
 }

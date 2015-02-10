@@ -6,11 +6,12 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class UnitInstanceModelType extends AbstractType
+class EntityInstanceModelType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         var_dump($options['entity_types']);
+        die;
 
         $builder->add('id', 'choice', [
             'choices' => []

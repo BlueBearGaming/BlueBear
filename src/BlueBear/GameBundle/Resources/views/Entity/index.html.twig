@@ -1,0 +1,32 @@
+{% extends 'BlueBearBackofficeBundle::layout.html.twig' %}
+
+{% block rightMenu %}
+    <ul class="nav nav-pills nav-stacked">
+        <li><a href="{{ path('bluebear_backoffice_entity_instance_create') }}">Add new entity instance</a></li>
+        <li><a href="{{ path('bluebear_backoffice_entity_model_create') }}">Add new entity model</a></li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+    <h1>Entities</h1>
+    <h2>Entities models</h2>
+
+    <div class="entities-list">
+        {% set entities = entityModels %}
+        {% set editRoute = 'bluebear_backoffice_entity_model_edit' %}
+        {% set deleteRoute = 'bluebear_backoffice_entity_model_delete' %}
+        {% set fields = ['id', 'name'] %}
+
+        {{ block('generic_list') }}
+    </div>
+    <h2>Entities instances</h2>
+
+    <div class="entities-list">
+        {% set entities = entityInstances %}
+        {% set editRoute = 'bluebear_backoffice_entity_instance_edit' %}
+        {% set deleteRoute = 'bluebear_backoffice_entity_instance_delete' %}
+        {% set fields = ['id', 'name'] %}
+
+        {{ block('generic_list') }}
+    </div>
+{% endblock %}
