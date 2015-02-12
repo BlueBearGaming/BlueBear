@@ -4,6 +4,9 @@ namespace BlueBear\CoreBundle\Entity\Behavior;
 
 trait Valuable
 {
+    /**
+     * @ORM\Column(name="value", type="string", length=255)
+     */
     protected $value;
 
     /**

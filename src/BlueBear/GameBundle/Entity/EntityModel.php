@@ -7,7 +7,9 @@ use BlueBear\CoreBundle\Entity\Behavior\Label;
 use BlueBear\CoreBundle\Entity\Behavior\Nameable;
 use BlueBear\CoreBundle\Entity\Behavior\Timestampable;
 use BlueBear\CoreBundle\Entity\Behavior\Typeable;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * A unit
@@ -15,16 +17,22 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="entity_model")
  * @ORM\Entity(repositoryClass="BlueBear\GameBundle\Entity\EntityModelRepository")
  * @ORM\HasLifecycleCallbacks()
+ * @UniqueEntity("name")
  */
 class EntityModel
 {
     use Id, Nameable, Label, Timestampable, Typeable;
 
     /**
-     * @var
-     * @ORM\ManyToMany(targetEntity="BlueBear\GameBundle\Entity\EntityModelAttribute", cascade={"persist"}, fetch="EAGER")
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="BlueBear\GameBundle\Entity\EntityModelAttribute", mappedBy="entityModel", cascade={"persist", "remove"}, fetch="EAGER")
      */
     protected $attributes;
+
+    public function __construct()
+    {
+        $this->attributes = new ArrayCollection();
+    }
 
     /**
      * @return mixed
@@ -40,5 +48,11 @@ class EntityModel
     public function setAttributes($attributes)
     {
         $this->attributes = $attributes;
+    }
+
+    public function addAttributes(EntityModelAttribute $entityModelAttribute)
+    {
+        $this->attributes->add($entityModelAttribute);
+        $entityModelAttribute->setEntityModel($this);
     }
 }

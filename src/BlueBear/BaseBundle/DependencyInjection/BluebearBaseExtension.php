@@ -1,6 +1,6 @@
 <?php
 
-namespace BlueBear\AdminBundle\DependencyInjection;
+namespace BlueBear\BaseBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -12,7 +12,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class BlueBearBaseExtension extends Extension
+class BluebearBaseExtension extends Extension
 {
     /**
      * {@inheritDoc}

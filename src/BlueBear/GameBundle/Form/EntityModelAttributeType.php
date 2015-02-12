@@ -2,17 +2,47 @@
 
 namespace BlueBear\GameBundle\Form;
 
+use BlueBear\CoreBundle\Constant\Map\Constant;
+use BlueBear\GameBundle\Entity\EntityModelAttribute;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class EntityModelAttributeType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('id', 'choice', [
-            'choices' => []
+        $builder->add('name', 'text');
+        $builder->add('value', 'text');
+        $builder->add('type', 'choice', [
+            'choices' => Constant::getEntityModelAttributesTypes()
         ]);
+        /** we need a event here, see https://github.com/symfony/symfony/issues/5694 **/
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $formEvent) {
+            /** @var EntityModelAttribute $attribute */
+            $attribute = $formEvent->getData();
+            $form = $formEvent->getForm();
+
+            if ($attribute and $attribute->isDefault()) {
+                $valueType = 'text';
+
+                if ($attribute->getType() == 'int') {
+                    $valueType = 'integer';
+                }
+                $form->add('name', 'text', [
+                    'attr' => [
+                        'disabled' => true
+                    ]
+                ]);
+                $form->add('value', "text");
+                $form->add('type', 'choice', [
+                    'choices' => Constant::getEntityModelAttributesTypes(),
+                    'disabled' => true
+                ]);
+            }
+        });
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

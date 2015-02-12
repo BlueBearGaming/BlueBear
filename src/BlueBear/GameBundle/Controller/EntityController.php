@@ -91,7 +91,7 @@ class EntityController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $this->getEntityInstanceManager()->save($entityModel);
+            $this->getEntityModelManager()->save($entityModel);
             $this->setMessage('Entity successfully saved');
             return $this->redirect('@bluebear_backoffice_entity');
         }
@@ -100,9 +100,10 @@ class EntityController extends Controller
         ];
     }
 
-    public function deleteModelAction()
+    public function deleteModelAction(EntityModel $entityModel)
     {
-
+        $this->getEntityModelManager()->delete($entityModel);
+        return $this->redirect('@bluebear_backoffice_entity');
     }
 
     /**

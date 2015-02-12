@@ -65,4 +65,33 @@ class EntityFactory
     {
         return $this->entityTypes;
     }
+
+    /**
+     * @param $entityTypeName
+     * @return EntityType
+     * @throws Exception
+     */
+    public function getEntityType($entityTypeName)
+    {
+        if (!array_key_exists($entityTypeName, $this->entityTypes)) {
+            throw new Exception('Invalid entity tape name');
+        }
+        return $this->entityTypes[$entityTypeName];
+    }
+
+    /**
+     * @return EntityTypeAttribute[]
+     */
+    public function getEntityTypeAttributes()
+    {
+        return $this->entityTypeAttributes;
+    }
+
+    /**
+     * @param EntityTypeAttribute[] $entityTypeAttributes
+     */
+    public function setEntityTypeAttributes($entityTypeAttributes)
+    {
+        $this->entityTypeAttributes = $entityTypeAttributes;
+    }
 }

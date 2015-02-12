@@ -33,11 +33,19 @@ class Constant
         ];
     }
 
-    public static function getUnitsType()
+    public static function getUnitsTypes()
     {
         return [
             'unit_panda' => 'Panda',
             'unit_bad_guy' => 'Bad Guy'
+        ];
+    }
+
+    public static function getEntityModelAttributesTypes()
+    {
+        return [
+            'string' => 'String',
+            'int' => 'integer'
         ];
     }
 } 

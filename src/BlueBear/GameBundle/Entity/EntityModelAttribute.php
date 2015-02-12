@@ -3,7 +3,9 @@
 namespace BlueBear\GameBundle\Entity;
 
 use BlueBear\CoreBundle\Entity\Behavior\Id;
+use BlueBear\CoreBundle\Entity\Behavior\Label;
 use BlueBear\CoreBundle\Entity\Behavior\Nameable;
+use BlueBear\CoreBundle\Entity\Behavior\Typeable;
 use BlueBear\CoreBundle\Entity\Behavior\Valuable;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -16,5 +18,56 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class EntityModelAttribute
 {
-    use Id, Nameable, Valuable;
+    use Id, Nameable, Label, Valuable, Typeable;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="BlueBear\GameBundle\Entity\EntityModel", inversedBy="attributes")
+     * @ORM\JoinColumn(name="entity_model_id")
+     */
+    protected $entityModel;
+
+    /**
+     * Define if current attribute inherits from configuration
+     *
+     * @var bool
+     * @ORM\Column(name="is_default", type="boolean")
+     */
+    protected $isDefault = false;
+
+    /**
+     * @return boolean
+     */
+    public function getIsDefault()
+    {
+        return $this->isDefault;
+    }
+
+    /**
+     * @param boolean $isDefault
+     */
+    public function setIsDefault($isDefault)
+    {
+        $this->isDefault = $isDefault;
+    }
+
+    public function isDefault()
+    {
+        return $this->isDefault;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEntityModel()
+    {
+        return $this->entityModel;
+    }
+
+    /**
+     * @param mixed $entityModel
+     */
+    public function setEntityModel($entityModel)
+    {
+        $this->entityModel = $entityModel;
+    }
 }
