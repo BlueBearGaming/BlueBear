@@ -1,84 +1,12 @@
+# homepage
 bluebear_backoffice_homepage:
     pattern:  /
     defaults: {_controller: BlueBearBackofficeBundle:Main:homepage}
-
-
-# Pencils
-bluebear_backoffice_pencil:
-    pattern: /pencils
-    defaults: { _controller: BlueBearBackofficeBundle:Pencil:index }
-
-bluebear_backoffice_pencil_create:
-    pattern: /pencils/create
-    defaults: { _controller: BlueBearBackofficeBundle:Pencil:create }
-
-bluebear_backoffice_pencil_edit:
-    pattern: /pencils/edit/{id}
-    defaults: { _controller: BlueBearBackofficeBundle:Pencil:edit }
-
-bluebear_backoffice_pencil_delete:
-    pattern: /pencils/delete/{id}
-    defaults: { _controller: BlueBearBackofficeBundle:Pencil:delete }
-
-
-# PencilSets
-bluebear_backoffice_pencil_set:
-    pattern: /pencils-sets
-    defaults: { _controller: BlueBearBackofficeBundle:PencilSet:index }
-
-bluebear_backoffice_pencil_set_create:
-    pattern: /pencils-sets/create
-    defaults: { _controller: BlueBearBackofficeBundle:PencilSet:create }
-
-bluebear_backoffice_pencil_set_edit:
-    pattern: /pencils-sets/edit/{id}
-    defaults: { _controller: BlueBearBackofficeBundle:PencilSet:edit }
-
-bluebear_backoffice_pencil_set_delete:
-    pattern: /pencils-sets/delete/{id}
-    defaults: { _controller: BlueBearBackofficeBundle:PencilSet:delete }
-
-
-# Layers
-bluebear_backoffice_layer:
-    pattern: /layers
-    defaults: { _controller: BlueBearBackofficeBundle:Layer:index }
-
-bluebear_backoffice_layer_create:
-    pattern: /layers/create
-    defaults: { _controller: BlueBearBackofficeBundle:Layer:edit }
-
-bluebear_backoffice_layer_edit:
-    pattern: /layers/edit
-    defaults: { _controller: BlueBearBackofficeBundle:Layer:edit }
-
-bluebear_backoffice_layer_delete:
-    pattern: /layers/delete/{id}
-    defaults: { _controller: BlueBearBackofficeBundle:Layer:delete }
-
-
-# Map
-bluebear_backoffice_map:
-    pattern: /maps
-    defaults: { _controller: BlueBearBackofficeBundle:Map:index }
-
-bluebear_backoffice_map_edit:
-    pattern: /map/edit
-    defaults: { _controller: BlueBearBackofficeBundle:Map:edit }
-
-bluebear_backoffice_map_delete:
-    pattern: /map/delete/{id}
-    defaults: { _controller: BlueBearBackofficeBundle:Map:delete }
-
 
 # Tests
 bluebear_backoffice_api:
     pattern: /tests
     defaults: { _controller: BlueBearBackofficeBundle:Api:index }
-
-bluebear_backoffice_api_test_php:
-    pattern: /tests/php
-    defaults: { _controller: BlueBearBackofficeBundle:Api:testPHP }
 
 # Documentation
 bluebear_backoffice_documentation:

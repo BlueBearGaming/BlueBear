@@ -26,20 +26,17 @@ class EntityModelAttributeType extends AbstractType
             $form = $formEvent->getForm();
 
             if ($attribute and $attribute->isDefault()) {
-                $valueType = 'text';
-
-                if ($attribute->getType() == 'int') {
-                    $valueType = 'integer';
-                }
                 $form->add('name', 'text', [
                     'attr' => [
-                        'disabled' => true
+                        'readonly' => true
                     ]
                 ]);
-                $form->add('value', "text");
+                $form->add('value', 'text');
                 $form->add('type', 'choice', [
                     'choices' => Constant::getEntityModelAttributesTypes(),
-                    'disabled' => true
+                    'attr' => [
+                        'readonly' => true
+                    ]
                 ]);
             }
         });

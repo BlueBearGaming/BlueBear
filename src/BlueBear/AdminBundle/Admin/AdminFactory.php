@@ -136,7 +136,9 @@ class AdminFactory
         $default = $title;
 
         if ($action == 'list') {
-            $default = $this->inflectString($title) . 's list';
+            $default = $this->inflectString($title) . 's List';
+        } else if ($action == 'create') {
+            $default = 'Create ' . $this->inflectString($title);
         }
         return $default;
     }

@@ -9,7 +9,7 @@ blue_bear_admin:
     blocks_template: BlueBearAdminBundle:Form:fields.html.twig
     # list of managed admins
     admins:
-        # entities
+        # entities (pencil is an example)
         pencil:
             # orm entity class
             entity: BlueBear\CoreBundle\Entity\Map\Pencil
@@ -32,8 +32,13 @@ blue_bear_admin:
                 create: ~
                 edit: ~
                 delete: ~
+        # short configuration
         pencil_set:
-            # orm entity class
             entity: BlueBear\CoreBundle\Entity\Map\PencilSet
-            # associated form type
             form: pencil_set
+        layer:
+            entity: BlueBear\CoreBundle\Entity\Map\Layer
+            form: layer
+        map:
+            entity: BlueBear\CoreBundle\Entity\Map\Map
+            form: map

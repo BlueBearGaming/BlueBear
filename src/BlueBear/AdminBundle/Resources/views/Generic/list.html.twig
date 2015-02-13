@@ -2,12 +2,14 @@
 
 {% use "BlueBearAdminBundle:Form:fields.html.twig" %}
 
-{% block right %}
-    {{ render(controller('BlueBearMenuBundle:Menu:menu', {name: 'right'})) }}
+{% block left %}
+    <ul class="nav nav-pills nav-stacked">
+        <li><a href="{{ path(admin.action('list').route) }}">{{ admin.action('list').title }}</a></li>
+        <li><a href="{{ path(admin.action('create').route) }}">{{ admin.action('create').title }}</a></li>
+    </ul>
 {% endblock %}
 
 {% block content %}
-    {{ dump(admin.layout) }}
     <h1>{{ admin.currentAction.title }}</h1>
     <div class="pencils-list">
         {{ block('admin_list') }}
