@@ -129,9 +129,20 @@ class Admin
     public function getAction($name)
     {
         if (!array_key_exists($name, $this->getActions())) {
-            throw new Exception('Invalid action name for admin ' . $this->getName());
+            throw new Exception("Invalid action name \"{$name}\" for admin '{$this->getName()}'");
         }
         return $this->actions[$name];
+    }
+
+    /**
+     * Return if an action with specified name exists form this admin
+     *
+     * @param $name
+     * @return bool
+     */
+    public function hasAction($name)
+    {
+        return array_key_exists($name, $this->actions);
     }
 
     /**

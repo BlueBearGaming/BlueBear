@@ -24,17 +24,17 @@
 <li class="{{ getClassForRoute('bluebear_backoffice_documentation') }}">
     <a href="{{ path('bluebear_backoffice_documentation') }}">Docs</a>
 </li>
-<li class="{{ getClassForRoute('bluebear_backoffice_entity') }}">
-    <a href="{{ path('bluebear_backoffice_entity') }}">Entities</a>
-</li>
 <li class="dropdown">
     <a href="#" class="dropdown-toggle"
        data-toggle="dropdown" role="button"
-       aria-expanded="false">Content <span class="caret"></span>
+       aria-expanded="false">Entities <span class="caret"></span>
     </a>
     <ul class="dropdown-menu" role="menu">
-        <li>
-            <a href="{{ path('bluebear_backoffice_entity') }}">Units</a>
+        <li class="{{ getClassForRoute('bluebear_admin_entity_model_list') }}">
+            <a href="{{ path('bluebear_admin_entity_model_list') }}">Entity Models list</a>
+        </li>
+        <li class="{{ getClassForRoute('bluebear_admin_entity_instance_list') }}">
+            <a href="{{ path('bluebear_admin_entity_instance_list') }}">Entity Instances list</a>
         </li>
     </ul>
 </li>
