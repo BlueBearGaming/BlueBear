@@ -2,12 +2,19 @@
 
 namespace Task;
 
+require_once(__DIR__ . '/../../vendor/autoload.php');
+
 use Exception;
+use Mage\Console;
 use Mage\Task\BuiltIn\Symfony2\SymfonyAbstractTask;
 use Mage\Task\SkipException;
+use Symfony\Component\Yaml\Dumper;
+use Symfony\Component\Yaml\Parser;
 
 class SymfonyInit extends SymfonyAbstractTask
 {
+    use MageTaskTrait;
+
     /**
      * Returns the Title of the Task
      *
@@ -28,22 +35,45 @@ class SymfonyInit extends SymfonyAbstractTask
      */
     public function run()
     {
-        // shared directory
-        $this->runSharedDirectoryCommand();
+        // shared directories and files
+        $this->setSharedFiles();
+        // create permissions
+        $this->setPermissions();
+        // create parameters.yml if required and prompt new parameters from .dist
+        $this->setParametersYml();
+    }
 
-        $command = "setfacl -R -m u:www-data:rwX -m u:johnkrovitch:rwX app/cache app/logs";
-        $this->runCommandRemote($command, $output);
+    /**
+     * Set permissions for cache and logs directory
+     *
+     * @throws Exception
+     */
+    public function setPermissions()
+    {
+        $deploymentUser = $this->getConfig()->getEnvironmentOption('user');
+        $permissionsMethods = $this->getConfig()->getEnvironmentOption('permissions');
 
-        $command2 = "setfacl -dR -m u:www-data:rwx -m u:johnkrovitch:rwx app/cache app/logs";
-        $this->runCommandRemote($command2, $output);
+        if ($permissionsMethods == 'acl') {
+            // acl require a deployment user
+            if (!$deploymentUser) {
+                throw new Exception('Invalid deployment user "' . $deploymentUser . "");
+            }
+            // run setfacl commands
+            $command = "setfacl -R -m u:www-data:rwX -m u:{$deploymentUser}:rwX app/cache app/logs";
+            $this->runCommandRemote($command, $output);
 
-        return true;
+            $command = "setfacl -dR -m u:www-data:rwx -m u:{$deploymentUser}:rwx app/cache app/logs";
+            $this->runCommandRemote($command, $output);
+        } else if ($permissionsMethods) {
+            // only support acl for now
+            throw new Exception('Permissions methods not supported : "' . $permissionsMethods . '" (only "acl" option is supported');
+        }
     }
 
     /**
      * Creates "shared" directory, then creates "/shared/logs" and "/shared/app/config/parameters.yml" from .dist
      */
-    protected function runSharedDirectoryCommand()
+    protected function setSharedFiles()
     {
         $linkedFiles = $this->getParameter('linked_files', []);
         $linkedFolders = $this->getParameter('linked_folders', []);
@@ -88,6 +118,56 @@ class SymfonyInit extends SymfonyAbstractTask
             $command = "ln -nfs $sharedFolderName/$folder $currentCopy/$folder";
             $this->runCommandRemote($command);
         }
-        // TODO add chmod options
+    }
+
+    public function setParametersYml()
+    {
+        // create config directory if not exists
+        $this->mkDir($this->getSharedFolder() . '/app/config');
+
+        // copy current release parameters.yml.dist into /shared/app/config/parameters.yml
+        $parametersDist = $this->getCurrentReleaseDirectory() . 'app/config/parameters.yml.dist';
+        $sharedParameters = $this->getSharedFolder() . '/app/config/parameters.yml';
+        // copy without overwrite
+        $this->copy($parametersDist, $sharedParameters);
+
+        // match differences between two files
+        $yamlParser = new Parser();
+        // yml from .dist file
+        $distYml = $yamlParser->parse($this->getFileContent($parametersDist));
+        // yml from actual shared parameters.yml
+        $parametersYml = $yamlParser->parse($this->getFileContent($sharedParameters));
+
+        var_dump($distYml);
+        var_dump($parametersYml);
+
+        if (is_array($distYml) and is_array($parametersYml)) {
+            echo 'lol';
+            // searching for new key in parameters.yml.dist
+            $differential = array_diff($distYml['parameters'], $parametersYml['parameters']);
+            var_dump($differential);
+
+            if (count($differential)) {
+                Console::output('New parameters from parameters.dist.yml have been found !');
+
+                foreach ($differential as $key => $defaultValue) {
+                    Console::output("Enter value for <white>{$key}</white> (default: \"{$defaultValue}\"");
+                    $inputValue = Console::readInput();
+
+                    if ($inputValue) {
+                        $parametersYml['parameters'][$key] = $inputValue;
+                    } else {
+                        $parametersYml['parameters'][$key] = $defaultValue;
+                    }
+                }
+                Console::output('Dumping new parameters.yml');
+                // dump new parameters values
+                $dumper = new Dumper();
+                $newParametersYml = $dumper->dump($parametersYml);
+                // dump content into shared parameters.yml file
+                $command = "echo \"{$newParametersYml}\" >> {$sharedParameters}";
+                $this->runCommandRemote($command);
+            }
+        }
     }
 }
