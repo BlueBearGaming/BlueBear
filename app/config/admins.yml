@@ -17,6 +17,8 @@ blue_bear_admin:
             form: pencil
             # associated controller (by default)
             controller: BlueBearAdminBundle:Generic
+            # entity manager call for CRUD actions
+            manager: ~
             # availables actions (by default)
             actions:
                 list:
@@ -42,6 +44,9 @@ blue_bear_admin:
         map:
             entity: BlueBear\CoreBundle\Entity\Map\Map
             form: map
+            manager:
+                name: bluebear.manager.map
+                save: mapSave
         entity_model:
             entity: BlueBear\GameBundle\Entity\EntityModel
             form: entity_model

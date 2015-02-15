@@ -2,8 +2,11 @@
 
 namespace BlueBear\AdminBundle\Admin;
 
+use BlueBear\AdminBundle\Manager\GenericManager;
+use BlueBear\BaseBundle\Behavior\ContainerTrait;
 use BlueBear\BaseBundle\Behavior\StringUtilsTrait;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityRepository;
 use Exception;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,7 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class AdminFactory
 {
-    use StringUtilsTrait;
+    use StringUtilsTrait, ContainerTrait;
 
     protected $admins = [];
 
@@ -26,72 +29,16 @@ class AdminFactory
      */
     public function __construct(ContainerInterface $container)
     {
-        $admins = $container->getParameter('bluebear.admins');
-        $mainLayout = $container->getParameter('bluebear.layout');
-        /** @var EntityManager $entityManager */
-        $entityManager = $container->get('doctrine.orm.default_entity_manager');
-
+        $this->container = $container;
+        $admins = $this->getContainer()->getParameter('bluebear.admins');
         // creating configured admin
         foreach ($admins as $adminName => $adminConfig) {
-            $admin = new Admin();
-            $admin->setController($adminConfig['controller']);
-            $admin->setEntityNamespace($adminConfig['entity']);
-            $admin->setName($adminName);
-            $admin->setFormType($adminConfig['form']);
-            $admin->setBlockTemplate($container->getParameter('bluebear.blocks_template'));
-            // admin entity repository
-            $admin->setRepository($entityManager->getRepository($admin->getEntityNamespace()));
-            // layout is optional
-            if ($mainLayout) {
-                $admin->setLayout($mainLayout);
-            }
-            if (!array_key_exists('actions', $adminConfig) or !$adminConfig['actions']) {
-                $adminConfig['actions'] = $this->getDefaultActions();
-            }
-            // adding actions
-            foreach ($adminConfig['actions'] as $actionName => $actionConfig) {
-                // test each key to keep granularity in configuration
-                if (array_key_exists('title', $actionConfig)) {
-                    $title = $actionConfig['title'];
-                } else {
-                    // default title
-                    $title = $this->getDefaultActionTitle($admin->getName(), $actionName);
-                }
-                if (array_key_exists('permissions', $actionConfig)) {
-                    $permissions = $actionConfig['permissions'];
-                } else {
-                    $permissions = $this->getDefaultPermissions();
-                }
-                if (array_key_exists('fields', $actionConfig)) {
-                    $fields = $actionConfig['fields'];
-                } else {
-                    $fields = $this->getDefaultFields();
-                }
-                $action = new Action();
-                $action->setName($actionName);
-                $action->setTitle($title);
-                $action->setPermissions($permissions);
-                $action->setRoute($admin->generateRouteName($action->getName()));
-                // adding items to actions
-                foreach ($fields as $fieldName => $fieldConfig) {
-                    $field = new Field();
-                    $field->setName($fieldName);
-                    $field->setTitle($this->inflectString($fieldName));
-
-                    if (array_key_exists('length', $fieldConfig)) {
-                        $field->setLength($fieldConfig['length']);
-                    }
-                    $action->addField($field);
-                }
-                $admin->addAction($action);
-            }
-            // adding admins to the pool
-            $this->admins[$admin->getName()] = $admin;
+            $this->createAdminFromConfig($adminName, $adminConfig);
         }
     }
 
     /**
-     * Return an loaded admin from a Symfony request
+     * Return a loaded admin from a Symfony request
      *
      * @param Request $request
      * @return Admin
@@ -103,7 +50,21 @@ class AdminFactory
         // remove empty string
         array_shift($requestParameters);
         // get configured admin
-        return $this->getAdmin($this->underscore($requestParameters[0]));
+        $admin = $this->getAdmin($this->underscore($requestParameters[0]));
+        // set current action
+        $action = $admin->getActionFromRequest($request);
+        $admin->setCurrentAction($action);
+        // set entity
+        if ($action->getName() == 'list') {
+            $entities = $admin->getManager()->findAll();
+            $admin->setEntities($entities);
+        } else if ($action->getName() == 'edit') {
+            $entity = $admin->getManager()->findOneBy([
+                'id' => $request->get('id')
+            ]);
+            $admin->setEntity($entity);
+        }
+        return $admin;
     }
 
     /**
@@ -129,6 +90,128 @@ class AdminFactory
     public function getAdmins()
     {
         return $this->admins;
+    }
+
+    /**
+     * Create an Admin from configuration values. It will be added to AdminFactory admin's list
+     *
+     * @param $adminName
+     * @param $adminConfig
+     */
+    protected function createAdminFromConfig($adminName, $adminConfig)
+    {
+        /** @var EntityManager $entityManager */
+        $entityManager = $this->getContainer()->get('doctrine')->getManager();
+        $mainLayout = $this->getContainer()->getParameter('bluebear.layout');
+        // gathering admin data
+        $entityRepository = $entityManager->getRepository($adminConfig['entity']);
+        $entityManager = $this->createManagerFromConfig($adminConfig, $entityRepository);
+        $admin = new Admin(
+            $adminName,
+            $entityRepository,
+            $entityManager,
+            $adminConfig['controller'],
+            $adminConfig['entity'],
+            $adminConfig['form'],
+            $this->getContainer()->getParameter('bluebear.blocks_template'),
+            $mainLayout
+        );
+        // actions are optional
+        if (!array_key_exists('actions', $adminConfig) or !$adminConfig['actions']) {
+            $adminConfig['actions'] = $this->getDefaultActions();
+        }
+        // adding actions
+        foreach ($adminConfig['actions'] as $actionName => $actionConfig) {
+            $admin->addAction($this->createActionFromConfig($actionName, $actionConfig, $admin));
+        }
+        // adding admins to the pool
+        $this->admins[$admin->getName()] = $admin;
+    }
+
+    /**
+     * Create an Action from configuration values
+     *
+     * @param $actionName
+     * @param $actionConfig
+     * @param Admin $admin
+     * @return Action
+     */
+    protected function createActionFromConfig($actionName, $actionConfig, Admin $admin)
+    {
+        // test each key to keep granularity in configuration
+        if (array_key_exists('title', $actionConfig)) {
+            $title = $actionConfig['title'];
+        } else {
+            // default title
+            $title = $this->getDefaultActionTitle($admin->getName(), $actionName);
+        }
+        if (array_key_exists('permissions', $actionConfig)) {
+            $permissions = $actionConfig['permissions'];
+        } else {
+            $permissions = $this->getDefaultPermissions();
+        }
+        if (array_key_exists('fields', $actionConfig)) {
+            $fields = $actionConfig['fields'];
+        } else {
+            $fields = $this->getDefaultFields();
+        }
+        $action = new Action();
+        $action->setName($actionName);
+        $action->setTitle($title);
+        $action->setPermissions($permissions);
+        $action->setRoute($admin->generateRouteName($action->getName()));
+        // adding items to actions
+        foreach ($fields as $fieldName => $fieldConfig) {
+            $field = new Field();
+            $field->setName($fieldName);
+            $field->setTitle($this->inflectString($fieldName));
+
+            if (array_key_exists('length', $fieldConfig)) {
+                $field->setLength($fieldConfig['length']);
+            }
+            $action->addField($field);
+        }
+        return $action;
+    }
+
+    /**
+     * Create a generic manager from configuration
+     *
+     * @param $adminConfig
+     * @param EntityRepository $entityRepository
+     * @return GenericManager
+     */
+    protected function createManagerFromConfig($adminConfig, EntityRepository $entityRepository)
+    {
+        $customManager = null;
+        $methodsMapping = [];
+        // set default entity manager
+        /** @var EntityManager $entityManager */
+        $entityManager = $this->getContainer()->get('doctrine')->getManager();
+        // custom manager is optional
+        if (array_key_exists('manager', $adminConfig) and $adminConfig['manager']) {
+            $customManager = $this->getContainer()->get($adminConfig['manager']['name']);
+
+            if (array_key_exists('save', $adminConfig['manager'])) {
+                $methodsMapping['save'] = $adminConfig['manager']['save'];
+            }
+            if (array_key_exists('list', $adminConfig['manager'])) {
+                $methodsMapping['list'] = $adminConfig['manager']['list'];
+            }
+            if (array_key_exists('edit', $adminConfig['manager'])) {
+                $methodsMapping['edit'] = $adminConfig['manager']['edit'];
+            }
+            if (array_key_exists('delete', $adminConfig['manager'])) {
+                $methodsMapping['delete'] = $adminConfig['manager']['delete'];
+            }
+        }
+        $manager = new GenericManager(
+            $entityRepository,
+            $entityManager,
+            $customManager,
+            $methodsMapping
+        );
+        return $manager;
     }
 
     protected function getDefaultActionTitle($title, $action)

@@ -2,11 +2,8 @@
 
 namespace BlueBear\AdminBundle\Controller;
 
-use BlueBear\AdminBundle\Admin\Action;
-use BlueBear\AdminBundle\Admin\Admin;
 use BlueBear\AdminBundle\Admin\AdminFactory;
 use BlueBear\BaseBundle\Behavior\ControllerTrait;
-use Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -28,18 +25,16 @@ class GenericController extends Controller
     public function listAction(Request $request)
     {
         $admin = $this->get('bluebear.admin.factory')->getAdminFromRequest($request);
-        $action = $this->getActionFromRequest($request, $admin);
-        $admin->setCurrentAction($action);
-        // TODO adding pagination
+        // TODO adding pagination and filters
         // check permissions and actions
-        $this->forward404Unless($admin->isActionGranted($action->getName(), $this->getUser()->getRoles()),
-            'User not allowed for action ' . $action->getName());
+        $this->forward404Unless($admin->isActionGranted($admin->getCurrentAction()->getName(), $this->getUser()->getRoles()),
+            'User not allowed for action ' . $admin->getCurrentAction()->getName());
         // set entities list
         $admin->setEntities($admin->getRepository()->findAll());
 
         return [
             'admin' => $admin,
-            'action' => $action
+            'action' => $admin->getCurrentAction()
         ];
     }
 
@@ -50,20 +45,20 @@ class GenericController extends Controller
      */
     public function createAction(Request $request)
     {
+        // get admin from request parameters
         $admin = $this->get('bluebear.admin.factory')->getAdminFromRequest($request);
-        $action = $this->getActionFromRequest($request, $admin);
-        $entity = $admin->getEntityNamespace();
-
-        $admin->setEntity(new $entity);
-        $admin->setCurrentAction($action);
-        $form = $this->createForm($admin->getFormType(), $admin->getEntity());
+        // create entity
+        $entity = $admin->findEntity('id', $admin->createEntity());
+        // create form
+        $form = $this->createForm($admin->getFormType(), $entity);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $this->getEntityManager()->persist($admin->getEntity());
-            $this->getEntityManager()->flush($admin->getEntity());
-
+            // save entity
+            $admin->saveEntity();
+            // inform user everything went fine
             $this->setMessage('bluebear.admin.' . $admin->getName() . '.saved');
+            // redirect to list
             return $this->redirect($this->generateUrl($admin->generateRouteName('list')));
         }
         return [
@@ -79,18 +74,21 @@ class GenericController extends Controller
      */
     public function editAction(Request $request)
     {
+        // get admin from request parameters
         $admin = $this->get('bluebear.admin.factory')->getAdminFromRequest($request);
-        $admin->setEntity($admin->getRepository()->find($request->get('id')));
-        $admin->setCurrentAction($this->getActionFromRequest($request, $admin));
-
-        $form = $this->createForm($admin->getFormType(), $admin->getEntity());
+        // find entity
+        $entity = $admin->findEntity('id', $request->get('id'));
+        // create form
+        $form = $this->createForm($admin->getFormType(), $entity);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $this->getEntityManager()->persist($admin->getEntity());
-            $this->getEntityManager()->flush($admin->getEntity());
+            // save entity
+            $admin->saveEntity();
+            // inform user everything went fine
             $this->setMessage('bluebear.admin.' . $admin->getName() . '.saved');
-            return $this->redirect('@' . $admin->generateRouteName('list'));
+            // redirect to list
+            return $this->redirect($this->generateUrl($admin->generateRouteName('list')));
         }
         return [
             'admin' => $admin,
@@ -98,24 +96,16 @@ class GenericController extends Controller
         ];
     }
 
-    public function deleteAction()
+    public function deleteAction(Request $request)
     {
-
-    }
-
-    /**
-     * @param Request $request
-     * @param Admin $admin
-     * @return Action
-     * @throws Exception
-     */
-    protected function getActionFromRequest(Request $request, Admin $admin)
-    {
-        $requestParameters = explode('/', $request->getPathInfo());
-        // remove empty string
-        array_shift($requestParameters);
-
-        return $admin->getAction($requestParameters[1]);
+        // get admin from request parameters
+        $admin = $this->get('bluebear.admin.factory')->getAdminFromRequest($request);
+        $admin->findEntity('id', $request->get('id'));
+        $admin->deleteEntity();
+        // inform user everything went fine
+        $this->setMessage('bluebear.admin.' . $admin->getName() . '.removed');
+        // redirect to list
+        return $this->redirect($this->generateUrl($admin->generateRouteName('list')));
     }
 
     /**

@@ -73,7 +73,7 @@ class EngineEvent extends Event
             self::ENGINE_ON_MAP_ITEM_CLICK,
             self::ENGINE_ON_CONTEXT_LOAD,
             self::ENGINE_ON_MAP_SAVE,
-            self::ENGINE_ON_MAP_PUT_UNIT
+            self::ENGINE_ON_MAP_PUT_ENTITY
         ];
     }
 

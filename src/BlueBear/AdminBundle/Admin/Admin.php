@@ -2,70 +2,105 @@
 
 namespace BlueBear\AdminBundle\Admin;
 
+use BlueBear\AdminBundle\Manager\GenericManager;
 use BlueBear\BaseBundle\Behavior\StringUtilsTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository;
 use Exception;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class Admin
 {
-    use StringUtilsTrait;
+    use StringUtilsTrait, ActionTrait;
 
+    /**
+     * Admin name
+     *
+     * @var string
+     */
     protected $name;
 
+    /**
+     * Full namespace for Admin entity
+     *
+     * @var string
+     */
     protected $entityNamespace;
 
+    /**
+     * Entities collection
+     *
+     * @var ArrayCollection
+     */
     protected $entities;
 
+    /**
+     * Entity
+     *
+     * @var Object
+     */
     protected $entity;
 
+    /**
+     * Entity manager (doctrine entity manager by default)
+     *
+     * @var GenericManager
+     */
+    protected $manager;
+
+    /**
+     * Actions called when using custom manager
+     *
+     * @var array
+     */
+    protected $customManagerActions;
+
+    /**
+     * Entity repository
+     *
+     * @var EntityRepository
+     */
     protected $repository;
 
+    /**
+     * Controller
+     *
+     * @var Controller
+     */
     protected $controller;
 
+    /**
+     * Form type
+     *
+     * @var string
+     */
     protected $formType;
 
-    protected $currentAction;
-
-    protected $actions = [];
-
+    /**
+     * Templates layout
+     *
+     * @var string
+     */
     protected $layout = '';
 
     protected $blockTemplate;
 
-    public function __construct()
+    public function __construct($name, $repository, $manager, $controller, $entityNamespace, $formType, $blockTemplate, $layout = '')
     {
+        $this->name = $name;
+        $this->repository = $repository;
+        $this->manager = $manager;
+        $this->controller = $controller;
+        $this->entityNamespace = $entityNamespace;
+        $this->formType = $formType;
+        $this->blockTemplate = $blockTemplate;
+        $this->layout = $layout;
         $this->entities = new ArrayCollection();
+        $this->customManagerActions = [];
     }
 
     /**
-     * Return true if current action is granted for user
-     *
-     * @param string $actionName Le plus grand de tous les héros
-     * @param array $roles
-     * @return bool
-     */
-    public function isActionGranted($actionName, array $roles)
-    {
-        $isGranted = array_key_exists($actionName, $this->actions);
-
-        // if action exists
-        if ($isGranted) {
-            $isGranted = false;
-            /** @var Action $action */
-            $action = $this->actions[$actionName];
-            // checking roles permissions
-            foreach ($roles as $role) {
-                if (in_array($role, $action->getPermissions())) {
-                    $isGranted = true;
-                }
-            }
-        }
-        return $isGranted;
-    }
-
-    /**
-     * Generate a route for admin and route name
+     * Generate a route for admin and action name
      *
      * @param $actionName
      * @return string
@@ -84,14 +119,6 @@ class Admin
     }
 
     /**
-     * @param string $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-
-    /**
      * Return entity path for routing (for example, MyNamespace\EntityName => entityName)
      *
      * @return string
@@ -106,75 +133,11 @@ class Admin
     }
 
     /**
-     * @param string $controller
-     */
-    public function setController($controller)
-    {
-        $this->controller = $controller;
-    }
-
-    /**
-     * @return array
-     */
-    public function getActions()
-    {
-        return $this->actions;
-    }
-
-    /**
-     * @param $name
-     * @return Action
-     * @throws Exception
-     */
-    public function getAction($name)
-    {
-        if (!array_key_exists($name, $this->getActions())) {
-            throw new Exception("Invalid action name \"{$name}\" for admin '{$this->getName()}'");
-        }
-        return $this->actions[$name];
-    }
-
-    /**
-     * Return if an action with specified name exists form this admin
-     *
-     * @param $name
-     * @return bool
-     */
-    public function hasAction($name)
-    {
-        return array_key_exists($name, $this->actions);
-    }
-
-    /**
-     * @param array $actions
-     */
-    public function setActions(array $actions)
-    {
-        $this->actions = $actions;
-    }
-
-    /**
-     * @param Action $action
-     */
-    public function addAction(Action $action)
-    {
-        $this->actions[$action->getName()] = $action;
-    }
-
-    /**
      * @return string
      */
     public function getLayout()
     {
         return $this->layout;
-    }
-
-    /**
-     * @param string $layout
-     */
-    public function setLayout($layout)
-    {
-        $this->layout = $layout;
     }
 
     /**
@@ -186,27 +149,11 @@ class Admin
     }
 
     /**
-     * @param mixed $entityNamespace
-     */
-    public function setEntityNamespace($entityNamespace)
-    {
-        $this->entityNamespace = $entityNamespace;
-    }
-
-    /**
      * @return EntityRepository
      */
     public function getRepository()
     {
         return $this->repository;
-    }
-
-    /**
-     * @param EntityRepository $repository
-     */
-    public function setRepository(EntityRepository $repository)
-    {
-        $this->repository = $repository;
     }
 
     /**
@@ -234,14 +181,6 @@ class Admin
     }
 
     /**
-     * @param mixed $formType
-     */
-    public function setFormType($formType)
-    {
-        $this->formType = $formType;
-    }
-
-    /**
      * @return mixed
      */
     public function getController()
@@ -251,34 +190,48 @@ class Admin
 
     /**
      * @return mixed
+     * @throws Exception
      */
     public function getEntity()
     {
+        if (!$this->entity) {
+            throw new Exception("Entity not found in admin \"{$this->getName()}\". Try call method findEntity or createEntity first.");
+        }
         return $this->entity;
     }
 
-    /**
-     * @param mixed $entity
-     */
     public function setEntity($entity)
     {
         $this->entity = $entity;
     }
 
-    /**
-     * @return Action
-     */
-    public function getCurrentAction()
+    public function findEntity($field, $value)
     {
-        return $this->currentAction;
+        $this->entity = $this->getManager()->findOneBy([
+            $field => $value
+        ]);
+        $this->checkEntity();
+        return $this->entity;
     }
 
-    /**
-     * @param Action $currentAction
-     */
-    public function setCurrentAction(Action $currentAction)
+    public function saveEntity()
     {
-        $this->currentAction = $currentAction;
+        $this->checkEntity();
+        $this->getManager()->save($this->entity);
+    }
+
+    public function createEntity()
+    {
+        $this->entity = $this->getManager()->create($this->getEntityNamespace());
+        $this->checkEntity();
+
+        return $this->entity;
+    }
+
+    public function deleteEntity()
+    {
+        $this->checkEntity();
+        $this->getManager()->delete($this->entity);
     }
 
     /**
@@ -290,10 +243,17 @@ class Admin
     }
 
     /**
-     * @param mixed $blockTemplate
+     * @return GenericManager
      */
-    public function setBlockTemplate($blockTemplate)
+    public function getManager()
     {
-        $this->blockTemplate = $blockTemplate;
+        return $this->manager;
+    }
+
+    protected function checkEntity()
+    {
+        if (!$this->entity) {
+            throw new Exception("Entity not found in admin \"{$this->getName()}\". Try call method findEntity or createEntity first.");
+        }
     }
 }
