@@ -7,7 +7,7 @@ use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\SerializedName;
 use JMS\Serializer\Annotation\Type;
 
-class PutUnitRequest extends EventRequest
+class PutEntityRequest extends EventRequest
 {
     /**
      * Unit id

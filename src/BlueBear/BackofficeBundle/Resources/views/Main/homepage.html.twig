@@ -1,10 +1,12 @@
-{% extends 'BlueBearBackofficeBundle::layout.html.twig' %}
+{% extends 'BlueBearAdminBundle::admin.layout.html.twig' %}
 
 {% block content %}
     <div class="test">
-lol ?
+        lol ?
     </div>
+{% endblock %}
 
+{% block javascripts %}
     <script>
         $(document).on('ready', function () {
             var chartsOptions = {
@@ -17,7 +19,6 @@ lol ?
                     }
                 ]
             };
-
             HighChartHelper.init($('.test'), chartsOptions);
         })
     </script>

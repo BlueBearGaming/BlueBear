@@ -11,8 +11,8 @@ use BlueBear\CoreBundle\Manager\MapManager;
 use BlueBear\EngineBundle\Event\EngineEvent;
 use BlueBear\EngineBundle\Event\Map\LoadContextRequest;
 use BlueBear\EngineBundle\Event\MapItem\MapItemClickRequest;
-use BlueBear\GameBundle\Entity\Unit;
-use BlueBear\GameBundle\Event\Unit\PutUnitRequest;
+use BlueBear\GameBundle\Entity\EntityModel;
+use BlueBear\GameBundle\Event\Entity\PutEntityRequest;
 use JMS\Serializer\Serializer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -84,7 +84,7 @@ class ApiController extends Controller
                             $layers[] = $layer;
                         }
                     }
-                    if ($pencil) {
+                    if ($pencil and count($layers)) {
                         $request->pencil = $pencil->getId();
                         $layer = $layers[array_rand($layers)];
                         $request->layer = $layer->getId();
@@ -95,13 +95,13 @@ class ApiController extends Controller
                     $this->addFlash('warning', 'No pencil set was found. Try to create at least one');
                 }
                 $snippets[$event] = $request;
-            } else if ($event == EngineEvent::ENGINE_ON_MAP_PUT_UNIT) {
-                $units = $this->get('bluebear.manager.unit')->findAll();
+            } else if ($event == EngineEvent::ENGINE_ON_MAP_PUT_ENTITY) {
+                $entities = $this->get('bluebear.manager.entity_model')->findAll();
 
-                if ($units) {
-                    /** @var Unit $unit */
-                    $unit = $units[array_rand($units)];
-                    $request = new PutUnitRequest();
+                if ($entities) {
+                    /** @var EntityModel $unit */
+                    $unit = $entities[array_rand($entities)];
+                    $request = new PutEntityRequest();
                     $request->contextId = $context->getId();
                     $request->unitId = $unit->getId();
                     $request->x = 4;
