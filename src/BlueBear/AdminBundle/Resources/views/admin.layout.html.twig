@@ -12,12 +12,11 @@
 
 <!-- flash messages -->
 <div class="alert-container container">
-    {% block notice %}
+   {% block notice %}
         {% for notice_level in ['success','error','info', 'warning'] %}
-            {% set session_var = 'sonata_flash_' ~ notice_level %}
-            {% for flash in app.session.flashbag.get(session_var) %}
+            {% for flash in app.session.flashbag.get(notice_level) %}
                 <div class="alert {{ 'alert-' ~ notice_level }}">
-                    {{ flash|trans([], 'SonataAdminBundle') }}
+                    {{ flash }}
                 </div>
             {% endfor %}
         {% endfor %}

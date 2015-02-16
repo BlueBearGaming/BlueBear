@@ -23,7 +23,7 @@
     </div>
 {% endblock %}
 
-{% block javascript %}
+{% block javascripts %}
     <script>
         var TestHelper = {
             snippets: {{ snippets|raw }},
@@ -73,7 +73,6 @@
              * @param textarea
              */
             processSize: function (textarea) {
-                console.log('height', textarea[0].scrollHeight);
                 textarea.height(textarea[0].offsetHeight);
             }
         };
