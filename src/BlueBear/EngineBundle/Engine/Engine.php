@@ -82,7 +82,7 @@ class Engine
         } else if ($eventName == EngineEvent::ENGINE_ON_MAP_ITEM_CLICK) {
             $request = 'BlueBear\EngineBundle\Event\MapItem\MapItemClickRequest';
         } else if ($eventName == EngineEvent::ENGINE_ON_MAP_PUT_ENTITY) {
-            $request = 'BlueBear\GameBundle\Event\PutEntityRequest';
+            $request = 'BlueBear\GameBundle\Event\Entity\PutEntityRequest';
         }
         if (!$request) {
             throw new Exception('Event request class not found for event : ' . $eventName);

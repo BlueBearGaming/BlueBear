@@ -14,9 +14,9 @@ class PutEntityRequest extends EventRequest
      *
      * @Expose()
      * @Type("integer")
-     * @SerializedName("unitId")
+     * @SerializedName("entityModelId")
      */
-    public $unitId;
+    public $entityModelId;
 
     /**
      * Unit x position

@@ -99,14 +99,14 @@ class ApiController extends Controller
                 $entities = $this->get('bluebear.manager.entity_model')->findAll();
 
                 if ($entities) {
+                    // TODO sort to have only unit model instance and make an other event with items
                     /** @var EntityModel $unit */
                     $unit = $entities[array_rand($entities)];
                     $request = new PutEntityRequest();
                     $request->contextId = $context->getId();
-                    $request->unitId = $unit->getId();
+                    $request->entityModelId = $unit->getId();
                     $request->x = 4;
                     $request->y = 2;
-
                     $snippets[$event] = $request;
                 } else {
                     $this->addFlash('warning', 'You have no unit configured. PutUnit event is not available');

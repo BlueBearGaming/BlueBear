@@ -3,6 +3,10 @@
 namespace BlueBear\GameBundle\Factory;
 
 use BlueBear\BaseBundle\Behavior\ContainerTrait;
+use BlueBear\CoreBundle\Constant\Map\Constant;
+use BlueBear\CoreBundle\Entity\Map\Context;
+use BlueBear\CoreBundle\Entity\Map\Layer;
+use BlueBear\CoreBundle\Utils\Position;
 use BlueBear\GameBundle\Entity\EntityModel;
 use BlueBear\GameBundle\Game\EntityType;
 use BlueBear\GameBundle\Game\EntityTypeAttribute;
@@ -26,6 +30,53 @@ class EntityFactory
      * @var EntityModel[]
      */
     protected $entityModels = [];
+
+    /**
+     * Create a instance of an entity model on the map at specific position
+     *
+     * @param Context $context
+     * @param EntityModel $entity
+     * @param Position $position
+     * @throws Exception
+     * @internal param Unit $unit
+     */
+    public function create(Context $context, EntityModel $entity, Position $position)
+    {
+        $unitLayer = null;
+        $layers = $context->getMap()->getLayers();
+
+        /** @var Layer $layer */
+        foreach ($layers as $layer) {
+            if ($layer->getType() == Constant::LAYER_TYPE_UNIT) {
+                $unitLayer = $layer;
+                break;
+            }
+        }
+        if (!$unitLayer) {
+            throw new Exception('Unable to create unit instance. Map "' . $context->getMap()->getId() . '" has no unit layer');
+        }
+        $unitInstance = $this->getUnitManager()->findInstanceByPosition($context, $position);
+        /** @BlueBearGameRule : only one unit by map item */
+        if ($unitInstance) {
+            throw new Exception('Unable to create unit instance. MapItem "' . $unitInstance->getMapItem()->getId() . '" has already an unit');
+        }
+        // create a instance from the unit pattern
+        $unitInstance = new UnitInstance();
+        $unitInstance->hydrateFromUnit($unit);
+        // assign it to the map item
+        $mapItem = new MapItem();
+        $mapItem->setX($position->getX());
+        $mapItem->setY($position->getY());
+        $mapItem->setLayer($unitLayer);
+        $mapItem->setContext($context);
+        // unit instance carry relationship
+        $unitInstance->setMapItem($mapItem);
+        // saving entity
+        $entityManager = $this->getContainer()->get('doctrine')->getManager();
+        $entityManager->persist($mapItem);
+        $entityManager->persist($unitInstance);
+        $entityManager->flush();
+    }
 
     public function setEntityTypes(array $entityTypesConfig, array $entityAttributesConfig)
     {

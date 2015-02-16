@@ -5,7 +5,7 @@ namespace BlueBear\GameBundle\Event\Entity;
 use BlueBear\BaseBundle\Behavior\ContainerTrait;
 use BlueBear\CoreBundle\Utils\Position;
 use BlueBear\EngineBundle\Event\EngineEvent;
-use BlueBear\GameBundle\Entity\Unit;
+use BlueBear\GameBundle\Entity\EntityModel;
 use Exception;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -37,10 +37,10 @@ class EntitySubscriber implements EventSubscriberInterface
     {
         /** @var PutEntityRequest $request */
         $request = $event->getRequest();
-        /** @var Entity $entity */
-        $entity = $this->getContainer()->get('bluebear.manager.entity')->find($request->entityId);
+        /** @var EntityModel $entity */
+        $entityModel = $this->getContainer()->get('bluebear.manager.entity_model')->find($request->entityModelId);
 
-        if (!$entity) {
+        if (!$entityModel) {
             throw new Exception('Unable to create entity instance in map. Invalid entity id');
         }
         if (!$request->x or !$request->y) {
