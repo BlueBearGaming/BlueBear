@@ -11074,29 +11074,34 @@ form textarea {
   resize: vertical;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/afrezet\/Projets\/Bluebear\/Symfony\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/partials\/_forms\.scss}line{font-family:\0000312}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/afrezet\/Projets\/Bluebear\/Symfony\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/partials\/_forms\.scss}line{font-family:\0000311}}
+table th[data-sort] {
+  cursor: pointer;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/afrezet\/Projets\/Bluebear\/Symfony\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/partials\/_forms\.scss}line{font-family:\0000316}}
 .form-inline-checkboxes .checkbox {
   display: inline-block;
   width: 33%;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/afrezet\/Projets\/Bluebear\/Symfony\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/partials\/_forms\.scss}line{font-family:\0000319}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/afrezet\/Projets\/Bluebear\/Symfony\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/partials\/_forms\.scss}line{font-family:\0000323}}
 .fileupload-file {
   margin-left: 10px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/afrezet\/Projets\/Bluebear\/Symfony\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/partials\/_forms\.scss}line{font-family:\0000323}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/afrezet\/Projets\/Bluebear\/Symfony\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/partials\/_forms\.scss}line{font-family:\0000327}}
 .fileupload-filename {
   padding-right: 12px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/afrezet\/Projets\/Bluebear\/Symfony\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/partials\/_forms\.scss}line{font-family:\0000327}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/afrezet\/Projets\/Bluebear\/Symfony\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/partials\/_forms\.scss}line{font-family:\0000331}}
 .fileupload-button {
   position: relative;
   overflow: hidden;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/afrezet\/Projets\/Bluebear\/Symfony\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/partials\/_forms\.scss}line{font-family:\0000332}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/afrezet\/Projets\/Bluebear\/Symfony\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/partials\/_forms\.scss}line{font-family:\0000336}}
 .fileupload-button input {
   position: absolute;
   top: 0;
@@ -11110,25 +11115,25 @@ form textarea {
   height: 100px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/afrezet\/Projets\/Bluebear\/Symfony\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/partials\/_forms\.scss}line{font-family:\0000348}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/afrezet\/Projets\/Bluebear\/Symfony\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/partials\/_forms\.scss}line{font-family:\0000352}}
 .edit-entity .entity_model_attributes_form_group .collection-item {
   border-bottom: 1px solid #464545;
   margin-bottom: 25px;
   padding-top: 10px;
   padding-bottom: 10px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/afrezet\/Projets\/Bluebear\/Symfony\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/partials\/_forms\.scss}line{font-family:\0000354}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/afrezet\/Projets\/Bluebear\/Symfony\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/partials\/_forms\.scss}line{font-family:\0000358}}
 .edit-entity .entity_model_attributes_form_group .collection-item > label {
   width: 10px;
   margin-left: -20px;
   margin-right: 0;
   padding-right: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/afrezet\/Projets\/Bluebear\/Symfony\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/partials\/_forms\.scss}line{font-family:\0000362}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/afrezet\/Projets\/Bluebear\/Symfony\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/partials\/_forms\.scss}line{font-family:\0000366}}
 .edit-entity .entity_model_attributes_form_group .collection-item .form-group label.control-label {
   width: 100px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/afrezet\/Projets\/Bluebear\/Symfony\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/partials\/_forms\.scss}line{font-family:\0000365}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/afrezet\/Projets\/Bluebear\/Symfony\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/partials\/_forms\.scss}line{font-family:\0000369}}
 .edit-entity .entity_model_attributes_form_group .collection-item .form-group div {
   width: 85%;
 }

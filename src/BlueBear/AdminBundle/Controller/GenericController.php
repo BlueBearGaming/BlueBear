@@ -48,7 +48,7 @@ class GenericController extends Controller
         // get admin from request parameters
         $admin = $this->get('bluebear.admin.factory')->getAdminFromRequest($request);
         // create entity
-        $entity = $admin->findEntity('id', $admin->createEntity());
+        $entity = $admin->createEntity();
         // create form
         $form = $this->createForm($admin->getFormType(), $entity);
         $form->handleRequest($request);

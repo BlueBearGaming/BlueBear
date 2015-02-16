@@ -1,0 +1,73 @@
+<html>
+<head>
+    {% stylesheets
+    'bundles/bluebearbackoffice/css/bootstrap-datetimepicker.min.css'
+    'bundles/bluebearbackoffice/css/backoffice.css' filter='cssrewrite, ?yui_css' %}
+        <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
+    {% endstylesheets %}
+</head>
+<body>
+{# TODO still needed ? #}
+{% use "BlueBearCoreBundle:Form:fields.html.twig" %}
+
+<!-- flash messages -->
+<div class="alert-container container">
+    {% block notice %}
+        {% for notice_level in ['success','error','info', 'warning'] %}
+            {% set session_var = 'sonata_flash_' ~ notice_level %}
+            {% for flash in app.session.flashbag.get(session_var) %}
+                <div class="alert {{ 'alert-' ~ notice_level }}">
+                    {{ flash|trans([], 'SonataAdminBundle') }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+    {% endblock %}
+</div>
+
+{% block topMenu %}
+    {% include 'BlueBearBackofficeBundle::top.html.twig' %}
+{% endblock %}
+
+<div class="container">
+    <div class="row-fluid">
+        <div class="col-md-2">
+            {% block left %}{% endblock %}
+        </div>
+        <div class="col-md-10">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+</div>
+
+<footer>
+    {% javascripts
+    'assets/jquery/jquery.min.js'
+    'assets/jquery-ui/ui/minified/core.min.js'
+    'assets/jquery-ui/ui/minified/widget.min.js'
+    'assets/jquery-ui/ui/minified/mouse.min.js'
+    'assets/jquery-ui/ui/minified/sortable.min.js'
+    '@MopaBootstrapBundle/Resources/public/bootstrap-sass/assets/javascripts/bootstrap.js'
+    '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-collection.js'
+    '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-subnav.js'
+    '@MopaBootstrapBundle/Resources/public/components/smalot-bootstrap-datetimepicker/js/bootstrap-datetimepicker.js'
+    '@MopaBootstrapBundle/Resources/public/components/smalot-bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.fr.js'
+    'bundles/bluebearfileupload/js/jquery.iframe-transport.js'
+    'bundles/bluebearfileupload/js/jquery.fileupload.js'
+    'bundles/bluebearfileupload/js/jquery.fileupload-process.js'
+    'bundles/bluebearfileupload/js/jquery.fileupload-image.js'
+    'bundles/bluebearfileupload/js/jquery.fileupload-audio.js'
+    'bundles/bluebearfileupload/js/jquery.fileupload-video.js'
+    'bundles/bluebearfileupload/js/jquery.fileupload-validate.js'
+    'bundles/bluebearfileupload/js/jquery.fileupload-ui.js'
+    'bundles/bluebearfileupload/js/jquery.fileupload.bluebear.js'
+    'bundles/bluebearadmin/js/backoffice.js'
+    'bundles/bluebearadmin/js/stupidtable.min.js'
+    'bundles/bluebearbackoffice/js/vendors/highcharts.js' filter="?yui_js" %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    {% block javascripts %}
+
+    {% endblock %}
+</footer>
+</body>
+</html>

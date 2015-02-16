@@ -4,40 +4,8 @@
     {% include 'BlueBearBackofficeBundle::assets.html.twig' %}
 </head>
 <body>
-{% use "BlueBearCoreBundle:Form:fields.html.twig" %}
-{% block topMenu %}
-    {% include 'BlueBearBackofficeBundle::top.html.twig' %}
-{% endblock %}
-<!-- flash messages -->
-<div class="alert-container container">
-    {% for flashMessage in app.session.flashbag.get('notice') %}
-        <div class="alert alert-success">
-            {{ flashMessage }}
-            <button type="button" class="close">×</button>
-        </div>
-    {% endfor %}
-    {% for flashMessage in app.session.flashbag.get('error') %}
-        <div class="alert alert-danger">
-            {{ flashMessage }}
-            <button type="button" class="close">×</button>
-        </div>
-    {% endfor %}
-    {% for flashMessage in app.session.flashbag.get('warning') %}
-    <div class="alert alert-warning">
-        {{ flashMessage }}
-        <button type="button" class="close">×</button>
-    </div>
-    {% endfor %}
-</div>
-<div class="container">
-    <div class="row-fluid">
-        <div class="col-md-2">
-            {% block left %}{% endblock %}
-        </div>
-        <div class="col-md-10">
-            {% block content %}{% endblock %}
-        </div>
-    </div>
-</div>
+
+
+
 </body>
 </html>

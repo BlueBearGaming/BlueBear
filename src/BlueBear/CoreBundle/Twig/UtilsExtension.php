@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Twig_Extension;
 use Twig_SimpleFunction;
 
+// TODO move in base bundle
 class UtilsExtension extends Twig_Extension
 {
     use ContainerTrait;

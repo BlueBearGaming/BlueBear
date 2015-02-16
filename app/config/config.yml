@@ -42,6 +42,7 @@ assetic:
     use_controller: false
     bundles:
         - BlueBearBackofficeBundle
+        - BlueBearAdminBundle
     #java: /usr/bin/java
     filters:
         cssrewrite: ~

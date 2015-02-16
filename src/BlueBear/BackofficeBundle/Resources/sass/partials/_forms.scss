@@ -7,7 +7,11 @@ form {
         resize: vertical;
     }
 }
-
+table {
+    th[data-sort] {
+        cursor: pointer;
+    }
+}
 .form-inline-checkboxes {
     .checkbox {
         display: inline-block;
