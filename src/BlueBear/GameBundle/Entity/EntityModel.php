@@ -29,6 +29,13 @@ class EntityModel
      */
     protected $attributes;
 
+    /**
+     * Allowed layers for this entity
+     *
+     * @ORM\Column(name="allowed_layer_types", type="simple_array", nullable=true)
+     */
+    protected $allowedLayerTypes;
+
     public function __construct()
     {
         $this->attributes = new ArrayCollection();
@@ -54,5 +61,21 @@ class EntityModel
     {
         $this->attributes->add($entityModelAttribute);
         $entityModelAttribute->setEntityModel($this);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAllowedLayerTypes()
+    {
+        return $this->allowedLayerTypes;
+    }
+
+    /**
+     * @param mixed $allowedLayerTypes
+     */
+    public function setAllowedLayerTypes($allowedLayerTypes)
+    {
+        $this->allowedLayerTypes = $allowedLayerTypes;
     }
 }

@@ -11116,25 +11116,25 @@ table th[data-sort] {
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/afrezet\/Projets\/Bluebear\/Symfony\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/partials\/_forms\.scss}line{font-family:\0000352}}
-.edit-entity .entity_model_attributes_form_group .collection-item {
+.entity_model_attributes_form_group .collection-item {
   border-bottom: 1px solid #464545;
   margin-bottom: 25px;
   padding-top: 10px;
   padding-bottom: 10px;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/afrezet\/Projets\/Bluebear\/Symfony\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/partials\/_forms\.scss}line{font-family:\0000358}}
-.edit-entity .entity_model_attributes_form_group .collection-item > label {
+.entity_model_attributes_form_group .collection-item > label {
   width: 10px;
   margin-left: -20px;
   margin-right: 0;
   padding-right: 0;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/afrezet\/Projets\/Bluebear\/Symfony\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/partials\/_forms\.scss}line{font-family:\0000366}}
-.edit-entity .entity_model_attributes_form_group .collection-item .form-group label.control-label {
+.entity_model_attributes_form_group .collection-item .form-group label.control-label {
   width: 100px;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/afrezet\/Projets\/Bluebear\/Symfony\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/partials\/_forms\.scss}line{font-family:\0000369}}
-.edit-entity .entity_model_attributes_form_group .collection-item .form-group div {
+.entity_model_attributes_form_group .collection-item .form-group div {
   width: 85%;
 }
 

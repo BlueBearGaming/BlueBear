@@ -46,29 +46,28 @@ table {
     height: 100px;
 }
 
+// TODO generalize those rules
 // entity form require specific styles
-.edit-entity {
-    .entity_model_attributes_form_group {
-        .collection-item {
-            border-bottom: 1px solid #464545;
-            margin-bottom: 25px;
-            padding-top: 10px;
-            padding-bottom: 10px;
+.entity_model_attributes_form_group {
+    .collection-item {
+        border-bottom: 1px solid #464545;
+        margin-bottom: 25px;
+        padding-top: 10px;
+        padding-bottom: 10px;
 
-            & > label {
-                width: 10px;
-                margin-left: -20px;
-                margin-right: 0;
-                padding-right: 0;
+        & > label {
+            width: 10px;
+            margin-left: -20px;
+            margin-right: 0;
+            padding-right: 0;
+        }
+        .form-group {
+
+            label.control-label {
+                width: 100px;
             }
-            .form-group {
-
-                label.control-label {
-                    width: 100px;
-                }
-                div {
-                    width: 85%;
-                }
+            div {
+                width: 85%;
             }
         }
     }

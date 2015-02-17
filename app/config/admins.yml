@@ -50,6 +50,9 @@ blue_bear_admin:
         entity_model:
             entity: BlueBear\GameBundle\Entity\EntityModel
             form: entity_model
+            manager:
+                name: bluebear.manager.entity_model
+                save: save
             actions:
                 list:
                     fields:

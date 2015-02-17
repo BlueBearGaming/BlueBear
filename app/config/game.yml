@@ -6,7 +6,7 @@ blue_bear_game:
             description: A way to go into another room
         unit:
             label: Unit
-            attributes: [hp, race, class, intelligence, dexterity, force]
+            attributes: [hp, race, class, intelligence, dexterity, force, movement]
             description: Unit on map (panda or foes)
         # item container represents a item which can holding other items, like a chest
         item_container:
@@ -32,3 +32,5 @@ blue_bear_game:
         dexterity: {label: bluebear.attributes.dexterity, type: int}
         force: {label: bluebear.attributes.force, type: int}
         level: {label: bluebear.attributes.level, type: int}
+        # movement
+        movement: {label: bluebear.attributes.movement, type: int}

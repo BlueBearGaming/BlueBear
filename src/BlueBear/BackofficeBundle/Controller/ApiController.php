@@ -109,7 +109,7 @@ class ApiController extends Controller
                     $request->y = 2;
                     $snippets[$event] = $request;
                 } else {
-                    $this->addFlash('warning', 'You have no unit configured. PutUnit event is not available');
+                    $this->addFlash('warning', 'You have no entity model configured. PutEntity event is not available');
                 }
             }
         }
