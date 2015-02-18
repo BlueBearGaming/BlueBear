@@ -7188,14 +7188,61 @@ textarea {
 .fa-meanpath:before {
   content: ""; }
 
-body {
-  margin-top: 80px; }
-
 form input, form select {
   color: #dddddd; }
 form textarea {
   min-height: 150px;
   resize: vertical; }
+
+table th[data-sort] {
+  cursor: pointer; }
+
+.form-inline-checkboxes .checkbox {
+  display: inline-block;
+  width: 33%; }
+
+.fileupload-file {
+  margin-left: 10px; }
+
+.fileupload-filename {
+  padding-right: 12px; }
+
+.fileupload-button {
+  position: relative;
+  overflow: hidden; }
+
+.fileupload-button input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  opacity: 0;
+  -ms-filter: 'alpha(opacity=0)';
+  font-size: 200px;
+  direction: ltr;
+  cursor: pointer;
+  height: 100px; }
+
+.entity_model_attributes_form_group .collection-item {
+  border-bottom: 1px solid #464545;
+  margin-bottom: 25px;
+  padding-top: 10px;
+  padding-bottom: 10px; }
+  .entity_model_attributes_form_group .collection-item > label {
+    width: 10px;
+    margin-left: -20px;
+    margin-right: 0;
+    padding-right: 0; }
+  .entity_model_attributes_form_group .collection-item .form-group label.control-label {
+    width: 100px; }
+  .entity_model_attributes_form_group .collection-item .form-group div {
+    width: 85%; }
+
+body {
+  margin-top: 80px; }
+
+.clear {
+  clear: both; }
 
 table td .btn {
   line-height: 1; }

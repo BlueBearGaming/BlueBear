@@ -15,16 +15,14 @@
               enctype="{{ encType }}">
             {{ form_widget(form) }}
 
-            <div class="form-group">
-                <div class="col-lg-offset-9">
-                    <a href="{{ path(admin.action('list').route) }}" class="right btn"><i class="fa fa-arrow-circle-left"></i>&nbsp;
-                        &nbsp;cancel</a>
-                    {# TODO handle click on "just" save #}
-                    <button type="submit" value="save" name="submit"
-                            class="right btn btn-default">Save&nbsp;&nbsp;<i class="fa fa-floppy-o"></i></button>
-                    <button type="submit" value="save" name="submit-and-list"
-                    class="right btn btn-default">Save and return to list&nbsp;&nbsp;<i class="fa fa-list"></i></button>
-                </div>
+            <div class="form-group text-center">
+                <a href="{{ path(admin.action('list').route) }}" class="right btn"><i class="fa fa-arrow-circle-left"></i>
+                    &nbsp;&nbsp;cancel</a>
+                {# TODO handle click on "just" save #}
+                <button type="submit" value="save" name="submit"
+                        class="right btn btn-default">Save&nbsp;&nbsp;<i class="fa fa-floppy-o"></i></button>
+                <button type="submit" value="save" name="submit-and-list"
+                class="right btn btn-default">Save and return to list&nbsp;&nbsp;<i class="fa fa-list"></i></button>
             </div>
         </form>
     </div>
