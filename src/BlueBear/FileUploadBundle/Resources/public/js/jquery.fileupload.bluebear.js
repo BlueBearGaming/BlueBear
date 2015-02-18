@@ -83,4 +83,7 @@
             widget.find('input[type="file"]').fileupload(defaultOptions);
         });
     };
+    $(document).on('ready', function () {
+        $('.fileupload-widget').blueBearFileUpload();
+    });
 })(jQuery);
