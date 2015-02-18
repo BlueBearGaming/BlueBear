@@ -3,6 +3,7 @@
 namespace BlueBear\EditorBundle\Controller;
 
 use BlueBear\BaseBundle\Behavior\ControllerTrait;
+use BlueBear\CoreBundle\Entity\Map\Map;
 use BlueBear\CoreBundle\Manager\MapManager;
 use BlueBear\EngineBundle\Engine\Engine;
 use BlueBear\EngineBundle\Event\EngineEvent;
@@ -29,6 +30,7 @@ class MainController extends Controller
     }
 
     /**
+     * @todo use context instead of map
      * @Template()
      * @param Request $request
      * @return array
@@ -36,13 +38,15 @@ class MainController extends Controller
     public function editAction(Request $request)
     {
         /** @var Engine $engine */
-        $engine = $this->get('bluebear.engine.engine');
-        $data = new stdClass();
-        $data->mapName = $request->get('mapName');
-        $event = $engine->run(EngineEvent::ENGINE_ON_CONTEXT_LOAD, $data);
+//        $engine = $this->get('bluebear.engine.engine');
+//        $data = new stdClass();
+//        $data->mapName = $request->get('mapName');
+//        $event = $engine->run(EngineEvent::ENGINE_ON_CONTEXT_LOAD, $data);
+        /** @var Map $map */
+        $map = $this->getMapManager()->findOneBy(['name' => $request->get('mapName')]);
 
         return [
-            'map' => $event->getMap()
+            'context' => $map->getContexts()->first(),
         ];
     }
 
