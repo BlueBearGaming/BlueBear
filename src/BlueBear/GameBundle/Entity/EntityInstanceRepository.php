@@ -13,19 +13,24 @@ class EntityInstanceRepository extends EntityRepository
      * @param $contextId
      * @param $x
      * @param $y
+     * @param $instanceType
      * @return QueryBuilder
      */
-    public function findByPosition($contextId, $x, $y)
+    public function findByTypeAndPosition($contextId, $x, $y, $instanceType)
     {
         return $this
-            ->createQueryBuilder('unit')
-            ->join('unit.mapItem', 'mapItem')
+            ->createQueryBuilder('entity')
+            ->join('entity.mapItem', 'mapItem')
             ->join('mapItem.context', 'context')
             ->where('context.id = :context_id')
             ->andWhere('mapItem.x = :x')
             ->andWhere('mapItem.y = :y')
-            ->setParameter('context_id', $contextId)
-            ->setParameter('x', $x)
-            ->setParameter('y', $y);
+            ->andWhere('entity.type = :instance_type')
+            ->setParameters( [
+                'context_id' => $contextId,
+                'x' => $x,
+                'y' => $y,
+                'instance_type' => $instanceType
+            ]);
     }
 }

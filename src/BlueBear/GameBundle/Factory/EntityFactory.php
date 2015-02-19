@@ -3,10 +3,11 @@
 namespace BlueBear\GameBundle\Factory;
 
 use BlueBear\BaseBundle\Behavior\ContainerTrait;
-use BlueBear\CoreBundle\Constant\Map\Constant;
 use BlueBear\CoreBundle\Entity\Map\Context;
 use BlueBear\CoreBundle\Entity\Map\Layer;
+use BlueBear\CoreBundle\Entity\Map\MapItem;
 use BlueBear\CoreBundle\Utils\Position;
+use BlueBear\GameBundle\Entity\EntityInstance;
 use BlueBear\GameBundle\Entity\EntityModel;
 use BlueBear\GameBundle\Game\EntityType;
 use BlueBear\GameBundle\Game\EntityTypeAttribute;
@@ -35,49 +36,53 @@ class EntityFactory
      * Create a instance of an entity model on the map at specific position
      *
      * @param Context $context
-     * @param EntityModel $entity
+     * @param EntityModel $entityModel
      * @param Position $position
+     * @param Layer $layer
      * @throws Exception
-     * @internal param Unit $unit
      */
-    public function create(Context $context, EntityModel $entity, Position $position)
+    public function create(Context $context, EntityModel $entityModel, Position $position, Layer $layer)
     {
-        $unitLayer = null;
-        $layers = $context->getMap()->getLayers();
-
-        /** @var Layer $layer */
-        foreach ($layers as $layer) {
-            if ($layer->getType() == Constant::LAYER_TYPE_UNIT) {
-                $unitLayer = $layer;
-                break;
-            }
-        }
-        if (!$unitLayer) {
-            throw new Exception('Unable to create unit instance. Map "' . $context->getMap()->getId() . '" has no unit layer');
-        }
-        $unitInstance = $this->getUnitManager()->findInstanceByPosition($context, $position);
-        /** @BlueBearGameRule : only one unit by map item */
-        if ($unitInstance) {
-            throw new Exception('Unable to create unit instance. MapItem "' . $unitInstance->getMapItem()->getId() . '" has already an unit');
+        // we try to find if an other of the same instance and same type if on same position
+        $entityInstance = $this
+            ->getContainer()
+            ->get('bluebear.manager.entity_instance')
+            ->findByTypeAndPosition($context, $entityModel->getType(), $position);
+        /** @BlueBearGameRule : only one entity with the same type with same coordinates */
+        if ($entityInstance) {
+            throw new Exception('Unable to create entity instance. MapItem "' . $entityInstance->getMapItem()->getId() . '" has already an entity');
         }
         // create a instance from the unit pattern
-        $unitInstance = new UnitInstance();
-        $unitInstance->hydrateFromUnit($unit);
-        // assign it to the map item
+        $entityInstance = new EntityInstance();
+        $entityInstance->hydrateFromModel($entityModel);
+        $entityInstance->setLabel('John Panda');
+
+        // we must check if layer is allowed
+        $layers = $context->getMap()->getLayers();
+
+        if (!$layer->isAllowed($layers->toArray())) {
+            throw new Exception('Request layer to put entity is not allowed');
+        }
+        // assign it to a map item
         $mapItem = new MapItem();
         $mapItem->setX($position->getX());
         $mapItem->setY($position->getY());
-        $mapItem->setLayer($unitLayer);
+        $mapItem->setLayer($layer);
         $mapItem->setContext($context);
         // unit instance carry relationship
-        $unitInstance->setMapItem($mapItem);
+        $entityInstance->setMapItem($mapItem);
         // saving entity
         $entityManager = $this->getContainer()->get('doctrine')->getManager();
         $entityManager->persist($mapItem);
-        $entityManager->persist($unitInstance);
+        $entityManager->persist($entityInstance);
         $entityManager->flush();
     }
 
+    /**
+     * @param array $entityTypesConfig
+     * @param array $entityAttributesConfig
+     * @throws Exception
+     */
     public function setEntityTypes(array $entityTypesConfig, array $entityAttributesConfig)
     {
         if (!count($entityTypesConfig)) {

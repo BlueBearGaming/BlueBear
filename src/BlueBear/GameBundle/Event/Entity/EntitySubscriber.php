@@ -3,6 +3,7 @@
 namespace BlueBear\GameBundle\Event\Entity;
 
 use BlueBear\BaseBundle\Behavior\ContainerTrait;
+use BlueBear\CoreBundle\Entity\Map\Layer;
 use BlueBear\CoreBundle\Utils\Position;
 use BlueBear\EngineBundle\Event\EngineEvent;
 use BlueBear\GameBundle\Entity\EntityModel;
@@ -37,18 +38,23 @@ class EntitySubscriber implements EventSubscriberInterface
     {
         /** @var PutEntityRequest $request */
         $request = $event->getRequest();
-        /** @var EntityModel $entity */
+        /** @var EntityModel $entityModel */
         $entityModel = $this->getContainer()->get('bluebear.manager.entity_model')->find($request->entityModelId);
+        /** @var Layer $requestedLayer */
+        $requestedLayer = $this->getContainer()->get('bluebear.manager.layer')->find($request->layerId);
 
         if (!$entityModel) {
             throw new Exception('Unable to create entity instance in map. Invalid entity id');
+        }
+        if (!$requestedLayer) {
+            throw new Exception('Unable to create entity instance in map. Invalid layer id');
         }
         if (!$request->x or !$request->y) {
             throw new Exception('Unable to create entity instance in map. Invalid coordinates');
         }
         $position = new Position($request->x, $request->y);
         // create an instance of the entity into the map
-        $this->getContainer()->get('bluebear.game.entity_factory')->create($event->getContext(), $entity, $position);
+        $this->getContainer()->get('bluebear.game.entity_factory')->create($event->getContext(), $entityModel, $position, $requestedLayer);
         // set event response
         $response = new PutEntityResponse();
         $event->setResponse($response);

@@ -99,12 +99,21 @@ class ApiController extends Controller
                 $entities = $this->get('bluebear.manager.entity_model')->findAll();
 
                 if ($entities) {
+                    $layers = [];
+                    /** @var EntityModel $entityModel */
+                    $entityModel = $entities[array_rand($entities)];
+
+                    /** @var Layer $layer */
+                    foreach ($map->getLayers() as $layer) {
+                        if ($entityModel and $entityModel->isLayerTypeAllowed($layer->getType())) {
+                            $layers[] = $layer;
+                        }
+                    }
                     // TODO sort to have only unit model instance and make an other event with items
-                    /** @var EntityModel $unit */
-                    $unit = $entities[array_rand($entities)];
                     $request = new PutEntityRequest();
                     $request->contextId = $context->getId();
-                    $request->entityModelId = $unit->getId();
+                    $request->entityModelId = $entityModel->getId();
+                    $request->layerId = $layers[array_rand($layers)]->getId();
                     $request->x = 4;
                     $request->y = 2;
                     $snippets[$event] = $request;

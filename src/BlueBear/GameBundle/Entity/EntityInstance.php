@@ -7,6 +7,7 @@ use BlueBear\CoreBundle\Entity\Behavior\Label;
 use BlueBear\CoreBundle\Entity\Behavior\Nameable;
 use BlueBear\CoreBundle\Entity\Behavior\Timestampable;
 use BlueBear\CoreBundle\Entity\Behavior\Typeable;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -33,14 +34,27 @@ class EntityInstance
      */
     protected $mapItem;
 
-    public function hydrateFromModel(EntityInstance $unit)
+    public function __construct()
     {
-        die('hydrate');
-        $this->id = $unit->getId();
-        $this->name = $unit->getName();
-        $this->label = $unit->getLabel();
-        $this->type = $unit->getType();
-        $this->attributes = $unit->getAttributes();
+        $this->attributes = new ArrayCollection();
+    }
+
+    /**
+     * Hydrate entity instance from model default data
+     *
+     * @param EntityModel $entityModel
+     */
+    public function hydrateFromModel(EntityModel $entityModel)
+    {
+        $this->name = $entityModel->getName();
+        $this->label = $entityModel->getLabel();
+        $this->type = $entityModel->getType();
+        /** @var EntityModelAttribute $entityModelAttribute */
+        foreach ($entityModel->getAttributes() as $entityModelAttribute) {
+            $instanceAttribute = new EntityInstanceAttribute();
+            $instanceAttribute->hydrateFromModel($entityModelAttribute);
+            $this->attributes->add($instanceAttribute);
+        }
     }
 
     /**

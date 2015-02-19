@@ -36,6 +36,24 @@ class Layer
     protected $index;
 
     /**
+     *
+     *
+     * @param Layer[] $layers
+     * @return bool
+     */
+    public function isAllowed(array $layers)
+    {
+        foreach ($layers as $layer) {
+            if ($layer->getId() == $this->getId() and
+                $layer->getName() == $this->getName()
+            ) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * @return mixed
      */
     public function getIndex()

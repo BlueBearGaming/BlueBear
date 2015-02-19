@@ -10,15 +10,6 @@ use JMS\Serializer\Annotation\Type;
 class PutEntityRequest extends EventRequest
 {
     /**
-     * Unit id
-     *
-     * @Expose()
-     * @Type("integer")
-     * @SerializedName("entityModelId")
-     */
-    public $entityModelId;
-
-    /**
      * Unit x position
      *
      * @Expose()
@@ -33,4 +24,22 @@ class PutEntityRequest extends EventRequest
      * @Type("integer")
      */
     public $y;
+
+    /**
+     * Unit id
+     *
+     * @Expose()
+     * @Type("integer")
+     * @SerializedName("entityModelId")
+     */
+    public $entityModelId;
+
+    /**
+     * Layer id
+     *
+     * @Expose()
+     * @Type("integer")
+     * @SerializedName("layerId")
+     */
+    public $layerId;
 }

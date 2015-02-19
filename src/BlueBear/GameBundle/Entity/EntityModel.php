@@ -78,4 +78,9 @@ class EntityModel
     {
         $this->allowedLayerTypes = $allowedLayerTypes;
     }
+
+    public function isLayerTypeAllowed($layerType)
+    {
+        return in_array($layerType, $this->allowedLayerTypes);
+    }
 }

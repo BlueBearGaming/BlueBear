@@ -23,7 +23,7 @@ trait Typeable
     /**
      * Return entity type
      *
-     * @return mixed
+     * @return string
      */
     public function getType()
     {
@@ -33,7 +33,7 @@ trait Typeable
     /**
      * Set entity type
      *
-     * @param mixed $type
+     * @param string $type
      */
     public function setType($type)
     {

@@ -17,4 +17,15 @@ use Doctrine\ORM\Mapping as ORM;
 class EntityInstanceAttribute
 {
     use Id, Nameable, Valuable;
+
+    /**
+     * Hydrate instance attribute from model default data
+     *
+     * @param EntityModelAttribute $entityModelAttribute
+     */
+    public function hydrateFromModel(EntityModelAttribute $entityModelAttribute)
+    {
+        $this->name = $entityModelAttribute->getName();
+        $this->value = $entityModelAttribute->getValue();
+    }
 }
