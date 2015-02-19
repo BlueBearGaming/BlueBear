@@ -9,6 +9,7 @@ vendor
 web/bundles
 web/assets
 web/css
+web/js
 *.log
 
 # IDE
