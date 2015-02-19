@@ -77,18 +77,27 @@ class GenericController extends Controller
         // get admin from request parameters
         $admin = $this->get('bluebear.admin.factory')->getAdminFromRequest($request);
         // find entity
-        $entity = $admin->findEntity('id', $request->get('id'));
+        $admin->findEntity('id', $request->get('id'));
         // create form
-        $form = $this->createForm($admin->getFormType(), $entity);
+        $form = $this->createForm($admin->getFormType(), $admin->getEntity());
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             // save entity
             $admin->saveEntity();
             // inform user everything went fine
-            $this->setMessage('bluebear.admin.' . $admin->getName() . '.saved');
-            // redirect to list
-            return $this->redirect($this->generateUrl($admin->generateRouteName('list')));
+            $this->setMessage('bluebear.admin.saved', 'info', [
+                '%entity%' => $admin->getEntity()->getLabel()
+            ]);
+
+            if ($request->request->get('submit') == 'save') {
+                return $this->redirect($this->generateUrl($admin->generateRouteName('edit'), [
+                    'id' => $admin->getEntity()->getId()
+                ]));
+            } else {
+                // redirect to list
+                return $this->redirect($this->generateUrl($admin->generateRouteName('list')));
+            }
         }
         return [
             'admin' => $admin,
@@ -96,16 +105,34 @@ class GenericController extends Controller
         ];
     }
 
+    /**
+     * Generic delete action
+     *
+     * @Template("BlueBearAdminBundle:Generic:delete.html.twig")
+     * @param Request $request
+     * @return RedirectResponse
+     */
     public function deleteAction(Request $request)
     {
         // get admin from request parameters
         $admin = $this->get('bluebear.admin.factory')->getAdminFromRequest($request);
         $admin->findEntity('id', $request->get('id'));
-        $admin->deleteEntity();
-        // inform user everything went fine
-        $this->setMessage('bluebear.admin.' . $admin->getName() . '.removed');
-        // redirect to list
-        return $this->redirect($this->generateUrl($admin->generateRouteName('list')));
+        $form = $this->createForm('delete', $admin->getEntity());
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $admin->deleteEntity();
+            // inform user everything went fine
+            $this->setMessage('bluebear.admin.deleted', 'info', [
+                '%entity%' => $admin->getEntity()->getLabel()
+            ]);
+            // redirect to list
+            return $this->redirect($this->generateUrl($admin->generateRouteName('list')));
+        }
+        return [
+            'admin' => $admin,
+            'form' => $form->createView()
+        ];
     }
 
     /**

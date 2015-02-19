@@ -30,6 +30,12 @@ body {
 .clear {
   clear: both;
 }
+.right {
+    float: right;
+}
+.left {
+    float: left;
+}
 
 table {
   td {
@@ -44,6 +50,12 @@ table {
   & > li > a {
     padding: 10px;
   }
+}
+
+.button-list {
+    a, input, button {
+        margin-left: 10px;
+    }
 }
 
 .image-list {

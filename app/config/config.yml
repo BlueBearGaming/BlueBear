@@ -35,6 +35,15 @@ twig:
             - BlueBearAdminBundle:Form:fields.html.twig
             - BlueBearCoreBundle:Form:fields.html.twig
 
+# Monolog Configuration
+monolog:
+    handlers:
+        main:
+            type: rotating_file
+            max_files: 5
+            path: "%kernel.logs_dir%/bluebear-%kernel.environment%.log"
+            level: error
+
 # Assetic Configuration
 assetic:
     write_to: %kernel.root_dir%/../web
