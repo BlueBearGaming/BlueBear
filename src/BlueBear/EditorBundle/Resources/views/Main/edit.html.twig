@@ -53,7 +53,7 @@
                         min-height: 500px;
                     }
                 </style>
-                <canvas id="canvas_map"></canvas>
+                <canvas id="canvas_map" data-endpoint="{{ path('bluebear_engine_trigger_event', {eventName: 'bluebear.engine.onMapLoad'}) }}"></canvas>
             </div>
         </div>
     </div>
