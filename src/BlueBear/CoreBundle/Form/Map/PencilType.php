@@ -74,11 +74,9 @@ class PencilType extends AbstractType
             'help_block' => 'Image y position',
         ]);
         $builder->add('width', 'number', [
-            'data' => 1, // by default, image take 1 tile
             'help_block' => 'Image width in tiles ("1" means that image width take 1 x Map.CellSize)',
         ]);
         $builder->add('height', 'number', [
-            'data' => 1, // by default, image take 1 tile
             'help_block' => 'Image height in tiles ("1" means that image height take 1 x Map.CellSize)',
         ]);
         $builder->add('image', 'resource_image');
