@@ -3,6 +3,7 @@
 namespace BlueBear\CoreBundle\Twig;
 
 use BlueBear\BaseBundle\Behavior\ContainerTrait;
+use BlueBear\FileUploadBundle\Entity\Resource;
 use Symfony\Component\HttpFoundation\Request;
 use Twig_Extension;
 use Twig_SimpleFunction;
@@ -19,7 +20,8 @@ class UtilsExtension extends Twig_Extension
     {
         return [
             new Twig_SimpleFunction('isCurrentRoute', [$this, 'isCurrentRoute']),
-            new Twig_SimpleFunction('getClassForRoute', [$this, 'getClassForRoute'])
+            new Twig_SimpleFunction('getClassForRoute', [$this, 'getClassForRoute']),
+            new Twig_SimpleFunction('resource_path', [$this, 'getResourcePath']),
         ];
     }
 
@@ -39,5 +41,15 @@ class UtilsExtension extends Twig_Extension
     public function getName()
     {
         return 'bluebear_extension';
+    }
+
+    public function getResourcePath(Resource $resource = null, $absolute = false)
+    {
+        $fileName = '';
+        if ($resource) {
+            $fileName = $resource->getFileName();
+        }
+        return $this->getContainer()->get('twig')->getExtension('assets')
+            ->getAssetUrl('resources/images/' . $fileName, null, $absolute);
     }
 }

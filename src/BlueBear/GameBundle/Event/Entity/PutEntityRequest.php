@@ -4,7 +4,6 @@ namespace BlueBear\GameBundle\Event\Entity;
 
 use BlueBear\EngineBundle\Event\EventRequest;
 use JMS\Serializer\Annotation\Expose;
-use JMS\Serializer\Annotation\SerializedName;
 use JMS\Serializer\Annotation\Type;
 
 class PutEntityRequest extends EventRequest
@@ -30,7 +29,6 @@ class PutEntityRequest extends EventRequest
      *
      * @Expose()
      * @Type("integer")
-     * @SerializedName("entityModelId")
      */
     public $entityModelId;
 
@@ -39,7 +37,6 @@ class PutEntityRequest extends EventRequest
      *
      * @Expose()
      * @Type("integer")
-     * @SerializedName("layerId")
      */
     public $layerId;
 }

@@ -3,7 +3,6 @@
 namespace BlueBear\EngineBundle\Event;
 
 use JMS\Serializer\Annotation\Expose;
-use JMS\Serializer\Annotation\SerializedName;
 use JMS\Serializer\Annotation\Type;
 
 /**
@@ -18,7 +17,6 @@ class EventRequest
      *
      * @Expose()
      * @Type("integer")
-     * @SerializedName("contextId")
      */
     public $contextId;
 }

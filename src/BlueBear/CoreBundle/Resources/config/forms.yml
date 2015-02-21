@@ -14,8 +14,6 @@ services:
         tags:
             - { name: form.type, alias: pencil }
         calls:
-            - [setLayerManager, [@bluebear.manager.layer]]
-            - [setImageManager, [@bluebear.manager.image]]
             - [setPencilSetManager, [@bluebear.manager.pencil_set]]
 
     # PencilSetType

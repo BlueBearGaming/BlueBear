@@ -42,6 +42,6 @@ class EventResponse
     {
         $this->type = get_class($this);
         $this->code = EngineEvent::ENGINE_EVENT_RESPONSE_OK;
-        $this->timestamp = date('U');
+        $this->timestamp = (int) date('U');
     }
 }

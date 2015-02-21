@@ -12,6 +12,7 @@ use stdClass;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class MainController extends Controller
 {
@@ -44,9 +45,19 @@ class MainController extends Controller
 //        $event = $engine->run(EngineEvent::ENGINE_ON_CONTEXT_LOAD, $data);
         /** @var Map $map */
         $map = $this->getMapManager()->findOneBy(['name' => $request->get('mapName')]);
+        $context = $map->getContexts()->first();
+        $jikpozeOptions = [
+            'endPoint' => $this->generateUrl('bluebear_engine_trigger_event', [], UrlGeneratorInterface::ABSOLUTE_URL) . '/',
+            'editionMode' => true,
+            'resourceBasePath' => $this->get('bluebear.twig.utils')->getResourcePath(null, true),
+            'layerSelectorName' => 'bluebear_map_editor[selected_layer]',
+            'pencilSelectorName' => 'bluebear_map_editor[selected_pencil]',
+            'contextId' => $context->getId(),
+        ];
 
         return [
-            'context' => $map->getContexts()->first(),
+            'context' => $context,
+            'jikpozeOptions' => $jikpozeOptions,
         ];
     }
 

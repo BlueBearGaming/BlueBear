@@ -2,58 +2,48 @@
 
 {% block content %}
     <div id="editor">
-        <div class="col-md-2">
+        <div class="col-md-2 map-editor-form">
             {# layers #}
             <label>
                 Layer
-                <select class="form-control">
+                <select class="form-control" name="bluebear_map_editor[selected_layer]">
                     {% for layer in context.map.layers %}
-                        <option value="{{ layer.id }}">{{ layer.label }}</option>
+                        {% if layer.type not in ['grid', 'selection', 'events', 'debug'] %}
+                            <option value="{{ layer.name }}" data-layer-type="{{ layer.type }}">{{ layer.label }}</option>
+                        {% endif %}
                     {% endfor %}
                 </select>
             </label>
 
             {# pencils #}
             {% for pencilSet in context.map.pencilSets %}
-                <ul class="accordion">
-                    <li><strong>{{ pencilSet.label }} - {{ pencilSet.type }}</strong>
-                        <ul>
-                            {% for pencil in pencilSet.pencils %}
-                                <li data-id="{{ pencil.id }}">
-                                    {{ pencil.label }}
-
-                                    {% if pencil.image %}
-                                        <img width="50" height="50"
-                                             src="data:image/{{ pencil.image.resource.extension }};base64,{{ pencil.image.resource.fileContent }}"/>
-                                    {% endif %}
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </li>
-                </ul>
+                {% for pencil in pencilSet.pencils %}
+                    <div class="radio pencil" data-pencil-set="{{ pencilSet.label }}" data-pencil-set-type="{{ pencilSet.type }}">
+                        <label>
+                            <input type="radio" name="bluebear_map_editor[selected_pencil]" value="{{ pencil.name }}">
+                            {{ pencil.label }}
+                            <span class="text-muted">{{ pencil.tags }}</span>
+                            {% if pencil.image %}
+                                <img width="50" height="50" src="{{ resource_path(pencil.image) }}"/>
+                                <div class="clear"></div>
+                            {% endif %}
+                        </label>
+                    </div>
+                {% endfor %}
             {% endfor %}
         </div>
         <div class="col-md-10">
             <h1>Map Editor</h1>
-
-            <div class="row">
-                <form action="{{ path('bluebear_engine_trigger_event', {eventName: 'bluebear.engine.onMapSave'}) }}"
-                      method="post">
-                    <input type="submit" class="btn btn-default save-map" value="save"/>
-                </form>
-            </div>
-
             <div class="map">
                 <style>
                     /* For debugging purpose only */
                     canvas {
                         background: white;
                         width: 100%;
-                        height: 100%;
-                        min-height: 500px;
+                        height: 600px;
                     }
                 </style>
-                <canvas id="canvas_map" data-endpoint="{{ path('bluebear_engine_trigger_event', {eventName: 'bluebear.engine.onMapLoad'}) }}"></canvas>
+                <canvas id="canvas_map" data-options="{{ jikpozeOptions|json_encode }}"></canvas>
             </div>
         </div>
     </div>
@@ -61,28 +51,4 @@
 
     <script type="application/dart" src="{{ asset('/jikpoze/main.dart') }}"></script>
     <script src="{{ asset('/jikpoze/packages/browser/dart.js') }}"></script>
-    <script>
-        $(document).on('ready', function () {
-            $('.accordion').accordion({
-                collapsible: true,
-                active: 1,
-                heightStyle: 'content'
-            });
-            $('.save-map').on('click', function () {
-                var data = {
-                    mapName: {{ context.map.name }}
-                };
-                var form = $(this).parents('form');
-
-                $.ajax({
-                    type: 'post',
-                    url: form.attr('action'),
-                    data: 'eventData=' + JSON.stringify(data)
-                });
-
-
-                return false;
-            });
-        });
-    </script>
 {% endblock %}

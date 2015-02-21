@@ -7223,6 +7223,17 @@ table th[data-sort] {
   cursor: pointer;
   height: 100px; }
 
+.map-editor-form .pencil {
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ffffdd; }
+  .map-editor-form .pencil label {
+    display: block; }
+    .map-editor-form .pencil label input {
+      position: relative;
+      top: 50%; }
+    .map-editor-form .pencil label img {
+      float: right; }
+
 .entity_model_attributes_form_group .collection-item {
   border-bottom: 1px solid #464545;
   margin-bottom: 25px;
@@ -7244,11 +7255,20 @@ body {
 .clear {
   clear: both; }
 
+.right {
+  float: right; }
+
+.left {
+  float: left; }
+
 table td .btn {
   line-height: 1; }
 
 .dropdown-menu > li > a {
   padding: 10px; }
+
+.button-list a, .button-list input, .button-list button {
+  margin-left: 10px; }
 
 .image-list a {
   display: block;

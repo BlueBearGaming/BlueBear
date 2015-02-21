@@ -14,18 +14,18 @@ trait Sizable
     /**
      * Entity width
      *
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float")
      * @Serializer\Expose()
      */
-    protected $width = 0;
+    protected $width = 1;
 
     /**
      * Entity height
      *
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float")
      * @Serializer\Expose()
      */
-    protected $height = 0;
+    protected $height = 1;
 
     /**
      * Return entity height

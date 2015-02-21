@@ -29,7 +29,6 @@ class Map
      *
      * @ORM\ManyToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\PencilSet", cascade={"persist"})
      * @Serializer\Expose()
-     * @Serializer\SerializedName("pencilSets")
      */
     protected $pencilSets;
 

@@ -19,6 +19,9 @@ class EngineController extends Controller
         $eventName = $request->get('eventName');
         // api event data
         $eventData = $request->get('eventData');
+        if (!$eventData) {
+            $eventData = $request->getContent();
+        }
         /** @var Engine $engine */
         $engine = $this->get('bluebear.engine.engine');
         $engineEvent = $engine->run($eventName, $eventData);
@@ -31,6 +34,7 @@ class EngineController extends Controller
         $response->setStatusCode(200);
         $response->setContent($content);
         $response->headers->set('Content-Type', 'application/json');
+        $response->headers->set('Access-Control-Allow-Origin', '*');
 
         return $response;
     }

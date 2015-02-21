@@ -106,3 +106,7 @@ fos_user:
     db_driver: orm
     firewall_name: main
     user_class: BlueBear\UserBundle\Entity\User
+
+# JMS Serializer naming strategy
+parameters:
+    jms_serializer.serialized_name_annotation_strategy.class: JMS\Serializer\Naming\IdenticalPropertyNamingStrategy

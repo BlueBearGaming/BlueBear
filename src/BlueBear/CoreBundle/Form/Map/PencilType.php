@@ -5,6 +5,7 @@ namespace BlueBear\CoreBundle\Form\Map;
 
 use BlueBear\CoreBundle\Constant\Map\Constant;
 use BlueBear\CoreBundle\Entity\Behavior\SortEntity;
+use BlueBear\CoreBundle\Entity\Editor\ImageRepository;
 use BlueBear\CoreBundle\Entity\Map\Pencil;
 use BlueBear\CoreBundle\Manager\ImageManager;
 use BlueBear\CoreBundle\Manager\LayerManager;
@@ -15,15 +16,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 class PencilType extends AbstractType
 {
     use SortEntity;
-    /**
-     * @var LayerManager
-     */
-    protected $layerManager;
-
-    /**
-     * @var ImageManager
-     */
-    protected $imageManager;
 
     /**
      * @var PencilSetManager $pencilSetManager
@@ -37,8 +29,10 @@ class PencilType extends AbstractType
         // Transformers (yeh !)
         $pencilSetTransformer = new EntityToIdTransformer();
         $pencilSetTransformer->setManager($this->pencilSetManager);
-        $imageTransformer = new EntityToIdTransformer();
-        $imageTransformer->setManager($this->imageManager);
+        $image = null;
+        if ($builder->getData()) {
+            $image = $builder->getData()->getImage();
+        }
 
         $builder->add('name', 'text', [
             'help_block' => 'Internal name of the pencil (eg: pencil_0)'
@@ -74,29 +68,22 @@ class PencilType extends AbstractType
             'help_block' => 'Image y position',
         ]);
         $builder->add('width', 'number', [
-            'data' => 1, // by default, image take 1 tile
             'help_block' => 'Image width in tiles ("1" means that image width take 1 x Map.CellSize)',
         ]);
         $builder->add('height', 'number', [
-            'data' => 1, // by default, image take 1 tile
             'help_block' => 'Image height in tiles ("1" means that image height take 1 x Map.CellSize)',
         ]);
-        $builder->add('image', 'resource_image');
+        $builder->add('image', 'resource_image', [
+            'query_builder' => function(ImageRepository $repo) use ($image) {
+                return $repo->getQbForOrphans($image);
+            },
+        ]);
+        //$builder->add('boundingBox', new BoundingBoxType()); // @wip
     }
 
     public function getName()
     {
         return 'pencil';
-    }
-
-    public function setLayerManager(LayerManager $layerManager)
-    {
-        $this->layerManager = $layerManager;
-    }
-
-    public function setImageManager(ImageManager $imageManager)
-    {
-        $this->imageManager = $imageManager;
     }
 
     /**
