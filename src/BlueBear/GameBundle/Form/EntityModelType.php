@@ -25,6 +25,8 @@ class EntityModelType extends AbstractType
         $builder->add('name', 'text', [
             'help_block' => 'Name of the unit'
         ]);
+        $builder->add('pencil');
+
         $builder->add('allowedLayerTypes', 'choice', [
             'choices' => Constant::getLayerTypes(),
             'multiple' => true,
