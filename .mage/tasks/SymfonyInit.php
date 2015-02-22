@@ -1,7 +1,7 @@
 <?php
 
 namespace Task;
-
+// vendors are not autoloaded in mage deployment
 require_once(__DIR__ . '/../../vendor/autoload.php');
 
 use Exception;
@@ -41,6 +41,8 @@ class SymfonyInit extends SymfonyAbstractTask
         $this->setPermissions();
         // create parameters.yml if required and prompt new parameters from .dist
         $this->setParametersYml();
+
+        return true;
     }
 
     /**
@@ -97,10 +99,10 @@ class SymfonyInit extends SymfonyAbstractTask
         $command = 'mkdir ' . $sharedFolderName . '/app/config -p';
         $this->runCommandRemote($command);
 
-        $command = 'cp ' . $releasesDirectory . '/' . $this->getConfig()->getReleaseId()
-            . '/app/config/parameters.yml.dist ' . $sharedFolderName . '/app/config/parameters.yml';
-        $command .= ' -n';
-        $this->runCommandRemote($command, $output);
+        //$command = 'cp ' . $releasesDirectory . '/' . $this->getConfig()->getReleaseId()
+        //    . '/app/config/parameters.yml.dist ' . $sharedFolderName . '/app/config/parameters.yml';
+        //$command .= ' -n';
+        //$this->runCommandRemote($command, $output);
 
         // shared folders and files
         $currentCopy = $releasesDirectory . '/' . $this->getConfig()->getReleaseId();
@@ -123,13 +125,13 @@ class SymfonyInit extends SymfonyAbstractTask
     public function setParametersYml()
     {
         // create config directory if not exists
-        $this->mkDir($this->getSharedFolder() . '/app/config');
+        $this->mkDir($this->getSharedFolder() . 'app/config');
 
         // copy current release parameters.yml.dist into /shared/app/config/parameters.yml
         $parametersDist = $this->getCurrentReleaseDirectory() . 'app/config/parameters.yml.dist';
-        $sharedParameters = $this->getSharedFolder() . '/app/config/parameters.yml';
+        $sharedParameters = $this->getSharedFolder() . 'app/config/parameters.yml';
         // copy without overwrite
-        $this->copy($parametersDist, $sharedParameters);
+        //$this->copy($parametersDist, $sharedParameters);
 
         // match differences between two files
         $yamlParser = new Parser();
@@ -138,20 +140,24 @@ class SymfonyInit extends SymfonyAbstractTask
         // yml from actual shared parameters.yml
         $parametersYml = $yamlParser->parse($this->getFileContent($sharedParameters));
 
-        var_dump($distYml);
-        var_dump($parametersYml);
+        if (!$parametersYml) {
+            $parametersYml = ['parameters' => []];
+        }
+
+        //var_dump($distYml);
+        //var_dump($parametersYml);
 
         if (is_array($distYml) and is_array($parametersYml)) {
-            echo 'lol';
+            //echo 'lol';
             // searching for new key in parameters.yml.dist
             $differential = array_diff($distYml['parameters'], $parametersYml['parameters']);
-            var_dump($differential);
+            //var_dump($differential);
 
             if (count($differential)) {
                 Console::output('New parameters from parameters.dist.yml have been found !');
 
                 foreach ($differential as $key => $defaultValue) {
-                    Console::output("Enter value for <white>{$key}</white> (default: \"{$defaultValue}\"");
+                    Console::output("Enter value for <white>{$key}</white> (default: \"{$defaultValue}\")");
                     $inputValue = Console::readInput();
 
                     if ($inputValue) {
@@ -160,7 +166,7 @@ class SymfonyInit extends SymfonyAbstractTask
                         $parametersYml['parameters'][$key] = $defaultValue;
                     }
                 }
-                Console::output('Dumping new parameters.yml');
+                Console::output('Dumping new parameters into ' . $sharedParameters);
                 // dump new parameters values
                 $dumper = new Dumper();
                 $newParametersYml = $dumper->dump($parametersYml);

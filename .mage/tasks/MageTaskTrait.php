@@ -15,13 +15,13 @@ trait MageTaskTrait
     public abstract function getConfig();
 
     /**
-     * Return shared folder path (eg "/var/www/my_project/shared/"
+     * Return shared folder path (eg "/var/www/my_project/shared/"). Ends with slash
      *
      * @return mixed
      */
     public function getSharedFolder()
     {
-        return $this->getParameter('shared', 'shared');
+        return $this->getCurrentReleaseDirectory() . '../../' .  $this->getParameter('shared', 'shared') . '/';
     }
 
     /**
