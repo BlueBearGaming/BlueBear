@@ -120,4 +120,9 @@ trait ManagerBehavior
             ->get('doctrine')
             ->getManager();
     }
+
+    public function __call($method, $arguments)
+    {
+        return $this->getRepository()->__call($method, $arguments);
+    }
 }

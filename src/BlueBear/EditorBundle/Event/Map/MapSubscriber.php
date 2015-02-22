@@ -34,14 +34,14 @@ class MapSubscriber implements EventSubscriberInterface
         /** @var PutPencilRequest $request */
         $request = $event->getRequest();
         // check if id are provided
-        $this->throwUnless($request->pencilId, 'Invalid pencil id');
-        $this->throwUnless($request->layerId, 'Invalid layer id');
+        $this->throwUnless($request->pencilName, 'Invalid pencil name');
+        $this->throwUnless($request->layerName, 'Invalid layer name');
         /**
          * @var Layer $layer
          * @var Pencil $pencil
          */
-        $layer = $this->getContainer()->get('bluebear.manager.layer')->find($request->layerId);
-        $pencil = $this->getContainer()->get('bluebear.manager.pencil')->find($request->pencilId);
+        $layer = $this->getContainer()->get('bluebear.manager.layer')->findOneByName($request->layerName);
+        $pencil = $this->getContainer()->get('bluebear.manager.pencil')->findOneByName($request->pencilName);
         // check if layer is allowed for pencil
         $this->throwUnless($pencil, 'Pencil not found');
         $this->throwUnless($layer, 'Layer not found');

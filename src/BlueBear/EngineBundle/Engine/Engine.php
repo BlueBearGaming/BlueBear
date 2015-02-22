@@ -33,7 +33,7 @@ class Engine
     {
         $eventRequest = null;
 
-        try {
+        //try {
             // only BlueBear events are allowed to be triggered here, not Symfony ones
             if (strpos($eventName, 'bluebear.') !== 0) {
                 throw new Exception('Invalid event name. Bluebear events name should start with "bluebear."');
@@ -54,15 +54,16 @@ class Engine
             $this->getEventDispatcher()->dispatch(EngineEvent::ENGINE_ON_ENGINE_EVENT, $engineEvent);
             // trigger wanted event
             $this->getEventDispatcher()->dispatch($eventName, $engineEvent);
-        } catch (Exception $e) {
+        /*} catch (Exception $e) {
             // on error, set response code ko and return response with exception message and stack trace
             $response = new ErrorResponse($eventName);
             $response->name = $eventName;
             $response->code = EngineEvent::ENGINE_EVENT_RESPONSE_KO;
             $response->message = $e->getMessage();
+            // @todo set $eventRequest to an error type
             // set event response
             $engineEvent = new EngineEvent($eventRequest, $response);
-        }
+        }*/
         // return event
         return $engineEvent;
     }

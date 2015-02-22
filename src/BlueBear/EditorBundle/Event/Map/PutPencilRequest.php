@@ -12,17 +12,17 @@ class PutPencilRequest extends EventRequest
      * Layer on which pencil has been painted
      *
      * @Expose()
-     * @Type("integer")
+     * @Type("string")
      */
-    public $layerId;
+    public $layerName;
 
     /**
      * Painted pencil
      *
      * @Expose()
-     * @Type("integer")
+     * @Type("string")
      */
-    public $pencilId;
+    public $pencilName;
 
     /**
      * @Expose()

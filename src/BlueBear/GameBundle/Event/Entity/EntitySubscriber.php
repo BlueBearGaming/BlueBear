@@ -41,7 +41,7 @@ class EntitySubscriber implements EventSubscriberInterface
         /** @var EntityModel $entityModel */
         $entityModel = $this->getContainer()->get('bluebear.manager.entity_model')->find($request->entityModelId);
         /** @var Layer $requestedLayer */
-        $requestedLayer = $this->getContainer()->get('bluebear.manager.layer')->find($request->layerId);
+        $requestedLayer = $this->getContainer()->get('bluebear.manager.layer')->findOneByName($request->layerName);
 
         if (!$entityModel) {
             throw new Exception('Unable to create entity instance in map. Invalid entity id');

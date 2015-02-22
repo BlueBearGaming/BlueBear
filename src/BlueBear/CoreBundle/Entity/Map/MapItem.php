@@ -22,7 +22,6 @@ class MapItem
     /**
      * @var Pencil
      * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Pencil", inversedBy="mapItems")
-     * @Serializer\Expose()
      */
     protected $pencil;
 
@@ -32,7 +31,6 @@ class MapItem
      * @var Layer
      * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Layer", inversedBy="mapItems", fetch="EAGER");
      * @ORM\JoinColumn(nullable=false)
-     * @Serializer\Expose()
      */
     protected $layer;
 
@@ -79,5 +77,31 @@ class MapItem
     public function setContext(Context $context)
     {
         $this->context = $context;
+    }
+
+    /**
+     * @Serializer\VirtualProperty
+     * @Serializer\SerializedName("pencilName")
+     * @return string
+     */
+    public function getPencilName()
+    {
+        if ($this->getPencil()) {
+            return $this->getPencil()->getName();
+        }
+        return '';
+    }
+
+    /**
+     * @Serializer\VirtualProperty
+     * @Serializer\SerializedName("layerName")
+     * @return string
+     */
+    public function getLayerName()
+    {
+        if ($this->getLayer()) {
+            return $this->getLayer()->getName();
+        }
+        return '';
     }
 }

@@ -116,8 +116,8 @@ class ApiController extends Controller
     {
         $request = new PutPencilRequest();
         $request->contextId = $context->getId();
-        $request->layerId = $this->getRandomLayer($map->getLayers()->toArray())->getId();
-        $request->pencilId = $this->getRandomPencil($map->getPencilSets()->toArray())->getId();
+        $request->layerName = $this->getRandomLayer($map->getLayers()->toArray())->getName();
+        $request->pencilName = $this->getRandomPencil($map->getPencilSets()->toArray())->getName();
         $request->x = 3;
         $request->y = 3;
 
@@ -143,7 +143,7 @@ class ApiController extends Controller
             $request = new PutEntityRequest();
             $request->contextId = $context->getId();
             $request->entityModelId = $entityModel->getId();
-            $request->layerId = $this->getRandomLayer($layers)->getId();
+            $request->layerName = $this->getRandomLayer($layers)->getName();
             $request->x = 4;
             $request->y = 2;
         } else {

@@ -36,7 +36,7 @@ class PutEntityRequest extends EventRequest
      * Layer id
      *
      * @Expose()
-     * @Type("integer")
+     * @Type("string")
      */
-    public $layerId;
+    public $layerName;
 }
