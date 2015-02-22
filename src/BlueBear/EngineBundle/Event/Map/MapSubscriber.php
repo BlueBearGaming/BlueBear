@@ -3,7 +3,6 @@
 namespace BlueBear\EngineBundle\Event\Map;
 
 use BlueBear\BaseBundle\Behavior\ContainerTrait;
-use BlueBear\CoreBundle\Entity\Map\MapItem;
 use BlueBear\EngineBundle\Behavior\HasContextFactory;
 use BlueBear\EngineBundle\Event\EngineEvent;
 use Exception;
@@ -21,8 +20,8 @@ class MapSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            EngineEvent::ENGINE_ON_CONTEXT_LOAD => 'onContextLoad',
-            EngineEvent::ENGINE_ON_MAP_SAVE => 'onMapSave'
+            EngineEvent::ENGINE_CONTEXT_LOAD => 'onContextLoad',
+            EngineEvent::ENGINE_MAP_SAVE => 'onMapSave'
         ];
     }
 
@@ -36,10 +35,8 @@ class MapSubscriber implements EventSubscriberInterface
     {
         $data = [];
         $data['context'] = $event->getContext();
-        $response = new LoadContextResponse();
+        $response = $event->getResponse();
         $response->data = $data;
-        // set event response
-        $event->setResponse($response);
     }
 
     /**
@@ -51,54 +48,54 @@ class MapSubscriber implements EventSubscriberInterface
     public function onMapSave(EngineEvent $event)
     {
         die('refactoring in progress');
-        $this->check($event);
-        $data = $event->getData();
-        $map = $event->getMap();
-
-        if ($this->propertyExists($data, 'context')) {
-            // provided id should be the same as the current map context
-            if (!$this->propertyExists($data->context, 'id') or
-                $data->context->id != $map->getCurrentContext()->getId()) {
-                // invalid context
-                throw new Exception('Invalid context id. You should provided the last context id');
-            }
-            // if mapItems were provided
-            if ($this->propertyExists($data->context, 'mapItems')) {
-                $mapItems = [];
-                
-                // update altered mapItems
-                foreach ($data->context->mapItems as $mapItemData) {
-                    // if a pencil was provided
-                    if ($this->propertyExists($mapItemData, 'pencil')) {
-                        if (!$this->propertyExists($mapItemData, 'id') and !$this->propertyExists($mapItemData, 'pencil')) {
-                            throw new Exception('Invalid pencil data');
-                        }
-                        // get pencil and layer
-                        $pencil = $this->getContainer()->get('bluebear.manager.pencil')->findOneBy([
-                            'name' => $mapItemData->pencil->name
-                        ]);
-                        $layer = $this->getContainer()->get('bluebear.manager.layer')->findOneBy([
-                            'name' => $mapItemData->layer->name
-                        ]);
-                        // test if pencil data are valid
-                        if (!$pencil) {
-                            throw new Exception('Pencil not found for tileId : ' . $mapItemData->id);
-                        }
-                        $mapItem = new MapItem();
-                        $mapItem->setX($mapItemData->x);
-                        $mapItem->setY($mapItemData->y);
-                        $mapItem->setPencil($pencil);
-                        $mapItem->setLayer($layer);
-                        // add to list
-                        $mapItems[] = $mapItem;
-                    }
-                }
-                $context = $this->getContextFactory()->update($map, $mapItems);
-                $event->setResponseData([
-                    'context' => $context->toArray()
-                ]);
-            }
-        }
+//        $this->check($event);
+//        $data = $event->getData();
+//        $map = $event->getMap();
+//
+//        if ($this->propertyExists($data, 'context')) {
+//            // provided id should be the same as the current map context
+//            if (!$this->propertyExists($data->context, 'id') or
+//                $data->context->id != $map->getCurrentContext()->getId()) {
+//                // invalid context
+//                throw new Exception('Invalid context id. You should provided the last context id');
+//            }
+//            // if mapItems were provided
+//            if ($this->propertyExists($data->context, 'mapItems')) {
+//                $mapItems = [];
+//
+//                // update altered mapItems
+//                foreach ($data->context->mapItems as $mapItemData) {
+//                    // if a pencil was provided
+//                    if ($this->propertyExists($mapItemData, 'pencil')) {
+//                        if (!$this->propertyExists($mapItemData, 'id') and !$this->propertyExists($mapItemData, 'pencil')) {
+//                            throw new Exception('Invalid pencil data');
+//                        }
+//                        // get pencil and layer
+//                        $pencil = $this->getContainer()->get('bluebear.manager.pencil')->findOneBy([
+//                            'name' => $mapItemData->pencil->name
+//                        ]);
+//                        $layer = $this->getContainer()->get('bluebear.manager.layer')->findOneBy([
+//                            'name' => $mapItemData->layer->name
+//                        ]);
+//                        // test if pencil data are valid
+//                        if (!$pencil) {
+//                            throw new Exception('Pencil not found for tileId : ' . $mapItemData->id);
+//                        }
+//                        $mapItem = new MapItem();
+//                        $mapItem->setX($mapItemData->x);
+//                        $mapItem->setY($mapItemData->y);
+//                        $mapItem->setPencil($pencil);
+//                        $mapItem->setLayer($layer);
+//                        // add to list
+//                        $mapItems[] = $mapItem;
+//                    }
+//                }
+//                $context = $this->getContextFactory()->update($map, $mapItems);
+//                $event->setResponseData([
+//                    'context' => $context->toArray()
+//                ]);
+//            }
+//        }
     }
 
     /**

@@ -2,13 +2,18 @@
 
 namespace BlueBear\CoreBundle\Form\Engine;
 
-use BlueBear\EngineBundle\Event\EngineEvent;
+use BlueBear\EngineBundle\Engine\Engine;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class EngineEventTestType extends AbstractType
 {
+    /**
+     * @var Engine
+     */
+    protected $engine;
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('event', 'choice', [
@@ -37,9 +42,14 @@ class EngineEventTestType extends AbstractType
         return 'engine_event_test';
     }
 
+    public function setEngine(Engine $engine)
+    {
+        $this->engine = $engine;
+    }
+
     protected function getEvents()
     {
-        $events = EngineEvent::getAllowedEvents();
+        $events = $this->engine->getAllowedEvents();
         $sorted = [];
 
         foreach ($events as $event) {

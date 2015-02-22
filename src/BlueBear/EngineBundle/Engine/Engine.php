@@ -4,7 +4,6 @@ namespace BlueBear\EngineBundle\Engine;
 
 use BlueBear\CoreBundle\Entity\Behavior\HasEventDispatcher;
 use BlueBear\CoreBundle\Entity\Behavior\HasSerializer;
-use BlueBear\CoreBundle\Entity\Map\Map;
 use BlueBear\EngineBundle\Event\EngineEvent;
 use BlueBear\EngineBundle\Event\Error\ErrorResponse;
 use Exception;
@@ -21,10 +20,7 @@ class Engine
     const RESPONSE_CODE_OK = 'ok';
     const RESPONSE_CODE_KO = 'ko';
 
-    /**
-     * @var Map
-     */
-    protected $map;
+    protected $allowedEvents = [];
 
     /**
      * Run map engine with an event name and event data
@@ -35,58 +31,90 @@ class Engine
      */
     public function run($eventName, $eventData)
     {
+        $eventRequest = null;
+
         try {
             // only BlueBear events are allowed to be triggered here, not Symfony ones
             if (strpos($eventName, 'bluebear.') !== 0) {
                 throw new Exception('Invalid event name. Bluebear events name should start with "bluebear."');
             }
             // check if event is allowed
-            if (!in_array($eventName, EngineEvent::getAllowedEvents())) {
-                $allowedEvents = implode('", "', EngineEvent::getAllowedEvents());
+            if (!in_array($eventName, $this->getAllowedEvents())) {
+                $allowedEvents = implode('", "', $this->getAllowedEvents());
                 throw new Exception('Invalid event name. Allowed events name are "' . $allowedEvents . '"');
             }
             if (!$eventData) {
                 throw new Exception('Empty event data');
             }
             // deserialize event request
-            $request = $this
-                ->getSerializer()
-                ->deserialize($eventData, $this->getRequestClassForEvent($eventName), 'json');
-            $engineEvent = new EngineEvent();
-            $engineEvent->setRequest($request);
+            $eventRequest = $this->getRequestForEvent($eventName, $eventData);
+            $eventResponse = $this->getResponseForEvent($eventName);
+            $engineEvent = new EngineEvent($eventRequest, $eventResponse);
             // trigger onEngineEvent
             $this->getEventDispatcher()->dispatch(EngineEvent::ENGINE_ON_ENGINE_EVENT, $engineEvent);
             // trigger wanted event
             $this->getEventDispatcher()->dispatch($eventName, $engineEvent);
         } catch (Exception $e) {
             // on error, set response code ko and return response with exception message and stack trace
-            $response = new ErrorResponse();
-            $response->type = get_class($response);
+            $response = new ErrorResponse($eventName);
+            $response->name = $eventName;
             $response->code = EngineEvent::ENGINE_EVENT_RESPONSE_KO;
             $response->message = $e->getMessage();
-            $response->stackTrace = $e->getTraceAsString();
             // set event response
-            $engineEvent = new EngineEvent();
-            $engineEvent->setResponse($response);
+            $engineEvent = new EngineEvent($eventRequest, $response);
         }
         // return event
         return $engineEvent;
     }
 
-    protected function getRequestClassForEvent($eventName)
+    protected function getRequestForEvent($eventName, $eventData)
     {
-        $request = 'BlueBear\EngineBundle\Event\EventRequest';
+        if (!array_key_exists($eventName, $this->allowedEvents)) {
+            throw new Exception("Not allowed event name \"{$eventName}\"");
+        }
+        $requestClass = $this->allowedEvents[$eventName]['request'];
+        // deserialize json data into EventRequest object
+        return $this
+            ->getSerializer()
+            ->deserialize($eventData, $requestClass, 'json');
+    }
 
-        if ($eventName == EngineEvent::ENGINE_ON_CONTEXT_LOAD) {
-            $request = 'BlueBear\EngineBundle\Event\Map\LoadContextRequest';
-        } else if ($eventName == EngineEvent::ENGINE_ON_MAP_ITEM_CLICK) {
-            $request = 'BlueBear\EngineBundle\Event\MapItem\MapItemClickRequest';
-        } else if ($eventName == EngineEvent::ENGINE_ON_MAP_PUT_ENTITY) {
-            $request = 'BlueBear\GameBundle\Event\Entity\PutEntityRequest';
+    protected function getResponseForEvent($eventName)
+    {
+        if (!array_key_exists($eventName, $this->allowedEvents)) {
+            throw new Exception("Not allowed event name \"{$eventName}\"");
         }
-        if (!$request) {
-            throw new Exception('Event request class not found for event : ' . $eventName);
+        $responseClass = $this->allowedEvents[$eventName]['response'];
+
+        if (!class_exists($responseClass)) {
+            throw new Exception('Invalid event response class');
         }
-        return $request;
+        // create new EventResponse object
+        return new $responseClass($eventName);
+    }
+
+    /**
+     * @param array $eventsConfig
+     * @throws Exception
+     */
+    public function setAllowedEvents(array $eventsConfig)
+    {
+        foreach ($eventsConfig as $eventName => $eventConfig) {
+            if (!array_key_exists('request', $eventConfig) or
+                !array_key_exists('response', $eventConfig)) {
+                throw new Exception('Event configuration should have a request and response');
+            }
+            $this->allowedEvents[$eventName] = $eventConfig;
+        }
+    }
+
+    /**
+     * Return allowed event names
+     *
+     * @return array
+     */
+    public function getAllowedEvents()
+    {
+        return array_keys($this->allowedEvents);
     }
 } 

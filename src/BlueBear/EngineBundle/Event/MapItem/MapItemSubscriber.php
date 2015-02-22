@@ -19,7 +19,7 @@ class MapItemSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            EngineEvent::ENGINE_ON_MAP_ITEM_CLICK => [
+            EngineEvent::ENGINE_MAP_ITEM_CLICK => [
                 'onClick'
             ]
         ];
@@ -64,8 +64,5 @@ class MapItemSubscriber implements EventSubscriberInterface
         $mapItem->setPencil($pencil);
         $mapItem->setContext($event->getContext());
         $mapItemManager->save($mapItem);
-
-        // set generic response
-        $event->setResponse(new MapItemClickResponse());
     }
 }

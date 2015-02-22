@@ -1,3 +1,17 @@
+# BlueBear Engine
+blue_bear_engine:
+    events:
+        bluebear.engine.mapLoad:
+            request: BlueBear\EngineBundle\Event\Map\LoadContextRequest
+            response: BlueBear\EngineBundle\Event\Map\LoadContextResponse
+        bluebear.engine.mapItemClick:
+            request: BlueBear\EngineBundle\Event\MapItem\MapItemClickRequest
+            response: BlueBear\EngineBundle\Event\MapItem\MapItemClickResponse
+        bluebear.editor.putPencil:
+            request: BlueBear\EditorBundle\Event\Map\PutPencilRequest
+            response: BlueBear\EditorBundle\Event\Map\PutPencilResponse
+
+# BlueBear Game
 blue_bear_game:
     entity_type:
         door:

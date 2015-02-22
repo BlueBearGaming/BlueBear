@@ -36,6 +36,11 @@ class EntityModel
      */
     protected $allowedLayerTypes;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Pencil")
+     */
+    protected $pencil;
+
     public function __construct()
     {
         $this->attributes = new ArrayCollection();
@@ -82,5 +87,21 @@ class EntityModel
     public function isLayerTypeAllowed($layerType)
     {
         return in_array($layerType, $this->allowedLayerTypes);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPencil()
+    {
+        return $this->pencil;
+    }
+
+    /**
+     * @param mixed $pencil
+     */
+    public function setPencil($pencil)
+    {
+        $this->pencil = $pencil;
     }
 }

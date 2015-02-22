@@ -49,8 +49,10 @@ services:
         tags:
             - { name: form.type, alias: resource_image }
 
-    # utils
+    # Utils
     bluebear.form.engine_event_test_type:
         class: %bluebear.form.engine_event_test_type%
         tags:
             - { name: form.type, alias: engine_event_test }
+        calls:
+            - [setEngine, [@bluebear.engine.engine]]

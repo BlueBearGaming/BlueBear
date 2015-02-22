@@ -33,6 +33,7 @@ class MapType extends AbstractType
         $transformer->setManager($this->pencilSetManager);
         $layerTransformer = new EntityToChoiceTransformer();
         $layerTransformer->setManager($this->layerManager);
+        $layers = $this->layerManager->findAll();
 
         $builder->add('name', 'text', [
             'help_block' => 'Internal map name (eg: map_0)'
@@ -64,8 +65,8 @@ class MapType extends AbstractType
         $builder->add(
             $builder->create(
                 'layers', 'choice', [
-                    'choices' => $this->getSortedLayers($this->layerManager->findAll()),
-                    'data' => $map->getLayers(),
+                    'choices' => $this->getSortedLayers($layers),
+                    'data' => $layers,
                     'multiple' => true,
                     'expanded' => true,
                 ]

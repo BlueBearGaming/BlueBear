@@ -6,10 +6,10 @@ use BlueBear\CoreBundle\Entity\Behavior\Id;
 use BlueBear\CoreBundle\Entity\Behavior\Label;
 use BlueBear\CoreBundle\Entity\Behavior\Nameable;
 use BlueBear\CoreBundle\Entity\Behavior\Typeable;
+use BlueBear\CoreBundle\Entity\Editor\Image;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
-use BlueBear\CoreBundle\Entity\Editor\Image;
 
 /**
  * A pencil set is a collection of pencil. Each have a pencil set.
@@ -52,7 +52,7 @@ class PencilSet
     }
 
     /**
-     * @return mixed
+     * @return ArrayCollection
      */
     public function getPencils()
     {

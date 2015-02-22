@@ -52,9 +52,9 @@ class EngineSubscriber implements EventSubscriberInterface
         }
         $event->setContext($context);
         // we load map only if event is not map load to avoid calling subscribers twice
-        if ($event->getName() != EngineEvent::ENGINE_ON_CONTEXT_LOAD) {
+        if ($event->getName() != EngineEvent::ENGINE_CONTEXT_LOAD) {
             // dispatch map load event
-            $this->getEventDispatcher()->dispatch(EngineEvent::ENGINE_ON_CONTEXT_LOAD, $event);
+            $this->getEventDispatcher()->dispatch(EngineEvent::ENGINE_CONTEXT_LOAD, $event);
         }
         return $event;
     }

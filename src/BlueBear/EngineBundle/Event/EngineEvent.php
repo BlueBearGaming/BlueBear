@@ -15,14 +15,14 @@ class EngineEvent extends Event
     protected $name;
 
     /**
-     * Event request data
+     * Event request (read-only, set on constructor)
      *
      * @var EventRequest
      */
     protected $request;
 
     /**
-     * Event response data to be sent to the render engine
+     * Event response (read-only, set on constructor)
      *
      * @var EventResponse
      */
@@ -34,27 +34,29 @@ class EngineEvent extends Event
     protected $context;
 
     /**
-     * Engine events
+     * Engine events (private)
      */
-    const ENGINE_ON_ENGINE_EVENT = 'bluebear.engine.onEngineEvent';
+    const ENGINE_ON_ENGINE_EVENT = 'bluebear.engine.engineEvent';
+    const ENGINE_MAP_SAVE = 'bluebear.engine.onMapSave';
 
     /**
      * Map events
      */
-    const ENGINE_ON_CONTEXT_LOAD = 'bluebear.engine.onMapLoad';
-    const ENGINE_ON_MAP_SAVE = 'bluebear.engine.onMapSave';
+    const ENGINE_CONTEXT_LOAD = 'bluebear.engine.mapLoad';
 
     /**
      * MapItem events
      */
-    const ENGINE_ON_BEFORE_LEAVE = 'bluebear.engine.onBeforeLeave';
-    const ENGINE_ON_LEAVE = 'bluebear.engine.onLeave';
-    const ENGINE_ON_AFTER_LEAVE = 'bluebear.engine.onAfterLeave';
-    const ENGINE_ON_BEFORE_ENTER = 'bluebear.engine.onBeforeEnter';
-    const ENGINE_ON_ENTER = 'bluebear.engine.onEnter';
-    const ENGINE_ON_AFTER_ENTER = 'bluebear.engine.onAfterEnter';
-    const ENGINE_ON_MAP_ITEM_CLICK = 'bluebear.engine.onMapItemClick';
-    const ENGINE_ON_MAP_PUT_ENTITY = 'bluebear.engine.onMapPutEntity';
+//    const ENGINE_ON_BEFORE_LEAVE = 'bluebear.engine.onBeforeLeave';
+//    const ENGINE_ON_LEAVE = 'bluebear.engine.onLeave';
+//    const ENGINE_ON_AFTER_LEAVE = 'bluebear.engine.onAfterLeave';
+//    const ENGINE_ON_BEFORE_ENTER = 'bluebear.engine.onBeforeEnter';
+//    const ENGINE_ON_ENTER = 'bluebear.engine.onEnter';
+//    const ENGINE_ON_AFTER_ENTER = 'bluebear.engine.onAfterEnter';
+    const ENGINE_MAP_ITEM_CLICK = 'bluebear.engine.mapItemClick';
+    const ENGINE_MAP_PUT_ENTITY = 'bluebear.engine.mapPutEntity';
+
+    const EDITOR_MAP_PUT_PENCIL = 'bluebear.editor.putPencil';
 
     /**
      * Engine event response code
@@ -62,19 +64,10 @@ class EngineEvent extends Event
     const ENGINE_EVENT_RESPONSE_OK = 'ok';
     const ENGINE_EVENT_RESPONSE_KO = 'error';
 
-    /**
-     * Return allowed events to be called in front
-     *
-     * @return array
-     */
-    public static function getAllowedEvents()
+    public function __construct(EventRequest $eventRequest, EventResponse $eventResponse)
     {
-        return [
-            self::ENGINE_ON_MAP_ITEM_CLICK,
-            self::ENGINE_ON_CONTEXT_LOAD,
-            self::ENGINE_ON_MAP_SAVE,
-            self::ENGINE_ON_MAP_PUT_ENTITY
-        ];
+        $this->request = $eventRequest;
+        $this->response = $eventResponse;
     }
 
     /**
@@ -120,16 +113,6 @@ class EngineEvent extends Event
     }
 
     /**
-     * Set event response
-     *
-     * @param EventResponse $response
-     */
-    public function setResponse(EventResponse $response)
-    {
-        $this->response = $response;
-    }
-
-    /**
      * @return Context
      */
     public function getContext()
@@ -140,7 +123,7 @@ class EngineEvent extends Event
     /**
      * @param Context $context
      */
-    public function setContext(Context $context)
+    public function setContext($context)
     {
         $this->context = $context;
     }

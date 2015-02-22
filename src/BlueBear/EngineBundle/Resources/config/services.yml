@@ -16,6 +16,7 @@ services:
         calls:
             - [setEventDispatcher, [@event_dispatcher]]
             - [setSerializer, [@jms_serializer]]
+            - [setAllowedEvents, [%bluebear.engine.events%]]
 
     # events subscribers
     bluebear.engine.event.mapitem_subscriber:
