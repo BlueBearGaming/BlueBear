@@ -9,6 +9,7 @@ use BlueBear\CoreBundle\Entity\Map\Pencil;
 use BlueBear\CoreBundle\Utils\Position;
 use BlueBear\EngineBundle\Behavior\HasException;
 use BlueBear\EngineBundle\Event\EngineEvent;
+use Exception;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class MapSubscriber implements EventSubscriberInterface
@@ -22,6 +23,12 @@ class MapSubscriber implements EventSubscriberInterface
         ];
     }
 
+    /**
+     * Create a map item on layer with a pencil. If this item already exists, it will be removed
+     *
+     * @param EngineEvent $event
+     * @throws Exception
+     */
     public function onPutPencil(EngineEvent $event)
     {
         /** @var PutPencilRequest $request */
