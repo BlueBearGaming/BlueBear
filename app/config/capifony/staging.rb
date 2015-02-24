@@ -9,4 +9,4 @@ role :web,                 domain
 role :app,                 domain
 role :db,                  domain, :primary => true
 
-logger.level = Logger::MAX_LEVEL
+logger.level = Logger::IMPORTANT
