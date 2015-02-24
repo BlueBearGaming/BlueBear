@@ -2,8 +2,8 @@ load 'deploy' if respond_to?(:namespace) # cap2 differentiator
 
 require 'capifony_symfony2'
 
-set :stages, %w(recette)
-set :default_stage, "recette"
+set :stages, %w(staging)
+set :default_stage, "staging"
 set :stage_dir,     "app/config/capifony"
 
 set :application,          "BlueBear"
@@ -28,6 +28,5 @@ set :model_manager,    "doctrine"
 
 set :keep_releases,  2
 after "deploy:update",     "deploy:cleanup"
-
 
 require 'capistrano/ext/multistage'

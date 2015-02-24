@@ -35,7 +35,8 @@
         "nc/elephantio-bundle": "dev-master",
         "oneup/uploader-bundle": "1.3.*",
         "jms/serializer-bundle": "0.13.*",
-        "clever-gaming/jikpoze": "dev-master"
+        "clever-gaming/jikpoze": "dev-master",
+        "packagist/yuicompressor-bin": "~2.4"
     },
     "scripts": {
         "post-install-cmd": [
