@@ -10,6 +10,9 @@ blue_bear_engine:
         bluebear.editor.putPencil:
             request: BlueBear\EditorBundle\Event\Map\PutPencilRequest
             response: BlueBear\EditorBundle\Event\Map\PutPencilResponse
+        bluebear.editor.mapUpdate:
+            request: BlueBear\EditorBundle\Event\Map\MapUpdateRequest
+            response: BlueBear\EditorBundle\Event\Map\MapUpdateResponse
 
 # BlueBear Game
 blue_bear_game:

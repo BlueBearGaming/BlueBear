@@ -3,12 +3,7 @@ bluebear_backoffice_homepage:
     pattern:  /
     defaults: {_controller: BlueBearBackofficeBundle:Main:homepage}
 
-# Tests
+# Tests for API
 bluebear_backoffice_api:
     pattern: /tests
     defaults: { _controller: BlueBearBackofficeBundle:Api:index }
-
-# Documentation
-bluebear_backoffice_documentation:
-    pattern: /docs
-    defaults: { _controller: BlueBearBackofficeBundle:Documentation:index }

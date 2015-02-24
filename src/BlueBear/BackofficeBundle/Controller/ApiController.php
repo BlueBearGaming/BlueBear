@@ -9,6 +9,8 @@ use BlueBear\CoreBundle\Entity\Map\Map;
 use BlueBear\CoreBundle\Entity\Map\Pencil;
 use BlueBear\CoreBundle\Entity\Map\PencilSet;
 use BlueBear\CoreBundle\Manager\MapManager;
+use BlueBear\EditorBundle\Event\Map\MapItemSubRequest;
+use BlueBear\EditorBundle\Event\Map\MapUpdateRequest;
 use BlueBear\EditorBundle\Event\Map\PutPencilRequest;
 use BlueBear\EngineBundle\Event\EngineEvent;
 use BlueBear\EngineBundle\Event\Map\LoadContextRequest;
@@ -74,6 +76,8 @@ class ApiController extends Controller
                 $snippets[$event] = $this->getPutEntityRequest($map, $context);
             } else if ($event == EngineEvent::EDITOR_MAP_PUT_PENCIL) {
                 $snippets[$event] = $this->getPutPencilRequest($map, $context);
+            } else if ($event == EngineEvent::EDITOR_MAP_UPDATE) {
+                $snippets[$event] = $this->getMapUpdateRequest($map, $context);
             }
         }
         return $serializer->serialize($snippets, 'json');
@@ -148,6 +152,25 @@ class ApiController extends Controller
             $request->y = 2;
         } else {
             $this->addFlash('warning', 'You have no entity model configured. PutEntity event is not available');
+        }
+        return $request;
+    }
+
+    protected function getMapUpdateRequest(Map $map, Context $context)
+    {
+        $request = new MapUpdateRequest();
+        $request->contextId = $context->getId();
+        $request->mapItems = [];
+        $i = 0;
+
+        while ($i < 3) {
+            $subRequest = new MapItemSubRequest();
+            $subRequest->x = rand(0, 10);
+            $subRequest->y = rand(0, 10);
+            $subRequest->layerName = $this->getRandomLayer($map->getLayers()->toArray())->getName();
+            $subRequest->pencilName = $this->getRandomPencil($map->getPencilSets()->toArray())->getName();
+            $request->mapItems[] = $subRequest;
+            $i++;
         }
         return $request;
     }

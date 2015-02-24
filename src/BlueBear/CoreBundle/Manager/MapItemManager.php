@@ -30,6 +30,20 @@ class MapItemManager
     }
 
     /**
+     * @param Position $position
+     * @param Layer $layer
+     * @return MapItem
+     */
+    public function findByPositionAndLayer(Position $position, Layer $layer)
+    {
+        return $this->findOneBy([
+            'x' => $position->getX(),
+            'y' => $position->getY(),
+            'layer' => $layer->getId()
+        ]);
+    }
+
+    /**
      * Return mapItem repository
      *
      * @return MapItemRepository

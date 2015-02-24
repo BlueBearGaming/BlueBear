@@ -10,11 +10,13 @@ use JMS\Serializer\Annotation\AccessorOrder;
  *
  * Event in error response
  *
- * @AccessorOrder("custom", custom={"code", "timestamp", "type", "message", "data", "stackTrace"})
+ * @AccessorOrder("custom", custom={"code", "timestamp", "type", "message", "data", "eventRequest", "stackTrace"})
  */
 class ErrorResponse extends EventResponse
 {
     public $message;
 
     public $stackTrace;
+
+    public $eventRequest;
 }

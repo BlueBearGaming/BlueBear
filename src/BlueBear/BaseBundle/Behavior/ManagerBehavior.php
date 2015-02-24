@@ -2,10 +2,10 @@
 
 namespace BlueBear\BaseBundle\Behavior;
 
-use BlueBear\BaseBundle\Behavior\ContainerTrait;
 use BlueBear\CoreBundle\Entity\Behavior\HasEntityManager;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\ORMException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 trait ManagerBehavior
@@ -121,6 +121,12 @@ trait ManagerBehavior
             ->getManager();
     }
 
+    /**
+     * @param $method
+     * @param $arguments
+     * @return array|object
+     * @throws ORMException
+     */
     public function __call($method, $arguments)
     {
         return $this->getRepository()->__call($method, $arguments);
