@@ -52,6 +52,12 @@ class MapType extends AbstractType
             ],
             'help_block' => 'Cell size (in px)'
         ]);
+        $builder->add('startX', 'integer', [
+            'help_block' => 'Starting x position'
+        ]);
+        $builder->add('startY', 'integer', [
+            'help_block' => 'Starting y position'
+        ]);
         $builder->add(
             $builder->create(
                 'pencilSets', 'choice', [

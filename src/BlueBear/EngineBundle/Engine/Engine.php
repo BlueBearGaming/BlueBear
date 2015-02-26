@@ -5,7 +5,8 @@ namespace BlueBear\EngineBundle\Engine;
 use BlueBear\CoreBundle\Entity\Behavior\HasEventDispatcher;
 use BlueBear\CoreBundle\Entity\Behavior\HasSerializer;
 use BlueBear\EngineBundle\Event\EngineEvent;
-use BlueBear\EngineBundle\Event\Error\ErrorResponse;
+use BlueBear\EngineBundle\Event\EventRequest;
+use BlueBear\EngineBundle\Event\Response\ErrorResponse;
 use Exception;
 
 /**
@@ -31,8 +32,6 @@ class Engine
      */
     public function run($eventName, $eventData)
     {
-        $eventRequest = null;
-
         try {
             // only BlueBear events are allowed to be triggered here, not Symfony ones
             if (strpos($eventName, 'bluebear.') !== 0) {
@@ -40,8 +39,8 @@ class Engine
             }
             // check if event is allowed
             if (!in_array($eventName, $this->getAllowedEvents())) {
-                $allowedEvents = implode('", "', $this->getAllowedEvents());
-                throw new Exception('Invalid event name. Allowed events name are "' . $allowedEvents . '"');
+                throw new Exception('Invalid event name. Allowed events name are "' .
+                    implode('", "', $this->getAllowedEvents()) . '"');
             }
             if (!$eventData) {
                 throw new Exception('Empty event data');
@@ -55,12 +54,16 @@ class Engine
             // trigger wanted event
             $this->getEventDispatcher()->dispatch($eventName, $engineEvent);
         } catch (Exception $e) {
+            if (!isset($eventRequest)) {
+                $eventRequest = new EventRequest();
+            }
             // on error, set response code ko and return response with exception message and stack trace
             $response = new ErrorResponse($eventName);
             $response->name = $eventName;
             $response->code = EngineEvent::ENGINE_EVENT_RESPONSE_KO;
             $response->message = $e->getMessage();
             $response->eventRequest = $eventRequest;
+            $response->stackTrace = $e->getTraceAsString();
             // set event response
             $engineEvent = new EngineEvent($eventRequest, $response);
         }
@@ -74,6 +77,10 @@ class Engine
             throw new Exception("Not allowed event name \"{$eventName}\"");
         }
         $requestClass = $this->allowedEvents[$eventName]['request'];
+
+        if (!class_exists($requestClass)) {
+            throw new Exception("Invalid request class \"{$requestClass}\". Check your configuration");
+        }
         // deserialize json data into EventRequest object
         return $this
             ->getSerializer()
@@ -102,7 +109,8 @@ class Engine
     {
         foreach ($eventsConfig as $eventName => $eventConfig) {
             if (!array_key_exists('request', $eventConfig) or
-                !array_key_exists('response', $eventConfig)) {
+                !array_key_exists('response', $eventConfig)
+            ) {
                 throw new Exception('Event configuration should have a request and response');
             }
             $this->allowedEvents[$eventName] = $eventConfig;

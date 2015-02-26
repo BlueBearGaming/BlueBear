@@ -55,6 +55,22 @@ class Map
     protected $cellSize;
 
     /**
+     * Starting point x coordinates
+     *
+     * @ORM\Column(name="start_x", type="integer")
+     * @Serializer\Expose()
+     * @var int
+     */
+    protected $startX;
+
+    /**
+     * @ORM\Column(name="start_y", type="integer")
+     * @Serializer\Expose()
+     * @var int
+     */
+    protected $startY;
+
+    /**
      * Initialize user context
      */
     public function __construct()
@@ -124,5 +140,37 @@ class Map
     public function setContexts($contexts)
     {
         $this->contexts = $contexts;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStartX()
+    {
+        return $this->startX;
+    }
+
+    /**
+     * @param int $startX
+     */
+    public function setStartX($startX)
+    {
+        $this->startX = $startX;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStartY()
+    {
+        return $this->startY;
+    }
+
+    /**
+     * @param int $startY
+     */
+    public function setStartY($startY)
+    {
+        $this->startY = $startY;
     }
 }

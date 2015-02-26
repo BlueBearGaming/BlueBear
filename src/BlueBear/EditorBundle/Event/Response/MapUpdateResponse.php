@@ -1,6 +1,6 @@
 <?php
 
-namespace BlueBear\EditorBundle\Event\Map;
+namespace BlueBear\EditorBundle\Event\Response;
 
 use BlueBear\EngineBundle\Event\EventResponse;
 

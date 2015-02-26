@@ -1,6 +1,6 @@
 <?php
 
-namespace BlueBear\EditorBundle\Event\Map;
+namespace BlueBear\EditorBundle\Event\Request;
 
 use BlueBear\EngineBundle\Event\EventRequest;
 use JMS\Serializer\Annotation as Serializer;

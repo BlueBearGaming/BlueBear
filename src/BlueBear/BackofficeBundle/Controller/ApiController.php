@@ -9,12 +9,15 @@ use BlueBear\CoreBundle\Entity\Map\Map;
 use BlueBear\CoreBundle\Entity\Map\Pencil;
 use BlueBear\CoreBundle\Entity\Map\PencilSet;
 use BlueBear\CoreBundle\Manager\MapManager;
+use BlueBear\CoreBundle\Utils\Position;
 use BlueBear\EditorBundle\Event\Map\MapItemSubRequest;
-use BlueBear\EditorBundle\Event\Map\MapUpdateRequest;
-use BlueBear\EditorBundle\Event\Map\PutPencilRequest;
+use BlueBear\EditorBundle\Event\Request\MapUpdateRequest;
+use BlueBear\EditorBundle\Event\Request\PutPencilRequest;
 use BlueBear\EngineBundle\Event\EngineEvent;
-use BlueBear\EngineBundle\Event\Map\LoadContextRequest;
-use BlueBear\EngineBundle\Event\MapItem\MapItemClickRequest;
+use BlueBear\EngineBundle\Event\Request\MapItemClickRequest;
+use BlueBear\EngineBundle\Event\Request\MapLoadRequest;
+use BlueBear\EngineBundle\Event\Request\SubRequest\LoadContextSubRequest;
+use BlueBear\EngineBundle\Event\Request\SubRequest\UserContextSubRequest;
 use BlueBear\GameBundle\Entity\EntityModel;
 use BlueBear\GameBundle\Event\Entity\PutEntityRequest;
 use JMS\Serializer\Serializer;
@@ -65,10 +68,8 @@ class ApiController extends Controller
         $serializer = $this->get('jms_serializer');
 
         foreach ($events as $event) {
-            if ($event == EngineEvent::ENGINE_CONTEXT_LOAD) {
-                $request = new LoadContextRequest();
-                $request->contextId = $context->getId();
-                $snippets[$event] = $request;
+            if ($event == EngineEvent::ENGINE_MAP_LOAD) {
+                $snippets[$event] = $this->getMapLoadRequest($map, $context);
             } else if ($event == EngineEvent::ENGINE_MAP_ITEM_CLICK) {
                 // get MapItemClick request
                 $snippets[$event] = $this->getMapItemClickRequest($map, $context);
@@ -81,6 +82,19 @@ class ApiController extends Controller
             }
         }
         return $serializer->serialize($snippets, 'json');
+    }
+
+    protected function getMapLoadRequest(Map $map, Context $context)
+    {
+        $request = new MapLoadRequest();
+        $request->contextId = $context->getId();
+        $request->loadContext = new LoadContextSubRequest();
+        $request->loadContext->bottomRight = new Position(20, 20);
+        $request->loadContext->topLeft = new Position(-20, -20);
+        $request->userContext = new UserContextSubRequest();
+        $request->userContext->viewCenter = new Position(0, 0);
+
+        return $request;
     }
 
     protected function getMapItemClickRequest(Map $map, Context $context)

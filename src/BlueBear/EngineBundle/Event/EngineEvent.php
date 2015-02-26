@@ -42,7 +42,7 @@ class EngineEvent extends Event
     /**
      * Map events
      */
-    const ENGINE_CONTEXT_LOAD = 'bluebear.engine.mapLoad';
+    const ENGINE_MAP_LOAD = 'bluebear.engine.mapLoad';
 
     /**
      * MapItem events

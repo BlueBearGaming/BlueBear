@@ -2,17 +2,17 @@
 blue_bear_engine:
     events:
         bluebear.engine.mapLoad:
-            request: BlueBear\EngineBundle\Event\Map\LoadContextRequest
-            response: BlueBear\EngineBundle\Event\Map\LoadContextResponse
+            request: BlueBear\EngineBundle\Event\Request\MapLoadRequest
+            response: BlueBear\EngineBundle\Event\Response\MapLoadResponse
         bluebear.engine.mapItemClick:
-            request: BlueBear\EngineBundle\Event\MapItem\MapItemClickRequest
-            response: BlueBear\EngineBundle\Event\MapItem\MapItemClickResponse
+            request: BlueBear\EngineBundle\Event\Request\MapItemClickRequest
+            response: BlueBear\EngineBundle\Event\Response\MapItemClickResponse
         bluebear.editor.putPencil:
-            request: BlueBear\EditorBundle\Event\Map\PutPencilRequest
-            response: BlueBear\EditorBundle\Event\Map\PutPencilResponse
+            request: BlueBear\EditorBundle\Event\Map\Request
+            response: BlueBear\EditorBundle\Event\Response\PutPencilResponse
         bluebear.editor.mapUpdate:
-            request: BlueBear\EditorBundle\Event\Map\MapUpdateRequest
-            response: BlueBear\EditorBundle\Event\Map\MapUpdateResponse
+            request: BlueBear\EditorBundle\Event\Request\MapUpdateRequest
+            response: BlueBear\EditorBundle\Event\Response\MapUpdateResponse
 
 # BlueBear Game
 blue_bear_game:

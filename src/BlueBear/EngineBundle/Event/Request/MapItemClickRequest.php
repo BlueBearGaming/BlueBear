@@ -1,29 +1,13 @@
 <?php
 
-namespace BlueBear\EditorBundle\Event\Map;
+namespace BlueBear\EngineBundle\Event\Request;
 
 use BlueBear\EngineBundle\Event\EventRequest;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Type;
 
-class PutPencilRequest extends EventRequest
+class MapItemClickRequest extends EventRequest
 {
-    /**
-     * Layer on which pencil has been painted
-     *
-     * @Expose()
-     * @Type("string")
-     */
-    public $layerName;
-
-    /**
-     * Painted pencil
-     *
-     * @Expose()
-     * @Type("string")
-     */
-    public $pencilName;
-
     /**
      * @Expose()
      * @Type("integer")
@@ -35,4 +19,22 @@ class PutPencilRequest extends EventRequest
      * @Type("integer")
      */
     public $y;
+
+    /**
+     * @Expose()
+     * @Type("integer")
+     */
+    public $pencil;
+
+    /**
+     * @Expose()
+     * @Type("integer")
+     */
+    public $layer;
+
+    /**
+     * @Expose()
+     * @Type("integer")
+     */
+    public $unit;
 }
