@@ -52,7 +52,7 @@ assetic:
     bundles:
         - BlueBearBackofficeBundle
         - BlueBearAdminBundle
-    #java: /usr/bin/java
+    java: %java_path%
     filters:
         cssrewrite: ~
         yui_css:
