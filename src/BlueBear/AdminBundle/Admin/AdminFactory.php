@@ -96,32 +96,26 @@ class AdminFactory
      * Create an Admin from configuration values. It will be added to AdminFactory admin's list
      *
      * @param $adminName
-     * @param $adminConfig
+     * @param array $adminConfigArray
      */
-    protected function createAdminFromConfig($adminName, $adminConfig)
+    protected function createAdminFromConfig($adminName, array $adminConfigArray)
     {
         /** @var EntityManager $entityManager */
         $entityManager = $this->getContainer()->get('doctrine')->getManager();
-        $mainLayout = $this->getContainer()->getParameter('bluebear.layout');
         // gathering admin data
-        $entityRepository = $entityManager->getRepository($adminConfig['entity']);
+        $adminConfig = new AdminConfig();
+        $adminConfig->hydrateFromConfiguration($adminConfigArray, $this->getContainer());
+        $entityRepository = $entityManager->getRepository($adminConfig->entityName);
+        // create generic manager from configuration
         $entityManager = $this->createManagerFromConfig($adminConfig, $entityRepository);
-        $admin = new Admin(
-            $adminName,
-            $entityRepository,
-            $entityManager,
-            $adminConfig['controller'],
-            $adminConfig['entity'],
-            $adminConfig['form'],
-            $this->getContainer()->getParameter('bluebear.blocks_template'),
-            $mainLayout
-        );
+
+        $admin = new Admin($adminName, $entityRepository, $entityManager, $adminConfig);
         // actions are optional
-        if (!array_key_exists('actions', $adminConfig) or !$adminConfig['actions']) {
-            $adminConfig['actions'] = $this->getDefaultActions();
+        if (!$adminConfig->actions) {
+            $adminConfig->actions = $this->getDefaultActions();
         }
         // adding actions
-        foreach ($adminConfig['actions'] as $actionName => $actionConfig) {
+        foreach ($adminConfig->actions as $actionName => $actionConfig) {
             $admin->addAction($this->createActionFromConfig($actionName, $actionConfig, $admin));
         }
         // adding admins to the pool
@@ -181,7 +175,7 @@ class AdminFactory
      * @param EntityRepository $entityRepository
      * @return GenericManager
      */
-    protected function createManagerFromConfig($adminConfig, EntityRepository $entityRepository)
+    protected function createManagerFromConfig(AdminConfig $adminConfig, EntityRepository $entityRepository)
     {
         $customManager = null;
         $methodsMapping = [];
@@ -189,20 +183,20 @@ class AdminFactory
         /** @var EntityManager $entityManager */
         $entityManager = $this->getContainer()->get('doctrine')->getManager();
         // custom manager is optional
-        if (array_key_exists('manager', $adminConfig) and $adminConfig['manager']) {
-            $customManager = $this->getContainer()->get($adminConfig['manager']['name']);
+        if ($adminConfig->managerConfiguration) {
+            $customManager = $this->getContainer()->get($adminConfig->managerConfiguration['name']);
 
-            if (array_key_exists('save', $adminConfig['manager'])) {
-                $methodsMapping['save'] = $adminConfig['manager']['save'];
+            if (array_key_exists('save', $adminConfig->managerConfiguration)) {
+                $methodsMapping['save'] = $adminConfig->managerConfiguration['save'];
             }
-            if (array_key_exists('list', $adminConfig['manager'])) {
-                $methodsMapping['list'] = $adminConfig['manager']['list'];
+            if (array_key_exists('list', $adminConfig->managerConfiguration)) {
+                $methodsMapping['list'] = $adminConfig->managerConfiguration['list'];
             }
-            if (array_key_exists('edit', $adminConfig['manager'])) {
-                $methodsMapping['edit'] = $adminConfig['manager']['edit'];
+            if (array_key_exists('edit', $adminConfig->managerConfiguration)) {
+                $methodsMapping['edit'] = $adminConfig->managerConfiguration['edit'];
             }
-            if (array_key_exists('delete', $adminConfig['manager'])) {
-                $methodsMapping['delete'] = $adminConfig['manager']['delete'];
+            if (array_key_exists('delete', $adminConfig->managerConfiguration)) {
+                $methodsMapping['delete'] = $adminConfig->managerConfiguration['delete'];
             }
         }
         $manager = new GenericManager(

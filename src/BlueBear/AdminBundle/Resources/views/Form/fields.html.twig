@@ -1,3 +1,4 @@
+{# generic list block (requires an Admin object) #}
 {% block admin_list %}
     {% if admin.entities|length > 0 %}
         {% set fields = admin.currentAction.fields %}
@@ -27,6 +28,12 @@
                 {% endfor %}
                 </tbody>
             </table>
+
+            {% if admin.pager.haveToPaginate %}
+                <div class="pagerfanta">
+                    {{ pagerfanta(admin.pager, 'twitter_bootstrap3', {page: admin.pager.currentPage}) }}
+                </div>
+            {% endif %}
         </div>
     {% else %}
         No record yet

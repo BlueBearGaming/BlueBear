@@ -4,6 +4,7 @@ namespace BlueBear\AdminBundle\Manager;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * GenericManager
@@ -98,6 +99,22 @@ class GenericManager
                 $this->entityManager->flush($entity);
             }
         }
+    }
+
+    /**
+     * @return QueryBuilder
+     */
+    public function getFindAllQueryBuilder()
+    {
+        return $this->entityRepository->createQueryBuilder('entity');
+    }
+
+    public function getCountQueryBuilderCallback()
+    {
+        $callback = function (QueryBuilder $queryBuilder) {
+
+        };
+        return $callback;
     }
 
     protected function methodMatch($method)

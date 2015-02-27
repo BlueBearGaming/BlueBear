@@ -26,8 +26,9 @@ class BlueBearAdminExtension extends Extension
         $loader->load('services.yml');
 
         $container->setParameter('bluebear.admins', $config['admins']);
+        $container->setParameter('bluebear.admin.max_per_page', $config['max_per_page']);
         $container->setParameter('bluebear.menus', $config['menus']);
-        $container->setParameter('bluebear.layout', $config['layout']);
-        $container->setParameter('bluebear.blocks_template', $config['blocks_template']);
+        $container->setParameter('bluebear.admin.layout', $config['layout']);
+        $container->setParameter('bluebear.admin.blocks_template', $config['blocks_template']);
     }
 }

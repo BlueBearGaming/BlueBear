@@ -7,6 +7,8 @@ use BlueBear\BaseBundle\Behavior\StringUtilsTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository;
 use Exception;
+use Pagerfanta\Adapter\DoctrineORMAdapter;
+use Pagerfanta\Pagerfanta;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class Admin
@@ -49,6 +51,11 @@ class Admin
     protected $manager;
 
     /**
+     * @var AdminConfig
+     */
+    protected $configuration;
+
+    /**
      * Actions called when using custom manager
      *
      * @var array
@@ -76,6 +83,8 @@ class Admin
      */
     protected $formType;
 
+    protected $pager;
+
     /**
      * Templates layout
      *
@@ -85,18 +94,23 @@ class Admin
 
     protected $blockTemplate;
 
-    public function __construct($name, $repository, $manager, $controller, $entityNamespace, $formType, $blockTemplate, $layout = '')
+    public function __construct($name, $repository, $manager, AdminConfig $adminConfig)
     {
         $this->name = $name;
         $this->repository = $repository;
         $this->manager = $manager;
-        $this->controller = $controller;
-        $this->entityNamespace = $entityNamespace;
-        $this->formType = $formType;
-        $this->blockTemplate = $blockTemplate;
-        $this->layout = $layout;
+        $this->configuration = $adminConfig;
+        $this->controller = $adminConfig->controllerName;
+        $this->entityNamespace = $adminConfig->entityName;
+        $this->formType = $adminConfig->formType;
+        $this->blockTemplate = $adminConfig->blocksTemplate;
+        $this->layout = $adminConfig->layout;
         $this->entities = new ArrayCollection();
         $this->customManagerActions = [];
+        // pagination
+        $adapter = new DoctrineORMAdapter($this->getManager()->getFindAllQueryBuilder());
+        // create paginator
+        $this->pager = new Pagerfanta($adapter);
     }
 
     /**
@@ -214,6 +228,15 @@ class Admin
         return $this->entity;
     }
 
+    public function findEntities($page = 1)
+    {
+        $this->pager->setMaxPerPage($this->configuration->maxPerPage);
+        $this->pager->setCurrentPage($page);
+        $this->entities = $this->pager->getCurrentPageResults();
+
+        return $this->entities;
+    }
+
     public function saveEntity()
     {
         $this->checkEntity();
@@ -255,5 +278,21 @@ class Admin
         if (!$this->entity) {
             throw new Exception("Entity not found in admin \"{$this->getName()}\". Try call method findEntity or createEntity first.");
         }
+    }
+
+    /**
+     * @return AdminConfig
+     */
+    public function getConfiguration()
+    {
+        return $this->configuration;
+    }
+
+    /**
+     * @return Pagerfanta
+     */
+    public function getPager()
+    {
+        return $this->pager;
     }
 }

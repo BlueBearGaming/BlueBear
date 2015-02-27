@@ -4,6 +4,7 @@ namespace BlueBear\AdminBundle\Controller;
 
 use BlueBear\AdminBundle\Admin\AdminFactory;
 use BlueBear\BaseBundle\Behavior\ControllerTrait;
+use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -30,7 +31,8 @@ class GenericController extends Controller
         $this->forward404Unless($admin->isActionGranted($admin->getCurrentAction()->getName(), $this->getUser()->getRoles()),
             'User not allowed for action ' . $admin->getCurrentAction()->getName());
         // set entities list
-        $admin->setEntities($admin->getRepository()->findAll());
+        /** @var EntityManager $test */
+        $admin->findEntities($request->get('page', 1));
 
         return [
             'admin' => $admin,

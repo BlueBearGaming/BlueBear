@@ -37,7 +37,7 @@
         "jms/serializer-bundle": "0.13.*",
         "clever-gaming/jikpoze": "dev-master",
         "packagist/yuicompressor-bin": "~2.4",
-        "pagerfanta/pagerfanta": "~1.0"
+        "white-october/pagerfanta-bundle": "~1.0"
     },
     "scripts": {
         "post-install-cmd": [
