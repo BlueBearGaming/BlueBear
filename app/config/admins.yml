@@ -7,6 +7,8 @@ blue_bear_admin:
     layout: BlueBearAdminBundle::admin.layout.html.twig
     # block layout (by default)
     blocks_template: BlueBearAdminBundle:Form:fields.html.twig
+    # max entities per page
+    max_per_page: 2
     # list of managed admins
     admins:
         # entities (pencil is an example)
@@ -50,6 +52,7 @@ blue_bear_admin:
         entity_model:
             entity: BlueBear\GameBundle\Entity\EntityModel
             form: entity_model
+            max_per_page: 3
             manager:
                 name: bluebear.manager.entity_model
                 save: save

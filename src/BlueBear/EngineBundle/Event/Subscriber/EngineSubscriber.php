@@ -56,7 +56,6 @@ class EngineSubscriber implements EventSubscriberInterface
             // dispatch map load event
             $this->getEventDispatcher()->dispatch(EngineEvent::ENGINE_MAP_LOAD, $event);
         }
-        return $event;
     }
 
     /**

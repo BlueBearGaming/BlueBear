@@ -16,3 +16,4 @@ parameters:
     secret:            PandasAreAwesome
 
     resources_dir:     %kernel.root_dir%/../web/resources
+    java_path: /usr/bin/java

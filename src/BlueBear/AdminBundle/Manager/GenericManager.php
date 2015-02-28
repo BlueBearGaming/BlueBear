@@ -4,7 +4,13 @@ namespace BlueBear\AdminBundle\Manager;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
 
+/**
+ * GenericManager
+ *
+ * Use generic entity manager or provided custom entity manager methods
+ */
 class GenericManager
 {
 
@@ -24,6 +30,14 @@ class GenericManager
      */
     protected $methodsMapping;
 
+    /**
+     * Initialize a generic manager with generic entity manager and optional custom manager
+     *
+     * @param EntityRepository $entityRepository
+     * @param EntityManager $entityManager
+     * @param null $customManager
+     * @param array $methodsMapping
+     */
     public function __construct(EntityRepository $entityRepository, EntityManager $entityManager, $customManager = null, $methodsMapping = [])
     {
         $this->entityRepository = $entityRepository;
@@ -85,6 +99,22 @@ class GenericManager
                 $this->entityManager->flush($entity);
             }
         }
+    }
+
+    /**
+     * @return QueryBuilder
+     */
+    public function getFindAllQueryBuilder()
+    {
+        return $this->entityRepository->createQueryBuilder('entity');
+    }
+
+    public function getCountQueryBuilderCallback()
+    {
+        $callback = function (QueryBuilder $queryBuilder) {
+
+        };
+        return $callback;
     }
 
     protected function methodMatch($method)
