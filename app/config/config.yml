@@ -56,9 +56,9 @@ assetic:
     filters:
         cssrewrite: ~
         yui_css:
-            jar: "bin/yuicompressor.jar"
+            jar: "%kernel.root_dir%/../bin/yuicompressor.jar"
         yui_js:
-            jar: "bin/yuicompressor.jar"
+            jar: "%kernel.root_dir%/../bin/yuicompressor.jar"
 # Doctrine Configuration
 doctrine:
     dbal:
