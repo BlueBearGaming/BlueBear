@@ -10,6 +10,7 @@ web/bundles
 web/assets
 web/css
 web/js
+web/jikpoze
 *.log
 
 # IDE
