@@ -26,7 +26,7 @@ class EntityInstanceManager
     {
         return $this
             ->getRepository()
-            ->findByTypeAndPosition($context->getId(), $position->getX(), $position->getY(), $instanceType)
+            ->findByTypeAndPosition($context->getId(), $position->x, $position->y, $instanceType)
             ->getQuery()
             ->getOneOrNullResult();
     }

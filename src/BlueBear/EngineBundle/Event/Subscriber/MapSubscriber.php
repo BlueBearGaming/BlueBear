@@ -3,6 +3,7 @@
 namespace BlueBear\EngineBundle\Event\Subscriber;
 
 use BlueBear\BaseBundle\Behavior\ContainerTrait;
+use BlueBear\CoreBundle\Entity\Map\Context;
 use BlueBear\EngineBundle\Behavior\HasContextFactory;
 use BlueBear\EngineBundle\Event\EngineEvent;
 use BlueBear\EngineBundle\Event\Request\MapLoadRequest;
@@ -37,7 +38,17 @@ class MapSubscriber implements EventSubscriberInterface
         /** @var MapLoadRequest $request */
         $request = $event->getRequest();
 
-        if ($request->loadContext) {
+        $context = $this
+            ->getContainer()
+            ->get('bluebear.manager.context')
+            ->find($request->contextId);
+
+        if (!$context instanceof Context) {
+            throw new Exception('Context not found');
+        }
+        $event->setContext($context);
+
+        if (isset($request->loadContext)) {
             $topLeft = $request->loadContext->topLeft;
             $bottomRight = $request->loadContext->bottomRight;
 
@@ -48,15 +59,7 @@ class MapSubscriber implements EventSubscriberInterface
             if (!$bottomRight or !$bottomRight->x or !$bottomRight->y) {
                 throw new Exception('Invalid ending point (bottom right coordinates are not valid)');
             }
-            $context = $this
-                ->getContainer()
-                ->get('bluebear.manager.context')
-                ->findWithLimit($request->contextId, $topLeft, $bottomRight);
-
-            if (!$context) {
-                throw new Exception('Context not found');
-            }
-            $event->setContext($context);
+            // @todo Set context bounds
         }
         /** @var MapLoadResponse $response */
         $response = $event->getResponse();

@@ -65,8 +65,8 @@ class EntityFactory
         }
         // assign it to a map item
         $mapItem = new MapItem();
-        $mapItem->setX($position->getX());
-        $mapItem->setY($position->getY());
+        $mapItem->setX($position->x);
+        $mapItem->setY($position->y);
         $mapItem->setLayer($layer);
         $mapItem->setContext($context);
         // unit instance carry relationship

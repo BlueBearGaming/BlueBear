@@ -22,8 +22,8 @@ class MapItemManager
     public function findByPositionPencilAndLayer(Position $position, Pencil $pencil, Layer $layer)
     {
         return $this->findOneBy([
-            'x' => $position->getX(),
-            'y' => $position->getY(),
+            'x' => $position->x,
+            'y' => $position->y,
             'layer' => $layer->getId(),
             'pencil' => $pencil->getId()
         ]);
@@ -37,8 +37,8 @@ class MapItemManager
     public function findByPositionAndLayer(Position $position, Layer $layer)
     {
         return $this->findOneBy([
-            'x' => $position->getX(),
-            'y' => $position->getY(),
+            'x' => $position->x,
+            'y' => $position->y,
             'layer' => $layer->getId()
         ]);
     }
