@@ -1,6 +1,6 @@
 <?php
 
-namespace BlueBear\EditorBundle\Event\Map;
+namespace BlueBear\EditorBundle\Event\Subscriber;
 
 use BlueBear\BaseBundle\Behavior\ContainerTrait;
 use BlueBear\CoreBundle\Entity\Map\Layer;
@@ -8,6 +8,10 @@ use BlueBear\CoreBundle\Entity\Map\MapItem;
 use BlueBear\CoreBundle\Entity\Map\Pencil;
 use BlueBear\CoreBundle\Manager\MapItemManager;
 use BlueBear\CoreBundle\Utils\Position;
+use BlueBear\EditorBundle\Event\Map\MapItemSubRequest;
+use BlueBear\EditorBundle\Event\Request\MapUpdateRequest;
+use BlueBear\EditorBundle\Event\Request\PutPencilRequest;
+use BlueBear\EditorBundle\Event\Response\MapUpdateResponse;
 use BlueBear\EngineBundle\Behavior\HasException;
 use BlueBear\EngineBundle\Event\EngineEvent;
 use Exception;
@@ -30,18 +34,20 @@ class MapSubscriber implements EventSubscriberInterface
      *
      * @param EngineEvent $event
      * @throws Exception
+     * @TODO still used ?
      */
     public function onPutPencil(EngineEvent $event)
     {
-        /** @var PutPencilRequest $request */
+        /**
+         * @var Layer $layer
+         * @var Pencil $pencil
+         * @var PutPencilRequest $request
+         */
         $request = $event->getRequest();
         // check if id are provided
         $this->throwUnless($request->pencilName, 'Invalid pencil name');
         $this->throwUnless($request->layerName, 'Invalid layer name');
-        /**
-         * @var Layer $layer
-         * @var Pencil $pencil
-         */
+
         $layer = $this->getContainer()->get('bluebear.manager.layer')->findOneBy([
             'name' => $request->layerName
         ]);
@@ -52,7 +58,6 @@ class MapSubscriber implements EventSubscriberInterface
         $this->throwUnless($pencil, 'Pencil not found');
         $this->throwUnless($layer, 'Layer not found');
         $this->throwUnless($pencil->isLayerTypeAllowed($layer->getType()), 'Unauthorized layer for pencil');
-
         // removing existing map item at this position in this layer
         $mapItemManager = $this->getContainer()->get('bluebear.manager.map_item');
         $mapItem = $mapItemManager->findByPositionPencilAndLayer(new Position($request->x, $request->y), $pencil, $layer);
@@ -73,8 +78,12 @@ class MapSubscriber implements EventSubscriberInterface
 
     public function onMapUpdate(EngineEvent $event)
     {
-        /** @var MapUpdateRequest $request */
+        /**
+         * @var MapUpdateRequest $request
+         * @var MapUpdateResponse $response
+         */
         $request = $event->getRequest();
+        $response = $event->getResponse();
 
         if (count($request->mapItems)) {
             /** @var MapItemSubRequest $mapItemRequest */
@@ -103,6 +112,7 @@ class MapSubscriber implements EventSubscriberInterface
                         // if map item exists, we just change pencil
                         if ($mapItem) {
                             $mapItem->setPencil($pencil);
+                            $response->updated[] = $mapItem;
                         } else {
                             // if map item does not exists, we create it
                             $mapItem = new MapItem();
@@ -111,6 +121,7 @@ class MapSubscriber implements EventSubscriberInterface
                             $mapItem->setY($mapItemRequest->y);
                             $mapItem->setLayer($layer);
                             $mapItem->setPencil($pencil);
+                            $response->created[] = $mapItem;
                         }
                         $this->getMapItemManager()->save($mapItem);
                     } else {
@@ -118,6 +129,7 @@ class MapSubscriber implements EventSubscriberInterface
                         $mapItem = $this->getMapItemManager()->findByPositionAndLayer($position, $layer);
                         $this->throwUnless($mapItem, 'Unable to delete. Map item not found');
                         $this->getMapItemManager()->delete($mapItem);
+                        $response->removed[] = $mapItem;
                     }
                 }
             }

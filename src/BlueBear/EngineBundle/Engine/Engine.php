@@ -49,6 +49,7 @@ class Engine
             $eventRequest = $this->getRequestForEvent($eventName, $eventData);
             $eventResponse = $this->getResponseForEvent($eventName);
             $engineEvent = new EngineEvent($eventRequest, $eventResponse);
+            $engineEvent->setOriginEventName($eventName);
             // trigger onEngineEvent
             $this->getEventDispatcher()->dispatch(EngineEvent::ENGINE_ON_ENGINE_EVENT, $engineEvent);
             // trigger wanted event

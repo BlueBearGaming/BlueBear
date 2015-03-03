@@ -15,6 +15,13 @@ class EngineEvent extends Event
     protected $name;
 
     /**
+     * Origin event name (in case of sub-event)
+     *
+     * @var string
+     */
+    protected $originEventName;
+
+    /**
      * Event request (read-only, set on constructor)
      *
      * @var EventRequest
@@ -65,7 +72,7 @@ class EngineEvent extends Event
     const ENGINE_EVENT_RESPONSE_OK = 'ok';
     const ENGINE_EVENT_RESPONSE_KO = 'error';
 
-    public function __construct(EventRequest $eventRequest, EventResponse $eventResponse)
+    public function __construct(EventRequest $eventRequest, EventResponse $eventResponse = null)
     {
         $this->request = $eventRequest;
         $this->response = $eventResponse;
@@ -127,5 +134,21 @@ class EngineEvent extends Event
     public function setContext($context)
     {
         $this->context = $context;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOriginEventName()
+    {
+        return $this->originEventName;
+    }
+
+    /**
+     * @param string $originEventName
+     */
+    public function setOriginEventName($originEventName)
+    {
+        $this->originEventName = $originEventName;
     }
 }

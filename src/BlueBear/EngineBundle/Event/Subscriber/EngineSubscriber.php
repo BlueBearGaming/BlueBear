@@ -45,17 +45,14 @@ class EngineSubscriber implements EventSubscriberInterface
             throw new Exception('Invalid context id');
         }
         /** @var Context $context */
-        $context = $this->getContextManager()->find($request->contextId);
+        $context = $this
+            ->getContextManager()
+            ->find($request->contextId);
 
         if (!$context or !count($context->getUserContexts())) {
             throw new Exception('Context not found or invalid context map');
         }
         $event->setContext($context);
-        // we load map only if event is not map load to avoid calling subscribers twice
-        if ($event->getName() != EngineEvent::ENGINE_MAP_LOAD) {
-            // dispatch map load event
-            $this->getEventDispatcher()->dispatch(EngineEvent::ENGINE_MAP_LOAD, $event);
-        }
     }
 
     /**

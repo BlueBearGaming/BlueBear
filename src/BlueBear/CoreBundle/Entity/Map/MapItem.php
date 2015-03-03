@@ -37,7 +37,6 @@ class MapItem
     /**
      * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Context", inversedBy="mapItems")
      * @ORM\JoinColumn(nullable=false)
-     * @Serializer\Expose()
      */
     protected $context;
 

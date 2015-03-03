@@ -1,5 +1,5 @@
 parameters:
-    bluebear.editor.map_subscriber.class: BlueBear\EditorBundle\Event\Map\MapSubscriber
+    bluebear.editor.map_subscriber.class: BlueBear\EditorBundle\Event\Subscriber\MapSubscriber
 
 services:
     bluebear.editor.map_subscriber:
