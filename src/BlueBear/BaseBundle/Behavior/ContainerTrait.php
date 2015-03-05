@@ -14,7 +14,7 @@ trait ContainerTrait
     /**
      * @var ContainerInterface
      */
-    //protected $container;
+    protected $container;
 
     /**
      * @return ContainerInterface

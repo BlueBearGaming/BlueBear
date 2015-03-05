@@ -3,12 +3,16 @@
 #
 # all properties marked as default can be removed. It is here for the example
 blue_bear_admin:
+    application:
+        # application configuration
+        title: BlueBear, pyscho panda and maximum bamboo
+        description: BlueBear, pandas, bamboo and energy drink
     # main layout (by default)
     layout: BlueBearAdminBundle::admin.layout.html.twig
     # block layout (by default)
     blocks_template: BlueBearAdminBundle:Form:fields.html.twig
     # max entities per page
-    max_per_page: 2
+    max_per_page: 25
     # list of managed admins
     admins:
         # entities (pencil is an example)
@@ -21,6 +25,8 @@ blue_bear_admin:
             controller: BlueBearAdminBundle:Generic
             # entity manager call for CRUD actions
             manager: ~
+            # max entities per page (by default)
+            max_per_page: 25
             # availables actions (by default)
             actions:
                 list:
@@ -52,7 +58,6 @@ blue_bear_admin:
         entity_model:
             entity: BlueBear\GameBundle\Entity\EntityModel
             form: entity_model
-            max_per_page: 3
             manager:
                 name: bluebear.manager.entity_model
                 save: save

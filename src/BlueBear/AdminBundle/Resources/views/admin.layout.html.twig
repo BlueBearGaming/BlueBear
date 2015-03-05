@@ -1,11 +1,23 @@
-<html>
+<!DOCTYPE html>
+<html lang="{{ config.lang }}">
 <head>
+    <title>
+        {% block title %}{{ config.title }}{% endblock %}
+    </title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keywords" content="HTML, CSS, JS, JavaScript, framework, bootstrap, front-end, frontend, web development">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+
+
     {% stylesheets
     'bundles/bluebearbackoffice/css/bootstrap-datetimepicker.min.css'
     'bundles/bluebearbackoffice/css/backoffice.css' filter='cssrewrite, ?yui_css' %}
-        <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
+    <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen"/>
     {% endstylesheets %}
-    <title>BlueBear, rox'in pgrogress</title>
+
 </head>
 <body>
 {# TODO still needed ? #}
@@ -13,7 +25,7 @@
 
 <!-- flash messages -->
 <div class="alert-container container">
-   {% block notice %}
+    {% block notice %}
         {% for notice_level in ['success','error','info', 'warning'] %}
             {% for flash in app.session.flashbag.get(notice_level) %}
                 <div class="alert {{ 'alert-' ~ notice_level }}">

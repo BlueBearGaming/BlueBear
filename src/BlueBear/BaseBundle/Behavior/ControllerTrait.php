@@ -4,6 +4,7 @@ namespace BlueBear\BaseBundle\Behavior;
 
 use Doctrine\ORM\EntityManager;
 use Exception;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -19,8 +20,6 @@ use Symfony\Component\Translation\TranslatorInterface;
  */
 trait ControllerTrait
 {
-    use ContainerTrait;
-
     /**
      * Abstract create not found exception method. Should return a NotFoundException
      *
@@ -150,5 +149,21 @@ trait ControllerTrait
     protected function translate($string, $parameters = array())
     {
         return $this->getTranslator()->trans($string, $parameters);
+    }
+
+    /**
+     * @return ContainerInterface
+     */
+    public function getContainer()
+    {
+        return $this->container;
+    }
+
+    /**
+     * @param ContainerInterface $container
+     */
+    public function setContainer(ContainerInterface $container = null)
+    {
+        $this->container = $container;
     }
 } 
