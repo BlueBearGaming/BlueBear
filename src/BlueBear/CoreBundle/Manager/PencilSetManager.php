@@ -5,11 +5,11 @@ namespace BlueBear\CoreBundle\Manager;
 use BlueBear\CoreBundle\Entity\Map\Map;
 use BlueBear\CoreBundle\Entity\Map\PencilSet;
 use BlueBear\CoreBundle\Entity\Map\PencilSetRepository;
-use BlueBear\BaseBundle\Behavior\ManagerBehavior;
+use BlueBear\BaseBundle\Behavior\ManagerTrait;
 
 class PencilSetManager
 {
-    use ManagerBehavior;
+    use ManagerTrait;
 
     public function removeFromMap(Map $map)
     {

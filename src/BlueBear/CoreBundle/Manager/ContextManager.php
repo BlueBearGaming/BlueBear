@@ -2,14 +2,14 @@
 
 namespace BlueBear\CoreBundle\Manager;
 
-use BlueBear\BaseBundle\Behavior\ManagerBehavior;
+use BlueBear\BaseBundle\Behavior\ManagerTrait;
 use BlueBear\CoreBundle\Entity\Map\Context;
 use BlueBear\CoreBundle\Entity\Map\ContextRepository;
 use BlueBear\CoreBundle\Utils\Position;
 
 class ContextManager
 {
-    use ManagerBehavior;
+    use ManagerTrait;
 
     /**
      * @param $contextId

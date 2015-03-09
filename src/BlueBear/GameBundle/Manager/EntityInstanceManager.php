@@ -2,7 +2,7 @@
 
 namespace BlueBear\GameBundle\Manager;
 
-use BlueBear\BaseBundle\Behavior\ManagerBehavior;
+use BlueBear\BaseBundle\Behavior\ManagerTrait;
 use BlueBear\CoreBundle\Entity\Map\Context;
 use BlueBear\CoreBundle\Utils\Position;
 use BlueBear\GameBundle\Entity\EntityInstance;
@@ -11,7 +11,7 @@ use Doctrine\ORM\NonUniqueResultException;
 
 class EntityInstanceManager
 {
-    use ManagerBehavior;
+    use ManagerTrait;
 
     /**
      * Return a entity instance by its position and its context

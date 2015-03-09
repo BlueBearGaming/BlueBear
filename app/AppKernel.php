@@ -29,7 +29,6 @@ class AppKernel extends Kernel
             new DCS\DynamicDiscriminatorMapBundle\DCSDynamicDiscriminatorMapBundle(),
             new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
             // BlueBear
-            new BlueBear\AdminBundle\BlueBearAdminBundle(),
             new BlueBear\BaseBundle\BlueBearBaseBundle(),
             new BlueBear\CoreBundle\BlueBearCoreBundle(),
             new BlueBear\BackofficeBundle\BlueBearBackofficeBundle(),
@@ -40,6 +39,7 @@ class AppKernel extends Kernel
             new BlueBear\MenuBundle\BlueBearMenuBundle(),
             new BlueBear\FileUploadBundle\BlueBearFileUploadBundle(),
             //new BlueBear\ActionBundle\BlueBearActionBundle(),
+            new BlueBear\AdminBundle\BlueBearAdminBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

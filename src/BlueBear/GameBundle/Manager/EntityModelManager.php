@@ -2,14 +2,14 @@
 
 namespace BlueBear\GameBundle\Manager;
 
-use BlueBear\BaseBundle\Behavior\ManagerBehavior;
+use BlueBear\BaseBundle\Behavior\ManagerTrait;
 use BlueBear\GameBundle\Entity\EntityModel;
 use BlueBear\GameBundle\Entity\EntityModelAttribute;
 use BlueBear\GameBundle\Game\EntityTypeAttribute;
 
 class EntityModelManager
 {
-    use ManagerBehavior;
+    use ManagerTrait;
 
     /**
      * @param EntityModel $entityModel

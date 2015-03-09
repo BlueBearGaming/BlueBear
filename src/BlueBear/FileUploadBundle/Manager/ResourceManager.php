@@ -2,7 +2,7 @@
 
 namespace BlueBear\FileUploadBundle\Manager;
 
-use BlueBear\BaseBundle\Behavior\ManagerBehavior;
+use BlueBear\BaseBundle\Behavior\ManagerTrait;
 use BlueBear\CoreBundle\Entity\Editor\Image;
 use BlueBear\FileUploadBundle\Entity\Resource;
 use Doctrine\ORM\EntityRepository;
@@ -12,7 +12,7 @@ use UnexpectedValueException;
 
 class ResourceManager
 {
-    use ManagerBehavior;
+    use ManagerTrait;
 
     /**
      * @todo REFACTOR

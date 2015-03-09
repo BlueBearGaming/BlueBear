@@ -3,11 +3,11 @@
 namespace BlueBear\CoreBundle\Manager;
 
 use BlueBear\CoreBundle\Entity\Map\PencilRepository;
-use BlueBear\BaseBundle\Behavior\ManagerBehavior;
+use BlueBear\BaseBundle\Behavior\ManagerTrait;
 
 class PencilManager
 {
-    use ManagerBehavior;
+    use ManagerTrait;
 
     /**
      * Return pencils repository

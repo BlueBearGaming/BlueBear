@@ -3,11 +3,11 @@
 namespace BlueBear\CoreBundle\Manager;
 
 use BlueBear\CoreBundle\Entity\Map\LayerRepository;
-use BlueBear\BaseBundle\Behavior\ManagerBehavior;
+use BlueBear\BaseBundle\Behavior\ManagerTrait;
 
 class LayerManager
 {
-    use ManagerBehavior;
+    use ManagerTrait;
 
     /**
      * Return layers repository

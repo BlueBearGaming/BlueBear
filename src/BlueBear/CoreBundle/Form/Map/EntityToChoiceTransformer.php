@@ -3,7 +3,7 @@
 namespace BlueBear\CoreBundle\Form\Map;
 
 use BlueBear\CoreBundle\Entity\Behavior\Id;
-use BlueBear\BaseBundle\Behavior\ManagerBehavior;
+use BlueBear\BaseBundle\Behavior\ManagerTrait;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
@@ -15,7 +15,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 class EntityToChoiceTransformer implements DataTransformerInterface
 {
     /**
-     * @var ManagerBehavior $manager
+     * @var ManagerTrait $manager
      */
     protected $manager;
 

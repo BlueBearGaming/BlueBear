@@ -3,11 +3,11 @@
 namespace BlueBear\CoreBundle\Manager;
 
 use BlueBear\CoreBundle\Entity\Editor\ItemRepository;
-use BlueBear\BaseBundle\Behavior\ManagerBehavior;
+use BlueBear\BaseBundle\Behavior\ManagerTrait;
 
 class ItemManager
 {
-    use ManagerBehavior;
+    use ManagerTrait;
 
     /**
      * Return uncompleted items

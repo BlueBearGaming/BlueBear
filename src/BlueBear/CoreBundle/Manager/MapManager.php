@@ -2,7 +2,7 @@
 
 namespace BlueBear\CoreBundle\Manager;
 
-use BlueBear\BaseBundle\Behavior\ManagerBehavior;
+use BlueBear\BaseBundle\Behavior\ManagerTrait;
 use BlueBear\CoreBundle\Entity\Map\Context;
 use BlueBear\CoreBundle\Entity\Map\Map;
 use BlueBear\CoreBundle\Entity\Map\MapRepository;
@@ -12,7 +12,7 @@ use Doctrine\ORM\NonUniqueResultException;
 
 class MapManager
 {
-    use ManagerBehavior;
+    use ManagerTrait;
 
     /**
      * Find a map with its linked objects

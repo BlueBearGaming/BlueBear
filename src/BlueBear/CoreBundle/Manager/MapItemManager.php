@@ -2,7 +2,7 @@
 
 namespace BlueBear\CoreBundle\Manager;
 
-use BlueBear\BaseBundle\Behavior\ManagerBehavior;
+use BlueBear\BaseBundle\Behavior\ManagerTrait;
 use BlueBear\CoreBundle\Entity\Map\Layer;
 use BlueBear\CoreBundle\Entity\Map\MapItem;
 use BlueBear\CoreBundle\Entity\Map\MapItemRepository;
@@ -11,7 +11,7 @@ use BlueBear\CoreBundle\Utils\Position;
 
 class MapItemManager
 {
-    use ManagerBehavior;
+    use ManagerTrait;
 
     /**
      * @param Position $position
