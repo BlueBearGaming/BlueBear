@@ -7,12 +7,12 @@ blue_bear_admin:
         # application configuration
         title: BlueBear, pyscho panda and maximum bamboo
         description: BlueBear, pandas, bamboo and energy drink
-    # main layout (by default)
-    layout: BlueBearAdminBundle::admin.layout.html.twig
-    # block layout (by default)
-    blocks_template: BlueBearAdminBundle:Form:fields.html.twig
-    # max entities per page
-    max_per_page: 25
+        # main layout (by default)
+        layout: BlueBearAdminBundle::admin.layout.html.twig
+        # block layout (by default)
+        block_template: BlueBearAdminBundle:Form:fields.html.twig
+        # max entities per page
+        max_per_page: 25
     # list of managed admins
     admins:
         # entities (pencil is an example)

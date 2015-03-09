@@ -22,15 +22,17 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->scalarNode('layout')->end()
                 ->arrayNode('application')
                     ->children()
                         ->scalarNode('title')->end()
                         ->scalarNode('description')->end()
+                        ->scalarNode('layout')->end()
+                        ->scalarNode('max_per_page')->end()
+                        ->scalarNode('block_template')
+                            ->defaultValue('BlueBearAdminBundle:Form:fields.html.twig')
+                        ->end()
                     ->end()
                 ->end()
-                ->scalarNode('blocks_template')->defaultValue('BlueBearAdminBundle:Form:fields.html.twig')->end()
-                ->scalarNode('max_per_page')->end()
                 // admins configuration
                 ->arrayNode('admins')
                     ->prototype('array')

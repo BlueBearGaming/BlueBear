@@ -27,13 +27,9 @@ class TemplateListener implements EventSubscriberInterface
     {
         $request = $event->getRequest();
         $twig = $this->container->get('twig');
-        $applicationConfigArray = $this->container->getParameter('bluebear.admin.application');
-
         // creating application configuration object
         $applicationConfig = new ApplicationConfiguration();
-        $applicationConfig->lang = $request->getLocale();
-        $applicationConfig->layout = $this->container->getParameter('bluebear.admin.layout');
-        $applicationConfig->title = $applicationConfigArray['title'];
+        $applicationConfig->hydrateFromConfiguration($this->container->getParameter('bluebear.admin.application'), $request);
 
         $twig->addGlobal('config', $applicationConfig);
     }

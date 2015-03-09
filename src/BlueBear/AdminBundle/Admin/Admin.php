@@ -85,15 +85,6 @@ class Admin
 
     protected $pager;
 
-    /**
-     * Templates layout
-     *
-     * @var string
-     */
-    protected $layout = '';
-
-    protected $blockTemplate;
-
     public function __construct($name, $repository, $manager, AdminConfig $adminConfig)
     {
         $this->name = $name;
@@ -103,8 +94,6 @@ class Admin
         $this->controller = $adminConfig->controllerName;
         $this->entityNamespace = $adminConfig->entityName;
         $this->formType = $adminConfig->formType;
-        $this->blockTemplate = $adminConfig->blocksTemplate;
-        $this->layout = $adminConfig->layout;
         $this->entities = new ArrayCollection();
         $this->customManagerActions = [];
         // pagination
@@ -144,14 +133,6 @@ class Admin
         $path = strtolower(substr($path, 0, 1)) . substr($path, 1);
 
         return $path;
-    }
-
-    /**
-     * @return string
-     */
-    public function getLayout()
-    {
-        return $this->layout;
     }
 
     /**
