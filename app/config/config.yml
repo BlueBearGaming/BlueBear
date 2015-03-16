@@ -52,6 +52,7 @@ assetic:
     bundles:
         - BlueBearBackofficeBundle
         - BlueBearAdminBundle
+        - BlueBearEditorBundle
     java: %java_path%
     filters:
         cssrewrite: ~
