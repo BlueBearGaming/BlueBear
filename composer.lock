@@ -102,16 +102,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/CleverGaming/AdminBundle.git",
-                "reference": "6c3e2a610cfb3e36c88ca8bed049cb41dbaace3f"
+                "reference": "2629ddff019dad143d21ad190dcb2294e9502328"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CleverGaming/AdminBundle/zipball/6c3e2a610cfb3e36c88ca8bed049cb41dbaace3f",
-                "reference": "6c3e2a610cfb3e36c88ca8bed049cb41dbaace3f",
+                "url": "https://api.github.com/repos/CleverGaming/AdminBundle/zipball/2629ddff019dad143d21ad190dcb2294e9502328",
+                "reference": "2629ddff019dad143d21ad190dcb2294e9502328",
                 "shasum": ""
             },
             "require": {
                 "bluebear/basebundle": "dev-master",
+                "components/jquery": "1.11.*",
+                "components/jqueryui": "1.11.*",
                 "php": ">=5.4",
                 "sensio/framework-extra-bundle": "~3.0",
                 "symfony/symfony": "2.6.*",
@@ -149,7 +151,7 @@
                 "backoffice",
                 "generic"
             ],
-            "time": "2015-03-09 19:35:47"
+            "time": "2015-03-12 13:17:55"
         },
         {
             "name": "bluebear/basebundle",
@@ -158,12 +160,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/CleverGaming/BaseBundle.git",
-                "reference": "c7a16bc4784d5d0f01c989080b5f5264b4d9011e"
+                "reference": "3964f43f43755da37a45f34065e2b5f20098d6de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CleverGaming/BaseBundle/zipball/c7a16bc4784d5d0f01c989080b5f5264b4d9011e",
-                "reference": "c7a16bc4784d5d0f01c989080b5f5264b4d9011e",
+                "url": "https://api.github.com/repos/CleverGaming/BaseBundle/zipball/3964f43f43755da37a45f34065e2b5f20098d6de",
+                "reference": "3964f43f43755da37a45f34065e2b5f20098d6de",
                 "shasum": ""
             },
             "require": {
@@ -203,7 +205,7 @@
                 "base",
                 "shortcut"
             ],
-            "time": "2015-03-09 19:59:11"
+            "time": "2015-03-13 11:33:24"
         },
         {
             "name": "clever-gaming/jikpoze",
@@ -211,12 +213,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/CleverGaming/Jikpoze.git",
-                "reference": "81247bed8d60b799a800be678d45d36468c237c5"
+                "reference": "f906524a86450e3d2edfafa733bd853737105041"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CleverGaming/Jikpoze/zipball/81247bed8d60b799a800be678d45d36468c237c5",
-                "reference": "81247bed8d60b799a800be678d45d36468c237c5",
+                "url": "https://api.github.com/repos/CleverGaming/Jikpoze/zipball/f906524a86450e3d2edfafa733bd853737105041",
+                "reference": "f906524a86450e3d2edfafa733bd853737105041",
                 "shasum": ""
             },
             "type": "game-engine",
@@ -240,7 +242,7 @@
                 "stagexl",
                 "tiles"
             ],
-            "time": "2015-03-03 13:52:45"
+            "time": "2015-03-11 13:23:41"
         },
         {
             "name": "components/jquery",
@@ -289,16 +291,16 @@
         },
         {
             "name": "components/jqueryui",
-            "version": "1.11.3",
+            "version": "1.11.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/components/jqueryui.git",
-                "reference": "7e2d6bec1c729925d9ad7c0c9ab4b561174efa99"
+                "reference": "c34f8dbf3ba57b3784b93f26119f436c0e8288e1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/components/jqueryui/zipball/7e2d6bec1c729925d9ad7c0c9ab4b561174efa99",
-                "reference": "7e2d6bec1c729925d9ad7c0c9ab4b561174efa99",
+                "url": "https://api.github.com/repos/components/jqueryui/zipball/c34f8dbf3ba57b3784b93f26119f436c0e8288e1",
+                "reference": "c34f8dbf3ba57b3784b93f26119f436c0e8288e1",
                 "shasum": ""
             },
             "require": {
@@ -370,7 +372,7 @@
                 }
             ],
             "description": "jQuery UI is a curated set of user interface interactions, effects, widgets, and themes built on top of the jQuery JavaScript Library. Whether you're building highly interactive web applications or you just need to add a date picker to a form control, jQuery UI is the perfect choice.",
-            "time": "2015-02-13 15:14:58"
+            "time": "2015-03-13 14:48:12"
         },
         {
             "name": "doctrine/annotations",
@@ -582,12 +584,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/common.git",
-                "reference": "ade7702fb8a0c9c980b22168dd6eb5a55a5b4c2a"
+                "reference": "23cdbfae8d673d79bb06790a126c96f8b648a052"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/common/zipball/ade7702fb8a0c9c980b22168dd6eb5a55a5b4c2a",
-                "reference": "ade7702fb8a0c9c980b22168dd6eb5a55a5b4c2a",
+                "url": "https://api.github.com/repos/doctrine/common/zipball/23cdbfae8d673d79bb06790a126c96f8b648a052",
+                "reference": "23cdbfae8d673d79bb06790a126c96f8b648a052",
                 "shasum": ""
             },
             "require": {
@@ -647,7 +649,7 @@
                 "persistence",
                 "spl"
             ],
-            "time": "2015-03-02 16:47:59"
+            "time": "2015-03-15 09:03:43"
         },
         {
             "name": "doctrine/data-fixtures",
@@ -780,12 +782,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineBundle.git",
-                "reference": "cde0cd8c1cc5c097ad9483c32f9bd3fcfa22361a"
+                "reference": "3bf42bf13d1bd010cda573e9309bc6a10d9c0d43"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineBundle/zipball/cde0cd8c1cc5c097ad9483c32f9bd3fcfa22361a",
-                "reference": "cde0cd8c1cc5c097ad9483c32f9bd3fcfa22361a",
+                "url": "https://api.github.com/repos/doctrine/DoctrineBundle/zipball/3bf42bf13d1bd010cda573e9309bc6a10d9c0d43",
+                "reference": "3bf42bf13d1bd010cda573e9309bc6a10d9c0d43",
                 "shasum": ""
             },
             "require": {
@@ -849,7 +851,7 @@
                 "orm",
                 "persistence"
             ],
-            "time": "2015-03-04 14:33:30"
+            "time": "2015-03-15 17:18:10"
         },
         {
             "name": "doctrine/doctrine-cache-bundle",
@@ -857,12 +859,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineCacheBundle.git",
-                "reference": "78928cc5fb0f1cde57a973002fa0c5c9ced77bac"
+                "reference": "9c5a4ebedb583b882062fb8b276b8af5ca9063ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineCacheBundle/zipball/78928cc5fb0f1cde57a973002fa0c5c9ced77bac",
-                "reference": "78928cc5fb0f1cde57a973002fa0c5c9ced77bac",
+                "url": "https://api.github.com/repos/doctrine/DoctrineCacheBundle/zipball/9c5a4ebedb583b882062fb8b276b8af5ca9063ac",
+                "reference": "9c5a4ebedb583b882062fb8b276b8af5ca9063ac",
                 "shasum": ""
             },
             "require": {
@@ -932,7 +934,7 @@
                 "cache",
                 "caching"
             ],
-            "time": "2015-02-02 04:53:40"
+            "time": "2015-03-15 18:50:55"
         },
         {
             "name": "doctrine/doctrine-fixtures-bundle",
@@ -1173,12 +1175,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/doctrine2.git",
-                "reference": "34b7f07344f3e284f5013691a12d94bc9e0dbc59"
+                "reference": "89ab4b3f48cac8cfd26b2949eac1fd9c8793501b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/34b7f07344f3e284f5013691a12d94bc9e0dbc59",
-                "reference": "34b7f07344f3e284f5013691a12d94bc9e0dbc59",
+                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/89ab4b3f48cac8cfd26b2949eac1fd9c8793501b",
+                "reference": "89ab4b3f48cac8cfd26b2949eac1fd9c8793501b",
                 "shasum": ""
             },
             "require": {
@@ -1242,7 +1244,7 @@
                 "database",
                 "orm"
             ],
-            "time": "2015-03-04 03:07:37"
+            "time": "2015-03-15 18:08:02"
         },
         {
             "name": "friendsofsymfony/user-bundle",
@@ -1251,12 +1253,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
-                "reference": "4696fc4bd394761d5f2c2bcc6b20d45a78af6456"
+                "reference": "fc3400c94748a5f3abb059aa3d826d9f9eeb3f53"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/4696fc4bd394761d5f2c2bcc6b20d45a78af6456",
-                "reference": "4696fc4bd394761d5f2c2bcc6b20d45a78af6456",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/fc3400c94748a5f3abb059aa3d826d9f9eeb3f53",
+                "reference": "fc3400c94748a5f3abb059aa3d826d9f9eeb3f53",
                 "shasum": ""
             },
             "require": {
@@ -1309,7 +1311,7 @@
             "keywords": [
                 "User management"
             ],
-            "time": "2015-01-20 09:34:44"
+            "time": "2015-03-12 11:41:51"
         },
         {
             "name": "gedmo/doctrine-extensions",
@@ -2770,12 +2772,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "db95cfa68a8bc91d1c54f75c416f481c9a8bd100"
+                "reference": "048be6f7c19944d604e321347990543bc2bbe10b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/db95cfa68a8bc91d1c54f75c416f481c9a8bd100",
-                "reference": "db95cfa68a8bc91d1c54f75c416f481c9a8bd100",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/048be6f7c19944d604e321347990543bc2bbe10b",
+                "reference": "048be6f7c19944d604e321347990543bc2bbe10b",
                 "shasum": ""
             },
             "require": {
@@ -2787,7 +2789,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "5.3-dev"
+                    "dev-master": "5.4-dev"
                 }
             },
             "autoload": {
@@ -2814,7 +2816,7 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2015-01-18 13:49:36"
+            "time": "2015-03-14 06:07:26"
         },
         {
             "name": "symfony/assetic-bundle",
@@ -3003,12 +3005,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "6cd873447d5581fd04f382f6c586ab2716ed7d32"
+                "reference": "be053446bde45b7f177c553ac604a76a8a884365"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/6cd873447d5581fd04f382f6c586ab2716ed7d32",
-                "reference": "6cd873447d5581fd04f382f6c586ab2716ed7d32",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/be053446bde45b7f177c553ac604a76a8a884365",
+                "reference": "be053446bde45b7f177c553ac604a76a8a884365",
                 "shasum": ""
             },
             "require": {
@@ -3112,7 +3114,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2015-03-07 07:40:15"
+            "time": "2015-03-15 19:43:27"
         },
         {
             "name": "twbs/bootstrap-sass",

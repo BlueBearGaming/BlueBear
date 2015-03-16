@@ -7,7 +7,6 @@ use BlueBear\CoreBundle\Entity\Map\Context;
 use BlueBear\CoreBundle\Entity\Map\Map;
 use BlueBear\CoreBundle\Entity\Map\MapRepository;
 use BlueBear\CoreBundle\Entity\Map\UserContext;
-use BlueBear\UserBundle\Entity\User;
 use Doctrine\ORM\NonUniqueResultException;
 
 class MapManager
@@ -33,11 +32,14 @@ class MapManager
      * Save map
      *
      * @param Map $map
-     * @param User $user
      */
     public function saveMap(Map $map)
     {
-        $user = $this->getContainer()->get('security.context')->getToken()->getUser();
+        $user = $this
+            ->getContainer()
+            ->get('security.token_storage')
+            ->getToken()
+            ->getUser();
         $isNew = !($map->getId());
         $this->save($map);
 

@@ -1,14 +1,34 @@
-{% extends 'BlueBearAdminBundle::admin.layout.html.twig' %}
+{% extends 'BlueBearBackofficeBundle::layout.html.twig' %}
 
 {% block content %}
-    <div class="test">
-        lol ?
-    </div>
+    <div class="test"></div>
 {% endblock %}
 
 {% block javascripts %}
     <script>
         $(document).on('ready', function () {
+            var HighChartHelper = {
+                init: function (container, options) {
+                    container.highcharts({
+                        chart: {
+                            type: options.type,
+                            backgroundColor: '#303030'
+                        },
+                        title: {
+                            text: options.title
+                        },
+                        xAxis: {
+                            categories: ['Apples', 'Bananas', 'Oranges']
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'Fruit eaten'
+                            }
+                        },
+                        series: options.series
+                    });
+                }
+            };
             var chartsOptions = {
                 type: 'pie',
                 title: 'Images',

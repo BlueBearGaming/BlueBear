@@ -1,3 +1,0 @@
-blue_bear_user_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: BlueBearUserBundle:Default:index }

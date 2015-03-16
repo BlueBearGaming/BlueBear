@@ -40,7 +40,7 @@ class ApiController extends Controller
 
         if (!$map) {
             $this->setMessage('You should create a map before calling api', 'error');
-            return $this->redirect('@bluebear_backoffice_map');
+            return $this->redirect('@bluebear_admin_map_list');
         }
         $snippets = $this->getJsonSnippets($map);
 
