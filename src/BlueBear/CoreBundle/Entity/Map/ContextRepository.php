@@ -3,9 +3,20 @@
 namespace BlueBear\CoreBundle\Entity\Map;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
 
 class ContextRepository extends EntityRepository
 {
+    /**
+     * Return a context with its map item from a starting position to a ending position
+     *
+     * @param $contextId
+     * @param $startingX
+     * @param $startingY
+     * @param $endingX
+     * @param $endingY
+     * @return QueryBuilder
+     */
     public function findWithLimit($contextId, $startingX, $startingY, $endingX, $endingY)
     {
         return $this

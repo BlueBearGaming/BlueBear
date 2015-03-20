@@ -10,11 +10,6 @@ class MapUpdateResponse extends EventResponse
     /**
      * @Serializer\Expose()
      */
-    public $created = [];
-
-    /**
-     * @Serializer\Expose()
-     */
     public $updated = [];
 
     /**

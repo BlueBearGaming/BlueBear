@@ -22,7 +22,7 @@ class EntitySubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            EngineEvent::ENGINE_MAP_PUT_ENTITY => [
+            EngineEvent::EDITOR_MAP_PUT_ENTITY => [
                 'putEntity'
             ]
         ];

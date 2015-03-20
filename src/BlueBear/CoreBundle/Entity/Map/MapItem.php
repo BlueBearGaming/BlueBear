@@ -4,6 +4,7 @@ namespace BlueBear\CoreBundle\Entity\Map;
 
 use BlueBear\CoreBundle\Entity\Behavior\Id;
 use BlueBear\CoreBundle\Entity\Behavior\Positionable;
+use BlueBear\GameBundle\Entity\EntityInstance;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 
@@ -39,6 +40,19 @@ class MapItem
      * @ORM\JoinColumn(nullable=false)
      */
     protected $context;
+
+    /**
+     * @var EntityInstance
+     * @ORM\OneToOne(targetEntity="BlueBear\GameBundle\Entity\EntityInstance", inversedBy="mapItem")
+     * @ORM\JoinColumn(name="entity_instance", nullable=true)
+     */
+    protected $entityInstance;
+
+    /**
+     * @Serializer\Expose()
+     * @Serializer\AccessType("public_method")
+     */
+    protected $listeners;
 
     public function getPencil()
     {
@@ -102,5 +116,39 @@ class MapItem
             return $this->getLayer()->getName();
         }
         return '';
+    }
+
+    public function getListeners()
+    {
+        $listeners = [];
+
+        if ($this->entityInstance) {
+            $listeners = $this->getEntityInstance()->getBehaviors();
+        }
+        return $listeners;
+    }
+
+    /**
+     * @return EntityInstance
+     */
+    public function getEntityInstance()
+    {
+        return $this->entityInstance;
+    }
+
+    /**
+     * @param EntityInstance $entityInstance
+     */
+    public function setEntityInstance(EntityInstance $entityInstance)
+    {
+        $this->entityInstance = $entityInstance;
+    }
+
+    /**
+     * @param mixed $listeners
+     */
+    public function setListeners($listeners)
+    {
+        $this->listeners = $listeners;
     }
 }

@@ -30,10 +30,18 @@ class EntityInstance
     protected $attributes;
 
     /**
-     * @ORM\OneToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\MapItem")
+     * @ORM\OneToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\MapItem", mappedBy="entityInstance")
      */
     protected $mapItem;
 
+    /**
+     * @ORM\Column(name="behaviors", type="array")
+     */
+    protected $behaviors = [];
+
+    /**
+     *
+     */
     public function __construct()
     {
         $this->attributes = new ArrayCollection();
@@ -87,5 +95,21 @@ class EntityInstance
     public function setAttributes($attributes)
     {
         $this->attributes = $attributes;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBehaviors()
+    {
+        return $this->behaviors;
+    }
+
+    /**
+     * @param mixed $behaviors
+     */
+    public function setBehaviors($behaviors)
+    {
+        $this->behaviors = $behaviors;
     }
 }

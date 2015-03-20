@@ -9,6 +9,7 @@ use BlueBear\CoreBundle\Entity\Map\MapItem;
 use BlueBear\CoreBundle\Utils\Position;
 use BlueBear\GameBundle\Entity\EntityInstance;
 use BlueBear\GameBundle\Entity\EntityModel;
+use BlueBear\GameBundle\Game\EntityBehavior;
 use BlueBear\GameBundle\Game\EntityType;
 use BlueBear\GameBundle\Game\EntityTypeAttribute;
 use Exception;
@@ -26,6 +27,8 @@ class EntityFactory
      * @var EntityType[]
      */
     protected $entityTypes = [];
+
+    protected $entityBehaviors = [];
 
     /**
      * @var EntityModel[]
@@ -79,18 +82,26 @@ class EntityFactory
     }
 
     /**
+     * Create entity types from configuration
+     *
      * @param array $entityTypesConfig
      * @param array $entityAttributesConfig
+     * @param array $entityBehaviorsConfig
      * @throws Exception
      */
-    public function setEntityTypes(array $entityTypesConfig, array $entityAttributesConfig)
+    public function createEntityTypes(array $entityTypesConfig, array $entityAttributesConfig, array $entityBehaviorsConfig)
     {
+        // check if configuration is not empty
         if (!count($entityTypesConfig)) {
-            throw new Exception('Invalid entity types configuration');
+            throw new Exception('Empty entity types configuration');
         }
         if (!count($entityAttributesConfig)) {
-            throw new Exception('Invalid entity attribute configuration');
+            throw new Exception('Empty entity attribute configuration');
         }
+        if (!count($entityBehaviorsConfig)) {
+            throw new Exception('Empty entity behaviors configuration');
+        }
+        // creating available entity attribute
         foreach ($entityAttributesConfig as $name => $entityAttributeConfig) {
             $attribute = new EntityTypeAttribute();
             $attribute->setName($name);
@@ -98,19 +109,36 @@ class EntityFactory
             $attribute->setType($entityAttributeConfig['type']);
             $this->entityTypeAttributes[$name] = $attribute;
         }
+        // creating available entity behavior
+        foreach ($entityBehaviorsConfig as $name => $listener) {
+            $behavior = new EntityBehavior();
+            $behavior->setName($name);
+            $behavior->setListener($listener);
+            $this->entityBehaviors[$name] = $behavior;
+        }
+        // creating available entity type
         foreach ($entityTypesConfig as $name => $entityTypeConfig) {
             $entityType = new EntityType();
             $entityType->setName($name);
             $entityType->setLabel($entityTypeConfig['label']);
-
+            // adding current entity type attributes
             foreach ($entityTypeConfig['attributes'] as $attributeName) {
                 if (!array_key_exists($attributeName, $this->entityTypeAttributes)) {
                     throw new Exception('Unknown entity attribute type : ' . $attributeName);
                 }
                 $entityType->addAttribute($this->entityTypeAttributes[$attributeName]);
             }
+            // behaviors are optional for entity
+            if (array_key_exists('behaviors', $entityTypeConfig)) {
+                // adding current entity type behaviors
+                foreach ($entityTypeConfig['behaviors'] as $behaviorName) {
+                    if (!array_key_exists($behaviorName, $this->entityBehaviors)) {
+                        throw new Exception('Unknown entity attribute behavior : ' . $behaviorName);
+                    }
+                    $entityType->addBehavior($this->entityBehaviors[$behaviorName]);
+                }
+            }
             $this->entityTypes[] = $entityType;
-
         }
     }
 
@@ -149,5 +177,13 @@ class EntityFactory
     public function setEntityTypeAttributes($entityTypeAttributes)
     {
         $this->entityTypeAttributes = $entityTypeAttributes;
+    }
+
+    /**
+     * @return EntityBehavior[]
+     */
+    public function getEntityBehaviors()
+    {
+        return $this->entityBehaviors;
     }
 }

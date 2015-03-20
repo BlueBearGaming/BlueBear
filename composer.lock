@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "59bbd9563cd8111cb00fad9c514fca77",
+    "hash": "60f36c8a9f637e8dff73b85dec788b1f",
     "packages": [
         {
             "name": "andres-montanez/magallanes",
@@ -97,23 +97,21 @@
         },
         {
             "name": "bluebear/adminbundle",
-            "version": "dev-master",
+            "version": "v0.1",
             "target-dir": "BlueBear/AdminBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/CleverGaming/AdminBundle.git",
-                "reference": "2629ddff019dad143d21ad190dcb2294e9502328"
+                "reference": "81c83125b19793d2ffc025c4f56ff60fa63fc020"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CleverGaming/AdminBundle/zipball/2629ddff019dad143d21ad190dcb2294e9502328",
-                "reference": "2629ddff019dad143d21ad190dcb2294e9502328",
+                "url": "https://api.github.com/repos/CleverGaming/AdminBundle/zipball/81c83125b19793d2ffc025c4f56ff60fa63fc020",
+                "reference": "81c83125b19793d2ffc025c4f56ff60fa63fc020",
                 "shasum": ""
             },
             "require": {
                 "bluebear/basebundle": "dev-master",
-                "components/jquery": "1.11.*",
-                "components/jqueryui": "1.11.*",
                 "php": ">=5.4",
                 "sensio/framework-extra-bundle": "~3.0",
                 "symfony/symfony": "2.6.*",
@@ -151,7 +149,7 @@
                 "backoffice",
                 "generic"
             ],
-            "time": "2015-03-12 13:17:55"
+            "time": "2015-03-17 20:51:04"
         },
         {
             "name": "bluebear/basebundle",
@@ -160,12 +158,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/CleverGaming/BaseBundle.git",
-                "reference": "3964f43f43755da37a45f34065e2b5f20098d6de"
+                "reference": "88210208a4d549c9986bca347a0b8694c3971c85"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CleverGaming/BaseBundle/zipball/3964f43f43755da37a45f34065e2b5f20098d6de",
-                "reference": "3964f43f43755da37a45f34065e2b5f20098d6de",
+                "url": "https://api.github.com/repos/CleverGaming/BaseBundle/zipball/88210208a4d549c9986bca347a0b8694c3971c85",
+                "reference": "88210208a4d549c9986bca347a0b8694c3971c85",
                 "shasum": ""
             },
             "require": {
@@ -205,7 +203,7 @@
                 "base",
                 "shortcut"
             ],
-            "time": "2015-03-13 11:33:24"
+            "time": "2015-03-15 20:37:05"
         },
         {
             "name": "clever-gaming/jikpoze",
@@ -1175,12 +1173,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/doctrine2.git",
-                "reference": "89ab4b3f48cac8cfd26b2949eac1fd9c8793501b"
+                "reference": "b3a6fb7fde9e6c3e3c56f4fe7b9d2e1055de58b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/89ab4b3f48cac8cfd26b2949eac1fd9c8793501b",
-                "reference": "89ab4b3f48cac8cfd26b2949eac1fd9c8793501b",
+                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/b3a6fb7fde9e6c3e3c56f4fe7b9d2e1055de58b4",
+                "reference": "b3a6fb7fde9e6c3e3c56f4fe7b9d2e1055de58b4",
                 "shasum": ""
             },
             "require": {
@@ -1244,7 +1242,7 @@
                 "database",
                 "orm"
             ],
-            "time": "2015-03-15 18:08:02"
+            "time": "2015-03-18 16:06:30"
         },
         {
             "name": "friendsofsymfony/user-bundle",
@@ -2725,12 +2723,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioGeneratorBundle.git",
-                "reference": "4b09746520a826a7bf34a466ba31c7d8740fef7e"
+                "reference": "e50108c2133ee5c9c484555faed50c17a61221d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioGeneratorBundle/zipball/4b09746520a826a7bf34a466ba31c7d8740fef7e",
-                "reference": "4b09746520a826a7bf34a466ba31c7d8740fef7e",
+                "url": "https://api.github.com/repos/sensiolabs/SensioGeneratorBundle/zipball/e50108c2133ee5c9c484555faed50c17a61221d3",
+                "reference": "e50108c2133ee5c9c484555faed50c17a61221d3",
                 "shasum": ""
             },
             "require": {
@@ -2764,7 +2762,7 @@
                 }
             ],
             "description": "This bundle generates code for you",
-            "time": "2015-02-11 07:21:23"
+            "time": "2015-03-17 06:36:52"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -2820,16 +2818,16 @@
         },
         {
             "name": "symfony/assetic-bundle",
-            "version": "v2.6.1",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/AsseticBundle.git",
-                "reference": "422b0add2110f0cf9bc7a873a386ea053f4a89f0"
+                "reference": "4bfd74e41d6d3d153b5de402604ab637fb88917a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/AsseticBundle/zipball/422b0add2110f0cf9bc7a873a386ea053f4a89f0",
-                "reference": "422b0add2110f0cf9bc7a873a386ea053f4a89f0",
+                "url": "https://api.github.com/repos/symfony/AsseticBundle/zipball/4bfd74e41d6d3d153b5de402604ab637fb88917a",
+                "reference": "4bfd74e41d6d3d153b5de402604ab637fb88917a",
                 "shasum": ""
             },
             "require": {
@@ -2855,7 +2853,7 @@
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.5-dev"
+                    "dev-master": "2.6-dev"
                 }
             },
             "autoload": {
@@ -2881,7 +2879,7 @@
                 "compression",
                 "minification"
             ],
-            "time": "2015-01-27 12:45:16"
+            "time": "2015-03-17 14:49:28"
         },
         {
             "name": "symfony/monolog-bundle",
@@ -3005,12 +3003,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "be053446bde45b7f177c553ac604a76a8a884365"
+                "reference": "d64cb493af3e09bd61495309dd22c8e5a8d2efc3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/be053446bde45b7f177c553ac604a76a8a884365",
-                "reference": "be053446bde45b7f177c553ac604a76a8a884365",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/d64cb493af3e09bd61495309dd22c8e5a8d2efc3",
+                "reference": "d64cb493af3e09bd61495309dd22c8e5a8d2efc3",
                 "shasum": ""
             },
             "require": {
@@ -3114,7 +3112,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2015-03-15 19:43:27"
+            "time": "2015-03-17 15:51:12"
         },
         {
             "name": "twbs/bootstrap-sass",
@@ -3227,12 +3225,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "eecf85e903322e425ea921fd2588238f632965d2"
+                "reference": "7ee4aec238949225a25f174318dc84167e5f360d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/eecf85e903322e425ea921fd2588238f632965d2",
-                "reference": "eecf85e903322e425ea921fd2588238f632965d2",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/7ee4aec238949225a25f174318dc84167e5f360d",
+                "reference": "7ee4aec238949225a25f174318dc84167e5f360d",
                 "shasum": ""
             },
             "require": {
@@ -3276,7 +3274,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2015-03-06 07:12:47"
+            "time": "2015-03-17 17:21:28"
         },
         {
             "name": "white-october/pagerfanta-bundle",
@@ -3407,8 +3405,7 @@
         "gedmo/doctrine-extensions": 20,
         "mopa/bootstrap-bundle": 20,
         "nc/elephantio-bundle": 20,
-        "clever-gaming/jikpoze": 20,
-        "bluebear/adminbundle": 20
+        "clever-gaming/jikpoze": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

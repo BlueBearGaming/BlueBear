@@ -44,7 +44,6 @@ class MapSubscriber implements EventSubscriberInterface
             if (!$topLeft or !$topLeft->x or !$topLeft->y) {
                 throw new Exception('Invalid starting point (top left coordinates are not valid)');
             }
-
             if (!$bottomRight or !$bottomRight->x or !$bottomRight->y) {
                 throw new Exception('Invalid ending point (bottom right coordinates are not valid)');
             }

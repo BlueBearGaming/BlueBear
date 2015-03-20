@@ -15,7 +15,7 @@ services:
         class: %bluebear.game.entity_factory%
         calls:
             - [setContainer, [@service_container]]
-            - [setEntityTypes, [%bluebear.game.entity_type%, %bluebear.game.attribute%]]
+            - [createEntityTypes, [%bluebear.game.entity_type%, %bluebear.game.attribute%, %bluebear.game.behaviors%]]
 
     # events subscribers
     bluebear.engine.event.mapitem_subscriber:

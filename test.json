@@ -1,0 +1,211 @@
+{
+  "code": "ok",
+  "timestamp": 1426597126,
+  "name": "bluebear.engine.mapLoad",
+  "data": {
+    "id": 1,
+    "label": "Initial context",
+    "map": {
+      "id": 1,
+      "name": "map_0",
+      "label": "An other Map",
+      "type": "isometric",
+      "cellSize": 128,
+      "layers": [
+        {
+          "id": 1,
+          "name": "background",
+          "label": "Background",
+          "description": "Map background",
+          "index": 0,
+          "type": "background"
+        },
+        {
+          "id": 2,
+          "name": "land",
+          "label": "Land",
+          "description": "Map land (plains, forests...)",
+          "index": 1,
+          "type": "land"
+        },
+        {
+          "id": 3,
+          "name": "grid",
+          "label": "Grid",
+          "description": "Grid (displayed or not)",
+          "index": 2,
+          "type": "grid"
+        },
+        {
+          "id": 4,
+          "name": "selection",
+          "label": "Selection",
+          "description": "Unit, object or building selection (hover..)",
+          "index": 3,
+          "type": "selection"
+        },
+        {
+          "id": 5,
+          "name": "props",
+          "label": "Props and decals",
+          "description": "Decorations (flowers, broken wall...)",
+          "index": 4,
+          "type": "props"
+        },
+        {
+          "id": 6,
+          "name": "objects",
+          "label": "Objects",
+          "description": "Objects (item...) on the map",
+          "index": 5,
+          "type": "objects"
+        },
+        {
+          "id": 7,
+          "name": "units",
+          "label": "Units",
+          "description": "Units on the map",
+          "index": 6,
+          "type": "units"
+        },
+        {
+          "id": 8,
+          "name": "effects",
+          "label": "Effects",
+          "description": "Map Effects",
+          "index": 7,
+          "type": "effects"
+        },
+        {
+          "id": 9,
+          "name": "events",
+          "label": "Events",
+          "description": "Events on map",
+          "index": 8,
+          "type": "events"
+        }
+      ],
+      "pencilSets": [
+        {
+          "pencils": [
+            {
+              "id": 1,
+              "name": "panda_0",
+              "label": "My Little Panda",
+              "description": "tt",
+              "type": "background",
+              "imageX": 0,
+              "imageY": 0,
+              "width": 1,
+              "height": 1,
+              "boundingBox": [
+                [
+                  0,
+                  0
+                ]
+              ],
+              "image": {
+                "fileName": "55074b3753bd3.png",
+                "originalFileName": "grass_02.png",
+                "id": 2
+              },
+              "allowedLayerTypes": [
+                "background",
+                "land",
+                "selection",
+                "buildings",
+                "objects",
+                "events"
+              ]
+            },
+            {
+              "id": 2,
+              "name": "land_0",
+              "label": "grass",
+              "description": "tttt",
+              "type": "background",
+              "imageX": 0,
+              "imageY": 0,
+              "width": 1,
+              "height": 1,
+              "boundingBox": [
+                [
+                  0,
+                  0
+                ]
+              ],
+              "image": {
+                "fileName": "55074b54ad8cc.png",
+                "originalFileName": "isometric_grass.png",
+                "id": 3
+              },
+              "allowedLayerTypes": [
+                "background",
+                "land",
+                "grid",
+                "selection",
+                "buildings",
+                "props",
+                "objects",
+                "units",
+                "effects",
+                "events"
+              ]
+            }
+          ],
+          "sprite": {
+            "fileName": "5506cd1534b61.png",
+            "originalFileName": "grass_02.png",
+            "id": 1
+          },
+          "id": 1,
+          "name": "pencil_set_pandas",
+          "label": "My Pandas",
+          "type": "isometric"
+        }
+      ],
+      "startX": 0,
+      "startY": 0
+    },
+    "mapItems": [
+      {
+        "pencilName": "panda",
+        "layerName": "unit",
+        "id": 1,
+        "x": 10,
+        "y": 3,
+        "listeners": [
+          {
+            "type": "click",
+            "name": "bluebear.engine.select"
+          }
+        ]
+      },
+      {
+        "pencilName": "selection",
+        "layerName": "selection",
+        "x": 10,
+        "y": 3
+      },
+      {
+        "pencilName": "moveaction",
+        "layerName": "selection",
+        "x": 11,
+        "y": 3
+      },
+      {
+        "pencilName": "event",
+        "layerName": "events",
+        "x": 11,
+        "y": 3,
+        "listeners": [
+          {
+            "type": "click",
+            "name": "bluebear.engine.move",
+            "sourceId": 1
+          }
+        ]
+      }
+    ]
+  }
+}

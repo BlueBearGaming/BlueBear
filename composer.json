@@ -35,7 +35,7 @@
         "oneup/uploader-bundle": "1.3.*",
         "jms/serializer-bundle": "0.13.*",
         "clever-gaming/jikpoze": "dev-master",
-        "bluebear/adminbundle": "dev-master",
+        "bluebear/adminbundle": "0.1",
         "packagist/yuicompressor-bin": "~2.4"
     },
     "scripts": {

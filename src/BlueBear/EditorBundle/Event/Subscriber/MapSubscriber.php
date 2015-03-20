@@ -121,7 +121,7 @@ class MapSubscriber implements EventSubscriberInterface
                             $mapItem->setY($mapItemRequest->y);
                             $mapItem->setLayer($layer);
                             $mapItem->setPencil($pencil);
-                            $response->created[] = $mapItem;
+                            $response->updated[] = $mapItem;
                         }
                         $this->getMapItemManager()->save($mapItem);
                     } else {

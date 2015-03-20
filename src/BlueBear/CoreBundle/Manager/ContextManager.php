@@ -12,6 +12,8 @@ class ContextManager
     use ManagerTrait;
 
     /**
+     * Return a context with its map item from a starting position to a ending position
+     *
      * @param $contextId
      * @param Position $startingPoint
      * @param Position $endingPoint

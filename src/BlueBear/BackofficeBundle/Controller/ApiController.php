@@ -24,6 +24,11 @@ use JMS\Serializer\Serializer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+/**
+ * ApiController
+ *
+ * Controller for api testing purpose
+ */
 class ApiController extends Controller
 {
     use ControllerTrait;
@@ -37,6 +42,7 @@ class ApiController extends Controller
     {
         $form = $this->createForm('engine_event_test');
         $map = $this->getMapManager()->findOne();
+        $this->getContainer()->get('bluebear.game.entity_factory');
 
         if (!$map) {
             $this->setMessage('You should create a map before calling api', 'error');
@@ -73,7 +79,7 @@ class ApiController extends Controller
             } else if ($event == EngineEvent::ENGINE_MAP_ITEM_CLICK) {
                 // get MapItemClick request
                 $snippets[$event] = $this->getMapItemClickRequest($map, $context);
-            } else if ($event == EngineEvent::ENGINE_MAP_PUT_ENTITY) {
+            } else if ($event == EngineEvent::EDITOR_MAP_PUT_ENTITY) {
                 $snippets[$event] = $this->getPutEntityRequest($map, $context);
             } else if ($event == EngineEvent::EDITOR_MAP_PUT_PENCIL) {
                 $snippets[$event] = $this->getPutPencilRequest($map, $context);

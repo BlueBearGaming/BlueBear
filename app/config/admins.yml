@@ -40,6 +40,10 @@ blue_bear_admin:
                         label: ~
                         # displayed only 50 first characters in list action
                         description: {length: 50}
+                    filters:
+                        id: ~
+                        name: ~
+                        label: ~
                 create: ~
                 edit: ~
                 delete: ~

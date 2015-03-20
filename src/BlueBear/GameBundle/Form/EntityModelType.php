@@ -26,13 +26,7 @@ class EntityModelType extends AbstractType
             'help_block' => 'Name of the unit'
         ]);
         $builder->add('pencil');
-
-        $builder->add('allowedLayerTypes', 'choice', [
-            'choices' => Constant::getLayerTypes(),
-            'multiple' => true,
-            'expanded' => true,
-            'horizontal_input_wrapper_class' => 'col-sm-9 form-inline-checkboxes',
-        ]);
+        // type cannot by changed after creation, attributes are available only after the type is chosen
         if ($entityModel->getId()) {
             $builder->add('type', 'choice', [
                 'choices' => $this->getSortedEntityTypes(),
@@ -40,6 +34,24 @@ class EntityModelType extends AbstractType
                     'disabled' => 'disabled'
                 ]
             ]);
+            $builder->add('behaviors', 'choice', [
+                'choices' => $this->getSortedEntityBehaviors(),
+                'read_only' => true,
+                'multiple' => true,
+                'expanded' => true,
+            ]);
+        } else {
+            $builder->add('type', 'choice', [
+                'choices' => $this->getSortedEntityTypes(),
+            ]);
+        }
+        $builder->add('allowedLayerTypes', 'choice', [
+            'choices' => Constant::getLayerTypes(),
+            'multiple' => true,
+            'expanded' => true,
+            'horizontal_input_wrapper_class' => 'col-sm-9 form-inline-checkboxes',
+        ]);
+        if ($entityModel->getId()) {
             $builder->add('attributes', 'attribute_collection', [
                 'type' => 'entity_model_attribute',
                 'allow_add' => true,
@@ -47,12 +59,7 @@ class EntityModelType extends AbstractType
                     'label' => 'Add attribute'
                 ]
             ]);
-        } else {
-            $builder->add('type', 'choice', [
-                'choices' => $this->getSortedEntityTypes()
-            ]);
         }
-
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
@@ -83,5 +90,16 @@ class EntityModelType extends AbstractType
             $sorted[$entityType->getName()] = $entityType;
         }
         return $entityTypes;
+    }
+
+    protected function getSortedEntityBehaviors()
+    {
+        $sorted = [];
+        $behaviors = $this->entityFactory->getEntityBehaviors();
+
+        foreach ($behaviors as $behavior) {
+            $sorted[$behavior->getName()] = ucfirst($behavior->getName());
+        }
+        return $sorted;
     }
 }
