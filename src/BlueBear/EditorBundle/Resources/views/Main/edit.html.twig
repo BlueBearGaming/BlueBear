@@ -1,49 +1,51 @@
 {% extends 'BlueBearBackofficeBundle::layout.html.twig' %}
 
-{% block content %}
-    <div id="editor">
-        <div class="col-md-2 map-editor-form">
-            {# layers #}
-            <label>
-                Layer
-                <select class="form-control" name="bluebear_map_editor[selected_layer]">
-                    {% for layer in context.map.layers %}
-                        {% if layer.type not in ['grid', 'selection', 'events', 'debug'] %}
-                            <option value="{{ layer.name }}" data-layer-type="{{ layer.type }}">{{ layer.label }}</option>
-                        {% endif %}
-                    {% endfor %}
-                </select>
-            </label>
-
-            {# pencils #}
-            {% for pencilSet in context.map.pencilSets %}
-                {% for pencil in pencilSet.pencils %}
-                    <div class="radio pencil" data-pencil-set="{{ pencilSet.label }}" data-pencil-set-type="{{ pencilSet.type }}">
-                        <label>
-                            <input type="radio" name="bluebear_map_editor[selected_pencil]" value="{{ pencil.name }}">
-                            {{ pencil.label }}
-                            <span class="text-muted">{{ pencil.tags }}</span>
-                            {% if pencil.image %}
-                                <img width="50" height="50" src="{{ resource_path(pencil.image) }}"/>
-                                <div class="clear"></div>
+{% block container %}
+    <div class="container-fluid">
+        <div class="row-fluid" id="editor">
+            <div class="col-md-2 map-editor-form">
+                {# layers #}
+                <label>
+                    Layer
+                    <select class="form-control" name="bluebear_map_editor[selected_layer]">
+                        {% for layer in context.map.layers %}
+                            {% if layer.type not in ['grid', 'selection', 'events', 'debug'] %}
+                                <option value="{{ layer.name }}" data-layer-type="{{ layer.type }}">{{ layer.label }}</option>
                             {% endif %}
-                        </label>
-                    </div>
+                        {% endfor %}
+                    </select>
+                </label>
+
+                {# pencils #}
+                {% for pencilSet in context.map.pencilSets %}
+                    {% for pencil in pencilSet.pencils %}
+                        <div class="radio pencil" data-pencil-set="{{ pencilSet.label }}" data-pencil-set-type="{{ pencilSet.type }}">
+                            <label>
+                                <input type="radio" name="bluebear_map_editor[selected_pencil]" value="{{ pencil.name }}">
+                                {{ pencil.label }}
+                                <span class="text-muted">{{ pencil.tags }}</span>
+                                {% if pencil.image %}
+                                    <img width="50" height="50" src="{{ resource_path(pencil.image) }}"/>
+                                    <div class="clear"></div>
+                                {% endif %}
+                            </label>
+                        </div>
+                    {% endfor %}
                 {% endfor %}
-            {% endfor %}
-        </div>
-        <div class="col-md-10">
-            <h1>Map Editor</h1>
-            <div class="map">
-                <style>
-                    /* For debugging purpose only */
-                    canvas {
-                        background: white;
-                        width: 100%;
-                        height: 600px;
-                    }
-                </style>
-                <canvas id="canvas_map" data-options="{{ jikpozeOptions|json_encode }}"></canvas>
+            </div>
+            <div class="col-md-10">
+                <h1>Map Editor</h1>
+                <div class="map">
+                    <style>
+                        /* For debugging purpose only */
+                        canvas {
+                            background: white;
+                            width: 100%;
+                            height: 600px;
+                        }
+                    </style>
+                    <canvas id="canvas_map" data-options="{{ jikpozeOptions|json_encode }}"></canvas>
+                </div>
             </div>
         </div>
     </div>
