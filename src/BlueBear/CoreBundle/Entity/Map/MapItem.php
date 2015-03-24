@@ -43,8 +43,8 @@ class MapItem
 
     /**
      * @var EntityInstance
-     * @ORM\OneToOne(targetEntity="BlueBear\GameBundle\Entity\EntityInstance", inversedBy="mapItem")
-     * @ORM\JoinColumn(name="entity_instance", nullable=true)
+     * @ORM\OneToOne(targetEntity="BlueBear\GameBundle\Entity\EntityInstance", mappedBy="mapItem")
+     * @ORM\JoinColumn(name="entity_instance_id", nullable=true)
      */
     protected $entityInstance;
 

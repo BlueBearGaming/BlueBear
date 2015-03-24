@@ -42,7 +42,7 @@ class ApiController extends Controller
     {
         $form = $this->createForm('engine_event_test');
         $map = $this->getMapManager()->findOne();
-        $this->getContainer()->get('bluebear.game.entity_factory');
+        $this->getContainer()->get('bluebear.game.entity_type_factory');
 
         if (!$map) {
             $this->setMessage('You should create a map before calling api', 'error');

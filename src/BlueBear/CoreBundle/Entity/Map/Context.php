@@ -16,7 +16,7 @@ use JMS\Serializer\Annotation as Serializer;
  * @ORM\Entity(repositoryClass="BlueBear\CoreBundle\Entity\Map\ContextRepository")
  * @ORM\HasLifecycleCallbacks()
  * @Serializer\ExclusionPolicy("all")
- * @Serializer\AccessorOrder("custom", custom={"id", "label", "map", "mapItems"})
+ * @Serializer\AccessorOrder("custom", custom={"id", "label", "map", "mapItems", "listeners"})
  */
 class Context
 {
@@ -45,6 +45,11 @@ class Context
      * @ORM\Column(type="integer")
      */
     protected $version = 0;
+
+    /**
+     * @Serializer\Expose()
+     */
+    protected $listeners = [];
 
     /**
      * @return mixed
@@ -108,5 +113,21 @@ class Context
     public function setMap(Map $map)
     {
         $this->map = $map;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getListeners()
+    {
+        return $this->listeners;
+    }
+
+    /**
+     * @param mixed $listeners
+     */
+    public function setListeners($listeners)
+    {
+        $this->listeners = $listeners;
     }
 }

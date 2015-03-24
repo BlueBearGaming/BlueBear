@@ -57,6 +57,7 @@ class MapSubscriber implements EventSubscriberInterface
             }
             $event->setContext($context);
         }
+        $event->getContext()->setListeners($this->container->get('bluebear.game.entity_type_factory')->getEntityBehaviors());
         /** @var MapLoadResponse $response */
         $response = $event->getResponse();
         // set context as event response to data

@@ -112,7 +112,7 @@ class Engine
             if (!array_key_exists('request', $eventConfig) or
                 !array_key_exists('response', $eventConfig)
             ) {
-                throw new Exception('Event configuration should have a request and response');
+                throw new Exception('Event in configuration should have a request and response');
             }
             $this->allowedEvents[$eventName] = $eventConfig;
         }

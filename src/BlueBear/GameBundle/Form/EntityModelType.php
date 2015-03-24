@@ -4,7 +4,7 @@ namespace BlueBear\GameBundle\Form;
 
 use BlueBear\CoreBundle\Constant\Map\Constant;
 use BlueBear\GameBundle\Entity\EntityModel;
-use BlueBear\GameBundle\Factory\EntityFactory;
+use BlueBear\GameBundle\Factory\EntityTypeFactory;
 use BlueBear\GameBundle\Game\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -13,9 +13,9 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 class EntityModelType extends AbstractType
 {
     /**
-     * @var EntityFactory
+     * @var EntityTypeFactory
      */
-    protected $entityFactory;
+    protected $entityTypeFactory;
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -75,15 +75,15 @@ class EntityModelType extends AbstractType
         return 'entity_model';
     }
 
-    public function setEntityFactory(EntityFactory $entityFactory)
+    public function setEntityTypeFactory(EntityTypeFactory $entityTypeFactory)
     {
-        $this->entityFactory = $entityFactory;
+        $this->entityTypeFactory = $entityTypeFactory;
     }
 
     protected function getSortedEntityTypes()
     {
         $sorted = [];
-        $entityTypes = $this->entityFactory->getEntityTypes();
+        $entityTypes = $this->entityTypeFactory->getEntityTypes();
 
         /** @var EntityType $entityType */
         foreach ($entityTypes as $entityType) {
@@ -95,7 +95,7 @@ class EntityModelType extends AbstractType
     protected function getSortedEntityBehaviors()
     {
         $sorted = [];
-        $behaviors = $this->entityFactory->getEntityBehaviors();
+        $behaviors = $this->entityTypeFactory->getEntityBehaviors();
 
         foreach ($behaviors as $behavior) {
             $sorted[$behavior->getName()] = ucfirst($behavior->getName());
