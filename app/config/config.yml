@@ -60,6 +60,14 @@ assetic:
             jar: "%kernel.root_dir%/Resources/java/yuicompressor.jar"
         yui_js:
             jar: "%kernel.root_dir%/Resources/java/yuicompressor.jar"
+    assets:
+        map1:
+            input: "%kernel.root_dir%/../web/assets/jquery/jquery.min.map"
+            output: js/jquery.min.map
+        src1:
+            input: "%kernel.root_dir%/../web/assets/jquery/jquery.js"
+            output: js/jquery.js
+
 # Doctrine Configuration
 doctrine:
     dbal:
