@@ -15,7 +15,7 @@ blue_bear_engine:
             response: BlueBear\EditorBundle\Event\Response\MapUpdateResponse
         bluebear.editor.putEntity:
             request: BlueBear\EditorBundle\Event\Request\PutEntityRequest
-            response: BlueBear\EditorBundle\Event\Request\PutEntityResponse
+            response: BlueBear\EditorBundle\Event\Response\PutEntityResponse
 
 # BlueBear Game
 blue_bear_game:

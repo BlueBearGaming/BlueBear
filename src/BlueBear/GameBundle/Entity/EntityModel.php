@@ -128,4 +128,9 @@ class EntityModel
     {
         $this->behaviors = $behaviors;
     }
+
+    public function addBehavior($behavior)
+    {
+        $this->behaviors[] = $behavior;
+    }
 }

@@ -63,7 +63,7 @@ class EngineEvent extends Event
     const ENGINE_MAP_ITEM_CLICK = 'bluebear.engine.mapItemClick';
 
     const EDITOR_MAP_PUT_PENCIL = 'bluebear.editor.putPencil';
-    const EDITOR_MAP_PUT_ENTITY = 'bluebear.engine.mapPutEntity';
+    const EDITOR_MAP_PUT_ENTITY = 'bluebear.editor.putEntity';
     const EDITOR_MAP_UPDATE = 'bluebear.editor.mapUpdate';
 
     /**

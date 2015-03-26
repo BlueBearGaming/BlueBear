@@ -7,6 +7,7 @@ use BlueBear\CoreBundle\Entity\Behavior\Label;
 use BlueBear\CoreBundle\Entity\Behavior\Nameable;
 use BlueBear\CoreBundle\Entity\Behavior\Timestampable;
 use BlueBear\CoreBundle\Entity\Behavior\Typeable;
+use BlueBear\CoreBundle\Entity\Map\MapItem;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -24,13 +25,12 @@ class EntityInstance
     use Id, Nameable, Label, Timestampable, Typeable;
 
     /**
-     * @var
      * @ORM\ManyToMany(targetEntity="BlueBear\GameBundle\Entity\EntityInstanceAttribute", cascade={"persist"})
      */
     protected $attributes;
 
     /**
-     * @ORM\OneToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\MapItem", mappedBy="entityInstance")
+     * @ORM\OneToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\MapItem", inversedBy="entityInstance")
      */
     protected $mapItem;
 
@@ -40,7 +40,7 @@ class EntityInstance
     protected $behaviors = [];
 
     /**
-     *
+     * Initialize collection
      */
     public function __construct()
     {
@@ -63,6 +63,9 @@ class EntityInstance
             $instanceAttribute->hydrateFromModel($entityModelAttribute);
             $this->attributes->add($instanceAttribute);
         }
+        foreach ($entityModel->getBehaviors() as $entityModelBehavior) {
+            $this->behaviors[] = $entityModelBehavior;
+        }
     }
 
     /**
@@ -74,11 +77,12 @@ class EntityInstance
     }
 
     /**
-     * @param mixed $mapItem
+     * @param MapItem $mapItem
      */
-    public function setMapItem($mapItem)
+    public function setMapItem(MapItem $mapItem)
     {
         $this->mapItem = $mapItem;
+        $mapItem->setEntityInstance($this);
     }
 
     /**

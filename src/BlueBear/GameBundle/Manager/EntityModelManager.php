@@ -5,6 +5,7 @@ namespace BlueBear\GameBundle\Manager;
 use BlueBear\BaseBundle\Behavior\ManagerTrait;
 use BlueBear\GameBundle\Entity\EntityModel;
 use BlueBear\GameBundle\Entity\EntityModelAttribute;
+use BlueBear\GameBundle\Game\EntityBehavior;
 use BlueBear\GameBundle\Game\EntityTypeAttribute;
 
 class EntityModelManager
@@ -18,8 +19,12 @@ class EntityModelManager
     {
         // on entity model creation, we should create default model attribute from entity type in creation
         if (!$entityModel->getId()) {
-            $entityType = $this->getContainer()->get('bluebear.game.entity_factory')->getEntityType($entityModel->getType());
+            $entityType = $this
+                ->getContainer()
+                ->get('bluebear.game.entity_type_factory')
+                ->getEntityType($entityModel->getType());
             $entityTypeAttributes = $entityType->getAttributes();
+            $entityTypeBehaviors = $entityType->getBehaviors();
 
             /** @var EntityTypeAttribute $attribute */
             foreach ($entityTypeAttributes as $attribute) {
@@ -27,9 +32,13 @@ class EntityModelManager
                 $entityModelAttribute->setName($attribute->getName());
                 $entityModelAttribute->setLabel($attribute->getLabel());
                 $entityModelAttribute->setType($attribute->getType());
-                // those attributes are set by default for this model, they can not be changed
+                // those attributes are set by default for this model, they can not be removed
                 $entityModelAttribute->setIsDefault(true);
                 $entityModel->addAttributes($entityModelAttribute);
+            }
+            /** @var EntityBehavior $behavior */
+            foreach ($entityTypeBehaviors as $behavior) {
+                $entityModel->addBehavior($behavior->getName());
             }
         }
         $this->getEntityManager()->persist($entityModel);

@@ -25,10 +25,10 @@ class ContextManager
             ->getRepository()
             ->findWithLimit(
                 $contextId,
-                $startingPoint->x,
-                $startingPoint->y,
-                $endingPoint->x,
-                $endingPoint->y
+                (int)$startingPoint->x,
+                (int)$startingPoint->y,
+                (int)$endingPoint->x,
+                (int)$endingPoint->y
             )
             ->getQuery()
             ->getOneOrNullResult();
