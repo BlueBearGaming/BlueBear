@@ -2,13 +2,14 @@ load 'deploy' if respond_to?(:namespace) # cap2 differentiator
 
 require 'capifony_symfony2'
 
-set :stages, %w(staging)
+set :stages, %w(staging vince)
 set :default_stage, "staging"
 set :stage_dir,     "app/config/capifony"
 
 set :application,          "BlueBear"
 set :use_sudo,             false
 set :controllers_to_clear, ['none']
+set :composer_options,  "--verbose --prefer-dist --optimize-autoloader --no-progress"
 
 set :writable_dirs,        ["app/cache", "app/logs"]
 set :webserver_user,      "bluebear"
@@ -17,7 +18,7 @@ set :use_set_permissions,  true
 
 set :dump_assetic_assets, true
 set :shared_files,        ["app/config/parameters.yml"]
-set :shared_children,     [app_path + "/logs", web_path + "/uploads", "vendor"]
+set :shared_children,     [app_path + "/logs", web_path + "/uploads", web_path + "/resources", "vendor"]
 set :use_composer,        true
 set :update_vendors,      false
 
