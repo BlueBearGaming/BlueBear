@@ -7,10 +7,10 @@
                 {# layers #}
                 <label>
                     Layer
-                    <select class="form-control" name="bluebear_map_editor[selected_layer]">
+                    <select class="form-control" id="layer_selector" name="bluebear_map_editor[selected_layer]">
                         {% for layer in context.map.layers %}
                             {% if layer.type not in ['grid', 'selection', 'events', 'debug'] %}
-                                <option value="{{ layer.name }}" data-layer-type="{{ layer.type }}">{{ layer.label }}</option>
+                                <option value="{{ layer.name }}" data-layer-type="{{ layer.type }}" {{ layer.type == 'land' ? 'selected' }}>{{ layer.label }}</option>
                             {% endif %}
                         {% endfor %}
                     </select>
@@ -19,7 +19,7 @@
                 {# pencils #}
                 {% for pencilSet in context.map.pencilSets %}
                     {% for pencil in pencilSet.pencils %}
-                        <div class="radio pencil" data-pencil-set="{{ pencilSet.label }}" data-pencil-set-type="{{ pencilSet.type }}">
+                        <div class="radio pencil" data-pencil-type="{{ pencil.type }}">
                             <label>
                                 <input type="radio" name="bluebear_map_editor[selected_pencil]" value="{{ pencil.name }}">
                                 {{ pencil.label }}
@@ -53,4 +53,27 @@
 
     <script type="application/dart" src="{{ asset('/jikpoze/main.dart') }}"></script>
     <script src="{{ asset('/jikpoze/packages/browser/dart.js') }}"></script>
+    <script>
+        $(function() {
+            function switchLayer() {
+                var type = $('#layer_selector option:selected').data('layer-type');
+                var first = true;
+                $('.map-editor-form .pencil').each(function(){
+                    var t = $(this);
+                    if (t.data('pencil-type') == type) {
+                        t.show();
+                        if (first) {
+                            t.find('input[type="radio"]').prop('checked', true);
+                            first = false;
+                        }
+                    } else {
+                        t.hide();
+                    }
+                });
+
+            }
+            $('#layer_selector').change(switchLayer);
+            switchLayer();
+        });
+    </script>
 {% endblock %}

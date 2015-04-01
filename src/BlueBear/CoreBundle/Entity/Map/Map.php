@@ -61,14 +61,14 @@ class Map
      * @Serializer\Expose()
      * @var int
      */
-    protected $startX;
+    protected $startX = 0;
 
     /**
      * @ORM\Column(name="start_y", type="integer")
      * @Serializer\Expose()
      * @var int
      */
-    protected $startY;
+    protected $startY = 0;
 
     /**
      * Initialize user context

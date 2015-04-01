@@ -69,12 +69,24 @@ class PencilType extends AbstractType
             'help_block' => 'Image width in tiles ("1" means that image width take 1 x Map.CellSize)',
         ]);
         $builder->add('height', 'number', [
-            'help_block' => 'Image height in tiles ("1" means that image height take 1 x Map.CellSize)',
+            'help_block' => 'Image height in tiles ("1" means that image height take 1 x Map.CellSize x skewFactor)',
         ]);
         $builder->add('image', 'resource_image', [
             'query_builder' => function(ImageRepository $repo) use ($image) {
                 return $repo->getQbForOrphans($image);
             },
+        ]);
+        $builder->add('spriteX', 'number', [
+            'required' => false,
+        ]);
+        $builder->add('spriteY', 'number', [
+            'required' => false,
+        ]);
+        $builder->add('spriteWidth', 'number', [
+            'required' => false,
+        ]);
+        $builder->add('spriteHeight', 'number', [
+            'required' => false,
         ]);
         //$builder->add('boundingBox', new BoundingBoxType()); // @wip
     }

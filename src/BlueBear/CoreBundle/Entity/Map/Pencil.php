@@ -215,4 +215,70 @@ class Pencil
     {
         $this->mapItems = $mapItems;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getSpriteX()
+    {
+        return $this->spriteX;
+    }
+
+    /**
+     * @param mixed $spriteX
+     */
+    public function setSpriteX($spriteX)
+    {
+        $this->spriteX = $spriteX;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSpriteY()
+    {
+        return $this->spriteY;
+    }
+
+    /**
+     * @param mixed $spriteY
+     */
+    public function setSpriteY($spriteY)
+    {
+        $this->spriteY = $spriteY;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSpriteWidth()
+    {
+        return $this->spriteWidth;
+    }
+
+    /**
+     * @param mixed $spriteWidth
+     */
+    public function setSpriteWidth($spriteWidth)
+    {
+        $this->spriteWidth = $spriteWidth;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSpriteHeight()
+    {
+        return $this->spriteHeight;
+    }
+
+    /**
+     * @param mixed $spriteHeight
+     */
+    public function setSpriteHeight($spriteHeight)
+    {
+        $this->spriteHeight = $spriteHeight;
+    }
+
+
 }
