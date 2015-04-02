@@ -3,6 +3,7 @@
 namespace BlueBear\CoreBundle\Entity\Map;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use Exception;
 
@@ -33,6 +34,7 @@ class ContextRepository extends EntityRepository
             ->leftJoin(
                 'context.mapItems',
                 'mapItems',
+                Join::WITH,
                 "mapItems.context = context AND mapItems.x >= {$startingX} AND mapItems.y >= {$startingY}
                     AND mapItems.x <= {$endingX} AND mapItems.y <= {$endingY}"
             )
