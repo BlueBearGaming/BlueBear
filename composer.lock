@@ -211,12 +211,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/CleverGaming/Jikpoze.git",
-                "reference": "329299be98e43d22ce401490c2b3f4cfc6f7d3c0"
+                "reference": "32d33dd53e57a2148c168e2f90236332d24367ae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CleverGaming/Jikpoze/zipball/329299be98e43d22ce401490c2b3f4cfc6f7d3c0",
-                "reference": "329299be98e43d22ce401490c2b3f4cfc6f7d3c0",
+                "url": "https://api.github.com/repos/CleverGaming/Jikpoze/zipball/32d33dd53e57a2148c168e2f90236332d24367ae",
+                "reference": "32d33dd53e57a2148c168e2f90236332d24367ae",
                 "shasum": ""
             },
             "type": "game-engine",
@@ -240,7 +240,7 @@
                 "stagexl",
                 "tiles"
             ],
-            "time": "2015-03-25 22:50:11"
+            "time": "2015-04-01 21:39:18"
         },
         {
             "name": "components/jquery",
@@ -2101,12 +2101,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phiamo/MopaBootstrapBundle.git",
-                "reference": "d7c05217720c42b4070e43ad34a2d8a497bf0176"
+                "reference": "2d4cadf2a54b163a255d78b617c152fa43ae15a1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phiamo/MopaBootstrapBundle/zipball/d7c05217720c42b4070e43ad34a2d8a497bf0176",
-                "reference": "d7c05217720c42b4070e43ad34a2d8a497bf0176",
+                "url": "https://api.github.com/repos/phiamo/MopaBootstrapBundle/zipball/2d4cadf2a54b163a255d78b617c152fa43ae15a1",
+                "reference": "2d4cadf2a54b163a255d78b617c152fa43ae15a1",
                 "shasum": ""
             },
             "require": {
@@ -2157,7 +2157,7 @@
                 "form",
                 "template"
             ],
-            "time": "2015-03-31 13:29:42"
+            "time": "2015-04-01 21:47:50"
         },
         {
             "name": "mopa/composer-bridge",
@@ -2723,22 +2723,22 @@
         },
         {
             "name": "sensio/generator-bundle",
-            "version": "2.5.x-dev",
+            "version": "dev-master",
             "target-dir": "Sensio/Bundle/GeneratorBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioGeneratorBundle.git",
-                "reference": "e50108c2133ee5c9c484555faed50c17a61221d3"
+                "reference": "4b09746520a826a7bf34a466ba31c7d8740fef7e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioGeneratorBundle/zipball/e50108c2133ee5c9c484555faed50c17a61221d3",
-                "reference": "e50108c2133ee5c9c484555faed50c17a61221d3",
+                "url": "https://api.github.com/repos/sensiolabs/SensioGeneratorBundle/zipball/4b09746520a826a7bf34a466ba31c7d8740fef7e",
+                "reference": "4b09746520a826a7bf34a466ba31c7d8740fef7e",
                 "shasum": ""
             },
             "require": {
-                "symfony/console": "~2.5",
-                "symfony/framework-bundle": "~2.2"
+                "symfony/console": "~2.6",
+                "symfony/framework-bundle": "~2.6"
             },
             "require-dev": {
                 "doctrine/orm": "~2.2,>=2.2.3",
@@ -2767,7 +2767,7 @@
                 }
             ],
             "description": "This bundle generates code for you",
-            "time": "2015-03-17 06:36:52"
+            "time": "2015-02-11 07:21:23"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -3121,16 +3121,16 @@
         },
         {
             "name": "twbs/bootstrap-sass",
-            "version": "v3.2.0+2",
+            "version": "v3.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/bootstrap-sass.git",
-                "reference": "881ce27c6b4101698ea849283933203e20861a33"
+                "reference": "a5f5954268779ce0faf7607b3c35191a8d0fdfe6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap-sass/zipball/881ce27c6b4101698ea849283933203e20861a33",
-                "reference": "881ce27c6b4101698ea849283933203e20861a33",
+                "url": "https://api.github.com/repos/twbs/bootstrap-sass/zipball/a5f5954268779ce0faf7607b3c35191a8d0fdfe6",
+                "reference": "a5f5954268779ce0faf7607b3c35191a8d0fdfe6",
                 "shasum": ""
             },
             "type": "library",
@@ -3145,9 +3145,6 @@
             ],
             "authors": [
                 {
-                    "name": "Mark Otto"
-                },
-                {
                     "name": "Thomas McDonald"
                 },
                 {
@@ -3160,6 +3157,9 @@
                     "name": "Gleb Mazovetskiy"
                 },
                 {
+                    "name": "Mark Otto"
+                },
+                {
                     "name": "Jacob Thornton"
                 }
             ],
@@ -3170,7 +3170,7 @@
                 "css",
                 "sass"
             ],
-            "time": "2014-09-03 02:13:36"
+            "time": "2014-06-26 16:54:15"
         },
         {
             "name": "twig/extensions",
