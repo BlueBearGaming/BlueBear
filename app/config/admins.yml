@@ -78,6 +78,9 @@ blue_bear_admin:
                 list: ~
                 create: ~
                 edit: ~
+                delete: ~                list: ~
+                create: ~
+                edit: ~
                 delete: ~        
         user:
             entity: BlueBear\UserBundle\Entity\User
@@ -97,3 +100,4 @@ blue_bear_admin:
                 create: ~
                 edit: ~
                 delete: ~
+
