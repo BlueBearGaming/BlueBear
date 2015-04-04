@@ -6,7 +6,10 @@
 @import "darkly/variables";
 
 // Main bootstrap.sass entry point
-@import "../../../../../web/bundles/mopabootstrap/bootstrap-sass/assets/stylesheets/bootstrap/bootstrap";
+@import "../../../../../web/bundles/mopabootstrap/bootstrap-sass/assets/stylesheets/bootstrap";
+
+// fixing bug in css generation ("Missing mixin clearfix")
+@import "../../../../../web/bundles/mopabootstrap/bootstrap-sass/assets/stylesheets/bootstrap/mixins/clearfix";
 
 // The Paginator less for MopaBootstrapBundle
 @import "../../../../../web/bundles/mopabootstrap/sass/paginator.scss";
@@ -101,3 +104,16 @@ table {
     height: 400px;
   }
 }
+
+th {
+  a {
+    text-decoration: none;
+    color: #ffffff;
+  }
+}
+
+
+table a:not(.btn), .table a:not(.btn) {
+  text-decoration: none;
+}
+

@@ -40,6 +40,7 @@ blue_bear_admin:
                         label: ~
                         # displayed only 50 first characters in list action
                         description: {length: 50}
+                        pencilSet: ~
                 create: ~
                 edit: ~
                 delete: ~

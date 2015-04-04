@@ -42,6 +42,7 @@ class ApiController extends Controller
     {
         $form = $this->createForm('engine_event_test');
         $map = $this->getMapManager()->findOne();
+        // initialize entity types
         $this->getContainer()->get('bluebear.game.entity_type_factory');
 
         if (!$map) {
@@ -105,6 +106,7 @@ class ApiController extends Controller
 
     protected function getMapItemClickRequest(Map $map, Context $context)
     {
+        /** @var PencilSet $pencilSet */
         $pencilSet = $map->getPencilSets()->first();
         // event request
         $request = new MapItemClickRequest();
@@ -112,7 +114,7 @@ class ApiController extends Controller
         $request->x = 5;
         $request->y = 5;
 
-        if ($pencilSet) {
+        if ($pencilSet && $pencilSet->getPencils()->count()) {
             /** @var Pencil $pencil */
             $pencil = $pencilSet->getPencils()->first();
             $layers = [];
@@ -210,12 +212,17 @@ class ApiController extends Controller
      */
     protected function getRandomPencil(array $pencilSets)
     {
+        $pencil = new Pencil();
         $pencils = [];
 
         foreach ($pencilSets as $pencilSet) {
             $pencils = array_merge($pencilSet->getPencils()->toArray(), $pencils);
         }
-        return $pencils[array_rand($pencils)];
+        // pencil set can have no pencil
+        if (count($pencils)) {
+            $pencil = $pencils[array_rand($pencils)];
+        }
+        return $pencil;
     }
 
     /**
