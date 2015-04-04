@@ -1,0 +1,5 @@
+services:
+    bluebear.form.user_type:
+        class: BlueBear\UserBundle\Form\UserType
+        tags:
+            - {name: form.type, alias: user}
