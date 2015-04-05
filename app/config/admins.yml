@@ -78,10 +78,7 @@ blue_bear_admin:
                 list: ~
                 create: ~
                 edit: ~
-                delete: ~                list: ~
-                create: ~
-                edit: ~
-                delete: ~        
+                delete: ~
         user:
             entity: BlueBear\UserBundle\Entity\User
             form: user
@@ -94,10 +91,9 @@ blue_bear_admin:
                         createdAt: ~
                         updatedAt: ~
                         enabled: ~
-                create: ~
-                edit: ~
-                delete: ~
-                create: ~
-                edit: ~
-                delete: ~
-
+                create:
+                    permissions: [ROLE_ADMIN]
+                edit:
+                    permissions: [ROLE_ADMIN]
+                delete:
+                    permissions: [ROLE_ADMIN]
