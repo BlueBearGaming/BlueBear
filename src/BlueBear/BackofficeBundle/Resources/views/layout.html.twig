@@ -53,9 +53,21 @@
                     <li class="{{ getClassForRoute('bluebear_admin_map_list') }}">
                         <a href="{{ path('bluebear_admin_map_list') }}">Maps</a>
                     </li>
-                    <li class="{{ getClassForRoute('bluebear_backoffice_api') }}">
-                        <a href="{{ path('bluebear_backoffice_api') }}">Api</a>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle"
+                           data-toggle="dropdown" role="button"
+                           aria-expanded="false">Api <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li class="{{ getClassForRoute('bluebear_backoffice_api') }}">
+                                <a href="{{ path('bluebear_backoffice_api') }}">Api</a>
+                            </li>
+                            <li class="{{ getClassForRoute('bluebear_backoffice_api_scenario') }}">
+                                <a href="{{ path('bluebear_backoffice_api_scenario') }}">Scenario</a>
+                            </li>
+                        </ul>
                     </li>
+
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle"
                            data-toggle="dropdown" role="button"

@@ -7,3 +7,7 @@ bluebear_backoffice_homepage:
 bluebear_backoffice_api:
     pattern: /tests
     defaults: { _controller: BlueBearBackofficeBundle:Api:index }
+
+bluebear_backoffice_api_scenario:
+    pattern: /tests/scenarios
+    defaults: { _controller: BlueBearBackofficeBundle:Api:scenario }

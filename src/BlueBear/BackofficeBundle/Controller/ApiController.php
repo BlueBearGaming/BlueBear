@@ -23,6 +23,7 @@ use BlueBear\GameBundle\Event\Entity\PutEntityRequest;
 use JMS\Serializer\Serializer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * ApiController
@@ -54,6 +55,35 @@ class ApiController extends Controller
         return [
             'form' => $form->createView(),
             'snippets' => $snippets
+        ];
+    }
+
+    /**
+     * @Template()
+     * @param Request $request
+     * @return array
+     */
+    public function scenarioAction(Request $request)
+    {
+        $maps = $this
+            ->get('bluebear.manager.map')
+            ->findAll();
+        $scenario1 = $this->createForm('engine_scenario_test', null, [
+            'step' => 1,
+            'maps' => $maps
+        ]);
+        $scenario1->handleRequest($request);
+
+        if ($scenario1->isValid()) {
+            $step = $scenario1->getData()['step'];
+            $scenario1 = $this->createForm('engine_scenario_test', null, [
+                'step' => (int)$step + 1,
+                'maps' => $maps
+            ]);
+            $scenario1->handleRequest($request);
+        }
+        return [
+            'scenario1' => $scenario1->createView()
         ];
     }
 

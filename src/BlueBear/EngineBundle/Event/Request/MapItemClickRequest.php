@@ -33,8 +33,18 @@ class MapItemClickRequest extends EventRequest
     public $layer;
 
     /**
+     * Name of the map item target
+     *
      * @Expose()
-     * @Type("integer")
+     * @Type("string")
      */
-    public $unit;
+    public $target;
+
+    /**
+     * Name of the map item source (in case of entity moving)
+     *
+     * @Expose()
+     * @Type("string")
+     */
+    public $source;
 }

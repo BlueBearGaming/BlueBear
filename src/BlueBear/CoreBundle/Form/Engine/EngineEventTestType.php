@@ -27,9 +27,6 @@ class EngineEventTestType extends AbstractType
         ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
