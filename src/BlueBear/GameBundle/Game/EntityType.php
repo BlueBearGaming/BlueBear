@@ -14,6 +14,8 @@ class EntityType
      */
     protected $attributes = [];
 
+    protected $behaviors = [];
+
     /**
      * @return EntityTypeAttribute[]
      */
@@ -36,5 +38,26 @@ class EntityType
     public function addAttribute(EntityTypeAttribute $unitTypeAttribute)
     {
         $this->attributes[] = $unitTypeAttribute;
+    }
+
+    /**
+     * @return array
+     */
+    public function getBehaviors()
+    {
+        return $this->behaviors;
+    }
+
+    /**
+     * @param array $behaviors
+     */
+    public function setBehaviors($behaviors)
+    {
+        $this->behaviors = $behaviors;
+    }
+
+    public function addBehavior($behavior)
+    {
+        $this->behaviors[] = $behavior;
     }
 }

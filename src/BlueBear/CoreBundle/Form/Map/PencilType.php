@@ -1,14 +1,11 @@
 <?php
 
-
 namespace BlueBear\CoreBundle\Form\Map;
 
 use BlueBear\CoreBundle\Constant\Map\Constant;
 use BlueBear\CoreBundle\Entity\Behavior\SortEntity;
 use BlueBear\CoreBundle\Entity\Editor\ImageRepository;
 use BlueBear\CoreBundle\Entity\Map\Pencil;
-use BlueBear\CoreBundle\Manager\ImageManager;
-use BlueBear\CoreBundle\Manager\LayerManager;
 use BlueBear\CoreBundle\Manager\PencilSetManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -41,7 +38,8 @@ class PencilType extends AbstractType
             'help_block' => 'Displayed name (eg: MyPencil)'
         ]);
         $builder->add('description', 'textarea', [
-            'help_block' => 'Pencil description'
+            'help_block' => 'Pencil description',
+            'required' => false
         ]);
         $builder->add('type', 'choice', [
             'choices' => Constant::getLayerTypes(),
@@ -71,12 +69,24 @@ class PencilType extends AbstractType
             'help_block' => 'Image width in tiles ("1" means that image width take 1 x Map.CellSize)',
         ]);
         $builder->add('height', 'number', [
-            'help_block' => 'Image height in tiles ("1" means that image height take 1 x Map.CellSize)',
+            'help_block' => 'Image height in tiles ("1" means that image height take 1 x Map.CellSize x skewFactor)',
         ]);
         $builder->add('image', 'resource_image', [
             'query_builder' => function(ImageRepository $repo) use ($image) {
                 return $repo->getQbForOrphans($image);
             },
+        ]);
+        $builder->add('spriteX', 'number', [
+            'required' => false,
+        ]);
+        $builder->add('spriteY', 'number', [
+            'required' => false,
+        ]);
+        $builder->add('spriteWidth', 'number', [
+            'required' => false,
+        ]);
+        $builder->add('spriteHeight', 'number', [
+            'required' => false,
         ]);
         //$builder->add('boundingBox', new BoundingBoxType()); // @wip
     }

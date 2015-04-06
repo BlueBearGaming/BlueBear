@@ -61,14 +61,14 @@ class Map
      * @Serializer\Expose()
      * @var int
      */
-    protected $startX;
+    protected $startX = 0;
 
     /**
      * @ORM\Column(name="start_y", type="integer")
      * @Serializer\Expose()
      * @var int
      */
-    protected $startY;
+    protected $startY = 0;
 
     /**
      * Initialize user context
@@ -76,6 +76,7 @@ class Map
     public function __construct()
     {
         $this->contexts = new ArrayCollection();
+        $this->pencilSets = new ArrayCollection();
     }
 
     /**
@@ -92,6 +93,11 @@ class Map
     public function setPencilSets($pencilSets)
     {
         $this->pencilSets = $pencilSets;
+    }
+
+    public function addPencilSet(PencilSet $pencilSet)
+    {
+        $this->pencilSets->add($pencilSet);
     }
 
     /**

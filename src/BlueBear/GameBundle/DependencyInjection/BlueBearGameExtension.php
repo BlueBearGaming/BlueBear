@@ -24,5 +24,6 @@ class BlueBearGameExtension extends Extension
 
         $container->setParameter('bluebear.game.entity_type', $config['entity_type']);
         $container->setParameter('bluebear.game.attribute', $config['attribute']);
+        $container->setParameter('bluebear.game.behaviors', $config['behaviors']);
     }
 }

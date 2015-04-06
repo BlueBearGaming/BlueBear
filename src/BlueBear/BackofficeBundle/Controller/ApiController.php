@@ -23,7 +23,13 @@ use BlueBear\GameBundle\Event\Entity\PutEntityRequest;
 use JMS\Serializer\Serializer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * ApiController
+ *
+ * Controller for api testing purpose
+ */
 class ApiController extends Controller
 {
     use ControllerTrait;
@@ -37,6 +43,8 @@ class ApiController extends Controller
     {
         $form = $this->createForm('engine_event_test');
         $map = $this->getMapManager()->findOne();
+        // initialize entity types
+        $this->getContainer()->get('bluebear.game.entity_type_factory');
 
         if (!$map) {
             $this->setMessage('You should create a map before calling api', 'error');
@@ -47,6 +55,35 @@ class ApiController extends Controller
         return [
             'form' => $form->createView(),
             'snippets' => $snippets
+        ];
+    }
+
+    /**
+     * @Template()
+     * @param Request $request
+     * @return array
+     */
+    public function scenarioAction(Request $request)
+    {
+        $maps = $this
+            ->get('bluebear.manager.map')
+            ->findAll();
+        $scenario1 = $this->createForm('engine_scenario_test', null, [
+            'step' => 1,
+            'maps' => $maps
+        ]);
+        $scenario1->handleRequest($request);
+
+        if ($scenario1->isValid()) {
+            $step = $scenario1->getData()['step'];
+            $scenario1 = $this->createForm('engine_scenario_test', null, [
+                'step' => (int)$step + 1,
+                'maps' => $maps
+            ]);
+            $scenario1->handleRequest($request);
+        }
+        return [
+            'scenario1' => $scenario1->createView()
         ];
     }
 
@@ -73,7 +110,7 @@ class ApiController extends Controller
             } else if ($event == EngineEvent::ENGINE_MAP_ITEM_CLICK) {
                 // get MapItemClick request
                 $snippets[$event] = $this->getMapItemClickRequest($map, $context);
-            } else if ($event == EngineEvent::ENGINE_MAP_PUT_ENTITY) {
+            } else if ($event == EngineEvent::EDITOR_MAP_PUT_ENTITY) {
                 $snippets[$event] = $this->getPutEntityRequest($map, $context);
             } else if ($event == EngineEvent::EDITOR_MAP_PUT_PENCIL) {
                 $snippets[$event] = $this->getPutPencilRequest($map, $context);
@@ -99,6 +136,7 @@ class ApiController extends Controller
 
     protected function getMapItemClickRequest(Map $map, Context $context)
     {
+        /** @var PencilSet $pencilSet */
         $pencilSet = $map->getPencilSets()->first();
         // event request
         $request = new MapItemClickRequest();
@@ -106,7 +144,7 @@ class ApiController extends Controller
         $request->x = 5;
         $request->y = 5;
 
-        if ($pencilSet) {
+        if ($pencilSet && $pencilSet->getPencils()->count()) {
             /** @var Pencil $pencil */
             $pencil = $pencilSet->getPencils()->first();
             $layers = [];
@@ -204,12 +242,17 @@ class ApiController extends Controller
      */
     protected function getRandomPencil(array $pencilSets)
     {
+        $pencil = new Pencil();
         $pencils = [];
 
         foreach ($pencilSets as $pencilSet) {
             $pencils = array_merge($pencilSet->getPencils()->toArray(), $pencils);
         }
-        return $pencils[array_rand($pencils)];
+        // pencil set can have no pencil
+        if (count($pencils)) {
+            $pencil = $pencils[array_rand($pencils)];
+        }
+        return $pencil;
     }
 
     /**

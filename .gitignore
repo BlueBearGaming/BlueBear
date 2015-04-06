@@ -12,6 +12,7 @@ web/css
 web/js
 web/jikpoze
 *.log
+backups
 
 # IDE
 .idea

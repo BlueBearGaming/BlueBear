@@ -22,7 +22,7 @@ class EntitySubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            EngineEvent::ENGINE_MAP_PUT_ENTITY => [
+            EngineEvent::EDITOR_MAP_PUT_ENTITY => [
                 'putEntity'
             ]
         ];
@@ -54,6 +54,9 @@ class EntitySubscriber implements EventSubscriberInterface
         }
         $position = new Position($request->x, $request->y);
         // create an instance of the entity into the map
-        $this->getContainer()->get('bluebear.game.entity_factory')->create($event->getContext(), $entityModel, $position, $requestedLayer);
+        $this
+            ->getContainer()
+            ->get('bluebear.manager.entity_instance')
+            ->create($event->getContext(), $entityModel, $position, $requestedLayer);
     }
 }

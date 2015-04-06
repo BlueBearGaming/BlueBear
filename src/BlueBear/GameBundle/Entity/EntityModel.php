@@ -41,6 +41,14 @@ class EntityModel
      */
     protected $pencil;
 
+    /**
+     * @ORM\Column(name="behaviors", type="array")
+     */
+    protected $behaviors;
+
+    /**
+     * Initialize collections
+     */
     public function __construct()
     {
         $this->attributes = new ArrayCollection();
@@ -103,5 +111,26 @@ class EntityModel
     public function setPencil($pencil)
     {
         $this->pencil = $pencil;
+    }
+
+    /**
+     * @return array
+     */
+    public function getBehaviors()
+    {
+        return $this->behaviors;
+    }
+
+    /**
+     * @param array $behaviors
+     */
+    public function setBehaviors($behaviors)
+    {
+        $this->behaviors = $behaviors;
+    }
+
+    public function addBehavior($behavior)
+    {
+        $this->behaviors[] = $behavior;
     }
 }

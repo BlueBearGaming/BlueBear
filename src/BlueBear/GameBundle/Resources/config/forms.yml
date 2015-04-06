@@ -19,7 +19,7 @@ services:
         tags:
             - { name: form.type, alias: entity_model }
         calls:
-            - [setEntityFactory, [@bluebear.game.entity_factory]]
+            - [setEntityTypeFactory, [@bluebear.game.entity_type_factory]]
 
     bluebear.form.entity_instance_attribute:
         class: %bluebear.form.entity_instance_attribute%
