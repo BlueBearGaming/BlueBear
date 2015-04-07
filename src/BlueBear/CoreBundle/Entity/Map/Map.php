@@ -76,6 +76,7 @@ class Map
     public function __construct()
     {
         $this->contexts = new ArrayCollection();
+        $this->pencilSets = new ArrayCollection();
     }
 
     /**
@@ -92,6 +93,11 @@ class Map
     public function setPencilSets($pencilSets)
     {
         $this->pencilSets = $pencilSets;
+    }
+
+    public function addPencilSet(PencilSet $pencilSet)
+    {
+        $this->pencilSets->add($pencilSet);
     }
 
     /**

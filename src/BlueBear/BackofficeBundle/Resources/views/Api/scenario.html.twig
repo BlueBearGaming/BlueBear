@@ -1,0 +1,27 @@
+{% extends 'BlueBearBackofficeBundle::layout.html.twig' %}
+
+{% block content %}
+    <h1>Tests</h1>
+    <div class="panel panel-default tests">
+        <div class="panel-heading">
+            Run your scenario on BlueBear PHP Engine®
+        </div>
+        <div class="panel-body">
+            <h2>Move an entity</h2>
+
+            <form action="{{ path('bluebear_backoffice_api_scenario') }}" method="post" class="well">
+                <span>Create an entity on map</span>
+                {{ form_widget(scenario1) }}
+                <input type="submit" class="btn btn-default" />
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        var ScenarioHelper = {
+
+        };
+    </script>
+{% endblock %}

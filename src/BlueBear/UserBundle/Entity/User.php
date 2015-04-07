@@ -2,6 +2,7 @@
 
 namespace BlueBear\UserBundle\Entity;
 
+use BlueBear\CoreBundle\Entity\Behavior\Timestampable;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Entity\User as BaseUser;
 
@@ -10,9 +11,12 @@ use FOS\UserBundle\Entity\User as BaseUser;
  *
  * @ORM\Table(name="fos_user")
  * @ORM\Entity(repositoryClass="BlueBear\UserBundle\Entity\UserRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class User extends BaseUser
 {
+    use Timestampable;
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")

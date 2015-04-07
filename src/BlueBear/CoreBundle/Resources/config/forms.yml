@@ -6,6 +6,7 @@ parameters:
     bluebear.form.map_type: BlueBear\CoreBundle\Form\Map\MapType
     bluebear.form.resource_image_type: BlueBear\CoreBundle\Form\Editor\ImageType
     bluebear.form.engine_event_test_type: BlueBear\CoreBundle\Form\Engine\EngineEventTestType
+    bluebear.form.engine_scenario_test: BlueBear\CoreBundle\Form\Engine\EngineScenarioTestType
 
 services:
     # PencilType
@@ -56,3 +57,8 @@ services:
             - { name: form.type, alias: engine_event_test }
         calls:
             - [setEngine, [@bluebear.engine.engine]]
+
+    bluebear.form.engine_scenario_test:
+        class: %bluebear.form.engine_scenario_test%
+        tags:
+            - { name: form.type, alias: engine_scenario_test }

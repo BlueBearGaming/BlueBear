@@ -40,6 +40,7 @@ blue_bear_admin:
                         label: ~
                         # displayed only 50 first characters in list action
                         description: {length: 50}
+                        pencilSet: ~
                 create: ~
                 edit: ~
                 delete: ~
@@ -75,3 +76,24 @@ blue_bear_admin:
             form: entity_instance
             actions:
                 list: ~
+                create: ~
+                edit: ~
+                delete: ~
+        user:
+            entity: BlueBear\UserBundle\Entity\User
+            form: user
+            actions:
+                list:
+                    fields:
+                        id: ~
+                        username: ~
+                        email: ~
+                        createdAt: ~
+                        updatedAt: ~
+                        enabled: ~
+                create:
+                    permissions: [ROLE_ADMIN]
+                edit:
+                    permissions: [ROLE_ADMIN]
+                delete:
+                    permissions: [ROLE_ADMIN]
