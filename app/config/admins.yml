@@ -33,6 +33,7 @@ blue_bear_admin:
                 list:
                     title: Pencils list
                     permissions: [ROLE_ADMIN, ROLE_USER]
+                    export: ~
                     # available fields for this action
                     fields:
                         id: ~

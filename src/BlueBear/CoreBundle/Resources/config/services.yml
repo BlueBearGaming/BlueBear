@@ -4,15 +4,7 @@ imports:
 
 parameters:
     bluebear.path.finder: BlueBear\CoreBundle\Path\PathFinder
-    bluebear.twig.utils: BlueBear\CoreBundle\Twig\UtilsExtension
 
 services:
     bluebear.path.finder:
         class: %bluebear.path.finder%
-
-    bluebear.twig.utils:
-        class: %bluebear.twig.utils%
-        tags:
-            - {name: twig.extension }
-        calls:
-            - [setContainer, [@service_container]]
