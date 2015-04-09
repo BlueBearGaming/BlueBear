@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8b0e4c3170a52822b4616c9a748fc297",
+    "hash": "8f04024bbcb5c272841a1961c6f8b4af",
     "packages": [
         {
             "name": "andres-montanez/magallanes",
@@ -1246,6 +1246,59 @@
                 "orm"
             ],
             "time": "2015-04-06 03:22:24"
+        },
+        {
+            "name": "ee/dataexporter-bundle",
+            "version": "dev-master",
+            "target-dir": "EE/DataExporterBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/EE/DataExporter.git",
+                "reference": "737c758208c6378a4031917c74469ac0e3a4a4e7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/EE/DataExporter/zipball/737c758208c6378a4031917c74469ac0e3a4a4e7",
+                "reference": "737c758208c6378a4031917c74469ac0e3a4a4e7",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "symfony/framework-bundle": "~2.1",
+                "symfony/http-foundation": "~2.1",
+                "symfony/property-access": "~2.1"
+            },
+            "require-dev": {
+                "symfony/yaml": "~2.1"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "EE\\DataExporterBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Piotr Antosik",
+                    "email": "mail@piotrantosik.com",
+                    "homepage": "http://piotrantosik.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Easy export data to CSV, XML, HTML, JSON or XLS",
+            "homepage": "http://laboratorium.ee",
+            "keywords": [
+                "csv",
+                "exporter",
+                "json",
+                "xls",
+                "xml"
+            ],
+            "time": "2014-07-24 14:47:21"
         },
         {
             "name": "friendsofsymfony/user-bundle",
@@ -2723,22 +2776,22 @@
         },
         {
             "name": "sensio/generator-bundle",
-            "version": "dev-master",
+            "version": "2.5.x-dev",
             "target-dir": "Sensio/Bundle/GeneratorBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioGeneratorBundle.git",
-                "reference": "4b09746520a826a7bf34a466ba31c7d8740fef7e"
+                "reference": "e50108c2133ee5c9c484555faed50c17a61221d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioGeneratorBundle/zipball/4b09746520a826a7bf34a466ba31c7d8740fef7e",
-                "reference": "4b09746520a826a7bf34a466ba31c7d8740fef7e",
+                "url": "https://api.github.com/repos/sensiolabs/SensioGeneratorBundle/zipball/e50108c2133ee5c9c484555faed50c17a61221d3",
+                "reference": "e50108c2133ee5c9c484555faed50c17a61221d3",
                 "shasum": ""
             },
             "require": {
-                "symfony/console": "~2.6",
-                "symfony/framework-bundle": "~2.6"
+                "symfony/console": "~2.5",
+                "symfony/framework-bundle": "~2.2"
             },
             "require-dev": {
                 "doctrine/orm": "~2.2,>=2.2.3",
@@ -2767,7 +2820,7 @@
                 }
             ],
             "description": "This bundle generates code for you",
-            "time": "2015-02-11 07:21:23"
+            "time": "2015-03-17 06:36:52"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -3121,16 +3174,16 @@
         },
         {
             "name": "twbs/bootstrap-sass",
-            "version": "v3.2.0",
+            "version": "v3.2.0+2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/bootstrap-sass.git",
-                "reference": "a5f5954268779ce0faf7607b3c35191a8d0fdfe6"
+                "reference": "881ce27c6b4101698ea849283933203e20861a33"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap-sass/zipball/a5f5954268779ce0faf7607b3c35191a8d0fdfe6",
-                "reference": "a5f5954268779ce0faf7607b3c35191a8d0fdfe6",
+                "url": "https://api.github.com/repos/twbs/bootstrap-sass/zipball/881ce27c6b4101698ea849283933203e20861a33",
+                "reference": "881ce27c6b4101698ea849283933203e20861a33",
                 "shasum": ""
             },
             "type": "library",
@@ -3145,6 +3198,9 @@
             ],
             "authors": [
                 {
+                    "name": "Mark Otto"
+                },
+                {
                     "name": "Thomas McDonald"
                 },
                 {
@@ -3157,9 +3213,6 @@
                     "name": "Gleb Mazovetskiy"
                 },
                 {
-                    "name": "Mark Otto"
-                },
-                {
                     "name": "Jacob Thornton"
                 }
             ],
@@ -3170,7 +3223,7 @@
                 "css",
                 "sass"
             ],
-            "time": "2014-06-26 16:54:15"
+            "time": "2014-09-03 02:13:36"
         },
         {
             "name": "twig/extensions",

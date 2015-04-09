@@ -70,6 +70,5 @@
         "incenteev-parameters": {
             "file": "app/config/parameters.yml"
         }
-    },
-    "minimum-stability": "dev"
+    }
 }
