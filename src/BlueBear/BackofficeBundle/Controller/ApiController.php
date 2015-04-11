@@ -41,6 +41,9 @@ class ApiController extends Controller
      */
     public function indexAction()
     {
+        $client = $this->get('elephantio_client.default');
+        $client->send('lol', ['foo' => 'test']);
+
         $form = $this->createForm('engine_event_test');
         $map = $this->getMapManager()->findOne();
         // initialize entity types

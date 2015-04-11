@@ -29,6 +29,7 @@ class AppKernel extends Kernel
             new DCS\DynamicDiscriminatorMapBundle\DCSDynamicDiscriminatorMapBundle(),
             new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
             new EE\DataExporterBundle\EEDataExporterBundle(),
+            new Nc\Bundle\ElephantIOBundle\NcElephantIOBundle(),
             // BlueBear
             new BlueBear\BaseBundle\BlueBearBaseBundle(),
             new BlueBear\CoreBundle\BlueBearCoreBundle(),

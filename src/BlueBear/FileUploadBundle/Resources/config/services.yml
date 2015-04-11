@@ -25,10 +25,10 @@ services:
             - [setContainer, [@service_container]]
 
     # Resources (uploadable entities)
-    blue_bear_file_upload.form.resource_type:
-        class: %blue_bear_file_upload.form.resource_type.class%
-        tags:
-            - { name: form.type, alias: resource }
+#    blue_bear_file_upload.form.resource_type:
+#        class: %blue_bear_file_upload.form.resource_type.class%
+#        tags:
+#            - { name: form.type, alias: resource }
 
     # Twig utils
     bluebear.twig.upload_extension:
