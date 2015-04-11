@@ -10,13 +10,13 @@ use BlueBear\CoreBundle\Entity\Map\Pencil;
 use BlueBear\CoreBundle\Entity\Map\PencilSet;
 use BlueBear\CoreBundle\Manager\MapManager;
 use BlueBear\CoreBundle\Utils\Position;
-use BlueBear\EditorBundle\Event\Map\MapItemSubRequest;
 use BlueBear\EditorBundle\Event\Request\MapUpdateRequest;
 use BlueBear\EditorBundle\Event\Request\PutPencilRequest;
 use BlueBear\EngineBundle\Event\EngineEvent;
 use BlueBear\EngineBundle\Event\Request\MapItemClickRequest;
 use BlueBear\EngineBundle\Event\Request\MapLoadRequest;
 use BlueBear\EngineBundle\Event\Request\SubRequest\LoadContextSubRequest;
+use BlueBear\EngineBundle\Event\Request\SubRequest\MapItemSubRequest;
 use BlueBear\EngineBundle\Event\Request\SubRequest\UserContextSubRequest;
 use BlueBear\GameBundle\Entity\EntityModel;
 use BlueBear\GameBundle\Event\Entity\PutEntityRequest;
@@ -41,8 +41,9 @@ class ApiController extends Controller
      */
     public function indexAction()
     {
-        $client = $this->get('elephantio_client.default');
-        $client->send('lol', ['foo' => 'test']);
+        // Elephant IO POC
+        //$client = $this->get('elephantio_client.default');
+        //$client->send('lol', ['foo' => 'test']);
 
         $form = $this->createForm('engine_event_test');
         $map = $this->getMapManager()->findOne();
@@ -146,6 +147,10 @@ class ApiController extends Controller
         $request->contextId = $context->getId();
         $request->x = 5;
         $request->y = 5;
+        $request->source = new MapItemSubRequest();
+        $request->source->position = new Position(5, 5);
+        $request->target = new MapItemSubRequest();
+        $request->target->position = new Position(5, 5);
 
         if ($pencilSet && $pencilSet->getPencils()->count()) {
             /** @var Pencil $pencil */

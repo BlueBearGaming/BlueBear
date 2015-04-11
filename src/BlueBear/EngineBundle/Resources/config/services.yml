@@ -5,7 +5,7 @@ parameters:
 
     # events subscribers
     bluebear.engine.event.mapitem_leave_subscriber: BlueBear\EngineBundle\Event\MapItem\MapItemLeaveSubscriber
-    bluebear.engine.event.mapitem_subscriber: BlueBear\EngineBundle\Event\MapItem\MapItemSubscriber
+    bluebear.engine.event.mapitem_subscriber: BlueBear\EngineBundle\Event\Subscriber\MapItemSubscriber
     bluebear.engine.event.map_subscriber: BlueBear\EngineBundle\Event\Subscriber\MapSubscriber
     bluebear.engine.event.engine_subscriber: BlueBear\EngineBundle\Event\Subscriber\EngineSubscriber
 
