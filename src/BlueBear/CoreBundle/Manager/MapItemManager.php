@@ -3,6 +3,7 @@
 namespace BlueBear\CoreBundle\Manager;
 
 use BlueBear\BaseBundle\Behavior\ManagerTrait;
+use BlueBear\CoreBundle\Entity\Map\Context;
 use BlueBear\CoreBundle\Entity\Map\Layer;
 use BlueBear\CoreBundle\Entity\Map\MapItem;
 use BlueBear\CoreBundle\Entity\Map\MapItemRepository;
@@ -30,16 +31,18 @@ class MapItemManager
     }
 
     /**
+     * @param Context $context
      * @param Position $position
      * @param Layer $layer
      * @return MapItem
      */
-    public function findByPositionAndLayer(Position $position, Layer $layer)
+    public function findByPositionAndLayer(Context $context, Position $position, Layer $layer)
     {
         return $this->findOneBy([
             'x' => $position->x,
             'y' => $position->y,
-            'layer' => $layer->getId()
+            'layer' => $layer->getId(),
+            'context' => $context->getId()
         ]);
     }
 

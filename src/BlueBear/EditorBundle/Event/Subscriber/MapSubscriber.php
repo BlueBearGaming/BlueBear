@@ -34,6 +34,7 @@ class MapSubscriber implements EventSubscriberInterface
          */
         $request = $event->getRequest();
         $response = $event->getResponse();
+        $context = $event->getContext();
 
         if (count($request->mapItems)) {
             /** @var MapItemSubRequest $mapItemRequest */
@@ -58,7 +59,7 @@ class MapSubscriber implements EventSubscriberInterface
                         ]);
                         $this->throwUnless($pencil, 'Pencil not found');
                         // try to find an existing item
-                        $mapItem = $this->getMapItemManager()->findByPositionAndLayer($position, $layer);
+                        $mapItem = $this->getMapItemManager()->findByPositionAndLayer($context, $position, $layer);
                         // if map item exists, we just change pencil
                         if ($mapItem) {
                             $mapItem->setPencil($pencil);
@@ -76,7 +77,7 @@ class MapSubscriber implements EventSubscriberInterface
                         $this->getMapItemManager()->save($mapItem);
                     } else {
                         // try to find an existing item
-                        $mapItem = $this->getMapItemManager()->findByPositionAndLayer($position, $layer);
+                        $mapItem = $this->getMapItemManager()->findByPositionAndLayer($context, $position, $layer);
                         $this->throwUnless($mapItem, 'Unable to delete. Map item not found');
                         $this->getMapItemManager()->delete($mapItem);
                         $response->removed[] = $mapItem;
