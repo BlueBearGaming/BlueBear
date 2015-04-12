@@ -29,4 +29,9 @@ class Position
         $this->x = $x;
         $this->y = $y;
     }
+
+    public function getId()
+    {
+        return $this->x . '_' . $this->y;
+    }
 }

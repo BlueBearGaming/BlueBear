@@ -2,8 +2,8 @@ parameters:
     blue_bear_file_upload.resource.uploader.class: BlueBear\FileUploadBundle\EventListener\ResourceUploader
     blue_bear_file_upload.resource.subscriber.class: BlueBear\FileUploadBundle\EventListener\ResourceSubscriber
     blue_bear_file_upload.manager.resource.class: BlueBear\FileUploadBundle\Manager\ResourceManager
-    #blue_bear_file_upload.form.resource_type.class: BlueBear\FileUploadBundle\Form\Editor\ResourceType
-    bluebear.twig.extension.class: BlueBear\FileUploadBundle\Twig\UploadExtension
+    blue_bear_file_upload.form.resource_type.class: BlueBear\FileUploadBundle\Form\Type\ResourceType
+    blue_bear_file_upload.twig.extension.class: BlueBear\FileUploadBundle\Twig\UploadExtension
 
 services:
     blue_bear_file_upload.resource.uploader:
@@ -25,14 +25,14 @@ services:
             - [setContainer, [@service_container]]
 
     # Resources (uploadable entities)
-#    blue_bear_file_upload.form.resource_type:
-#        class: %blue_bear_file_upload.form.resource_type.class%
-#        tags:
-#            - { name: form.type, alias: resource }
+    blue_bear_file_upload.form.resource_type:
+        class: %blue_bear_file_upload.form.resource_type.class%
+        tags:
+            - { name: form.type, alias: resource }
 
     # Twig utils
-    bluebear.twig.upload_extension:
-        class: %bluebear.twig.extension.class%
+    blue_bear_file_upload.twig.upload_extension:
+        class: %blue_bear_file_upload.twig.extension.class%
         tags:
             - { name: twig.extension }
         calls:

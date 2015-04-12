@@ -17,7 +17,10 @@ class UploadExtension extends Twig_Extension
         if ($resource) {
             $fileName = $resource->getFileName();
         }
-        return $this->getContainer()->get('twig')->getExtension('assets')
+        return $this
+            ->getContainer()
+            ->get('twig')
+            ->getExtension('assets')
             ->getAssetUrl('resources/images/' . $fileName, null, $absolute);
     }
 
@@ -27,6 +30,7 @@ class UploadExtension extends Twig_Extension
             new Twig_SimpleFunction('resource_path', [$this, 'resource_path'])
         ];
     }
+
     public function getName()
     {
         return 'bluebear_upload_extension';
