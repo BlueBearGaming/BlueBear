@@ -9,7 +9,7 @@ class MapUpdateRequest extends EventRequest
 {
     /**
      * @Serializer\Expose()
-     * @Serializer\Type("array<BlueBear\EditorBundle\Event\Map\MapItemSubRequest>")
+     * @Serializer\Type("array<BlueBear\EditorBundle\Event\Request\SubRequest\MapItemSubRequest>")
      */
     public $mapItems;
 }

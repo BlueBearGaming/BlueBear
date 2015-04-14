@@ -54,6 +54,7 @@ class EntityInstanceManager
         $mapItem->setY($position->y);
         $mapItem->setLayer($layer);
         $mapItem->setContext($context);
+        $mapItem->setPencil($entityModel->getPencil());
         // unit instance carry relationship
         $entityInstance->setMapItem($mapItem);
         // saving entity

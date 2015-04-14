@@ -9,6 +9,9 @@ parameters:
     bluebear.engine.event.map_subscriber: BlueBear\EngineBundle\Event\Subscriber\MapSubscriber
     bluebear.engine.event.engine_subscriber: BlueBear\EngineBundle\Event\Subscriber\EngineSubscriber
 
+    # pathfinder
+    bluebear.engine.path_finder: BlueBear\EngineBundle\Path\PathFinder
+
 services:
     # engine
     bluebear.engine.engine:
@@ -47,3 +50,7 @@ services:
         calls:
             - [setMapManager, [@bluebear.manager.map]]
             - [setDoctrine, [@doctrine]]
+
+    # pathfinder
+    bluebear.engine.path_finder:
+        class: %bluebear.engine.path_finder%

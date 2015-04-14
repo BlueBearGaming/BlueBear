@@ -43,7 +43,6 @@ class MapItemSubscriber implements EventSubscriberInterface
             return $mapItem->getX() == $source->position->x &&
                    $mapItem->getY() == $source->position->y;
         });
-
         if (count($mapItemSources) == 1) {
             /** @var MapItem $mapItemSource */
             $mapItemSource = $mapItemSources->first();

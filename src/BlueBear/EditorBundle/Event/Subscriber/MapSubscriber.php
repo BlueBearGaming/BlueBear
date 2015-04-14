@@ -8,7 +8,7 @@ use BlueBear\CoreBundle\Entity\Map\MapItem;
 use BlueBear\CoreBundle\Entity\Map\Pencil;
 use BlueBear\CoreBundle\Manager\MapItemManager;
 use BlueBear\CoreBundle\Utils\Position;
-use BlueBear\EditorBundle\Event\Map\MapItemSubRequest;
+use BlueBear\EditorBundle\Event\Request\SubRequest\MapItemSubRequest;
 use BlueBear\EditorBundle\Event\Request\MapUpdateRequest;
 use BlueBear\EditorBundle\Event\Response\MapUpdateResponse;
 use BlueBear\EngineBundle\Behavior\HasException;
