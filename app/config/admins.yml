@@ -13,6 +13,7 @@ blue_bear_admin:
         block_template: BlueBearAdminBundle:Form:fields.html.twig
         # max entities per page
         max_per_page: 25
+        # use default bootstrap integration
         bootstrap: false
     # list of managed admins
     admins:
@@ -33,6 +34,7 @@ blue_bear_admin:
                 list:
                     title: Pencils list
                     permissions: [ROLE_ADMIN, ROLE_USER]
+                    export: ~
                     # available fields for this action
                     fields:
                         id: ~
@@ -75,7 +77,10 @@ blue_bear_admin:
             entity: BlueBear\GameBundle\Entity\EntityInstance
             form: entity_instance
             actions:
-                list: ~
+                list:
+                    fields:
+                        id: ~
+                        name: ~
                 create: ~
                 edit: ~
                 delete: ~

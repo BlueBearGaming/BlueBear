@@ -29,25 +29,23 @@ class MainController extends Controller
     }
 
     /**
-     * @todo use context instead of map
      * @Template()
      * @param Request $request
      * @return array
      */
     public function editAction(Request $request)
     {
-        /** @var Engine $engine */
-//        $engine = $this->get('bluebear.engine.engine');
-//        $data = new stdClass();
-//        $data->mapName = $request->get('mapName');
-//        $event = $engine->run(EngineEvent::ENGINE_MAP_LOAD, $data);
         /** @var Map $map */
-        $map = $this->getMapManager()->findOneBy(['name' => $request->get('mapName')]);
-        $context = $map->getContexts()->first();
+        $map = $this
+            ->getMapManager()
+            ->findOneBy(['name' => $request->get('mapName')]);
+        $context = $map
+            ->getContexts()
+            ->first();
         $jikpozeOptions = [
             'endPoint' => $this->generateUrl('bluebear_engine_trigger_event', [], UrlGeneratorInterface::ABSOLUTE_URL) . '/',
             'editionMode' => true,
-            'resourceBasePath' => $this->get('bluebear.twig.utils')->getResourcePath(null, true),
+            'resourceBasePath' => $this->get('blue_bear_file_upload.twig.upload_extension')->resource_path(null, true),
             'layerSelectorName' => 'bluebear_map_editor[selected_layer]',
             'pencilSelectorName' => 'bluebear_map_editor[selected_pencil]',
             'contextId' => $context->getId(),

@@ -8,7 +8,7 @@ class AppKernel extends Kernel
     public function registerBundles()
     {
         $bundles = array(
-            // Symfony Standard Edition 2.3.0
+            // Symfony Standard Edition
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new Symfony\Bundle\SecurityBundle\SecurityBundle(),
             new Symfony\Bundle\TwigBundle\TwigBundle(),
@@ -28,6 +28,8 @@ class AppKernel extends Kernel
             new Oneup\UploaderBundle\OneupUploaderBundle(),
             new DCS\DynamicDiscriminatorMapBundle\DCSDynamicDiscriminatorMapBundle(),
             new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
+            new EE\DataExporterBundle\EEDataExporterBundle(),
+            new Nc\Bundle\ElephantIOBundle\NcElephantIOBundle(),
             // BlueBear
             new BlueBear\BaseBundle\BlueBearBaseBundle(),
             new BlueBear\CoreBundle\BlueBearCoreBundle(),
@@ -38,7 +40,6 @@ class AppKernel extends Kernel
             new BlueBear\GameBundle\BlueBearGameBundle(),
             new BlueBear\MenuBundle\BlueBearMenuBundle(),
             new BlueBear\FileUploadBundle\BlueBearFileUploadBundle(),
-            //new BlueBear\ActionBundle\BlueBearActionBundle(),
             new BlueBear\AdminBundle\BlueBearAdminBundle(),
         );
 

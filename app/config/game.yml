@@ -7,9 +7,6 @@ blue_bear_engine:
         bluebear.engine.mapItemClick:
             request: BlueBear\EngineBundle\Event\Request\MapItemClickRequest
             response: BlueBear\EngineBundle\Event\Response\MapItemClickResponse
-        bluebear.editor.putPencil:
-            request: BlueBear\EditorBundle\Event\Map\Request
-            response: BlueBear\EditorBundle\Event\Response\PutPencilResponse
         bluebear.editor.mapUpdate:
             request: BlueBear\EditorBundle\Event\Request\MapUpdateRequest
             response: BlueBear\EditorBundle\Event\Response\MapUpdateResponse

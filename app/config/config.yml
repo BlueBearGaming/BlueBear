@@ -119,3 +119,10 @@ fos_user:
 # JMS Serializer naming strategy
 parameters:
     jms_serializer.serialized_name_annotation_strategy.class: JMS\Serializer\Naming\IdenticalPropertyNamingStrategy
+
+# ElephantIO
+nc_elephant_io:
+    clients:
+        default:
+            connection: %socket_io_server%
+            version: 1.x

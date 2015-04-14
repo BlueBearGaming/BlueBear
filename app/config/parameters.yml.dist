@@ -17,3 +17,5 @@ parameters:
 
     resources_dir:     %kernel.root_dir%/../web/resources
     java_path: /usr/bin/java
+
+    socket_io_server:  127.0.0.1:8000
