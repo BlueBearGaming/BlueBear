@@ -14,9 +14,6 @@ web/jikpoze
 *.log
 backups
 
-# IDE
-.idea
-
 # sprites
 web/uploads/sprites
 web/uploads/tmp
@@ -28,5 +25,4 @@ web/uploads/tmp
 # deployment
 .mage/config/environment
 
-# sass
-.sass-cache
+node_modules

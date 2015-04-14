@@ -32,7 +32,6 @@ twig:
     strict_variables: %kernel.debug%
     form:
         resources:
-#            - BlueBearAdminBundle:Form:fields.html.twig
             - BlueBearCoreBundle:Form:fields.html.twig
 
 # Monolog Configuration

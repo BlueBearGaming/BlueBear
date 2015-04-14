@@ -23,3 +23,6 @@ else
   output_style = :expanded
   sass_options = { :debug_info => true }
 end
+
+add_import_path "web/bundles";
+add_import_path "vendor/log0ymxm/bootswatch-scss";

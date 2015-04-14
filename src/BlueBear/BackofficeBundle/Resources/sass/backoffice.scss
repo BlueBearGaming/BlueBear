@@ -1,119 +1,12 @@
-@import "partials/variables";
-
-// Bootstrap overrides, such as the asset-url(..) function.
-@import "../../../../../web/bundles/mopabootstrap/sass/bootstrap_and_overrides";
-
+// Theme variables
 @import "darkly/variables";
 
-// Main bootstrap.sass entry point
-@import "../../../../../web/bundles/mopabootstrap/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "partials/variables";
 
-// fixing bug in css generation ("Missing mixin clearfix")
-@import "../../../../../web/bundles/mopabootstrap/bootstrap-sass/assets/stylesheets/bootstrap/mixins/clearfix";
+@import "bootstrap";
 
-// The Paginator less for MopaBootstrapBundle
-@import "../../../../../web/bundles/mopabootstrap/sass/paginator.scss";
-
-// Collection support for MopaBootstrapBundle
-@import "../../../../../web/bundles/mopabootstrap/sass/collections.scss";
-
-// FormFlow support for MopaBootstrapBundle
-@import "../../../../../web/bundles/mopabootstrap/sass/form_flow.scss";
-
+// Theme
 @import "darkly/bootswatch";
 
-@import "../../../../../web/bundles/mopabootstrap/sass/font-awesome/font-awesome.scss";
-
+@import "partials/main";
 @import "partials/forms";
-
-body {
-  margin-top: 80px;
-}
-
-.clear {
-  clear: both;
-}
-.right {
-    float: right;
-}
-.left {
-    float: left;
-}
-
-table {
-  td {
-    .btn {
-      line-height: 1;
-    }
-  }
-}
-
-// navbar
-.dropdown-menu {
-  & > li > a {
-    padding: 10px;
-  }
-}
-
-.button-list {
-    a, input, button {
-        margin-left: 10px;
-    }
-}
-
-.image-list {
-  a {
-    display: block;
-    float: left;
-    margin-left: 10px;
-
-    &:hover {
-      text-decoration: none;
-    }
-  }
-  img {
-    height: 100px;
-    width: 100px;
-
-    &:hover {
-      border-width: 2px;
-    }
-  }
-}
-.orphans-image-list {
-  clear: both;
-}
-
-.edit-pencil {
-  .image-widget {
-    .image {
-      display: inline-block;
-
-      &.active {
-        border: 1px solid #428BCA;
-      }
-    }
-  }
-  .submit {
-    clear: both;
-  }
-}
-
-.tests {
-  #php-response {
-    height: 400px;
-  }
-}
-
-th {
-  a {
-    text-decoration: none;
-    color: #ffffff;
-  }
-}
-
-
-table a:not(.btn), .table a:not(.btn) {
-  text-decoration: none;
-}
-
