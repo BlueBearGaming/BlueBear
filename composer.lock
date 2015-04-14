@@ -4,26 +4,27 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8a3eae8c968d46ccef6e39c659ce2d0f",
+    "hash": "96fbc434a299e945adf255c41fb25048",
     "packages": [
         {
             "name": "andres-montanez/magallanes",
-            "version": "1.0.5",
+            "version": "1.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/andres-montanez/Magallanes.git",
-                "reference": "cb965a2dd9e08ca3ce025c523cbb2b5b5fc5cae5"
+                "reference": "781213dd732be8c2e0f6c430629c0c5ea520405e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/andres-montanez/Magallanes/zipball/cb965a2dd9e08ca3ce025c523cbb2b5b5fc5cae5",
-                "reference": "cb965a2dd9e08ca3ce025c523cbb2b5b5fc5cae5",
+                "url": "https://api.github.com/repos/andres-montanez/Magallanes/zipball/781213dd732be8c2e0f6c430629c0c5ea520405e",
+                "reference": "781213dd732be8c2e0f6c430629c0c5ea520405e",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3"
             },
             "require-dev": {
+                "malkusch/php-mock": "dev-php-5.3",
                 "phpunit/phpunit": "4.3.5",
                 "satooshi/php-coveralls": ">=0.6.1"
             },
@@ -53,7 +54,7 @@
             "keywords": [
                 "deployment"
             ],
-            "time": "2015-03-08 18:28:28"
+            "time": "2015-04-12 19:45:32"
         },
         {
             "name": "behat/transliterator",
@@ -102,12 +103,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/CleverGaming/AdminBundle.git",
-                "reference": "5e4da6e194aec3e637616a5c4fc24b7a4e9cfa5c"
+                "reference": "0960e6cd3807886557cec58ffbde70de40a9843d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CleverGaming/AdminBundle/zipball/5e4da6e194aec3e637616a5c4fc24b7a4e9cfa5c",
-                "reference": "5e4da6e194aec3e637616a5c4fc24b7a4e9cfa5c",
+                "url": "https://api.github.com/repos/CleverGaming/AdminBundle/zipball/0960e6cd3807886557cec58ffbde70de40a9843d",
+                "reference": "0960e6cd3807886557cec58ffbde70de40a9843d",
                 "shasum": ""
             },
             "require": {
@@ -153,7 +154,7 @@
                 "backoffice",
                 "generic"
             ],
-            "time": "2015-04-11 18:04:04"
+            "time": "2015-04-14 12:01:34"
         },
         {
             "name": "bluebear/basebundle",
@@ -2085,6 +2086,34 @@
             "time": "2014-12-12 05:04:05"
         },
         {
+            "name": "log0ymxm/bootswatch-scss",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/log0ymxm/bootswatch-scss.git",
+                "reference": "e284c695e77a89ebda8e03b5d6938f72cb0d9fe5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/log0ymxm/bootswatch-scss/zipball/e284c695e77a89ebda8e03b5d6938f72cb0d9fe5",
+                "reference": "e284c695e77a89ebda8e03b5d6938f72cb0d9fe5",
+                "shasum": ""
+            },
+            "type": "library",
+            "authors": [
+                {
+                    "name": "log0ymxm",
+                    "email": "paul@redbrainlabs.com"
+                }
+            ],
+            "description": "Bootswatch themes in scss format",
+            "support": {
+                "source": "https://github.com/log0ymxm/bootswatch-scss/tree/3.2.0-3",
+                "issues": "https://github.com/log0ymxm/bootswatch-scss/issues"
+            },
+            "time": "2014-09-04 17:59:05"
+        },
+        {
             "name": "monolog/monolog",
             "version": "1.13.1",
             "source": {
@@ -3179,22 +3208,22 @@
         },
         {
             "name": "twbs/bootstrap-sass",
-            "version": "v3.2.0+2",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/bootstrap-sass.git",
-                "reference": "881ce27c6b4101698ea849283933203e20861a33"
+                "reference": "1f269b15ff91ebe35fc04959a6e38caecb19dc4f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap-sass/zipball/881ce27c6b4101698ea849283933203e20861a33",
-                "reference": "881ce27c6b4101698ea849283933203e20861a33",
+                "url": "https://api.github.com/repos/twbs/bootstrap-sass/zipball/1f269b15ff91ebe35fc04959a6e38caecb19dc4f",
+                "reference": "1f269b15ff91ebe35fc04959a6e38caecb19dc4f",
                 "shasum": ""
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.2.x-dev"
+                    "dev-master": "3.3.x-dev"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -3228,7 +3257,7 @@
                 "css",
                 "sass"
             ],
-            "time": "2014-09-03 02:13:36"
+            "time": "2015-03-18 21:35:54"
         },
         {
             "name": "twig/extensions",
@@ -3468,6 +3497,8 @@
         "doctrine/doctrine-fixtures-bundle": 20,
         "gedmo/doctrine-extensions": 20,
         "mopa/bootstrap-bundle": 20,
+        "twbs/bootstrap-sass": 20,
+        "log0ymxm/bootswatch-scss": 20,
         "clever-gaming/jikpoze": 20,
         "bluebear/basebundle": 20,
         "bluebear/adminbundle": 20
