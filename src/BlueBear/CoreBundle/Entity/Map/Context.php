@@ -6,6 +6,7 @@ use BlueBear\CoreBundle\Entity\Behavior\Data;
 use BlueBear\CoreBundle\Entity\Behavior\Id;
 use BlueBear\CoreBundle\Entity\Behavior\Label;
 use BlueBear\CoreBundle\Entity\Behavior\Timestampable;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 
@@ -52,7 +53,7 @@ class Context
     protected $listeners = [];
 
     /**
-     * @return mixed
+     * @return ArrayCollection
      */
     public function getMapItems()
     {

@@ -38,14 +38,32 @@ class MapItemSubscriber implements EventSubscriberInterface
         $mapItems = $event->getContext()->getMapItems();
         $source = $request->source;
 
+        // find map item source
         $mapItemSources = $mapItems->filter(function (MapItem $mapItem) use ($source) {
             // find map item by position
             return $mapItem->getX() == $source->position->x &&
                    $mapItem->getY() == $source->position->y;
         });
-        if (count($mapItemSources) == 1) {
+        $mapItemsFound = count($mapItemSources);
+
+        if ($mapItemsFound) {
             /** @var MapItem $mapItemSource */
-            $mapItemSource = $mapItemSources->first();
+            foreach ($mapItemSources as $mapItemSource) {
+                // on map item click, if map item has an entity instance and this entity is movable, we should display
+                // available destination locations to move on
+                $entityInstance = $mapItemSource->getEntityInstance();
+
+                if ($entityInstance && $entityInstance->has('movement')) {
+                    $availableMapItemsForMovement = $this->getContainer()->get('bluebear.engine.path_finder')->findAvailable(
+                        $event->getContext(),
+                        $source->position,
+                        $entityInstance->get('movement')
+                    );
+                    $event->getResponse()->data = $availableMapItemsForMovement;
+                }
+            }
+        } else {
+            throw new Exception('Map item source not found');
         }
     }
 }

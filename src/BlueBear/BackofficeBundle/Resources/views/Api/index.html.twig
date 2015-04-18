@@ -44,6 +44,10 @@
                         success: function (response) {
                             responseContainer.text(JSON.stringify(response, null, 8));
                             TestHelper.processSize(responseContainer);
+                        },
+                        error: function (response) {
+                            responseContainer.text(JSON.stringify(response, null, 8));
+                            TestHelper.processSize(responseContainer);
                         }
                     });
                     return false;

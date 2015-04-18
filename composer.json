@@ -40,7 +40,7 @@
         "components/jqueryui": "1.11.*",
         "oneup/uploader-bundle": "1.3.*",
         "jms/serializer-bundle": "0.13.*",
-        "clever-gaming/jikpoze": "dev-master",
+        "clever-gaming/jikpoze": "0.0.1.*",
         "bluebear/basebundle": "dev-0.2-dev",
         "bluebear/adminbundle": "dev-0.2-dev",
         "packagist/yuicompressor-bin": "~2.4",

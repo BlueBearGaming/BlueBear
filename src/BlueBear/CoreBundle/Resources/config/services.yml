@@ -3,8 +3,5 @@ imports:
     - { resource: forms.yml }
 
 parameters:
-    bluebear.path.finder: BlueBear\CoreBundle\Path\PathFinder
 
 services:
-    bluebear.path.finder:
-        class: %bluebear.path.finder%

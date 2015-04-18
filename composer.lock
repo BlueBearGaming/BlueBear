@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "96fbc434a299e945adf255c41fb25048",
+    "hash": "831cdd5579a4febb0d66eca51b826ec1",
     "packages": [
         {
             "name": "andres-montanez/magallanes",
@@ -103,12 +103,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/CleverGaming/AdminBundle.git",
-                "reference": "0960e6cd3807886557cec58ffbde70de40a9843d"
+                "reference": "5e4da6e194aec3e637616a5c4fc24b7a4e9cfa5c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CleverGaming/AdminBundle/zipball/0960e6cd3807886557cec58ffbde70de40a9843d",
-                "reference": "0960e6cd3807886557cec58ffbde70de40a9843d",
+                "url": "https://api.github.com/repos/CleverGaming/AdminBundle/zipball/5e4da6e194aec3e637616a5c4fc24b7a4e9cfa5c",
+                "reference": "5e4da6e194aec3e637616a5c4fc24b7a4e9cfa5c",
                 "shasum": ""
             },
             "require": {
@@ -154,7 +154,7 @@
                 "backoffice",
                 "generic"
             ],
-            "time": "2015-04-14 12:01:34"
+            "time": "2015-04-11 18:04:04"
         },
         {
             "name": "bluebear/basebundle",
@@ -212,16 +212,16 @@
         },
         {
             "name": "clever-gaming/jikpoze",
-            "version": "dev-master",
+            "version": "v0.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/CleverGaming/Jikpoze.git",
-                "reference": "32d33dd53e57a2148c168e2f90236332d24367ae"
+                "reference": "1b65ccb73fcd9fe2138aece9c5e84b5e5a7b65e2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CleverGaming/Jikpoze/zipball/32d33dd53e57a2148c168e2f90236332d24367ae",
-                "reference": "32d33dd53e57a2148c168e2f90236332d24367ae",
+                "url": "https://api.github.com/repos/CleverGaming/Jikpoze/zipball/1b65ccb73fcd9fe2138aece9c5e84b5e5a7b65e2",
+                "reference": "1b65ccb73fcd9fe2138aece9c5e84b5e5a7b65e2",
                 "shasum": ""
             },
             "type": "game-engine",
@@ -245,7 +245,7 @@
                 "stagexl",
                 "tiles"
             ],
-            "time": "2015-04-01 21:39:18"
+            "time": "2015-02-18 22:02:02"
         },
         {
             "name": "components/jquery",
@@ -3499,7 +3499,6 @@
         "mopa/bootstrap-bundle": 20,
         "twbs/bootstrap-sass": 20,
         "log0ymxm/bootswatch-scss": 20,
-        "clever-gaming/jikpoze": 20,
         "bluebear/basebundle": 20,
         "bluebear/adminbundle": 20
     },

@@ -3,6 +3,7 @@
 
 namespace BlueBear\CoreBundle\Entity\Behavior;
 
+use BlueBear\CoreBundle\Utils\Position;
 use JMS\Serializer\Annotation as Serializer;
 
 /**
@@ -66,5 +67,15 @@ trait Positionable
     public function setY($y)
     {
         $this->y = $y;
+    }
+
+    /**
+     * Return a position object from x and y
+     *
+     * @return Position
+     */
+    public function getPosition()
+    {
+        return new Position($this->x, $this->y);
     }
 } 

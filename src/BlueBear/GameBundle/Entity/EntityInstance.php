@@ -10,6 +10,7 @@ use BlueBear\CoreBundle\Entity\Behavior\Typeable;
 use BlueBear\CoreBundle\Entity\Map\MapItem;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Exception;
 
 /**
  * UnitInstance
@@ -25,7 +26,7 @@ class EntityInstance
     use Id, Nameable, Label, Timestampable, Typeable;
 
     /**
-     * @ORM\ManyToMany(targetEntity="BlueBear\GameBundle\Entity\EntityInstanceAttribute", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="BlueBear\GameBundle\Entity\EntityInstanceAttribute", cascade={"persist"}, indexBy="name")
      */
     protected $attributes;
 
@@ -99,6 +100,26 @@ class EntityInstance
     public function setAttributes($attributes)
     {
         $this->attributes = $attributes;
+    }
+
+    public function has($attributeName)
+    {
+        return array_key_exists($attributeName, $this->attributes->toArray());
+    }
+
+    /**
+     * Return the value of an attribute
+     *
+     * @param $attributeName
+     * @return mixed
+     * @throws Exception
+     */
+    public function get($attributeName)
+    {
+        if (!array_key_exists($attributeName, $this->attributes->toArray())) {
+            throw new Exception('Attribute not found : ' . $attributeName);
+        }
+        return $this->attributes[$attributeName]->getValue();
     }
 
     /**

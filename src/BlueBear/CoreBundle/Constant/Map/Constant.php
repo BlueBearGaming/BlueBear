@@ -7,6 +7,7 @@ namespace BlueBear\CoreBundle\Constant\Map;
 class Constant
 {
     const LAYER_TYPE_UNIT = 'units';
+    const LAYER_TYPE_LAND = 'land';
 
     public static function getLayerTypes()
     {
