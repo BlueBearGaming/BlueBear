@@ -44,7 +44,7 @@ class MainController extends Controller
             ->first();
         $jikpozeOptions = [
             'endPoint' => $this->generateUrl('bluebear_engine_trigger_event', [], UrlGeneratorInterface::ABSOLUTE_URL) . '/',
-            'editionMode' => true,
+            'edition' => (bool) $request->get('edition'),
             'resourceBasePath' => $this->get('blue_bear_file_upload.twig.upload_extension')->resource_path(null, true),
             'layerSelectorName' => 'bluebear_map_editor[selected_layer]',
             'pencilSelectorName' => 'bluebear_map_editor[selected_pencil]',
