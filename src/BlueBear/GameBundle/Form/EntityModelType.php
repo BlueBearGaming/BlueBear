@@ -57,7 +57,10 @@ class EntityModelType extends AbstractType
                 'allow_add' => true,
                 'widget_add_btn' => [
                     'label' => 'Add attribute'
-                ]
+                ],
+                'options' => [
+                    'label' => false,
+                ],
             ]);
         }
     }

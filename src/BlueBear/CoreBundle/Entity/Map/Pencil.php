@@ -194,7 +194,7 @@ class Pencil
      * @param Image $image
      * @return $this
      */
-    public function setImage(Image $image)
+    public function setImage(Image $image = null)
     {
         $this->image = $image;
         return $this;
