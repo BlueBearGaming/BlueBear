@@ -18,7 +18,7 @@ class MapItemSubRequest
 
     /**
      * @Serializer\Expose()
-     * @Serializer\Type("integer")
+     * @Serializer\Type("string")
      */
     public $layer;
 }

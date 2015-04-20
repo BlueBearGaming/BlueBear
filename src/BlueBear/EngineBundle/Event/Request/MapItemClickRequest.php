@@ -10,35 +10,7 @@ use JMS\Serializer\Annotation\Type;
 class MapItemClickRequest extends EventRequest
 {
     /**
-     * TODO remove this, use source instead
-     *
-     * @Expose()
-     * @Type("integer")
-     */
-    public $x;
-
-    /**
-     * TODO remove this, use source instead
-     *
-     * @Expose()
-     * @Type("integer")
-     */
-    public $y;
-
-    /**
-     * @Expose()
-     * @Type("integer")
-     */
-    public $pencil;
-
-    /**
-     * @Expose()
-     * @Type("integer")
-     */
-    public $layer;
-
-    /**
-     * Map item source
+     * Map item source (can be optional. Set in case of entity movement)
      *
      * @var MapItemSubRequest
      * @Expose()
@@ -47,7 +19,7 @@ class MapItemClickRequest extends EventRequest
     public $source;
 
     /**
-     * Map item target (in case of entity movement)
+     * Map item target (required)
      *
      * @Expose()
      * @Type("BlueBear\EngineBundle\Event\Request\SubRequest\MapItemSubRequest")

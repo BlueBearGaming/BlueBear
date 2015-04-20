@@ -61,6 +61,6 @@ class MapSubscriber implements EventSubscriberInterface
         /** @var MapLoadResponse $response */
         $response = $event->getResponse();
         // set context as event response to data
-        $response->data = $event->getContext();
+        $response->setData($event->getContext());
     }
 }

@@ -11,7 +11,6 @@ use BlueBear\CoreBundle\Entity\Map\PencilSet;
 use BlueBear\CoreBundle\Manager\MapManager;
 use BlueBear\CoreBundle\Utils\Position;
 use BlueBear\EditorBundle\Event\Request\MapUpdateRequest;
-use BlueBear\EditorBundle\Event\Request\PutPencilRequest;
 use BlueBear\EngineBundle\Event\EngineEvent;
 use BlueBear\EngineBundle\Event\Request\MapItemClickRequest;
 use BlueBear\EngineBundle\Event\Request\MapLoadRequest;
@@ -110,14 +109,12 @@ class ApiController extends Controller
 
         foreach ($events as $event) {
             if ($event == EngineEvent::ENGINE_MAP_LOAD) {
-                $snippets[$event] = $this->getMapLoadRequest($map, $context);
+                $snippets[$event] = $this->getMapLoadRequest($context);
             } else if ($event == EngineEvent::ENGINE_MAP_ITEM_CLICK) {
                 // get MapItemClick request
                 $snippets[$event] = $this->getMapItemClickRequest($map, $context);
             } else if ($event == EngineEvent::EDITOR_MAP_PUT_ENTITY) {
                 $snippets[$event] = $this->getPutEntityRequest($map, $context);
-            } else if ($event == EngineEvent::EDITOR_MAP_PUT_PENCIL) {
-                $snippets[$event] = $this->getPutPencilRequest($map, $context);
             } else if ($event == EngineEvent::EDITOR_MAP_UPDATE) {
                 $snippets[$event] = $this->getMapUpdateRequest($map, $context);
             }
@@ -125,7 +122,7 @@ class ApiController extends Controller
         return $serializer->serialize($snippets, 'json');
     }
 
-    protected function getMapLoadRequest(Map $map, Context $context)
+    protected function getMapLoadRequest(Context $context)
     {
         $request = new MapLoadRequest();
         $request->contextId = $context->getId();
@@ -145,8 +142,6 @@ class ApiController extends Controller
         // event request
         $request = new MapItemClickRequest();
         $request->contextId = $context->getId();
-        $request->x = 5;
-        $request->y = 5;
         $request->source = new MapItemSubRequest();
         $request->source->position = new Position(5, 5);
         $request->target = new MapItemSubRequest();
@@ -164,27 +159,14 @@ class ApiController extends Controller
                 }
             }
             if ($pencil and count($layers)) {
-                $request->pencil = $pencil->getId();
                 $layer = $layers[array_rand($layers)];
-                $request->layer = $layer->getId();
+                $request->target->layer = $layer->getName();
             } else {
                 $this->addFlash('warning', 'No layer was found. Try to create at least one');
             }
         } else {
             $this->addFlash('warning', 'No pencil set was found. Try to create at least one');
         }
-        return $request;
-    }
-
-    protected function getPutPencilRequest(Map $map, Context $context)
-    {
-        $request = new PutPencilRequest();
-        $request->contextId = $context->getId();
-        $request->layerName = $this->getRandomLayer($map->getLayers()->toArray())->getName();
-        $request->pencilName = $this->getRandomPencil($map->getPencilSets()->toArray())->getName();
-        $request->x = 3;
-        $request->y = 3;
-
         return $request;
     }
 

@@ -25,11 +25,12 @@ class EventResponse
     public $code;
 
     /**
-     * Response data
+     * Response data. This property is protected because you should implement a setData method to organize data part of
+     * the response
      *
      * @var mixed
      */
-    public $data;
+    protected $data;
 
     /**
      * Response date (timestamp)
