@@ -36,9 +36,21 @@ class EntityInstance
     protected $mapItem;
 
     /**
+     * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Pencil")
+     */
+    protected $pencil;
+
+    /**
      * @ORM\Column(name="behaviors", type="array")
      */
     protected $behaviors = [];
+
+    /**
+     * Allowed layers for this entity
+     *
+     * @ORM\Column(name="allowed_layer_types", type="simple_array", nullable=true)
+     */
+    protected $allowedLayerTypes;
 
     /**
      * Initialize collection
@@ -136,5 +148,37 @@ class EntityInstance
     public function setBehaviors($behaviors)
     {
         $this->behaviors = $behaviors;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPencil()
+    {
+        return $this->pencil;
+    }
+
+    /**
+     * @param mixed $pencil
+     */
+    public function setPencil($pencil)
+    {
+        $this->pencil = $pencil;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAllowedLayerTypes()
+    {
+        return $this->allowedLayerTypes;
+    }
+
+    /**
+     * @param mixed $allowedLayerTypes
+     */
+    public function setAllowedLayerTypes($allowedLayerTypes)
+    {
+        $this->allowedLayerTypes = $allowedLayerTypes;
     }
 }

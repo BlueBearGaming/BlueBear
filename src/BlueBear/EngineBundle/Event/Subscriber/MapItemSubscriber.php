@@ -37,16 +37,18 @@ class MapItemSubscriber implements EventSubscriberInterface
         /** @var PersistentCollection $mapItems */
         $mapItems = $event->getContext()->getMapItems();
         $source = $request->source;
+        $target = $request->target;
 
         // find map item source
         $mapItemSources = $mapItems->filter(function (MapItem $mapItem) use ($source) {
             // find map item by position
-            return $mapItem->getX() == $source->position->x &&
-                   $mapItem->getY() == $source->position->y;
+            return $mapItem->getX() == $source->position->x
+            && $mapItem->getY() == $source->position->y;
         });
         $mapItemsFound = count($mapItemSources);
 
         if ($mapItemsFound) {
+            $availableMapItemsForMovement = [];
             /** @var MapItem $mapItemSource */
             foreach ($mapItemSources as $mapItemSource) {
                 // on map item click, if map item has an entity instance and this entity is movable, we should display
@@ -59,8 +61,19 @@ class MapItemSubscriber implements EventSubscriberInterface
                         $source->position,
                         $entityInstance->get('movement')
                     );
-                    $event->getResponse()->data = $availableMapItemsForMovement;
                 }
+            }
+            // if a target is provided, it is a entity movement
+            if ($target) {
+                // we try to find the targeted item amongst map items
+                $mapItemTargets = $mapItems->filter(function (MapItem $mapItem) use ($target) {
+                    return $mapItem->getX() == $target->position->x
+                    && $mapItem->getY() == $target->position->y
+                    && $mapItem->getLayer()->getType() == $target->layer;
+                });
+            } else {
+                // if no target is provided, we return available map item for movement for response
+                $event->getResponse()->data = $availableMapItemsForMovement;
             }
         } else {
             throw new Exception('Map item source not found');

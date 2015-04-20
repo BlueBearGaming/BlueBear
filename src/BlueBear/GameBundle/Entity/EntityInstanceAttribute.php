@@ -4,6 +4,7 @@ namespace BlueBear\GameBundle\Entity;
 
 use BlueBear\CoreBundle\Entity\Behavior\Id;
 use BlueBear\CoreBundle\Entity\Behavior\Nameable;
+use BlueBear\CoreBundle\Entity\Behavior\Typeable;
 use BlueBear\CoreBundle\Entity\Behavior\Valuable;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -16,7 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class EntityInstanceAttribute
 {
-    use Id, Nameable, Valuable;
+    use Id, Nameable, Valuable, Typeable;
 
     /**
      * Hydrate instance attribute from model default data
@@ -27,5 +28,10 @@ class EntityInstanceAttribute
     {
         $this->name = $entityModelAttribute->getName();
         $this->value = $entityModelAttribute->getValue();
+    }
+
+    public function isDefault()
+    {
+        return true;
     }
 }
