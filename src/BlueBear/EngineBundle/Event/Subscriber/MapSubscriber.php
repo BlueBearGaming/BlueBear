@@ -121,6 +121,8 @@ class MapSubscriber implements EventSubscriberInterface
                         'name' => $mapItemRequest->layerName
                     ]);
                     $this->throwUnless($layer, 'Layer not found');
+                    $updated = [];
+                    $removed = [];
 
                     // if a pencil name is provided, we update existing map item or we create it. If not, we delete
                     // existing map item
@@ -134,7 +136,7 @@ class MapSubscriber implements EventSubscriberInterface
                         // if map item exists, we just change pencil
                         if ($mapItem) {
                             $mapItem->setPencil($pencil);
-                            $response->updated[] = $mapItem;
+                            $updated[] = $mapItem;
                         } else {
                             // if map item does not exists, we create it
                             $mapItem = new MapItem();
@@ -143,7 +145,7 @@ class MapSubscriber implements EventSubscriberInterface
                             $mapItem->setY($mapItemRequest->y);
                             $mapItem->setLayer($layer);
                             $mapItem->setPencil($pencil);
-                            $response->updated[] = $mapItem;
+                            $updated[] = $mapItem;
                         }
                         $this->getMapItemManager()->save($mapItem);
                     } else {
@@ -151,8 +153,9 @@ class MapSubscriber implements EventSubscriberInterface
                         $mapItem = $this->getMapItemManager()->findByPositionAndLayer($context, $position, $layer);
                         $this->throwUnless($mapItem, 'Unable to delete. Map item not found');
                         $this->getMapItemManager()->delete($mapItem);
-                        $response->removed[] = $mapItem;
+                        $removed[] = $mapItem;
                     }
+                    $response->setData($updated, $removed);
                 }
             }
         }

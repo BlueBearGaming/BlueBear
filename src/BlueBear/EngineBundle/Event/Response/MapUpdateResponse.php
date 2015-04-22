@@ -7,13 +7,11 @@ use JMS\Serializer\Annotation as Serializer;
 
 class MapUpdateResponse extends EventResponse
 {
-    /**
-     * @Serializer\Expose()
-     */
-    public $updated = [];
-
-    /**
-     * @Serializer\Expose()
-     */
-    public $removed = [];
+    public function setData($updated, $removed)
+    {
+        $this->data = [
+            'updated' => $updated,
+            'removed' => $removed,
+        ];
+    }
 }
