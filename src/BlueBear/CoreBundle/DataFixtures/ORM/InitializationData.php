@@ -62,6 +62,10 @@ class InitializationData implements FixtureInterface, ContainerAwareInterface
         $user->setUsername($userName);
         $user->setPlainPassword($plainPassword);
         $user->setEnabled(true);
+        $user->setRoles([
+            'ROLE_USER',
+            'ROLE_ADMIN',
+        ]);
 
         if ($email) {
             $user->setEmail($email);
