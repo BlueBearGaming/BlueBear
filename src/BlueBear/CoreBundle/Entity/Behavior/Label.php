@@ -46,6 +46,6 @@ trait Label
      */
     public function __toString()
     {
-        return $this->label;
+        return (string) $this->label;
     }
 } 
