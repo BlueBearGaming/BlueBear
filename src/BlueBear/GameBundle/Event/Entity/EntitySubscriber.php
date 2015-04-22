@@ -5,6 +5,7 @@ namespace BlueBear\GameBundle\Event\Entity;
 use BlueBear\BaseBundle\Behavior\ContainerTrait;
 use BlueBear\CoreBundle\Entity\Map\Layer;
 use BlueBear\CoreBundle\Utils\Position;
+use BlueBear\EngineBundle\Behavior\HasException;
 use BlueBear\EngineBundle\Event\EngineEvent;
 use BlueBear\GameBundle\Entity\EntityModel;
 use Exception;
@@ -17,7 +18,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class EntitySubscriber implements EventSubscriberInterface
 {
-    use ContainerTrait;
+    use ContainerTrait, HasException;
 
     public static function getSubscribedEvents()
     {
@@ -47,16 +48,11 @@ class EntitySubscriber implements EventSubscriberInterface
             ->findOneBy([
                 'name' => $request->layerName
             ]);
+        $this->throwUnless($entityModel, 'Unable to create entity instance in map. Invalid entity id');
+        $this->throwUnless($requestedLayer, 'Unable to create entity instance in map. Invalid layer id');
+        $this->throwUnless($entityModel, 'Unable to create entity instance in map. Invalid entity id');
+        $this->throwUnless(isset($request->x) and isset($request->y), 'Unable to create entity instance in map. Invalid coordinates');
 
-        if (!$entityModel) {
-            throw new Exception('Unable to create entity instance in map. Invalid entity id');
-        }
-        if (!$requestedLayer) {
-            throw new Exception('Unable to create entity instance in map. Invalid layer id');
-        }
-        if (!$request->x or !$request->y) {
-            throw new Exception('Unable to create entity instance in map. Invalid coordinates');
-        }
         $position = new Position($request->x, $request->y);
         // create an instance of the entity into the map
         $this

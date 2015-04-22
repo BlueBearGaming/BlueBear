@@ -86,7 +86,7 @@ class MapItemSubscriber implements EventSubscriberInterface
                     && $mapItem->getLayer()->getType() == $target->layer;
                 });
             } else {
-                var_dump($entityInstance->getBehaviors());
+                //var_dump($entityInstance->getBehaviors());
                 $this->throwUnless($entityInstance->hasBehavior('selectable'), 'Entity has no selectable behavior');
                 $mapItems = $this->getMapItemForSelection($availableMapItemsForMovement);
                 // if no target is provided, we return available map item for movement for response

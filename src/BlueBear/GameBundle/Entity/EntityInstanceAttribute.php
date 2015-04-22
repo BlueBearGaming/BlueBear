@@ -42,6 +42,7 @@ class EntityInstanceAttribute
     {
         $this->name = $entityModelAttribute->getName();
         $this->value = $entityModelAttribute->getValue();
+        $this->type = $entityModelAttribute->getType();
     }
 
     /**
