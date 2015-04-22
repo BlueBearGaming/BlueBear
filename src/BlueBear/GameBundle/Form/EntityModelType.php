@@ -25,6 +25,7 @@ class EntityModelType extends AbstractType
         $builder->add('name', 'text', [
             'help_block' => 'Name of the unit'
         ]);
+        $builder->add('label', 'text');
         $builder->add('pencil');
         // type cannot by changed after creation, attributes are available only after the type is chosen
         if ($entityModel->getId()) {
@@ -52,19 +53,7 @@ class EntityModelType extends AbstractType
             'horizontal_input_wrapper_class' => 'col-sm-9 form-inline-checkboxes',
         ]);
         if ($entityModel->getId()) {
-            $builder->add('attributes', 'attribute_collection', [
-                'type' => 'entity_model_attribute',
-                'allow_add' => true,
-                'allow_delete' => true,
-                'cascade_validation' => true,
-                'by_reference' => false,
-                'widget_add_btn' => [
-                    'label' => 'Add attribute'
-                ],
-                'options' => [
-                    'label' => false,
-                ],
-            ]);
+            $builder->add('attributes', 'attribute_collection');
         }
     }
 

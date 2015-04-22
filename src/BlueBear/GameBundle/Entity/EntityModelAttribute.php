@@ -22,7 +22,7 @@ class EntityModelAttribute
 
     /**
      * @ORM\ManyToOne(targetEntity="BlueBear\GameBundle\Entity\EntityModel", inversedBy="attributes")
-     * @ORM\JoinColumn(name="entity_model_id")
+     * @ORM\JoinColumn(name="entity_model_id", referencedColumnName="id", onDelete="cascade")
      */
     protected $entityModel;
 
