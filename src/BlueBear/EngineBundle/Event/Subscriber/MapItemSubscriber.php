@@ -118,20 +118,23 @@ class MapItemSubscriber implements EventSubscriberInterface
             'name' => EngineEvent::ENGINE_MAP_ITEM_CLICK,
             'source' => []
         ];
-        // foreach available map item for movement, we create a map item on the selection layer
+        // foreach available map item for movement, we create one map item on the selection layer and one map item
+        // on the event layer (on top of layers stack)
         foreach ($mapItems as $mapItem) {
             // source target for next click event should be current map item
             $clickListener['source']['x'] = $mapItem->getX();
             $clickListener['source']['y'] = $mapItem->getY();
 
+            // map item for selection layer
             $mapItemForSelection = new MapItem();
             $mapItemForSelection->setLayer($selectionLayer);
             $mapItemForSelection->setPencil($selectionPencil);
-            $mapItemForSelection->setListeners([
-                'click' => $clickListener
-            ]);
+//            $mapItemForSelection->setListeners([
+//                'click' => $clickListener
+//            ]);
             $mapItemForSelection->setX($mapItem->getX());
             $mapItemForSelection->setY($mapItem->getY());
+            // map item for event layer
             // add created map item to the collection
             $mapItemsForSelection[] = $mapItemForSelection;
         }

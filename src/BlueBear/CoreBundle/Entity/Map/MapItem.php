@@ -52,7 +52,7 @@ class MapItem
      * @Serializer\Expose()
      * @Serializer\AccessType("public_method")
      */
-    protected $listeners;
+    protected $listeners = [];
 
     public function getPencil()
     {
@@ -145,5 +145,10 @@ class MapItem
     public function setListeners($listeners)
     {
         $this->listeners = $listeners;
+    }
+
+    public function addListener($key, $listener)
+    {
+        $this->listeners[$key] = $listener;
     }
 }

@@ -61,7 +61,24 @@ class MapSubscriber implements EventSubscriberInterface
                 ->getContainer()
                 ->get('bluebear.manager.context')
                 ->findWithLimit($request->contextId, $topLeft, $bottomRight);
+            $mapItems = $context->getMapItems();
+            /** @var MapItem $mapItem */
+            foreach ($mapItems as $mapItem) {
+                $entityInstance = $mapItem->getEntityInstance();
 
+                if ($entityInstance) {
+                    $clickListener = [
+                        'name' => EngineEvent::ENGINE_MAP_ITEM_CLICK
+                    ];
+                    $behaviors = $entityInstance->getBehaviors();
+
+                    foreach ($behaviors as $behavior) {
+                        if ($behavior == 'selectable') {
+                            $mapItem->addListener('selectable', $clickListener);
+                        }
+                    }
+                }
+            }
             if (!$context) {
                 throw new Exception('Context not found');
             }
