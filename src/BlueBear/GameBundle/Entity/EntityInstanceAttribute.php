@@ -21,7 +21,7 @@ class EntityInstanceAttribute
 
     /**
      * @ORM\ManyToOne(targetEntity="BlueBear\GameBundle\Entity\EntityInstance", inversedBy="attributes")
-     * @ORM\JoinColumn(name="entity_model_id")
+     * @ORM\JoinColumn(name="entity_instance_id")
      */
     protected $entityInstance;
 
@@ -65,6 +65,11 @@ class EntityInstanceAttribute
      * @return boolean
      */
     public function isIsDefault()
+    {
+        return $this->isDefault;
+    }
+
+    public function isDefault()
     {
         return $this->isDefault;
     }

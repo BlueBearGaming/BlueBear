@@ -29,9 +29,8 @@ class EntityInstanceType extends AbstractType
         if ($entityInstance->getId()) {
             $builder->add('type', 'choice', [
                 'choices' => $this->getSortedEntityTypes(),
-                'attr' => [
-                    'disabled' => 'disabled'
-                ]
+                'read_only' => true,
+                'disabled' => 'disabled',
             ]);
             $builder->add('behaviors', 'choice', [
                 'choices' => $this->getSortedEntityBehaviors(),
@@ -52,14 +51,7 @@ class EntityInstanceType extends AbstractType
         ]);
         if ($entityInstance->getId()) {
             $builder->add('attributes', 'attribute_collection', [
-                'type' => 'entity_instance_attribute',
-                'allow_add' => true,
-                'widget_add_btn' => [
-                    'label' => 'Add attribute'
-                ],
-                'options' => [
-                    'label' => false,
-                ],
+                'type' => 'entity_instance_attribute'
             ]);
         }
     }

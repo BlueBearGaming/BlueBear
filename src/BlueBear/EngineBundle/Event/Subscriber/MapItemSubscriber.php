@@ -114,6 +114,11 @@ class MapItemSubscriber implements EventSubscriberInterface
         // selection pencil should be handled client side
         $selectionPencil = new Pencil();
         $selectionPencil->setName(Constant::PENCIL_TYPE_SELECTION);
+        // event layer
+        $eventLayer = new Layer();
+        $emptyPencil = new Pencil();
+        $emptyPencil->setName(Constant::PENCIL_TYPE_EMPTY);
+        $eventLayer->setName(Constant::LAYER_TYPE_EVENTS);
         $clickListener = [
             'name' => EngineEvent::ENGINE_MAP_ITEM_CLICK,
             'source' => []
@@ -129,14 +134,19 @@ class MapItemSubscriber implements EventSubscriberInterface
             $mapItemForSelection = new MapItem();
             $mapItemForSelection->setLayer($selectionLayer);
             $mapItemForSelection->setPencil($selectionPencil);
-//            $mapItemForSelection->setListeners([
-//                'click' => $clickListener
-//            ]);
             $mapItemForSelection->setX($mapItem->getX());
             $mapItemForSelection->setY($mapItem->getY());
             // map item for event layer
+            $mapItemForEvent = new MapItem();
+            $mapItemForEvent->setListeners([
+                'click' => $clickListener
+            ]);
+            $mapItemForEvent->setLayer($eventLayer);
+            $mapItemForEvent->setPencil($emptyPencil);
+            // map item for event layer
             // add created map item to the collection
             $mapItemsForSelection[] = $mapItemForSelection;
+            $mapItemsForSelection[] = $mapItemForEvent;
         }
         return $mapItemsForSelection;
     }

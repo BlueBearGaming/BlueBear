@@ -31,13 +31,13 @@ class EntityModelType extends AbstractType
         if ($entityModel->getId()) {
             $builder->add('type', 'choice', [
                 'choices' => $this->getSortedEntityTypes(),
-                'attr' => [
-                    'disabled' => 'disabled'
-                ]
+                'read_only' => true,
+                'disabled' => 'disabled',
             ]);
             $builder->add('behaviors', 'choice', [
                 'choices' => $this->getSortedEntityBehaviors(),
                 'read_only' => true,
+                'disabled' => 'disabled',
                 'multiple' => true,
                 'expanded' => true,
             ]);

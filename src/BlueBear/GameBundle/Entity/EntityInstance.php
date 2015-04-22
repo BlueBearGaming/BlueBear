@@ -113,6 +113,10 @@ class EntityInstance
     public function setAttributes($attributes)
     {
         $this->attributes = $attributes;
+        /** @var EntityInstanceAttribute $attribute */
+        foreach ($this->attributes as $attribute) {
+            $attribute->setEntityInstance($this);
+        }
     }
 
     public function has($attributeName)

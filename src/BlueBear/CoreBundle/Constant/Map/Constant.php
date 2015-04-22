@@ -9,8 +9,10 @@ class Constant
     const LAYER_TYPE_UNIT = 'units';
     const LAYER_TYPE_LAND = 'land';
     const LAYER_TYPE_SELECTION = 'selection';
+    const LAYER_TYPE_EVENTS = 'events';
 
     const PENCIL_TYPE_SELECTION = 'selection';
+    const PENCIL_TYPE_EMPTY = 'empty';
 
     public static function getLayerTypes()
     {
