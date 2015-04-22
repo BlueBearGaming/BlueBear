@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "fda778bc6bea572a5afaf2fcca76de1b",
+    "hash": "a90f7e09c4b4562fb9286250f4afa26f",
     "packages": [
         {
             "name": "andres-montanez/magallanes",
@@ -216,12 +216,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/CleverGaming/Jikpoze.git",
-                "reference": "a77f42e373e469e1c2edf56e149a4561c12614a6"
+                "reference": "d14ec12cd8afe48203bd176877b0f8ba23875935"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CleverGaming/Jikpoze/zipball/a77f42e373e469e1c2edf56e149a4561c12614a6",
-                "reference": "a77f42e373e469e1c2edf56e149a4561c12614a6",
+                "url": "https://api.github.com/repos/CleverGaming/Jikpoze/zipball/d14ec12cd8afe48203bd176877b0f8ba23875935",
+                "reference": "d14ec12cd8afe48203bd176877b0f8ba23875935",
                 "shasum": ""
             },
             "type": "game-engine",
@@ -245,7 +245,7 @@
                 "stagexl",
                 "tiles"
             ],
-            "time": "2015-04-19 18:31:02"
+            "time": "2015-04-21 12:27:52"
         },
         {
             "name": "components/jquery",
