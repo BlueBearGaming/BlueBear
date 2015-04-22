@@ -1,8 +1,10 @@
 {% extends 'BlueBearAdminBundle::admin.layout.html.twig' %}
 
 {% block stylesheets %}
-    {% stylesheets  'bundles/bluebearbackoffice/css/bootstrap-datetimepicker.min.css'
+    {% stylesheets
+    'bundles/bluebearbackoffice/css/bootstrap-datetimepicker.min.css'
     'bundles/bluebearbackoffice/css/backoffice.css'
+    'bundles/bluebearbackoffice/css/font-awesome.min.css'
     filter='cssrewrite' %}
     <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
     {% endstylesheets %}
