@@ -1,6 +1,6 @@
 <?php
 
-namespace BlueBear\EditorBundle\Event\Request;
+namespace BlueBear\EngineBundle\Event\Request;
 
 use BlueBear\EngineBundle\Event\EventRequest;
 use JMS\Serializer\Annotation as Serializer;
@@ -9,7 +9,7 @@ class MapUpdateRequest extends EventRequest
 {
     /**
      * @Serializer\Expose()
-     * @Serializer\Type("array<BlueBear\EditorBundle\Event\Request\SubRequest\MapItemSubRequest>")
+     * @Serializer\Type("array<BlueBear\EngineBundle\Event\Request\SubRequest\MapUpdateItemSubRequest>")
      */
     public $mapItems;
 }

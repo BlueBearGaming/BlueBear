@@ -55,6 +55,8 @@ class EntityModelType extends AbstractType
             $builder->add('attributes', 'attribute_collection', [
                 'type' => 'entity_model_attribute',
                 'allow_add' => true,
+                'cascade_validation' => true,
+                'by_reference' => false,
                 'widget_add_btn' => [
                     'label' => 'Add attribute'
                 ],

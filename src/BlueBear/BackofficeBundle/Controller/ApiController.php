@@ -10,7 +10,7 @@ use BlueBear\CoreBundle\Entity\Map\Pencil;
 use BlueBear\CoreBundle\Entity\Map\PencilSet;
 use BlueBear\CoreBundle\Manager\MapManager;
 use BlueBear\CoreBundle\Utils\Position;
-use BlueBear\EditorBundle\Event\Request\MapUpdateRequest;
+use BlueBear\EngineBundle\Event\Request\MapUpdateRequest;
 use BlueBear\EngineBundle\Event\EngineEvent;
 use BlueBear\EngineBundle\Event\Request\MapItemClickRequest;
 use BlueBear\EngineBundle\Event\Request\MapLoadRequest;

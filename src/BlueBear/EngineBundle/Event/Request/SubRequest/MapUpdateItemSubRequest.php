@@ -1,10 +1,10 @@
 <?php
 
-namespace BlueBear\EditorBundle\Event\Request\SubRequest;
+namespace BlueBear\EngineBundle\Event\Request\SubRequest;
 
 use JMS\Serializer\Annotation as Serializer;
 
-class MapItemSubRequest
+class MapUpdateItemSubRequest
 {
     /**
      * @Serializer\Expose()

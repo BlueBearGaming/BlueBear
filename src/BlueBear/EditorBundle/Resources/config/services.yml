@@ -1,10 +1,3 @@
 parameters:
-    bluebear.editor.map_subscriber.class: BlueBear\EditorBundle\Event\Subscriber\MapSubscriber
 
 services:
-    bluebear.editor.map_subscriber:
-        class: %bluebear.editor.map_subscriber.class%
-        tags:
-            - {name: kernel.event_subscriber}
-        calls:
-            - [setContainer, [@service_container]]

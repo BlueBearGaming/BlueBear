@@ -25,7 +25,7 @@ class EntityModel
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="BlueBear\GameBundle\Entity\EntityModelAttribute", mappedBy="entityModel", cascade={"persist", "remove"}, fetch="EAGER")
+     * @ORM\OneToMany(targetEntity="BlueBear\GameBundle\Entity\EntityModelAttribute", mappedBy="entityModel", cascade={"persist", "remove", "merge"}, fetch="EAGER")
      */
     protected $attributes;
 
@@ -70,7 +70,7 @@ class EntityModel
         $this->attributes = $attributes;
     }
 
-    public function addAttributes(EntityModelAttribute $entityModelAttribute)
+    public function addAttribute(EntityModelAttribute $entityModelAttribute)
     {
         $this->attributes->add($entityModelAttribute);
         $entityModelAttribute->setEntityModel($this);

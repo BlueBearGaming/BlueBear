@@ -3,6 +3,7 @@
 namespace BlueBear\GameBundle\Factory;
 
 use BlueBear\BaseBundle\Behavior\ContainerTrait;
+use BlueBear\EngineBundle\Behavior\HasException;
 use BlueBear\GameBundle\Entity\EntityModel;
 use BlueBear\GameBundle\Game\EntityBehavior;
 use BlueBear\GameBundle\Game\EntityType;
@@ -11,7 +12,7 @@ use Exception;
 
 class EntityTypeFactory
 {
-    use ContainerTrait;
+    use ContainerTrait, HasException;
 
     /**
      * @var EntityTypeAttribute[]
@@ -26,6 +27,8 @@ class EntityTypeFactory
     protected $entityBehaviors = [];
 
     /**
+     * Entity model behaviors. Sort by name
+     *
      * @var EntityModel[]
      */
     protected $entityModels = [];
@@ -41,16 +44,10 @@ class EntityTypeFactory
     public function createEntityTypes(array $entityTypesConfig, array $entityAttributesConfig, array $entityBehaviorsConfig)
     {
         // check if configuration is not empty
-        if (!count($entityTypesConfig)) {
-            throw new Exception('Empty entity types configuration');
-        }
-        if (!count($entityAttributesConfig)) {
-            throw new Exception('Empty entity attribute configuration');
-        }
-        if (!count($entityBehaviorsConfig)) {
-            throw new Exception('Empty entity behaviors configuration');
-        }
-        // creating available entity attribute
+        $this->throwUnless(count($entityTypesConfig), 'Empty entity types configuration');
+        $this->throwUnless(count($entityAttributesConfig), 'Empty entity attribute configuration');
+        $this->throwUnless(count($entityBehaviorsConfig), 'Empty entity behaviors configuration');
+        // creating available entity attributes
         foreach ($entityAttributesConfig as $name => $entityAttributeConfig) {
             $attribute = new EntityTypeAttribute();
             $attribute->setName($name);
@@ -58,14 +55,14 @@ class EntityTypeFactory
             $attribute->setType($entityAttributeConfig['type']);
             $this->entityTypeAttributes[$name] = $attribute;
         }
-        // creating available entity behavior
+        // creating available entity behaviors
         foreach ($entityBehaviorsConfig as $name => $listener) {
             $behavior = new EntityBehavior();
             $behavior->setName($name);
             $behavior->setListener($listener);
             $this->entityBehaviors[$name] = $behavior;
         }
-        // creating available entity type
+        // creating available entity types
         foreach ($entityTypesConfig as $name => $entityTypeConfig) {
             $entityType = new EntityType();
             $entityType->setName($name);

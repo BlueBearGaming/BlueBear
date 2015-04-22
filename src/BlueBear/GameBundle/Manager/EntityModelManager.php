@@ -34,7 +34,7 @@ class EntityModelManager
                 $entityModelAttribute->setType($attribute->getType());
                 // those attributes are set by default for this model, they can not be removed
                 $entityModelAttribute->setIsDefault(true);
-                $entityModel->addAttributes($entityModelAttribute);
+                $entityModel->addAttribute($entityModelAttribute);
             }
             /** @var EntityBehavior $behavior */
             foreach ($entityTypeBehaviors as $behavior) {

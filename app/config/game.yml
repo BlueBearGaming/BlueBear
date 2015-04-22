@@ -8,8 +8,8 @@ blue_bear_engine:
             request: BlueBear\EngineBundle\Event\Request\MapItemClickRequest
             response: BlueBear\EngineBundle\Event\Response\MapItemClickResponse
         bluebear.editor.mapUpdate:
-            request: BlueBear\EditorBundle\Event\Request\MapUpdateRequest
-            response: BlueBear\EditorBundle\Event\Response\MapUpdateResponse
+            request: BlueBear\EngineBundle\Event\Request\MapUpdateRequest
+            response: BlueBear\EngineBundle\Event\Response\MapUpdateResponse
         bluebear.editor.putEntity:
             request: BlueBear\EditorBundle\Event\Request\PutEntityRequest
             response: BlueBear\EditorBundle\Event\Response\PutEntityResponse
@@ -25,7 +25,7 @@ blue_bear_game:
             label: Unit
             attributes: [hp, race, class, intelligence, dexterity, force, movement]
             description: Unit on map (panda or foes)
-            behaviors: [selectionable, movable]
+            behaviors: [selectable, movable]
         # item container represents a item which can holding other items, like a chest
         item_container:
             label: ItemContainer
@@ -35,14 +35,14 @@ blue_bear_game:
             label: Item
             attributes: [hp, armor]
             description: An item on the map
-            behaviors: [selectionable]
+            behaviors: [selectable]
         weapon:
             label: Weapon
             attributes: [hp, armor]
             description: A weapon to deal damage
     # entity behaviors (and their associated event to listen)
     behaviors:
-        selectionable: bluebear.engine.mapItemClick
+        selectable: bluebear.engine.mapItemClick
         movable: bluebear.engine.mapItemClick
     attribute:
         # race, class

@@ -20,6 +20,20 @@ class EntityInstanceAttribute
     use Id, Nameable, Valuable, Typeable;
 
     /**
+     * @ORM\ManyToOne(targetEntity="BlueBear\GameBundle\Entity\EntityInstance", inversedBy="attributes")
+     * @ORM\JoinColumn(name="entity_model_id")
+     */
+    protected $entityInstance;
+
+    /**
+     * Define if current attribute inherits from configuration
+     *
+     * @var bool
+     * @ORM\Column(name="is_default", type="boolean")
+     */
+    protected $isDefault = false;
+
+    /**
      * Hydrate instance attribute from model default data
      *
      * @param EntityModelAttribute $entityModelAttribute
@@ -30,8 +44,35 @@ class EntityInstanceAttribute
         $this->value = $entityModelAttribute->getValue();
     }
 
-    public function isDefault()
+    /**
+     * @return mixed
+     */
+    public function getEntityInstance()
     {
-        return true;
+        return $this->entityInstance;
+    }
+
+    /**
+     * @param mixed $entityInstance
+     */
+    public function setEntityInstance($entityInstance)
+    {
+        $this->entityInstance = $entityInstance;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isIsDefault()
+    {
+        return $this->isDefault;
+    }
+
+    /**
+     * @param boolean $isDefault
+     */
+    public function setIsDefault($isDefault)
+    {
+        $this->isDefault = $isDefault;
     }
 }

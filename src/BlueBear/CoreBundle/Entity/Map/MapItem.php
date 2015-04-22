@@ -120,12 +120,7 @@ class MapItem
 
     public function getListeners()
     {
-        $listeners = [];
-
-        if ($this->entityInstance) {
-            $listeners = $this->getEntityInstance()->getBehaviors();
-        }
-        return $listeners;
+        return $this->listeners;
     }
 
     /**

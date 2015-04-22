@@ -8,6 +8,7 @@ use BlueBear\CoreBundle\Entity\Behavior\Nameable;
 use BlueBear\CoreBundle\Entity\Behavior\Timestampable;
 use BlueBear\CoreBundle\Entity\Behavior\Typeable;
 use BlueBear\CoreBundle\Entity\Map\MapItem;
+use BlueBear\GameBundle\Game\EntityBehavior;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Exception;
@@ -26,7 +27,7 @@ class EntityInstance
     use Id, Nameable, Label, Timestampable, Typeable;
 
     /**
-     * @ORM\ManyToMany(targetEntity="BlueBear\GameBundle\Entity\EntityInstanceAttribute", cascade={"persist"}, indexBy="name")
+     * @ORM\OneToMany(targetEntity="BlueBear\GameBundle\Entity\EntityInstanceAttribute", cascade={"persist"}, mappedBy="entityInstance", indexBy="name")
      */
     protected $attributes;
 
@@ -140,6 +141,15 @@ class EntityInstance
     public function getBehaviors()
     {
         return $this->behaviors;
+    }
+
+    /**
+     * @param $behaviorName
+     * @return bool
+     */
+    public function hasBehavior($behaviorName)
+    {
+        return in_array($behaviorName, $this->behaviors);
     }
 
     /**

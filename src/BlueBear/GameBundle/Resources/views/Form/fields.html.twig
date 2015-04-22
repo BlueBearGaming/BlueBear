@@ -16,3 +16,20 @@
         </div>
     </div>
 {% endblock %}
+
+{% block entity_instance_attribute_row %}
+    <div class="form-group">
+        <div class="col-xs-3">
+            {{ form_widget(form.name) }}
+            {{ form_errors(form.name) }}
+        </div>
+        <div class="col-xs-5">
+            {{ form_widget(form.value) }}
+            {{ form_errors(form.value) }}
+        </div>
+        <div class="col-xs-3">
+            {{ form_widget(form.type) }}
+            {{ form_errors(form.type) }}
+        </div>
+    </div>
+{% endblock %}
