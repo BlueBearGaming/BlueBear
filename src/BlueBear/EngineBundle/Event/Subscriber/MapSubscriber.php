@@ -68,7 +68,7 @@ class MapSubscriber implements EventSubscriberInterface
 
                 if ($entityInstance) {
                     $clickListener = [
-                        'name' => EngineEvent::ENGINE_MAP_ITEM_CLICK
+                        'click' => EngineEvent::ENGINE_MAP_ITEM_CLICK
                     ];
                     $behaviors = $entityInstance->getBehaviors();
 
