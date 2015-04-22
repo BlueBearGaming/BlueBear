@@ -138,6 +138,8 @@ class MapItemSubscriber implements EventSubscriberInterface
             $mapItemForSelection->setY($mapItem->getY());
             // map item for event layer
             $mapItemForEvent = new MapItem();
+            $mapItemForEvent->setX($mapItem->getX());
+            $mapItemForEvent->setY($mapItem->getY());
             $mapItemForEvent->setListeners([
                 'click' => $clickListener
             ]);
