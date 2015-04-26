@@ -8,7 +8,6 @@ use BlueBear\CoreBundle\Entity\Behavior\Nameable;
 use BlueBear\CoreBundle\Entity\Behavior\Timestampable;
 use BlueBear\CoreBundle\Entity\Behavior\Typeable;
 use BlueBear\CoreBundle\Entity\Map\MapItem;
-use BlueBear\GameBundle\Game\EntityBehavior;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Exception;
@@ -27,12 +26,12 @@ class EntityInstance
     use Id, Nameable, Label, Timestampable, Typeable;
 
     /**
-     * @ORM\OneToMany(targetEntity="BlueBear\GameBundle\Entity\EntityInstanceAttribute", cascade={"persist"}, mappedBy="entityInstance", indexBy="name")
+     * @ORM\OneToMany(targetEntity="BlueBear\GameBundle\Entity\EntityInstanceAttribute", cascade={"persist", "remove"}, mappedBy="entityInstance", indexBy="name")
      */
     protected $attributes;
 
     /**
-     * @ORM\OneToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\MapItem", inversedBy="entityInstance")
+     * @ORM\OneToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\MapItem", cascade={"persist", "remove"}, inversedBy="entityInstance")
      */
     protected $mapItem;
 
@@ -83,7 +82,7 @@ class EntityInstance
     }
 
     /**
-     * @return mixed
+     * @return MapItem
      */
     public function getMapItem()
     {

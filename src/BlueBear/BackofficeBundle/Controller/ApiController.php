@@ -113,6 +113,9 @@ class ApiController extends Controller
             } else if ($event == EngineEvent::ENGINE_MAP_ITEM_CLICK) {
                 // get MapItemClick request
                 $snippets[$event] = $this->getMapItemClickRequest($map, $context);
+            } else if ($event == EngineEvent::ENGINE_MAP_ITEM_MOVE) {
+                // get MapItemMove request
+                $snippets[$event] = $this->getMapItemMoveRequest($context);
             } else if ($event == EngineEvent::EDITOR_MAP_PUT_ENTITY) {
                 $snippets[$event] = $this->getPutEntityRequest($map, $context);
             } else if ($event == EngineEvent::EDITOR_MAP_UPDATE) {
@@ -142,10 +145,8 @@ class ApiController extends Controller
         // event request
         $request = new MapItemClickRequest();
         $request->contextId = $context->getId();
-        $request->source = new MapItemSubRequest();
-        $request->source->position = new Position(5, 5);
         $request->target = new MapItemSubRequest();
-        $request->target->position = new Position(5, 5);
+        $request->target->position = new Position(0, 0);
 
         if ($pencilSet && $pencilSet->getPencils()->count()) {
             /** @var Pencil $pencil */
@@ -167,6 +168,20 @@ class ApiController extends Controller
         } else {
             $this->addFlash('warning', 'No pencil set was found. Try to create at least one');
         }
+        return $request;
+    }
+
+    protected function getMapItemMoveRequest(Context $context)
+    {
+        // event request
+        $request = new MapItemClickRequest();
+        $request->contextId = $context->getId();
+        $request->source = new MapItemSubRequest();
+        $request->source->position = new Position(0, 0);
+        $request->source->layer = 'units';
+        $request->target = new MapItemSubRequest();
+        $request->target->position = new Position(0, 1);
+        $request->target->layer = 'land';
         return $request;
     }
 

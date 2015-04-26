@@ -7,10 +7,13 @@ use BlueBear\CoreBundle\Constant\Map\Constant;
 use BlueBear\CoreBundle\Entity\Map\Layer;
 use BlueBear\CoreBundle\Entity\Map\MapItem;
 use BlueBear\CoreBundle\Entity\Map\Pencil;
+use BlueBear\CoreBundle\Manager\MapItemManager;
+use BlueBear\CoreBundle\Utils\Position;
 use BlueBear\EngineBundle\Behavior\HasException;
 use BlueBear\EngineBundle\Event\EngineEvent;
 use BlueBear\EngineBundle\Event\Request\MapItemClickRequest;
 use BlueBear\EngineBundle\Event\Response\MapItemClickResponse;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\PersistentCollection;
 use Exception;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -29,6 +32,9 @@ class MapItemSubscriber implements EventSubscriberInterface
         return [
             EngineEvent::ENGINE_MAP_ITEM_CLICK => [
                 'onClick'
+            ],
+            EngineEvent::ENGINE_MAP_ITEM_MOVE => [
+                'onMove'
             ]
         ];
     }
@@ -48,7 +54,6 @@ class MapItemSubscriber implements EventSubscriberInterface
         /** @var PersistentCollection $mapItems */
         $mapItems = $event->getContext()->getMapItems();
         $target = $request->target;
-        $source = $request->source;
         // target should be defined
         if (!$target) {
             throw new Exception('Target should be defined for map click event');
@@ -77,22 +82,12 @@ class MapItemSubscriber implements EventSubscriberInterface
                     $entityInstance->get('movement')
                 );
             }
-            // if a target is provided, it is a entity movement
-            if ($source) {
-                // we try to find the targeted item amongst map items
-                $mapItemTargets = $mapItems->filter(function (MapItem $mapItem) use ($target) {
-                    return $mapItem->getX() == $target->position->x
-                    && $mapItem->getY() == $target->position->y
-                    && $mapItem->getLayer()->getType() == $target->layer;
-                });
-            } else {
-                //var_dump($entityInstance->getBehaviors());
-                $this->throwUnless($entityInstance->hasBehavior('selectable'), 'Entity has no selectable behavior');
-                $mapItems = $this->getMapItemForSelection($availableMapItemsForMovement);
-                // if no target is provided, we return available map item for movement for response
-                $response->setData($mapItems);
-            }
+            $this->throwUnless($entityInstance->hasBehavior('selectable'), 'Entity has no selectable behavior');
+            $mapItems = $this->getMapItemForSelection($availableMapItemsForMovement);
+            // we return available map item for movement for response
+            $response->setData($mapItems);
         } else if ($mapItemsFoundCount > 1) {
+            // engine rule: there should be only one map item by position and by layer
             throw new Exception('Too many map item found');
         } else {
             throw new Exception('Map item target not found on this layer');
@@ -100,14 +95,63 @@ class MapItemSubscriber implements EventSubscriberInterface
     }
 
     /**
+     * @param EngineEvent $event
+     * @throws Exception
+     */
+    public function onMove(EngineEvent $event)
+    {
+        /** @var MapItemClickRequest $request */
+        $request = $event->getRequest();
+        /** @var MapItemClickResponse $response */
+        $response = $event->getResponse();
+        /** @var PersistentCollection $mapItems */
+        $mapItems = $event->getContext()->getMapItems();
+        $target = $request->target;
+        $source = $request->source;
+        // target should be defined
+        $this->throwUnless($source, 'Source should be defined for map click event');
+        $this->throwUnless($target, 'Target should be defined for map click event');
+        // find map item source
+        $mapItemSource = $this->findOneMapItem($mapItems, $source->position, $source->layer);
+        // find map item target
+        $mapItemTarget = $this->findOneMapItem($mapItems, $target->position, $target->layer);
+        $entityInstance = $mapItemSource->getEntityInstance();
+
+        // on map item move, we check if the entity instance can move on selected map item target
+        if ($entityInstance && $entityInstance->has('movement')) {
+            /** @var ArrayCollection $availableMapItemsForMovement */
+            $availableMapItemsForMovement = $this->getContainer()->get('bluebear.engine.path_finder')->findAvailable(
+                $event->getContext(),
+                $mapItemSource->getPosition(),
+                $entityInstance->get('movement')
+            );
+            // targeted map item should be available for movement, because it should coming from a previous call
+            // to MapItemClick method.
+            $exists = $availableMapItemsForMovement->filter(function (MapItem $mapItem) use ($mapItemTarget) {
+                return $mapItem->getId() == $mapItemTarget->getId();
+            });
+            $this->throwUnless($exists, 'MapItem target not available for movement');
+            $manager = $this->getMapItemManager();
+            // moving map item to target location
+            $entityInstance->getMapItem()->setPosition($mapItemTarget->getPosition());
+            $manager->save($entityInstance);
+            $manager->save($entityInstance->getMapItem());
+
+            $response->setData([
+                $entityInstance->getMapItem()
+            ]);
+        }
+    }
+
+    /**
      * Return map items on selection layer from available map item for entity movement
      *
      * @param MapItem[] $mapItems
-     * @return array
+     * @return ArrayCollection
      */
     protected function getMapItemForSelection(array $mapItems)
     {
-        $mapItemsForSelection = [];
+        $mapItemsForSelection = new ArrayCollection();
         // selection layer is a "fake" layer. It is not store in database, and it is created on demand
         $selectionLayer = new Layer();
         $selectionLayer->setName(Constant::LAYER_TYPE_SELECTION);
@@ -120,7 +164,7 @@ class MapItemSubscriber implements EventSubscriberInterface
         $emptyPencil->setName(Constant::PENCIL_TYPE_EMPTY);
         $eventLayer->setName(Constant::LAYER_TYPE_EVENTS);
         $clickListener = [
-            'name' => EngineEvent::ENGINE_MAP_ITEM_CLICK,
+            'name' => EngineEvent::ENGINE_MAP_ITEM_MOVE,
             'source' => []
         ];
         // foreach available map item for movement, we create one map item on the selection layer and one map item
@@ -147,9 +191,40 @@ class MapItemSubscriber implements EventSubscriberInterface
             $mapItemForEvent->setPencil($emptyPencil);
             // map item for event layer
             // add created map item to the collection
-            $mapItemsForSelection[] = $mapItemForSelection;
-            $mapItemsForSelection[] = $mapItemForEvent;
+            $mapItemsForSelection->add($mapItemForSelection);
+            $mapItemsForSelection->add($mapItemForEvent);
         }
         return $mapItemsForSelection;
+    }
+
+    /**
+     * @param PersistentCollection $mapItems
+     * @param Position $position
+     * @param $layerType
+     * @return MapItem
+     */
+    protected function findOneMapItem($mapItems, Position $position, $layerType)
+    {
+        // find map item target
+        $mapItemsFound = $mapItems->filter(function (MapItem $mapItem) use ($position, $layerType) {
+            // find map item by position
+            return $mapItem->getX() == $position->x
+            && $mapItem->getY() == $position->y
+            && $mapItem->getLayer()->getType() == $layerType;
+        });
+        $count = count($mapItemsFound);
+        $this->throwUnless($count > 0,
+            'Map item not found on this layer "' . $layerType . '", position : x:' . $position->x . ', y:' . $position->y);
+        $this->throwUnless($count == 1, 'Too many map item found');
+
+        return $mapItemsFound->first();
+    }
+
+    /**
+     * @return MapItemManager
+     */
+    protected function getMapItemManager()
+    {
+        return $this->getContainer()->get('bluebear.manager.map_item');
     }
 }

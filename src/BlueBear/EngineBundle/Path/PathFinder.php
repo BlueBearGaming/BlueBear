@@ -6,6 +6,7 @@ use BlueBear\CoreBundle\Constant\Map\Constant;
 use BlueBear\CoreBundle\Entity\Map\Context;
 use BlueBear\CoreBundle\Entity\Map\MapItem;
 use BlueBear\CoreBundle\Utils\Position;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\PersistentCollection;
 
 /**
@@ -58,7 +59,7 @@ class PathFinder
         }
         $this->recursiveFind($source, $movement, $context->getMap()->getType());
 
-        return $this->foundItems;
+        return new ArrayCollection($this->foundItems);
     }
 
     /**

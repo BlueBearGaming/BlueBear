@@ -78,4 +78,15 @@ trait Positionable
     {
         return new Position($this->x, $this->y);
     }
+
+    /**
+     * Set x and y from a position object
+     *
+     * @param Position $position
+     */
+    public function setPosition(Position $position)
+    {
+        $this->x = $position->x;
+        $this->y = $position->y;
+    }
 } 
