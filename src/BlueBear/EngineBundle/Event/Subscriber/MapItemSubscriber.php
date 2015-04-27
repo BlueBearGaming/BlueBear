@@ -147,6 +147,7 @@ class MapItemSubscriber implements EventSubscriberInterface
      * Return map items on selection layer from available map item for entity movement
      *
      * @param MapItem[] $mapItems
+     * @param MapItem $source
      * @return ArrayCollection
      */
     protected function getMapItemForSelection($mapItems, MapItem $source)
@@ -209,7 +210,7 @@ class MapItemSubscriber implements EventSubscriberInterface
             // find map item by position
             return $mapItem->getX() == $position->x
             && $mapItem->getY() == $position->y
-            && $mapItem->getLayer()->getType() == $layerType;
+            && ($layerType != 'events' && $mapItem->getLayer()->getType() == $layerType);
         });
         $count = count($mapItemsFound);
         $this->throwUnless($count > 0,
