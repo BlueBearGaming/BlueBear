@@ -171,9 +171,8 @@ class MapItemSubscriber implements EventSubscriberInterface
         // on the event layer (on top of layers stack)
         foreach ($mapItems as $mapItem) {
             // source target for next click event should be current map item
-            $clickListener['source']['x'] = $mapItem->getX();
-            $clickListener['source']['y'] = $mapItem->getY();
-
+            $clickListener['source']['position'] = new Position($mapItem->getX(), $mapItem->getY());
+            $clickListener['source']['layer'] = Constant::LAYER_TYPE_UNIT;
             // map item for selection layer
             $mapItemForSelection = new MapItem();
             $mapItemForSelection->setLayer($selectionLayer);
