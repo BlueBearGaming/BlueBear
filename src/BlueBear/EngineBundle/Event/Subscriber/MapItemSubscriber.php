@@ -149,7 +149,7 @@ class MapItemSubscriber implements EventSubscriberInterface
      * @param MapItem[] $mapItems
      * @return ArrayCollection
      */
-    protected function getMapItemForSelection(array $mapItems)
+    protected function getMapItemForSelection($mapItems)
     {
         $mapItemsForSelection = new ArrayCollection();
         // selection layer is a "fake" layer. It is not store in database, and it is created on demand
