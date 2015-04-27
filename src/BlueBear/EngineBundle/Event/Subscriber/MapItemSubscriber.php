@@ -83,7 +83,7 @@ class MapItemSubscriber implements EventSubscriberInterface
                 );
             }
             $this->throwUnless($entityInstance->hasBehavior('selectable'), 'Entity has no selectable behavior');
-            $mapItems = $this->getMapItemForSelection($availableMapItemsForMovement);
+            $mapItems = $this->getMapItemForSelection($availableMapItemsForMovement, $entityInstance->getMapItem());
             // we return available map item for movement for response
             $response->setData($mapItems);
         } else if ($mapItemsFoundCount > 1) {
@@ -149,7 +149,7 @@ class MapItemSubscriber implements EventSubscriberInterface
      * @param MapItem[] $mapItems
      * @return ArrayCollection
      */
-    protected function getMapItemForSelection($mapItems)
+    protected function getMapItemForSelection($mapItems, MapItem $source)
     {
         $mapItemsForSelection = new ArrayCollection();
         // selection layer is a "fake" layer. It is not store in database, and it is created on demand
@@ -171,7 +171,7 @@ class MapItemSubscriber implements EventSubscriberInterface
         // on the event layer (on top of layers stack)
         foreach ($mapItems as $mapItem) {
             // source target for next click event should be current map item
-            $clickListener['source']['position'] = new Position($mapItem->getX(), $mapItem->getY());
+            $clickListener['source']['position'] = new Position($source->getX(), $source->getY());
             $clickListener['source']['layer'] = Constant::LAYER_TYPE_UNIT;
             // map item for selection layer
             $mapItemForSelection = new MapItem();
