@@ -206,6 +206,7 @@ class MapItemSubscriber implements EventSubscriberInterface
     protected function findOneMapItem($mapItems, Position $position, $layerType)
     {
         // find map item target
+        // TODO patch this line
         $mapItemsFound = $mapItems->filter(function (MapItem $mapItem) use ($position, $layerType) {
             // find map item by position
             return $mapItem->getX() == $position->x
