@@ -12,4 +12,9 @@ class MapItemClickResponse extends EventResponse
             'updated' => $mapItems
         ];
     }
+
+    public function setMoved($mapItems)
+    {
+        $this->data['moved'] = $mapItems;
+    }
 }

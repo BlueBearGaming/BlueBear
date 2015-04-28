@@ -30,6 +30,14 @@ class Constant
         ];
     }
 
+    public static function getVirtualLayers()
+    {
+        return [
+            'events',
+            'selection'
+        ];
+    }
+
     public static function getMapTypes()
     {
         return [

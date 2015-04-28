@@ -137,7 +137,7 @@ class MapItemSubscriber implements EventSubscriberInterface
             $manager->save($entityInstance);
             $manager->save($entityInstance->getMapItem());
 
-            $response->setData([
+            $response->setMoved([
                 $entityInstance->getMapItem()
             ]);
         }
@@ -205,13 +205,17 @@ class MapItemSubscriber implements EventSubscriberInterface
      */
     protected function findOneMapItem($mapItems, Position $position, $layerType)
     {
+        $virtualLayers = Constant::getVirtualLayers();
+
         // find map item target
-        // TODO patch this line
-        $mapItemsFound = $mapItems->filter(function (MapItem $mapItem) use ($position, $layerType) {
+        $mapItemsFound = $mapItems->filter(function (MapItem $mapItem) use ($position, $layerType, $virtualLayers) {
             // find map item by position
-            return $mapItem->getX() == $position->x
-            && $mapItem->getY() == $position->y
-            && ($layerType != 'events' && $mapItem->getLayer()->getType() == $layerType);
+            $positionFound = $mapItem->getX() == $position->x && $mapItem->getY() == $position->y;
+            // if layer is virtual (not stored in database), we do not check if map item exist on it
+            if (!in_array($layerType, $virtualLayers)) {
+                $positionFound = $positionFound && ($mapItem->getLayer()->getType() == $layerType);
+            }
+            return $positionFound;
         });
         $count = count($mapItemsFound);
         $this->throwUnless($count > 0,
