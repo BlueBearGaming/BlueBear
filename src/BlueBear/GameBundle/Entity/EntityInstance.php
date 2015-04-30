@@ -96,7 +96,6 @@ class EntityInstance
     public function setMapItem(MapItem $mapItem)
     {
         $this->mapItem = $mapItem;
-        $mapItem->setEntityInstance($this);
     }
 
     /**

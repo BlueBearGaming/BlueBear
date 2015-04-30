@@ -41,6 +41,7 @@ class EntityInstanceManager
         $entityInstance = new EntityInstance();
         $entityInstance->hydrateFromModel($entityModel);
         $entityInstance->setLabel('John Panda');
+        $entityInstance->setPencil($entityModel->getPencil());
 
         // we must check if layer is allowed
         $layers = $context->getMap()->getLayers();

@@ -145,6 +145,10 @@ class MapItemSubscriber implements EventSubscriberInterface
             $path = $pathFinder->findPath($mapItems, $source->position, $target->position);
             $mapItemSource->setPath($path);
             $mapItemSource->setPosition($source->position);
+            $clickListener = [
+                'name' => EngineEvent::ENGINE_MAP_ITEM_CLICK
+            ];
+            $mapItemSource->addListener('click', $clickListener);
 
             $response->setData([
                 $mapItemSource

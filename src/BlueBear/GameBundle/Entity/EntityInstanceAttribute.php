@@ -21,7 +21,7 @@ class EntityInstanceAttribute
 
     /**
      * @ORM\ManyToOne(targetEntity="BlueBear\GameBundle\Entity\EntityInstance", inversedBy="attributes")
-     * @ORM\JoinColumn(name="entity_instance_id")
+     * @ORM\JoinColumn(name="entity_instance_id", onDelete="CASCADE")
      */
     protected $entityInstance;
 

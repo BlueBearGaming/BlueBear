@@ -37,7 +37,7 @@ class EntityModel
     protected $allowedLayerTypes;
 
     /**
-     * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Pencil")
+     * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Pencil", fetch="EAGER")
      */
     protected $pencil;
 

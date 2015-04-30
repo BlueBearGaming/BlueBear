@@ -52,6 +52,8 @@ class Context
      */
     protected $listeners = [];
 
+    protected $room;
+
     /**
      * @return ArrayCollection
      */

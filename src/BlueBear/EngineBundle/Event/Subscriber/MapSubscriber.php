@@ -16,6 +16,7 @@ use BlueBear\EngineBundle\Event\Request\MapUpdateRequest;
 use BlueBear\EngineBundle\Event\Request\SubRequest\MapUpdateItemSubRequest;
 use BlueBear\EngineBundle\Event\Response\MapLoadResponse;
 use BlueBear\EngineBundle\Event\Response\MapUpdateResponse;
+use BlueBear\GameBundle\Entity\EntityModel;
 use Exception;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -118,13 +119,15 @@ class MapSubscriber implements EventSubscriberInterface
                      * @var Layer $layer
                      * @var Pencil $pencil
                      */
-                    $layer = $this->getContainer()->get('bluebear.manager.layer')->findOneBy([
-                        'name' => $mapItemRequest->layerName
-                    ]);
+                    $layer = $this
+                        ->getContainer()
+                        ->get('bluebear.manager.layer')
+                        ->findOneBy([
+                            'name' => $mapItemRequest->layerName
+                        ]);
                     $this->throwUnless($layer, 'Layer not found');
                     $updated = [];
                     $removed = [];
-
                     // if a pencil name is provided, we update existing map item or we create it. If not, we delete
                     // existing map item
                     if ($mapItemRequest->pencilName) {
@@ -133,19 +136,42 @@ class MapSubscriber implements EventSubscriberInterface
                         ]);
                         $this->throwUnless($pencil, 'Pencil not found');
                         // try to find an existing item
-                        $mapItem = $this->getMapItemManager()->findByPositionAndLayer($context, $position, $layer);
+                        $mapItem = $this
+                            ->getMapItemManager()
+                            ->findByPositionAndLayer($context, $position, $layer);
                         // if map item exists, we just change pencil
                         if ($mapItem) {
                             $mapItem->setPencil($pencil);
                             $updated[] = $mapItem;
                         } else {
-                            // if map item does not exists, we create it
-                            $mapItem = new MapItem();
-                            $mapItem->setContext($event->getContext());
-                            $mapItem->setX($mapItemRequest->x);
-                            $mapItem->setY($mapItemRequest->y);
-                            $mapItem->setLayer($layer);
-                            $mapItem->setPencil($pencil);
+                            // searching if an entity model is linked to the pencil
+                            /** @var EntityModel $entityModel */
+                            $entityModel = $this
+                                ->getContainer()
+                                ->get('bluebear.manager.entity_model')
+                                ->findOneBy([
+                                    'pencil' => $pencil->getId()
+                                ]);
+                            // if a entity model is found, we add it with its listeners. Map item will be created automatically
+                            if ($entityModel) {
+                                $this
+                                    ->getContainer()
+                                    ->get('bluebear.manager.entity_instance')
+                                    ->create(
+                                        $context,
+                                        $entityModel,
+                                        new Position($mapItemRequest->x, $mapItemRequest->y),
+                                        $layer
+                                    );
+                            } else {
+                                // if map item does not exists, we create it
+                                $mapItem = new MapItem();
+                                $mapItem->setContext($event->getContext());
+                                $mapItem->setX($mapItemRequest->x);
+                                $mapItem->setY($mapItemRequest->y);
+                                $mapItem->setLayer($layer);
+                                $mapItem->setPencil($pencil);
+                            }
                             $updated[] = $mapItem;
                         }
                         $this->getMapItemManager()->save($mapItem);
