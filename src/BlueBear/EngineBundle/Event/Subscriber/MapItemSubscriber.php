@@ -21,7 +21,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 /**
  * Class MapItemSubscriber
  *
- * Handle map item interaction (click...)
+ * Handle map item interaction (click, move)
  */
 class MapItemSubscriber implements EventSubscriberInterface
 {
@@ -130,6 +130,7 @@ class MapItemSubscriber implements EventSubscriberInterface
                 $mapItemSource->getPosition(),
                 $entityInstance->get('movement')
             );
+            // TODO add ruler to check if unit is allowed to move on target map item according to the game rule
             // targeted map item should be available for movement, because it should coming from a previous call
             // to MapItemClick method.
             $exists = $availableMapItemsForMovement->filter(function (MapItem $mapItem) use ($mapItemTarget) {
@@ -233,8 +234,10 @@ class MapItemSubscriber implements EventSubscriberInterface
         $count = count($mapItemsFound);
         $this->throwUnless($count > 0,
             'Map item not found on this layer "' . $layerType . '", position : x:' . $position->x . ', y:' . $position->y);
-        $this->throwUnless($count == 1, 'Too many map item found');
 
+        if (!in_array($layerType, $virtualLayers)) {
+            $this->throwUnless($count == 1, 'Too many map item found');
+        }
         return $mapItemsFound->first();
     }
 

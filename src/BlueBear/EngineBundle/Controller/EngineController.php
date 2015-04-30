@@ -4,6 +4,7 @@ namespace BlueBear\EngineBundle\Controller;
 
 use BlueBear\BaseBundle\Behavior\ControllerTrait;
 use BlueBear\EngineBundle\Engine\Engine;
+use BlueBear\EngineBundle\Event\EngineEvent;
 use JMS\Serializer\Serializer;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,10 +26,13 @@ class EngineController extends Controller
         /** @var Engine $engine */
         $engine = $this->get('bluebear.engine.engine');
         $engineEvent = $engine->run($eventName, $eventData);
-
         /** @var Serializer $serializer */
         $serializer = $this->get('jms_serializer');
         $content = $serializer->serialize($engineEvent->getResponse(), 'json');
+
+        // Elephant IO POC
+        $client = $this->get('elephantio_client.default');
+        $client->send(EngineEvent::ENGINE_CLIENT_UPDATE, ['event' => $content]);
 
         $response = new Response();
         $response->setStatusCode(200);

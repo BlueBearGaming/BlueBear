@@ -52,7 +52,7 @@ class Engine
             $engineEvent->setOriginEventName($eventName);
             // trigger onEngineEvent
             $this->getEventDispatcher()->dispatch(EngineEvent::ENGINE_ON_ENGINE_EVENT, $engineEvent);
-            // trigger wanted event
+            // trigger required event
             $this->getEventDispatcher()->dispatch($eventName, $engineEvent);
         } catch (Exception $e) {
             if (!isset($eventRequest)) {

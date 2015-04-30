@@ -41,6 +41,11 @@ class EngineEvent extends Event
     protected $context;
 
     /**
+     * @var bool
+     */
+    protected $requestClientUpdate = false;
+
+    /**
      * Engine events (private)
      */
     const ENGINE_ON_ENGINE_EVENT = 'bluebear.engine.engineEvent';
@@ -62,6 +67,7 @@ class EngineEvent extends Event
 //    const ENGINE_ON_AFTER_ENTER = 'bluebear.engine.onAfterEnter';
     const ENGINE_MAP_ITEM_CLICK = 'bluebear.engine.mapItemClick';
     const ENGINE_MAP_ITEM_MOVE = 'bluebear.engine.mapItemMove';
+    const ENGINE_CLIENT_UPDATE = 'bluebear.engine.clientUpdate';
 
     const EDITOR_MAP_PUT_PENCIL = 'bluebear.editor.putPencil';
     const EDITOR_MAP_PUT_ENTITY = 'bluebear.editor.putEntity';
@@ -151,5 +157,21 @@ class EngineEvent extends Event
     public function setOriginEventName($originEventName)
     {
         $this->originEventName = $originEventName;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getRequestClientUpdate()
+    {
+        return $this->requestClientUpdate;
+    }
+
+    /**
+     * @param bool $requestClientUpdate
+     */
+    public function setRequestClientUpdate($requestClientUpdate)
+    {
+        $this->requestClientUpdate = $requestClientUpdate;
     }
 }

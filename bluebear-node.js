@@ -8,17 +8,14 @@ app.listen(8000);
 
 function handler (req, res) {
     console.log('listen');
-
-    return 'lol';
+    return true;
 }
 
 
 io.on('connection', function (socket) {
-    console.log('listen');
-    socket.emit('lol', { hello: 'world' });
-    socket.on('lol', function (data) {
+    socket.on('bluebear.engine.clientUpdate', function (data) {
         console.log(data);
-        return 'lol';
+        return true;
     });
-    return 'lol';
+    return true;
 });
