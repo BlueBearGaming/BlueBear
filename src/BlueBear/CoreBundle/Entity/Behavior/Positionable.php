@@ -17,7 +17,6 @@ trait Positionable
      * X entity position
      *
      * @ORM\Column(name="x", type="integer")
-     * @Serializer\Expose()
      */
     protected $x;
 
@@ -25,9 +24,14 @@ trait Positionable
      * Y entity position
      *
      * @ORM\Column(name="y", type="integer")
-     * @Serializer\Expose()
      */
     protected $y;
+
+    /**
+     * @Serializer\Expose()
+     * @Serializer\AccessType("public_method")
+     */
+    protected $position;
 
     /**
      * Return x coordinates

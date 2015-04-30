@@ -63,6 +63,27 @@ class PathFinder
     }
 
     /**
+     * @param PersistentCollection $mapItems
+     * @param Position $source
+     * @param Position $target
+     * @return array
+     */
+    public function findPath($mapItems, Position $source, Position $target)
+    {
+//        $mapItemSource = $mapItems->filter(function (MapItem $mapItem) use ($source) {
+//            return $mapItem->getX() == $source->x && $mapItem->getY() == $source->y;
+//        });
+//        $mapItemTarget = $mapItems->filter(function (MapItem $mapItem) use ($target) {
+//            return $mapItem->getX() == $target->x && $mapItem->getY() == $target->y;
+//        });
+        // TODO @WIP
+        return [
+            $source,
+            $target
+        ];
+    }
+
+    /**
      * Find recursively available map items for a given movement
      *
      * @param Position $source

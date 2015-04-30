@@ -54,6 +54,12 @@ class MapItem
      */
     protected $listeners = [];
 
+    /**
+     * @Serializer\Expose()
+     * @Serializer\AccessType("public_method")
+     */
+    protected $path;
+
     public function getPencil()
     {
         return $this->pencil;
@@ -150,5 +156,21 @@ class MapItem
     public function addListener($key, $listener)
     {
         $this->listeners[$key] = $listener;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * @param mixed $path
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
     }
 }

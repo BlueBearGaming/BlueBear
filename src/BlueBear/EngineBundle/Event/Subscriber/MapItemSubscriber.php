@@ -119,8 +119,11 @@ class MapItemSubscriber implements EventSubscriberInterface
 
         // on map item move, we check if the entity instance can move on selected map item target
         if ($entityInstance && $entityInstance->has('movement')) {
+            $pathFinder = $this
+                ->getContainer()
+                ->get('bluebear.engine.path_finder');
             /** @var ArrayCollection $availableMapItemsForMovement */
-            $availableMapItemsForMovement = $this->getContainer()->get('bluebear.engine.path_finder')->findAvailable(
+            $availableMapItemsForMovement = $pathFinder->findAvailable(
                 $event->getContext(),
                 $mapItemSource->getPosition(),
                 $entityInstance->get('movement')
@@ -136,9 +139,12 @@ class MapItemSubscriber implements EventSubscriberInterface
             $entityInstance->getMapItem()->setPosition($mapItemTarget->getPosition());
             $manager->save($entityInstance);
             $manager->save($entityInstance->getMapItem());
+            // we return current map item source filled with the path to the target
+            $path = $pathFinder->findPath($mapItems, $source->position, $target->position);
+            $mapItemSource->setPath($path);
 
-            $response->setMoved([
-                $entityInstance->getMapItem()
+            $response->setData([
+                $mapItemSource
             ]);
         }
     }
