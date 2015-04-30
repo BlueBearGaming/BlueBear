@@ -31,7 +31,8 @@ class EntityInstance
     protected $attributes;
 
     /**
-     * @ORM\OneToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\MapItem", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\MapItem", cascade={"persist", "remove"}, inversedBy="entityInstance")
+     * @ORM\JoinColumn(name="map_item_id", onDelete="CASCADE")
      */
     protected $mapItem;
 
