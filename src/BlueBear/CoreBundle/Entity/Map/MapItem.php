@@ -42,13 +42,6 @@ class MapItem
     protected $context;
 
     /**
-     * @var EntityInstance
-     * @ORM\OneToOne(targetEntity="BlueBear\GameBundle\Entity\EntityInstance", mappedBy="mapItem")
-     * @ORM\JoinColumn(name="entity_instance_id", nullable=true)
-     */
-    protected $entityInstance;
-
-    /**
      * @Serializer\Expose()
      * @Serializer\AccessType("public_method")
      */
@@ -127,22 +120,6 @@ class MapItem
     public function getListeners()
     {
         return $this->listeners;
-    }
-
-    /**
-     * @return EntityInstance
-     */
-    public function getEntityInstance()
-    {
-        return $this->entityInstance;
-    }
-
-    /**
-     * @param EntityInstance $entityInstance
-     */
-    public function setEntityInstance(EntityInstance $entityInstance)
-    {
-        $this->entityInstance = $entityInstance;
     }
 
     /**

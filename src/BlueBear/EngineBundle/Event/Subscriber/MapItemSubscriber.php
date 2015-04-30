@@ -73,8 +73,9 @@ class MapItemSubscriber implements EventSubscriberInterface
             $mapItemTarget = $mapItemTargets->first();
             // on map item click, if map item has an entity instance and this entity is movable, we should display
             // available destination locations to move on
-            $entityInstance = $mapItemTarget->getEntityInstance();
-
+            $entityInstance = $this->getContainer()->get('bluebear.manager.entity_instance')->findOneBy([
+                'mapItem' => $mapItemTarget->getId()
+            ]);
             if ($entityInstance && $entityInstance->has('movement')) {
                 $availableMapItemsForMovement = $this->getContainer()->get('bluebear.engine.path_finder')->findAvailable(
                     $event->getContext(),
@@ -115,8 +116,9 @@ class MapItemSubscriber implements EventSubscriberInterface
         $mapItemSource = $this->findOneMapItem($mapItems, $source->position, $source->layer);
         // find map item target
         $mapItemTarget = $this->findOneMapItem($mapItems, $target->position, $target->layer);
-        $entityInstance = $mapItemSource->getEntityInstance();
-
+        $entityInstance = $this->getContainer()->get('bluebear.manager.entity_instance')->findOneBy([
+            'mapItem' => $mapItemSource->getId()
+        ]);
         // on map item move, we check if the entity instance can move on selected map item target
         if ($entityInstance && $entityInstance->has('movement')) {
             $pathFinder = $this

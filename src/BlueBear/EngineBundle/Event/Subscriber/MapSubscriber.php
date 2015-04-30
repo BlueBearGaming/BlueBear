@@ -64,8 +64,9 @@ class MapSubscriber implements EventSubscriberInterface
             $mapItems = $context->getMapItems();
             /** @var MapItem $mapItem */
             foreach ($mapItems as $mapItem) {
-                $entityInstance = $mapItem->getEntityInstance();
-
+                $entityInstance = $this->getContainer()->get('bluebear.manager.entity_instance')->findOneBy([
+                    'mapItem' => $mapItem->getId()
+                ]);
                 if ($entityInstance) {
                     $clickListener = [
                         'name' => EngineEvent::ENGINE_MAP_ITEM_CLICK

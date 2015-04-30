@@ -31,7 +31,7 @@ class EntityInstance
     protected $attributes;
 
     /**
-     * @ORM\OneToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\MapItem", cascade={"persist", "remove"}, inversedBy="entityInstance")
+     * @ORM\OneToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\MapItem", cascade={"persist", "remove"})
      */
     protected $mapItem;
 
