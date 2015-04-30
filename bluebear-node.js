@@ -13,8 +13,10 @@ function handler (req, res) {
 
 
 io.on('connection', function (socket) {
+    //console.log('Connection initiated : ' + socket.client);
     socket.on('bluebear.engine.clientUpdate', function (data) {
-        console.log(data);
+        //console.log('Data received');
+        io.emit('bluebear.engine.clientUpdate', data);
         return true;
     });
     return true;

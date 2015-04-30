@@ -50,6 +50,7 @@
         </div>
     </div>
 
+    <script src="{{ asset('/jikpoze/js/socket.io.js') }}"></script>
     <script type="application/dart" src="{{ asset('/jikpoze/main.dart') }}"></script>
     <script src="{{ asset('/jikpoze/packages/browser/dart.js') }}"></script>
     <script>
@@ -73,6 +74,8 @@
             }
             $('#layer_selector').change(switchLayer);
             switchLayer();
+
+
         });
     </script>
 {% endblock %}
