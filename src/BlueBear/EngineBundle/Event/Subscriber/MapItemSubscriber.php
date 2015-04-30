@@ -142,6 +142,7 @@ class MapItemSubscriber implements EventSubscriberInterface
             // we return current map item source filled with the path to the target
             $path = $pathFinder->findPath($mapItems, $source->position, $target->position);
             $mapItemSource->setPath($path);
+            $mapItemSource->setPosition($source->position);
 
             $response->setData([
                 $mapItemSource
