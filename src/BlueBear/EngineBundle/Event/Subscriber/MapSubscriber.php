@@ -162,7 +162,7 @@ class MapSubscriber implements EventSubscriberInterface
         }
     }
 
-    protected function updateMapItem(Context $context, Pencil $pencil, MapItem $mapItem, Layer $layer, Position $requestPosition)
+    protected function updateMapItem(Context $context, Pencil $pencil, MapItem $mapItem = null, Layer $layer, Position $requestPosition)
     {
         // if map item exists, we just change pencil
         if ($mapItem) {
