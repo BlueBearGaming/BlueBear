@@ -189,7 +189,6 @@ class MapSubscriber implements EventSubscriberInterface
                         $layer
                     );
             } else {
-                $layer = $mapItem->getLayer();
                 // if map item does not exists, we create it
                 $mapItem = new MapItem();
                 $mapItem->setContext($context);
