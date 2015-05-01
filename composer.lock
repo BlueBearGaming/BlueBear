@@ -216,12 +216,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/CleverGaming/Jikpoze.git",
-                "reference": "54805a8fd9d1ae61a8eb65b19e4a0377b3c6f073"
+                "reference": "03a2249d26a935102b1f562149a1cd34c1ed9fce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CleverGaming/Jikpoze/zipball/54805a8fd9d1ae61a8eb65b19e4a0377b3c6f073",
-                "reference": "54805a8fd9d1ae61a8eb65b19e4a0377b3c6f073",
+                "url": "https://api.github.com/repos/CleverGaming/Jikpoze/zipball/03a2249d26a935102b1f562149a1cd34c1ed9fce",
+                "reference": "03a2249d26a935102b1f562149a1cd34c1ed9fce",
                 "shasum": ""
             },
             "type": "game-engine",
@@ -245,7 +245,7 @@
                 "stagexl",
                 "tiles"
             ],
-            "time": "2015-04-30 13:09:59"
+            "time": "2015-05-01 20:32:15"
         },
         {
             "name": "components/jquery",
@@ -2191,12 +2191,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phiamo/MopaBootstrapBundle.git",
-                "reference": "a5573423b7d029d65bf85e3eba336d5d85d695f1"
+                "reference": "5ca11eec31573550dacb0c34c68c1c3e364cca02"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phiamo/MopaBootstrapBundle/zipball/a5573423b7d029d65bf85e3eba336d5d85d695f1",
-                "reference": "a5573423b7d029d65bf85e3eba336d5d85d695f1",
+                "url": "https://api.github.com/repos/phiamo/MopaBootstrapBundle/zipball/5ca11eec31573550dacb0c34c68c1c3e364cca02",
+                "reference": "5ca11eec31573550dacb0c34c68c1c3e364cca02",
                 "shasum": ""
             },
             "require": {
@@ -2251,7 +2251,7 @@
                 "form",
                 "template"
             ],
-            "time": "2015-04-30 12:53:38"
+            "time": "2015-04-28 12:10:01"
         },
         {
             "name": "mopa/composer-bridge",
