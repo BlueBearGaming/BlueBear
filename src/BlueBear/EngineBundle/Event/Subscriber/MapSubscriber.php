@@ -115,59 +115,69 @@ class MapSubscriber implements EventSubscriberInterface
         $response = $event->getResponse();
         $context = $event->getContext();
 
-        if (count($request->mapItems)) {
-            $updated = [];
-            $removed = [];
-            /** @var MapUpdateItemSubRequest $mapItemRequest */
-            foreach ($request->mapItems as $mapItemRequest) {
-                $position = new Position($mapItemRequest->x, $mapItemRequest->y);
+        if (0 == count($request->mapItems)) {
+            throw new \UnexpectedValueException("request.mapItems must contains mapItems");
+        }
 
-                if ($mapItemRequest->layerName) {
-                    /** @var Layer $layer */
-                    $layer = $this
-                        ->getContainer()
-                        ->get('bluebear.manager.layer')
-                        ->findOneBy([
-                            'name' => $mapItemRequest->layerName
-                        ]);
-                    $this->throwUnless($layer, 'Layer not found');
-                    // if a pencil name is provided, we update existing map item or we create it. If not, we delete
-                    // existing map item
-                    if ($mapItemRequest->pencilName) {
-                        /** @var Pencil $pencil */
-                        $pencil = $this->getContainer()->get('bluebear.manager.pencil')->findOneBy([
-                            'name' => $mapItemRequest->pencilName
-                        ]);
-                        $this->throwUnless($pencil, 'Pencil not found');
-                        // try to find an existing item
-                        $mapItem = $this
-                            ->getMapItemManager()
-                            ->findByPositionAndLayer($context, $position, $layer);
-                        // update current map item according to pencil and map item
-                        $this->updateMapItem($context, $pencil, $mapItem, $layer, $position);
-                    } else {
-                        // try to find an existing item
-                        $mapItem = $this->getMapItemManager()->findByPositionAndLayer($context, $position, $layer);
-                        $this->throwUnless($mapItem, 'Unable to delete. Map item not found');
-                        $this->getMapItemManager()->delete($mapItem);
-                        $removed[] = $mapItem;
-                    }
-                    $response->setData($updated, $removed);
-                }
+        $updated = [];
+        $removed = [];
+        /** @var MapUpdateItemSubRequest $mapItemRequest */
+        foreach ($request->mapItems as $mapItemRequest) {
+            if (!$mapItemRequest->layerName) {
+                throw new \UnexpectedValueException("mapItem.layerName missing");
             }
+            $position = new Position($mapItemRequest->x, $mapItemRequest->y);
+            /** @var Layer $layer */
+            $layer = $this
+                ->getContainer()
+                ->get('bluebear.manager.layer')
+                ->findOneBy([
+                    'name' => $mapItemRequest->layerName,
+                ]);
+            $this->throwUnless($layer, 'Layer not found');
+            // if a pencil name is provided, we update existing map item or we create it. If not, we delete
+            // existing map item
+            if ($mapItemRequest->pencilName) {
+                /** @var Pencil $pencil */
+                $pencil = $this->getContainer()->get('bluebear.manager.pencil')->findOneBy([
+                    'name' => $mapItemRequest->pencilName,
+                ]);
+                $this->throwUnless($pencil, 'Pencil not found');
+                // try to find an existing item
+                $mapItem = $this
+                    ->getMapItemManager()
+                    ->findByPositionAndLayer($context, $position, $layer);
+                // update current map item according to pencil and map item
+                $updated[] = $this->updateMapItem($context, $pencil, $mapItem, $layer, $position);;
+            } else {
+                // try to find an existing item
+                $mapItem = $this->getMapItemManager()->findByPositionAndLayer($context, $position, $layer);
+                $this->throwUnless($mapItem, 'Unable to delete. Map item not found');
+                $this->getMapItemManager()->delete($mapItem);
+                $removed[] = $mapItem;
+            }
+        }
+        $response->setData($updated, $removed);
 
-            if (count($updated)) {
-                $event->setRequestClientUpdate(true);
-            }
+        if (count($updated)) {
+            $event->setRequestClientUpdate(true);
         }
     }
 
+    /**
+     * @param Context $context
+     * @param Pencil $pencil
+     * @param MapItem $mapItem
+     * @param Layer $layer
+     * @param Position $requestPosition
+     * @return MapItem
+     * @throws Exception
+     */
     protected function updateMapItem(Context $context, Pencil $pencil, MapItem $mapItem = null, Layer $layer, Position $requestPosition)
     {
         // if map item exists, we just change pencil
         if ($mapItem) {
             $mapItem->setPencil($pencil);
-            $updated[] = $mapItem;
         } else {
             // searching if an entity model is linked to the pencil
             /** @var EntityModel $entityModel */
@@ -197,9 +207,9 @@ class MapSubscriber implements EventSubscriberInterface
                 $mapItem->setLayer($layer);
                 $mapItem->setPencil($pencil);
             }
-            $updated[] = $mapItem;
         }
         $this->getMapItemManager()->save($mapItem);
+        return $mapItem;
     }
 
     /**
