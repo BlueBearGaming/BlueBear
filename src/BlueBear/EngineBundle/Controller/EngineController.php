@@ -30,10 +30,10 @@ class EngineController extends Controller
         $serializer = $this->get('jms_serializer');
         $content = $serializer->serialize($engineEvent->getResponse(), 'json');
 
-        // Elephant IO POC
-        $client = $this->get('elephantio_client.default');
-        $client->send(EngineEvent::ENGINE_CLIENT_UPDATE, ['event' => $content]);
-
+        //if ($engineEvent->getRequestClientUpdate()) {
+            $client = $this->get('elephantio_client.default');
+            $client->send(EngineEvent::ENGINE_CLIENT_UPDATE, ['event' => $content]);
+        //}
         $response = new Response();
         $response->setStatusCode(200);
         $response->setContent($content);

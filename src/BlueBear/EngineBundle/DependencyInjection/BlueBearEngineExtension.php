@@ -27,5 +27,6 @@ class BlueBearEngineExtension extends Extension
 
         // engine allowed events
         $container->setParameter('bluebear.engine.events', $config['events']);
+        $container->setParameter('bluebear.engine.rules', $config['rules']);
     }
 }

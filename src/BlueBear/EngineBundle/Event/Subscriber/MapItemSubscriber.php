@@ -13,6 +13,8 @@ use BlueBear\EngineBundle\Behavior\HasException;
 use BlueBear\EngineBundle\Event\EngineEvent;
 use BlueBear\EngineBundle\Event\Request\MapItemClickRequest;
 use BlueBear\EngineBundle\Event\Response\MapItemClickResponse;
+use BlueBear\EngineBundle\Rules\Ruler;
+use BlueBear\GameBundle\Rules\MovementRule;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\PersistentCollection;
 use Exception;
@@ -80,7 +82,8 @@ class MapItemSubscriber implements EventSubscriberInterface
                 $availableMapItemsForMovement = $this->getContainer()->get('bluebear.engine.path_finder')->findAvailable(
                     $event->getContext(),
                     $target->position,
-                    $entityInstance->get('movement')
+                    $entityInstance->get('movement'),
+                    new MovementRule()
                 );
             }
             $this->throwUnless($entityInstance->hasBehavior('selectable'), 'Entity has no selectable behavior');
@@ -124,13 +127,17 @@ class MapItemSubscriber implements EventSubscriberInterface
             $pathFinder = $this
                 ->getContainer()
                 ->get('bluebear.engine.path_finder');
+            $rule = $this
+                ->getContainer()
+                ->get('bluebear.engine.ruler')
+                ->getRulesForEvent($event->getName());
             /** @var ArrayCollection $availableMapItemsForMovement */
             $availableMapItemsForMovement = $pathFinder->findAvailable(
                 $event->getContext(),
                 $mapItemSource->getPosition(),
-                $entityInstance->get('movement')
+                $entityInstance->get('movement'),
+                $rule
             );
-            // TODO add ruler to check if unit is allowed to move on target map item according to the game rule
             // targeted map item should be available for movement, because it should coming from a previous call
             // to MapItemClick method.
             $exists = $availableMapItemsForMovement->filter(function (MapItem $mapItem) use ($mapItemTarget) {
@@ -154,6 +161,7 @@ class MapItemSubscriber implements EventSubscriberInterface
             $response->setData([
                 $mapItemSource
             ]);
+            $event->setRequestClientUpdate(true);
         }
     }
 

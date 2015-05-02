@@ -16,6 +16,8 @@ blue_bear_engine:
         bluebear.editor.putEntity:
             request: BlueBear\EditorBundle\Event\Request\PutEntityRequest
             response: BlueBear\EditorBundle\Event\Response\PutEntityResponse
+    rules:
+        bluebear.engine.mapItemMove: BlueBear\GameBundle\Rules\MovementRule
 
 # BlueBear Game
 blue_bear_game:

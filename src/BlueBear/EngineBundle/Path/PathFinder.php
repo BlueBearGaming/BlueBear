@@ -6,6 +6,8 @@ use BlueBear\CoreBundle\Constant\Map\Constant;
 use BlueBear\CoreBundle\Entity\Map\Context;
 use BlueBear\CoreBundle\Entity\Map\MapItem;
 use BlueBear\CoreBundle\Utils\Position;
+use BlueBear\EngineBundle\Rules\Rule;
+use BlueBear\EngineBundle\Rules\Ruler;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\PersistentCollection;
 
@@ -38,14 +40,20 @@ class PathFinder
     protected $foundItems = [];
 
     /**
+     * @var Ruler
+     */
+    protected $ruler;
+
+    /**
      * Find available map items for moving entity instance
      *
      * @param Context $context
      * @param Position $source
      * @param $movement
+     * @param Rule $rule
      * @return MapItem[]
      */
-    public function findAvailable(Context $context, Position $source, $movement)
+    public function findAvailable(Context $context, Position $source, $movement, Rule $rule)
     {
         $movement = (int)$movement;
         /** @var PersistentCollection $mapItems */
@@ -57,7 +65,7 @@ class PathFinder
         foreach ($mapItems as $mapItem) {
             $this->indexedMapItems[$mapItem->getX()][$mapItem->getY()] = $mapItem;
         }
-        $this->recursiveFind($source, $movement, $context->getMap()->getType());
+        $this->recursiveFind($source, $movement, $context->getMap()->getType(), $rule);
 
         return new ArrayCollection($this->foundItems);
     }
@@ -89,8 +97,9 @@ class PathFinder
      * @param Position $source
      * @param $movementLeft
      * @param $mapType
+     * @param Rule $rule
      */
-    protected function recursiveFind(Position $source, $movementLeft, $mapType)
+    protected function recursiveFind(Position $source, $movementLeft, $mapType, Rule $rule)
     {
         $movementLeft--;
         // find map item neighbours
@@ -101,12 +110,18 @@ class PathFinder
                 (isset($this->processedItems[$neighbour->getX()]) &&
                     !isset($this->processedItems[$neighbour->getX()][$neighbour->getY()]))
             ) {
-                // if map item is not already processed we add it to the process item list
-                $this->processedItems[$neighbour->getX()][$neighbour->getY()] = $neighbour;
-                $this->foundItems[] = $neighbour;
+                $matchRule = $this->getRuler()->matchRule($rule, [
+                    $neighbour,
+                    &$movementLeft
+                ]);
+                if ($matchRule) {
+                    // if map item is not already processed we add it to the process item list
+                    $this->processedItems[$neighbour->getX()][$neighbour->getY()] = $neighbour;
+                    $this->foundItems[] = $neighbour;
+                }
             }
             if ($movementLeft > 0) {
-                $this->recursiveFind($neighbour->getPosition(), $movementLeft, $mapType);
+                $this->recursiveFind($neighbour->getPosition(), $movementLeft, $mapType, $rule);
             }
         }
     }
@@ -160,6 +175,22 @@ class PathFinder
     protected function mapItemExists(Position $position)
     {
         return isset($this->indexedMapItems[$position->x]) && isset($this->indexedMapItems[$position->x][$position->y]);
+    }
+
+    /**
+     * @return Ruler
+     */
+    public function getRuler()
+    {
+        return $this->ruler;
+    }
+
+    /**
+     * @param Ruler $ruler
+     */
+    public function setRuler($ruler)
+    {
+        $this->ruler = $ruler;
     }
 
     protected function findAlgorithm(MapItem $source, $target)

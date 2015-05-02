@@ -12,6 +12,9 @@ parameters:
     # pathfinder
     bluebear.engine.path_finder: BlueBear\EngineBundle\Path\PathFinder
 
+    # ruler
+    bluebear.engine.ruler: BlueBear\EngineBundle\Rules\Ruler
+
 services:
     # engine
     bluebear.engine.engine:
@@ -54,3 +57,10 @@ services:
     # pathfinder
     bluebear.engine.path_finder:
         class: %bluebear.engine.path_finder%
+        calls:
+            - [setRuler, [@bluebear.engine.ruler]]
+
+    # ruler
+    bluebear.engine.ruler:
+        class: %bluebear.engine.ruler%
+        arguments: [%bluebear.engine.rules%]
