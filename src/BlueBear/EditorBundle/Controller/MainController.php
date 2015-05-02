@@ -5,7 +5,6 @@ namespace BlueBear\EditorBundle\Controller;
 use BlueBear\BaseBundle\Behavior\ControllerTrait;
 use BlueBear\CoreBundle\Entity\Map\Map;
 use BlueBear\CoreBundle\Manager\MapManager;
-use BlueBear\EngineBundle\Engine\Engine;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -49,6 +48,7 @@ class MainController extends Controller
             'layerSelectorName' => 'bluebear_map_editor[selected_layer]',
             'pencilSelectorName' => 'bluebear_map_editor[selected_pencil]',
             'contextId' => $context->getId(),
+            'socketIOUri' => $request->getHost() . ':8000',
         ];
 
         return [
