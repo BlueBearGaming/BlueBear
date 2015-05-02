@@ -216,12 +216,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/CleverGaming/Jikpoze.git",
-                "reference": "76759466a5b88c62c570dc7180228a3acadbfa1c"
+                "reference": "a6b41a9dc1361ff4ea63d052e6c43cfd7e95423f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CleverGaming/Jikpoze/zipball/76759466a5b88c62c570dc7180228a3acadbfa1c",
-                "reference": "76759466a5b88c62c570dc7180228a3acadbfa1c",
+                "url": "https://api.github.com/repos/CleverGaming/Jikpoze/zipball/a6b41a9dc1361ff4ea63d052e6c43cfd7e95423f",
+                "reference": "a6b41a9dc1361ff4ea63d052e6c43cfd7e95423f",
                 "shasum": ""
             },
             "type": "game-engine",
@@ -245,7 +245,7 @@
                 "stagexl",
                 "tiles"
             ],
-            "time": "2015-05-02 09:04:27"
+            "time": "2015-05-02 09:56:43"
         },
         {
             "name": "components/jquery",
