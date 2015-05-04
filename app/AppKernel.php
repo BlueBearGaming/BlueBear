@@ -37,10 +37,11 @@ class AppKernel extends Kernel
             new BlueBear\EditorBundle\BlueBearEditorBundle(),
             new BlueBear\EngineBundle\BlueBearEngineBundle(),
             new BlueBear\UserBundle\BlueBearUserBundle(),
-            new BlueBear\GameBundle\BlueBearGameBundle(),
+            //new BlueBear\GameBundle\BlueBearGameBundle(),
             new BlueBear\MenuBundle\BlueBearMenuBundle(),
             new BlueBear\FileUploadBundle\BlueBearFileUploadBundle(),
             new BlueBear\AdminBundle\BlueBearAdminBundle(),
+            new BlueBear\GameChessBundle\BlueBearGameChessBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

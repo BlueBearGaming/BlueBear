@@ -1,6 +1,6 @@
 <?php
 
-namespace BlueBear\GameBundle\Entity;
+namespace BlueBear\EngineBundle\Entity;
 
 use BlueBear\CoreBundle\Entity\Behavior\Id;
 use BlueBear\CoreBundle\Entity\Behavior\Label;
@@ -15,7 +15,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * A unit
  *
  * @ORM\Table(name="entity_model")
- * @ORM\Entity(repositoryClass="BlueBear\GameBundle\Entity\EntityModelRepository")
+ * @ORM\Entity(repositoryClass="BlueBear\EngineBundle\Repository\EntityModelRepository")
  * @ORM\HasLifecycleCallbacks()
  * @UniqueEntity("name")
  */
@@ -25,7 +25,7 @@ class EntityModel
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="BlueBear\GameBundle\Entity\EntityModelAttribute", mappedBy="entityModel", cascade={"persist", "remove"}, fetch="EAGER")
+     * @ORM\OneToMany(targetEntity="BlueBear\EntityBundle\Entity\EntityModelAttribute", mappedBy="entityModel", cascade={"persist", "remove"}, fetch="EAGER")
      */
     protected $attributes;
 

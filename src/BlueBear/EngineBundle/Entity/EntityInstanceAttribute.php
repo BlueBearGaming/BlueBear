@@ -1,6 +1,6 @@
 <?php
 
-namespace BlueBear\GameBundle\Entity;
+namespace BlueBear\EngineBundle\Entity;
 
 use BlueBear\CoreBundle\Entity\Behavior\Id;
 use BlueBear\CoreBundle\Entity\Behavior\Nameable;
@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Generic attributes
  *
  * @ORM\Table(name="entity_instance_attribute")
- * @ORM\Entity(repositoryClass="BlueBear\GameBundle\Entity\EntityInstanceAttributeRepository")
+ * @ORM\Entity(repositoryClass="BlueBear\EngineBundle\Repository\EntityInstanceAttributeRepository")
  * @ORM\HasLifecycleCallbacks()
  */
 class EntityInstanceAttribute
@@ -20,7 +20,7 @@ class EntityInstanceAttribute
     use Id, Nameable, Valuable, Typeable;
 
     /**
-     * @ORM\ManyToOne(targetEntity="BlueBear\GameBundle\Entity\EntityInstance", inversedBy="attributes")
+     * @ORM\ManyToOne(targetEntity="BlueBear\EntityBundle\Entity\EntityInstance", inversedBy="attributes")
      * @ORM\JoinColumn(name="entity_instance_id", onDelete="CASCADE")
      */
     protected $entityInstance;

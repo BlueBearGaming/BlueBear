@@ -22,15 +22,5 @@ class MapItemSubscriber implements EventSubscriberInterface
 
     public function onClick(EngineEvent $event)
     {
-        /** @var MapItemClickRequest $request */
-//        $request = $event->getRequest();
-//        $position = new Position($request->x, $request->y);
-//        $unitInstance = $this->getUnitManager()->findInstanceByPosition($event->getContext(), $position);
-//
-//        /** @BlueBearGameRule: if a map item with an unit is selected, the response must contains the list of available
-//         * cells for this unit according to its movement */
-//        if ($unitInstance) {
-//            $this->getContainer()->get('bluebear.path.finder');
-//        }
     }
 }

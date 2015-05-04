@@ -50,10 +50,9 @@ class PathFinder
      * @param Context $context
      * @param Position $source
      * @param $movement
-     * @param Rule $rule
      * @return MapItem[]
      */
-    public function findAvailable(Context $context, Position $source, $movement, Rule $rule)
+    public function findAvailable(Context $context, Position $source, $movement)
     {
         $movement = (int)$movement;
         /** @var PersistentCollection $mapItems */
@@ -65,7 +64,7 @@ class PathFinder
         foreach ($mapItems as $mapItem) {
             $this->indexedMapItems[$mapItem->getX()][$mapItem->getY()] = $mapItem;
         }
-        $this->recursiveFind($source, $movement, $context->getMap()->getType(), $rule);
+        $this->recursiveFind($source, $movement, $context->getMap()->getType());
 
         return new ArrayCollection($this->foundItems);
     }
@@ -97,9 +96,8 @@ class PathFinder
      * @param Position $source
      * @param $movementLeft
      * @param $mapType
-     * @param Rule $rule
      */
-    protected function recursiveFind(Position $source, $movementLeft, $mapType, Rule $rule)
+    protected function recursiveFind(Position $source, $movementLeft, $mapType)
     {
         $movementLeft--;
         // find map item neighbours
@@ -110,18 +108,12 @@ class PathFinder
                 (isset($this->processedItems[$neighbour->getX()]) &&
                     !isset($this->processedItems[$neighbour->getX()][$neighbour->getY()]))
             ) {
-                $matchRule = $this->getRuler()->matchRule($rule, [
-                    $neighbour,
-                    &$movementLeft
-                ]);
-                if ($matchRule) {
-                    // if map item is not already processed we add it to the process item list
-                    $this->processedItems[$neighbour->getX()][$neighbour->getY()] = $neighbour;
-                    $this->foundItems[] = $neighbour;
-                }
+                // if map item is not already processed we add it to the process item list
+                $this->processedItems[$neighbour->getX()][$neighbour->getY()] = $neighbour;
+                $this->foundItems[] = $neighbour;
             }
             if ($movementLeft > 0) {
-                $this->recursiveFind($neighbour->getPosition(), $movementLeft, $mapType, $rule);
+                $this->recursiveFind($neighbour->getPosition(), $movementLeft, $mapType);
             }
         }
     }

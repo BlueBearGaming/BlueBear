@@ -13,8 +13,6 @@ use BlueBear\EngineBundle\Behavior\HasException;
 use BlueBear\EngineBundle\Event\EngineEvent;
 use BlueBear\EngineBundle\Event\Request\MapItemClickRequest;
 use BlueBear\EngineBundle\Event\Response\MapItemClickResponse;
-use BlueBear\EngineBundle\Rules\Ruler;
-use BlueBear\GameBundle\Rules\MovementRule;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\PersistentCollection;
 use Exception;
@@ -82,8 +80,7 @@ class MapItemSubscriber implements EventSubscriberInterface
                 $availableMapItemsForMovement = $this->getContainer()->get('bluebear.engine.path_finder')->findAvailable(
                     $event->getContext(),
                     $target->position,
-                    $entityInstance->get('movement'),
-                    new MovementRule()
+                    $entityInstance->get('movement')
                 );
             }
             $this->throwUnless($entityInstance->hasBehavior('selectable'), 'Entity has no selectable behavior');

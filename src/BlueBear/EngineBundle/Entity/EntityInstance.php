@@ -1,6 +1,6 @@
 <?php
 
-namespace BlueBear\GameBundle\Entity;
+namespace BlueBear\EngineBundle\Entity;
 
 use BlueBear\CoreBundle\Entity\Behavior\Id;
 use BlueBear\CoreBundle\Entity\Behavior\Label;
@@ -18,7 +18,7 @@ use Exception;
  * Represents a instance of a unit on map
  *
  * @ORM\Table(name="entity_instance")
- * @ORM\Entity(repositoryClass="BlueBear\GameBundle\Entity\EntityInstanceRepository")
+ * @ORM\Entity(repositoryClass="BlueBear\EngineBundle\Repository\EntityInstanceRepository")
  * @ORM\HasLifecycleCallbacks()
  */
 class EntityInstance
@@ -26,7 +26,7 @@ class EntityInstance
     use Id, Nameable, Label, Timestampable, Typeable;
 
     /**
-     * @ORM\OneToMany(targetEntity="BlueBear\GameBundle\Entity\EntityInstanceAttribute", cascade={"persist", "remove"}, mappedBy="entityInstance", indexBy="name")
+     * @ORM\OneToMany(targetEntity="BlueBear\EngineBundle\Entity\EntityInstanceAttribute", cascade={"persist", "remove"}, mappedBy="entityInstance", indexBy="name")
      */
     protected $attributes;
 

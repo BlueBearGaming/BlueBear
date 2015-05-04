@@ -1,6 +1,6 @@
 <?php
 
-namespace BlueBear\GameBundle\Entity;
+namespace BlueBear\EngineBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
