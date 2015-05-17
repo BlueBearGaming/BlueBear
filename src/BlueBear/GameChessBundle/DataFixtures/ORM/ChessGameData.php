@@ -5,14 +5,12 @@ namespace BlueBear\GameChessBundle\DataFixtures\ORM;
 use BlueBear\BaseBundle\Behavior\ContainerTrait;
 use BlueBear\CoreBundle\Entity\Editor\Image;
 use BlueBear\CoreBundle\Entity\Map\Context;
-use BlueBear\CoreBundle\Entity\Map\Layer;
 use BlueBear\CoreBundle\Entity\Map\Map;
 use BlueBear\CoreBundle\Entity\Map\MapItem;
 use BlueBear\CoreBundle\Entity\Map\Pencil;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\HttpFoundation\File\File;
@@ -20,7 +18,7 @@ use Symfony\Component\HttpFoundation\File\File;
 class ChessGameData implements FixtureInterface, ContainerAwareInterface
 {
     use ContainerTrait;
-
+    
     /**
      * @var ObjectManager
      */
