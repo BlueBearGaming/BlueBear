@@ -20,7 +20,7 @@ class EntityInstanceAttribute
     use Id, Nameable, Valuable, Typeable;
 
     /**
-     * @ORM\ManyToOne(targetEntity="BlueBear\EntityBundle\Entity\EntityInstance", inversedBy="attributes")
+     * @ORM\ManyToOne(targetEntity="BlueBear\EngineBundle\Entity\EntityInstance", inversedBy="attributes")
      * @ORM\JoinColumn(name="entity_instance_id", onDelete="CASCADE")
      */
     protected $entityInstance;

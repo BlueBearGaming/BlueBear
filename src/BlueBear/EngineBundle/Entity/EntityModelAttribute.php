@@ -21,7 +21,7 @@ class EntityModelAttribute
     use Id, Nameable, Label, Valuable, Typeable;
 
     /**
-     * @ORM\ManyToOne(targetEntity="BlueBear\GameBundle\Entity\EntityModel", inversedBy="attributes")
+     * @ORM\ManyToOne(targetEntity="BlueBear\EngineBundle\Entity\EntityModel", inversedBy="attributes")
      * @ORM\JoinColumn(name="entity_model_id", referencedColumnName="id", onDelete="cascade")
      */
     protected $entityModel;

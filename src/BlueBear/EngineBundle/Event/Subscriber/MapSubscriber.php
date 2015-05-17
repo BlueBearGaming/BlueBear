@@ -17,7 +17,7 @@ use BlueBear\EngineBundle\Event\Request\MapUpdateRequest;
 use BlueBear\EngineBundle\Event\Request\SubRequest\MapUpdateItemSubRequest;
 use BlueBear\EngineBundle\Event\Response\MapLoadResponse;
 use BlueBear\EngineBundle\Event\Response\MapUpdateResponse;
-use BlueBear\GameBundle\Entity\EntityModel;
+use BlueBear\EngineBundle\Entity\EntityModel;
 use Exception;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 

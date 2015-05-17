@@ -75,6 +75,7 @@ class EntityInstance
         foreach ($entityModel->getAttributes() as $entityModelAttribute) {
             $instanceAttribute = new EntityInstanceAttribute();
             $instanceAttribute->hydrateFromModel($entityModelAttribute);
+            $instanceAttribute->setEntityInstance($this);
             $this->attributes->add($instanceAttribute);
         }
         foreach ($entityModel->getBehaviors() as $entityModelBehavior) {

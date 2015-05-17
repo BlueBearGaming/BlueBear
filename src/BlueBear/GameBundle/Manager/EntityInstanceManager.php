@@ -7,9 +7,9 @@ use BlueBear\CoreBundle\Entity\Map\Context;
 use BlueBear\CoreBundle\Entity\Map\Layer;
 use BlueBear\CoreBundle\Entity\Map\MapItem;
 use BlueBear\CoreBundle\Utils\Position;
-use BlueBear\GameBundle\Entity\EntityInstance;
-use BlueBear\GameBundle\Entity\EntityInstanceRepository;
-use BlueBear\GameBundle\Entity\EntityModel;
+use BlueBear\EngineBundle\Entity\EntityInstance;
+use BlueBear\EngineBundle\Repository\EntityInstanceRepository;
+use BlueBear\EngineBundle\Entity\EntityModel;
 use Doctrine\ORM\NonUniqueResultException;
 use Exception;
 
@@ -90,6 +90,6 @@ class EntityInstanceManager
      */
     protected function getRepository()
     {
-        return $this->getEntityManager()->getRepository('BlueBearGameBundle:EntityInstance');
+        return $this->getEntityManager()->getRepository('BlueBearEngineBundle:EntityInstance');
     }
 }

@@ -21,9 +21,5 @@ class BlueBearGameExtension extends Extension
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
-
-        $container->setParameter('bluebear.game.entity_type', $config['entity_type']);
-        $container->setParameter('bluebear.game.attribute', $config['attribute']);
-        $container->setParameter('bluebear.game.behaviors', $config['behaviors']);
     }
 }

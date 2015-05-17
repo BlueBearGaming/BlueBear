@@ -63,4 +63,3 @@ services:
     # ruler
     bluebear.engine.ruler:
         class: %bluebear.engine.ruler%
-        arguments: [%bluebear.engine.rules%]

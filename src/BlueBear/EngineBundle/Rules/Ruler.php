@@ -11,7 +11,7 @@ class Ruler
 
     protected $rules = [];
 
-    public function __construct(array $rules)
+    public function __construct(array $rules = [])
     {
         $this->rules = $rules;
     }

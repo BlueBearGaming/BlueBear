@@ -49,7 +49,7 @@ class EngineSubscriber implements EventSubscriberInterface
             ->getContextManager()
             ->find($request->contextId);
 
-        if (!$context or !count($context->getUserContexts())) {
+        if (!$context) {
             throw new Exception('Context not found or invalid context map');
         }
         $event->setContext($context);

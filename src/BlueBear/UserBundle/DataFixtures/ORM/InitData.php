@@ -57,5 +57,6 @@ class InitData implements FixtureInterface, ContainerAwareInterface
             $user->setEmail($userName . '@clever-age.com');
         }
         $this->objectManager->persist($user);
+        $this->objectManager->flush($user);
     }
 }
