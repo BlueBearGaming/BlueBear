@@ -67,32 +67,32 @@ class MapItemSubscriber implements EventSubscriberInterface
         });
         $mapItemsFoundCount = count($mapItemTargets);
 
-        if ($mapItemsFoundCount == 1) {
-            $availableMapItemsForMovement = [];
-            /** @var MapItem $mapItemTarget */
-            $mapItemTarget = $mapItemTargets->first();
-            // on map item click, if map item has an entity instance and this entity is movable, we should display
-            // available destination locations to move on
-            $entityInstance = $this->getContainer()->get('bluebear.manager.entity_instance')->findOneBy([
-                'mapItem' => $mapItemTarget->getId()
-            ]);
-            if ($entityInstance && $entityInstance->has('movement')) {
-                $availableMapItemsForMovement = $this->getContainer()->get('bluebear.engine.path_finder')->findAvailable(
-                    $event->getContext(),
-                    $target->position,
-                    $entityInstance->get('movement')
-                );
-            }
-            $this->throwUnless($entityInstance->hasBehavior('selectable'), 'Entity has no selectable behavior');
-            $mapItems = $this->getMapItemForSelection($availableMapItemsForMovement, $entityInstance->getMapItem());
-            // we return available map item for movement for response
-            $response->setData($mapItems);
-        } else if ($mapItemsFoundCount > 1) {
+        if ($mapItemsFoundCount > 1) {
             // engine rule: there should be only one map item by position and by layer
-            throw new Exception('Too many map item found');
-        } else {
+            throw new Exception("Too many map item found on layer {$target->layer} for position [{$target->position->x}, {$target->position->y}]");
+        }
+        if ($mapItemsFoundCount == 0) {
             throw new Exception('Map item target not found on this layer');
         }
+        $availableMapItemsForMovement = [];
+        /** @var MapItem $mapItemTarget */
+        $mapItemTarget = $mapItemTargets->first();
+        // on map item click, if map item has an entity instance and this entity is movable, we should display
+        // available destination locations to move on
+        $entityInstance = $this->getContainer()->get('bluebear.manager.entity_instance')->findOneBy([
+            'mapItem' => $mapItemTarget->getId()
+        ]);
+        if ($entityInstance && $entityInstance->has('movement')) {
+            $availableMapItemsForMovement = $this->getContainer()->get('bluebear.engine.path_finder')->findAvailable(
+                $event->getContext(),
+                $target->position,
+                $entityInstance->get('movement')
+            );
+        }
+        $this->throwUnless($entityInstance->hasBehavior('selectable'), 'Entity has no selectable behavior');
+        $mapItems = $this->getMapItemForSelection($availableMapItemsForMovement, $entityInstance->getMapItem());
+        // we return available map item for movement for response
+        $response->setData($mapItems);
     }
 
     /**

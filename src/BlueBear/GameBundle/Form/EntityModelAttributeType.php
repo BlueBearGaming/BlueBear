@@ -3,7 +3,7 @@
 namespace BlueBear\GameBundle\Form;
 
 use BlueBear\CoreBundle\Constant\Map\Constant;
-use BlueBear\GameBundle\Entity\EntityModelAttribute;
+use BlueBear\EngineBundle\Entity\EntityModelAttribute;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -48,7 +48,7 @@ class EntityModelAttributeType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'BlueBear\GameBundle\Entity\EntityModelAttribute'
+            'data_class' => 'BlueBear\EngineBundle\Entity\EntityModelAttribute'
         ]);
     }
 

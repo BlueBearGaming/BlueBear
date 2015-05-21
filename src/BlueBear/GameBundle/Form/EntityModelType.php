@@ -3,7 +3,7 @@
 namespace BlueBear\GameBundle\Form;
 
 use BlueBear\CoreBundle\Constant\Map\Constant;
-use BlueBear\GameBundle\Entity\EntityModel;
+use BlueBear\EngineBundle\Entity\EntityModel;
 use BlueBear\GameBundle\Factory\EntityTypeFactory;
 use BlueBear\GameBundle\Game\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -60,7 +60,7 @@ class EntityModelType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'BlueBear\GameBundle\Entity\EntityModel',
+            'data_class' => 'BlueBear\EngineBundle\Entity\EntityModel',
             'entity_types' => []
         ]);
     }
