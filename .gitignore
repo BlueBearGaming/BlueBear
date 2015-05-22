@@ -18,9 +18,10 @@ backups
 web/uploads/sprites
 web/uploads/tmp
 
-# kde, apple
+# kde, apple, stuff
 .ds_store
 .directory
+.idea
 
 # deployment
 .mage/config/environment
