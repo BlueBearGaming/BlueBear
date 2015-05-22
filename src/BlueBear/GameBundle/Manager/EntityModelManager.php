@@ -3,8 +3,8 @@
 namespace BlueBear\GameBundle\Manager;
 
 use BlueBear\BaseBundle\Behavior\ManagerTrait;
-use BlueBear\GameBundle\Entity\EntityModel;
-use BlueBear\GameBundle\Entity\EntityModelAttribute;
+use BlueBear\EngineBundle\Entity\EntityModel;
+use BlueBear\EngineBundle\Entity\EntityModelAttribute;
 use BlueBear\GameBundle\Game\EntityBehavior;
 use BlueBear\GameBundle\Game\EntityTypeAttribute;
 
@@ -47,6 +47,6 @@ class EntityModelManager
 
     protected function getRepository()
     {
-        return $this->getEntityManager()->getRepository('BlueBearGameBundle:EntityModel');
+        return $this->getEntityManager()->getRepository('BlueBearEngineBundle:EntityModel');
     }
 }

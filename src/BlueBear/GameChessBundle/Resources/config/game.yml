@@ -1,0 +1,19 @@
+# BlueBear Engine
+blue_bear_engine:
+    events:
+        bluebear.chess.select:
+            request: BlueBear\GameChessBundle\Event\Request\SelectRequest
+            response: BlueBear\GameChessBundle\Event\Response\SelectResponse
+    game:
+        entity_type:
+            piece:
+                label: Piece
+                description: Chess piece
+                behaviors: [selectable]
+            pawn:
+                label: Pawn
+                parent: piece
+                description: Pawn
+        # entity behaviors (and their associated event to listen)
+        behaviors:
+            selectable: bluebear.chess.select
