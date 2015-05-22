@@ -64,6 +64,7 @@ class MapSubscriber implements EventSubscriberInterface
             if (!$bottomRight or !$bottomRight->x or !$bottomRight->y) {
                 throw new Exception('Invalid ending point (bottom right coordinates are not valid)');
             }
+            // find context with limit for map items
             $context = $this
                 ->getContainer()
                 ->get('bluebear.manager.context')
@@ -71,19 +72,28 @@ class MapSubscriber implements EventSubscriberInterface
             $mapItems = $context->getMapItems();
             /** @var MapItem $mapItem */
             foreach ($mapItems as $mapItem) {
-                $entityInstance = $this->getContainer()->get('bluebear.manager.entity_instance')->findOneBy([
-                    'mapItem' => $mapItem->getId()
-                ]);
-                if ($entityInstance) {
-                    $clickListener = [
-                        'name' => EngineEvent::ENGINE_MAP_ITEM_CLICK
-                    ];
-                    $behaviors = $entityInstance->getBehaviors();
+                // find an entity instance exist at this position
+                $entityInstance = $this
+                    ->getContainer()
+                    ->get('bluebear.manager.entity_instance')
+                    ->findOneBy([
+                        'mapItem' => $mapItem->getId()
+                    ]);
 
+                if ($entityInstance) {
+                    $entitiesBehaviors = $this
+                        ->container
+                        ->get('bluebear.game.entity_type_factory')
+                        ->getEntityBehaviors();
+                    $behaviors = $entityInstance->getBehaviors();
+                    // adding entity listeners for each behaviors from configuration
                     foreach ($behaviors as $behavior) {
-                        if ($behavior == 'selectable') {
-                            $mapItem->addListener('click', $clickListener);
+                        if (!array_key_exists($behavior, $entitiesBehaviors)) {
+                            throw new Exception("Invalid behavior : " . $behavior);
                         }
+                        $mapItem->addListener('click', [
+                            'name' => $entitiesBehaviors[$behavior]->getListener()
+                        ]);
                     }
                 }
             }

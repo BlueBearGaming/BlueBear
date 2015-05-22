@@ -33,10 +33,11 @@ class Engine
     public function run($eventName, $eventData)
     {
         try {
-            // only BlueBear events are allowed to be triggered here, not Symfony ones
-            if (strpos($eventName, 'bluebear.') !== 0) {
-                throw new Exception('Invalid event name. Bluebear events name should start with "bluebear."');
-            }
+            // TODO add allowed namespaces in conf
+//            // only BlueBear events are allowed to be triggered here, not Symfony ones
+//            if (strpos($eventName, 'bluebear.') !== 0) {
+//                throw new Exception('Invalid event name. Bluebear events name should start with "bluebear."');
+//            }
             // check if event is allowed
             if (!in_array($eventName, $this->getAllowedEvents())) {
                 throw new Exception('Invalid event name. Allowed events name are "' .
@@ -80,7 +81,10 @@ class Engine
         $requestClass = $this->allowedEvents[$eventName]['request'];
 
         if (!class_exists($requestClass)) {
-            throw new Exception("Invalid request class \"{$requestClass}\". Check your configuration");
+            throw new Exception("Invalid request class \"{$requestClass}\" (not found). Check your configuration");
+        }
+        if (!is_subclass_of($requestClass, 'BlueBear\EngineBundle\Event\EventRequest')) {
+            throw new Exception("{$requestClass} should extend BlueBear\\EngineBundle\\Event\\EventRequest");
         }
         // deserialize json data into EventRequest object
         return $this
@@ -96,7 +100,10 @@ class Engine
         $responseClass = $this->allowedEvents[$eventName]['response'];
 
         if (!class_exists($responseClass)) {
-            throw new Exception('Invalid event response class');
+            throw new Exception("Event response class {$responseClass} not found");
+        }
+        if (!is_subclass_of($responseClass, 'BlueBear\EngineBundle\Event\EventResponse')) {
+            throw new Exception("{$responseClass} should extend BlueBear\\EngineBundle\\Event\\EventResponse");
         }
         // create new EventResponse object
         return new $responseClass($eventName);

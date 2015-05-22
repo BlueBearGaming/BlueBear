@@ -1,6 +1,9 @@
 # BlueBear Engine
 blue_bear_engine:
     events:
+        bluebear.engine.mapLoad:
+            request: BlueBear\EngineBundle\Event\Request\MapLoadRequest
+            response: BlueBear\EngineBundle\Event\Response\MapLoadResponse
         bluebear.chess.select:
             request: BlueBear\GameChessBundle\Event\Request\SelectRequest
             response: BlueBear\GameChessBundle\Event\Response\SelectResponse
