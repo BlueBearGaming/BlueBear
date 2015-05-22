@@ -1,18 +1,20 @@
 <?php
 
-namespace BlueBear\GameBundle\Manager;
+namespace BlueBear\EngineBundle\Manager;
 
 use BlueBear\BaseBundle\Behavior\ManagerTrait;
 use BlueBear\EngineBundle\Entity\EntityModel;
 use BlueBear\EngineBundle\Entity\EntityModelAttribute;
-use BlueBear\GameBundle\Game\EntityBehavior;
-use BlueBear\GameBundle\Game\EntityTypeAttribute;
+use BlueBear\EngineBundle\Engine\Entity\EntityBehavior;
+use BlueBear\EngineBundle\Engine\Entity\EntityTypeAttribute;
 
 class EntityModelManager
 {
     use ManagerTrait;
 
     /**
+     * Save entity model. On entity model creation, create behaviors and attributes from configuration
+     *
      * @param EntityModel $entityModel
      */
     public function save(EntityModel $entityModel)

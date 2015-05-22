@@ -1,6 +1,6 @@
 <?php
 
-namespace BlueBear\GameBundle\Game;
+namespace BlueBear\EngineBundle\Engine\Entity;
 
 use BlueBear\CoreBundle\Entity\Behavior\Label;
 use BlueBear\CoreBundle\Entity\Behavior\Nameable;

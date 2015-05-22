@@ -1,12 +1,12 @@
 parameters:
     # instances
-    bluebear.form.entity_instance: BlueBear\GameBundle\Form\EntityInstanceType
-    bluebear.form.entity_instance_attribute: BlueBear\GameBundle\Form\EntityInstanceAttributeType
+    bluebear.form.entity_instance: BlueBear\EngineBundle\Form\EntityInstanceType
+    bluebear.form.entity_instance_attribute: BlueBear\EngineBundle\Form\EntityInstanceAttributeType
     # models
-    bluebear.form.entity_model: BlueBear\GameBundle\Form\EntityModelType
-    bluebear.form.entity_model_attribute: BlueBear\GameBundle\Form\EntityModelAttributeType
+    bluebear.form.entity_model: BlueBear\EngineBundle\Form\EntityModelType
+    bluebear.form.entity_model_attribute: BlueBear\EngineBundle\Form\EntityModelAttributeType
     # generic
-    bluebear.form.attribute_collection: BlueBear\GameBundle\Form\AttributeCollectionType
+    bluebear.form.attribute_collection: BlueBear\EngineBundle\Form\AttributeCollectionType
 
 services:
     bluebear.form.entity_instance:

@@ -51,8 +51,8 @@ class EntityModel
      */
     public function __construct()
     {
+        $this->behaviors = [];
         $this->attributes = new ArrayCollection();
-        $this->behaviors = new ArrayCollection();
     }
 
     /**

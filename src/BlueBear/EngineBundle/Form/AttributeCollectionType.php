@@ -1,6 +1,6 @@
 <?php
 
-namespace BlueBear\GameBundle\Form;
+namespace BlueBear\EngineBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -22,7 +22,6 @@ class AttributeCollectionType extends AbstractType
             ],
         ]);
     }
-
 
     /**
      * Returns the name of this type.

@@ -1,9 +1,9 @@
 <?php
 
-namespace BlueBear\GameBundle\Form;
+namespace BlueBear\EngineBundle\Form;
 
 use BlueBear\CoreBundle\Constant\Map\Constant;
-use BlueBear\GameBundle\Entity\EntityInstanceAttribute;
+use BlueBear\EngineBundle\Entity\EntityInstanceAttribute;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;

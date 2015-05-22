@@ -1,6 +1,6 @@
 <?php
 
-namespace BlueBear\GameBundle\Game;
+namespace BlueBear\EngineBundle\Engine\Entity;
 
 class EntityBehavior 
 {

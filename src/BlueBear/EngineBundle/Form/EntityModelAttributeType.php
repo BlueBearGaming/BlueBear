@@ -1,6 +1,6 @@
 <?php
 
-namespace BlueBear\GameBundle\Form;
+namespace BlueBear\EngineBundle\Form;
 
 use BlueBear\CoreBundle\Constant\Map\Constant;
 use BlueBear\EngineBundle\Entity\EntityModelAttribute;

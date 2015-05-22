@@ -12,6 +12,7 @@ use BlueBear\CoreBundle\Entity\Map\Pencil;
 use BlueBear\CoreBundle\Entity\Map\PencilSet;
 use BlueBear\CoreBundle\Utils\Position;
 use BlueBear\EngineBundle\Entity\EntityModel;
+use BlueBear\EngineBundle\Manager\EntityModelManager;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
@@ -30,6 +31,14 @@ class ChessGameData implements FixtureInterface, ContainerAwareInterface
     protected $manager;
 
     /**
+     * Get EntityModelManager instead of ObjectManager for entity model to use logic from Manager to create linked
+     * behaviors and attributes
+     *
+     * @var EntityModelManager
+     */
+    protected $entityModelManager;
+
+    /**
      * @var Layer[]
      */
     protected $layers = [];
@@ -42,6 +51,7 @@ class ChessGameData implements FixtureInterface, ContainerAwareInterface
     public function load(ObjectManager $manager)
     {
         $this->manager = $manager;
+        $this->entityModelManager = $this->container->get('bluebear.manager.entity_model');
         $this->createMapItems();
     }
 
@@ -182,7 +192,7 @@ class ChessGameData implements FixtureInterface, ContainerAwareInterface
         $entityModel->setLabel($label);
         $entityModel->setType($type);
         $entityModel->setPencil($pencil);
-        $this->manager->persist($entityModel);
+        $this->entityModelManager->save($entityModel);
         $this->entityModels[$name] = $entityModel;
     }
 }

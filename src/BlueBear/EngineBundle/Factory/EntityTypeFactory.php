@@ -1,13 +1,13 @@
 <?php
 
-namespace BlueBear\GameBundle\Factory;
+namespace BlueBear\EngineBundle\Factory;
 
 use BlueBear\BaseBundle\Behavior\ContainerTrait;
 use BlueBear\EngineBundle\Behavior\HasException;
-use BlueBear\GameBundle\Entity\EntityModel;
-use BlueBear\GameBundle\Game\EntityBehavior;
-use BlueBear\GameBundle\Game\EntityType;
-use BlueBear\GameBundle\Game\EntityTypeAttribute;
+use BlueBear\EngineBundle\Entity\EntityModel;
+use BlueBear\EngineBundle\Engine\Entity\EntityBehavior;
+use BlueBear\EngineBundle\Engine\Entity\EntityType;
+use BlueBear\EngineBundle\Engine\Entity\EntityTypeAttribute;
 use Exception;
 
 class EntityTypeFactory
@@ -104,7 +104,7 @@ class EntityTypeFactory
     public function getEntityType($entityTypeName)
     {
         if (!array_key_exists($entityTypeName, $this->entityTypes)) {
-            throw new Exception('Invalid entity tape name');
+            throw new Exception("Invalid entity type name : {$entityTypeName}");
         }
         return $this->entityTypes[$entityTypeName];
     }

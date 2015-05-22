@@ -1,3 +1,7 @@
+imports:
+    - { resource: managers.yml }
+    - { resource: forms.yml }
+
 parameters:
     # engine
     bluebear.engine.engine: BlueBear\EngineBundle\Engine\Engine
@@ -14,6 +18,9 @@ parameters:
 
     # ruler
     bluebear.engine.ruler: BlueBear\EngineBundle\Rules\Ruler
+
+    # entity type factory
+    bluebear.game.entity_type_factory: BlueBear\EngineBundle\Factory\EntityTypeFactory
 
 services:
     # engine
@@ -63,3 +70,10 @@ services:
     # ruler
     bluebear.engine.ruler:
         class: %bluebear.engine.ruler%
+
+    # factory
+    bluebear.game.entity_type_factory:
+        class: %bluebear.game.entity_type_factory%
+        calls:
+            - [setContainer, [@service_container]]
+            - [createEntityTypes, [%bluebear.game.entity_type%, %bluebear.game.attribute%, %bluebear.game.behaviors%]]

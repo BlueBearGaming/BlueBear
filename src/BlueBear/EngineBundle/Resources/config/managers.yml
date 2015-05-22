@@ -1,0 +1,16 @@
+parameters:
+    # managers
+    bluebear.manager.entity_instance: BlueBear\EngineBundle\Manager\EntityInstanceManager
+    bluebear.manager.entity_model: BlueBear\EngineBundle\Manager\EntityModelManager
+
+services:
+    # managers
+    bluebear.manager.entity_instance:
+            class: %bluebear.manager.entity_instance%
+            calls:
+                - [setContainer, [@service_container]]
+
+    bluebear.manager.entity_model:
+        class: %bluebear.manager.entity_model%
+        calls:
+            - [setContainer, [@service_container]]

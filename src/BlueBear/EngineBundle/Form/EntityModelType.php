@@ -1,15 +1,16 @@
 <?php
 
-namespace BlueBear\GameBundle\Form;
+namespace BlueBear\EngineBundle\Form;
 
 use BlueBear\CoreBundle\Constant\Map\Constant;
-use BlueBear\GameBundle\Entity\EntityInstance;
-use BlueBear\GameBundle\Factory\EntityTypeFactory;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use BlueBear\EngineBundle\Engine\Entity\EntityType;
+use BlueBear\EngineBundle\Entity\EntityModel;
+use BlueBear\EngineBundle\Factory\EntityTypeFactory;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class EntityInstanceType extends AbstractType
+class EntityModelType extends AbstractType
 {
     /**
      * @var EntityTypeFactory
@@ -18,15 +19,16 @@ class EntityInstanceType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        /** @var EntityInstance $entityInstance */
-        $entityInstance = $options['data'];
+        /** @var EntityModel $entityModel */
+        $entityModel = $options['data'];
 
         $builder->add('name', 'text', [
             'help_block' => 'Name of the unit'
         ]);
+        $builder->add('label', 'text');
         $builder->add('pencil');
         // type cannot by changed after creation, attributes are available only after the type is chosen
-        if ($entityInstance->getId()) {
+        if ($entityModel->getId()) {
             $builder->add('type', 'choice', [
                 'choices' => $this->getSortedEntityTypes(),
                 'read_only' => true,
@@ -35,6 +37,7 @@ class EntityInstanceType extends AbstractType
             $builder->add('behaviors', 'choice', [
                 'choices' => $this->getSortedEntityBehaviors(),
                 'read_only' => true,
+                'disabled' => 'disabled',
                 'multiple' => true,
                 'expanded' => true,
             ]);
@@ -49,16 +52,22 @@ class EntityInstanceType extends AbstractType
             'expanded' => true,
             'horizontal_input_wrapper_class' => 'col-sm-9 form-inline-checkboxes',
         ]);
-        if ($entityInstance->getId()) {
-            $builder->add('attributes', 'attribute_collection', [
-                'type' => 'entity_instance_attribute'
-            ]);
+        if ($entityModel->getId()) {
+            $builder->add('attributes', 'attribute_collection');
         }
+    }
+
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults([
+            'data_class' => 'BlueBear\EngineBundle\Entity\EntityModel',
+            'entity_types' => []
+        ]);
     }
 
     public function getName()
     {
-        return 'entity_instance';
+        return 'entity_model';
     }
 
     public function setEntityTypeFactory(EntityTypeFactory $entityTypeFactory)

@@ -1,6 +1,6 @@
 <?php
 
-namespace BlueBear\GameBundle\Manager;
+namespace BlueBear\EngineBundle\Manager;
 
 use BlueBear\BaseBundle\Behavior\ManagerTrait;
 use BlueBear\CoreBundle\Entity\Map\Context;
