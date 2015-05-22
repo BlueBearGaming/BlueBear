@@ -62,6 +62,7 @@ class EntityTypeFactory
             $behavior->setListener($listener);
             $this->entityBehaviors[$name] = $behavior;
         }
+        $toInherit = [];
         // creating available entity types
         foreach ($entityTypesConfig as $name => $entityTypeConfig) {
             $entityType = new EntityType();
@@ -84,7 +85,25 @@ class EntityTypeFactory
                     $entityType->addBehavior($this->entityBehaviors[$behaviorName]);
                 }
             }
-            $this->entityTypes[] = $entityType;
+            if (array_key_exists('parent', $entityTypeConfig)) {
+                $toInherit[$name] = $entityTypeConfig;
+            }
+            $this->entityTypes[$name] = $entityType;
+
+        }
+        foreach ($toInherit as $name => $entityTypeConfig) {
+            if (!array_key_exists($entityTypeConfig['parent'], $this->entityTypes)) {
+                throw new Exception("Invalid parent name : {$entityTypeConfig['parent']}");
+            }
+            $entityType = $this->entityTypes[$name];
+            $entityTypeParent = $this->entityTypes[$entityTypeConfig['parent']];
+
+            foreach ($entityTypeParent->getBehaviors() as $behavior) {
+                $entityType->addBehavior($behavior);
+            }
+            if (!array_key_exists('label', $entityTypeConfig)) {
+                $entityType->setLabel($entityTypeParent->getLabel());
+            }
         }
     }
 

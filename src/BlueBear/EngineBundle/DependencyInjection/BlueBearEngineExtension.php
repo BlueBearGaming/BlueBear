@@ -24,7 +24,6 @@ class BlueBearEngineExtension extends Extension
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
-
         // engine allowed events
         $container->setParameter('bluebear.engine.events', $config['events']);
         $container->setParameter('bluebear.game.entity_type', $config['game']['entity_type']);

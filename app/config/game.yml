@@ -17,34 +17,34 @@ blue_bear_engine:
             request: BlueBear\EditorBundle\Event\Request\PutEntityRequest
             response: BlueBear\EditorBundle\Event\Response\PutEntityResponse
     game:
-        entity_type:
-            door:
-                label: Door
-                attributes: [hp, armor]
-                description: A way to go into another room
-            unit:
-                label: Unit
-                attributes: [hp, race, class, intelligence, dexterity, force, movement]
-                description: Unit on map (panda or foes)
-                behaviors: [selectable, movable]
-            # item container represents a item which can holding other items, like a chest
-            item_container:
-                label: ItemContainer
-                attributes: [hp, armor]
-                description: An item container can hold other items, like a chest...
-            item:
-                label: Item
-                attributes: [hp, armor]
-                description: An item on the map
-                behaviors: [selectable]
-            weapon:
-                label: Weapon
-                attributes: [hp, armor]
-                description: A weapon to deal damage
-        # entity behaviors (and their associated event to listen)
-        behaviors:
-            selectable: bluebear.engine.mapItemClick
-            movable: bluebear.engine.mapItemClick
+#        entity_type:
+#            door:
+#                label: Door
+#                attributes: [hp, armor]
+#                description: A way to go into another room
+#            unit:
+#                label: Unit
+#                attributes: [hp, race, class, intelligence, dexterity, force, movement]
+#                description: Unit on map (panda or foes)
+#                behaviors: [selectable, movable]
+#            # item container represents a item which can holding other items, like a chest
+#            item_container:
+#                label: ItemContainer
+#                attributes: [hp, armor]
+#                description: An item container can hold other items, like a chest...
+#            item:
+#                label: Item
+#                attributes: [hp, armor]
+#                description: An item on the map
+#                behaviors: [selectable]
+#            weapon:
+#                label: Weapon
+#                attributes: [hp, armor]
+#                description: A weapon to deal damage
+#        # entity behaviors (and their associated event to listen)
+#        behaviors:
+#            selectable: bluebear.engine.mapItemClick
+#            movable: bluebear.engine.mapItemClick
         attribute:
             # race, class
             race: {label: bluebear.attributes.race, type: string}

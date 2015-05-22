@@ -45,7 +45,7 @@ class EntityInstanceAttributeType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'BlueBear\GameBundle\Entity\EntityInstanceAttribute'
+            'data_class' => 'BlueBear\EngineBundle\Entity\EntityInstanceAttribute'
         ]);
     }
 

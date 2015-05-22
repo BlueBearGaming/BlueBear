@@ -14,6 +14,26 @@ blue_bear_engine:
                 label: Pawn
                 parent: piece
                 description: Pawn
+            rook:
+                label: Rook
+                parent: piece
+                description: Rook
+            bishop:
+                label: Bishop
+                parent: piece
+                description: Bishop
+            knight:
+                label: Knight
+                parent: piece
+                description: Knight
+            queen:
+                label: Queen
+                parent: piece
+                description: Queen
+            king:
+                label: King
+                parent: piece
+                description: King
         # entity behaviors (and their associated event to listen)
         behaviors:
             selectable: bluebear.chess.select
