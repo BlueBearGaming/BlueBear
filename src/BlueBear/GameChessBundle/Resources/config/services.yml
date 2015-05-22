@@ -1,9 +1,10 @@
 services:
-#    blue_bear_game_chess.example:
-#        class: BlueBear\GameChessBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
-
-    chess.rules.pawn:
-        class: RuleSet
+    chess.listeners.select:
+        class: BlueBear\GameChessBundle\Event\Listener\SelectListener
         tags:
-            - {name: bluebear.rules, domain: pawn}
+            - {name: kernel.event_listener, event: bluebear.chess.select, method: onSelect}
+
+#    chess.rules.pawn:
+#        class: RuleSet
+#        tags:
+#            - {name: bluebear.rules, domain: pawn}

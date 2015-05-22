@@ -2,9 +2,8 @@
 
 namespace BlueBear\GameChessBundle\Event\Response;
 
-use BlueBear\EngineBundle\Event\EventResponse;
+use BlueBear\EngineBundle\Event\Response\MapItemClickResponse;
 
-class SelectResponse extends EventResponse
+class SelectResponse extends MapItemClickResponse
 {
-
 }

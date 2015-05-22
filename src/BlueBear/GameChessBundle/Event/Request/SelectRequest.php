@@ -2,10 +2,8 @@
 
 namespace BlueBear\GameChessBundle\Event\Request;
 
+use BlueBear\EngineBundle\Event\Request\MapItemClickRequest;
 
-use BlueBear\EngineBundle\Event\EventRequest;
-
-class SelectRequest extends EventRequest
+class SelectRequest extends MapItemClickRequest
 {
-
 }
