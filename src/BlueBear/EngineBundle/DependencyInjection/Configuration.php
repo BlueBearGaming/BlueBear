@@ -41,6 +41,7 @@ class Configuration implements ConfigurationInterface
                                     ->scalarNode('label')->isRequired()->end()
                                     ->scalarNode('description')->end()
                                     ->scalarNode('parent')->end()
+                                    ->scalarNode('class')->end()
                                     ->arrayNode('behaviors')
                                         ->prototype('scalar')->end()
                                     ->end()

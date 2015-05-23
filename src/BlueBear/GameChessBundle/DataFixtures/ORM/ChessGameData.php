@@ -129,7 +129,7 @@ class ChessGameData implements FixtureInterface, ContainerAwareInterface
 
         foreach (['black', 'white'] as $color) {
             foreach (['rook', 'knight', 'bishop', 'queen', 'king', 'pawn'] as $type) {
-                $this->createEntityModel("chess_{$type}_{$color}", ucwords("{$color} {$type}"), $type, $pieces["{$color}_{$type}"]);
+                $this->createEntityModel("chess_{$type}_{$color}", ucwords("{$color} {$type}"), "chess_{$type}", $pieces["{$color}_{$type}"]);
             }
         }
 

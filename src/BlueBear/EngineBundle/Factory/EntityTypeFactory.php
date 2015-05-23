@@ -2,7 +2,6 @@
 
 namespace BlueBear\EngineBundle\Factory;
 
-use BlueBear\BaseBundle\Behavior\ContainerTrait;
 use BlueBear\EngineBundle\Behavior\HasException;
 use BlueBear\EngineBundle\Entity\EntityModel;
 use BlueBear\EngineBundle\Engine\Entity\EntityBehavior;
@@ -12,7 +11,7 @@ use Exception;
 
 class EntityTypeFactory
 {
-    use ContainerTrait, HasException;
+    use HasException;
 
     /**
      * @var EntityTypeAttribute[]
@@ -85,6 +84,12 @@ class EntityTypeFactory
                     $entityType->addBehavior($this->entityBehaviors[$behaviorName]);
                 }
             }
+            if (array_key_exists('class', $entityTypeConfig)) {
+                if (!class_exists($entityTypeConfig['class'])) {
+                    throw new \UnexpectedValueException("Cannot load class: '{$entityTypeConfig['class']}'");
+                }
+                $entityType->setClass($entityTypeConfig['class']);
+            }
             if (array_key_exists('parent', $entityTypeConfig)) {
                 $toInherit[$name] = $entityTypeConfig;
             }
@@ -103,6 +108,9 @@ class EntityTypeFactory
             }
             if (!array_key_exists('label', $entityTypeConfig)) {
                 $entityType->setLabel($entityTypeParent->getLabel());
+            }
+            if (!array_key_exists('class', $entityTypeConfig)) {
+                $entityType->setClass($entityTypeParent->getClass());
             }
         }
     }

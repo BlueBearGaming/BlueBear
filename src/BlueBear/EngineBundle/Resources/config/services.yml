@@ -25,6 +25,9 @@ parameters:
     # Context utilities
     bluebear.engine.context.utilities.class: BlueBear\EngineBundle\Engine\ContextUtilities
 
+    # Doctrine class dynamic loading of EntityInstance
+    bluebear.listener.doctrine_event_listener.class: BlueBear\EngineBundle\Listener\DoctrineEventListener
+
 services:
     # engine
     bluebear.engine.engine:
@@ -78,8 +81,13 @@ services:
     bluebear.game.entity_type_factory:
         class: %bluebear.game.entity_type_factory%
         calls:
-            - [setContainer, [@service_container]]
             - [createEntityTypes, [%bluebear.game.entity_type%, %bluebear.game.attribute%, %bluebear.game.behaviors%]]
 
     bluebear.engine.context.utilities:
         class: %bluebear.engine.context.utilities.class%
+
+    bluebear.listener.doctrine_event_listener:
+        class: %bluebear.listener.doctrine_event_listener.class%
+        arguments: [@bluebear.game.entity_type_factory]
+        tags:
+            - { name: doctrine.event_listener, event: loadClassMetadata }

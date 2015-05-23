@@ -7,6 +7,7 @@ services:
     # managers
     bluebear.manager.entity_instance:
             class: %bluebear.manager.entity_instance%
+            arguments: [@bluebear.game.entity_type_factory]
             calls:
                 - [setContainer, [@service_container]]
 

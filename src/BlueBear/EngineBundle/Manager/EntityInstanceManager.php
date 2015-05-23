@@ -8,6 +8,7 @@ use BlueBear\CoreBundle\Entity\Map\Layer;
 use BlueBear\CoreBundle\Entity\Map\MapItem;
 use BlueBear\CoreBundle\Utils\Position;
 use BlueBear\EngineBundle\Entity\EntityInstance;
+use BlueBear\EngineBundle\Factory\EntityTypeFactory;
 use BlueBear\EngineBundle\Repository\EntityInstanceRepository;
 use BlueBear\EngineBundle\Entity\EntityModel;
 use Doctrine\ORM\NonUniqueResultException;
@@ -16,6 +17,14 @@ use Exception;
 class EntityInstanceManager
 {
     use ManagerTrait;
+
+    /** @var EntityTypeFactory */
+    protected $entityTypeFactory;
+
+    public function __construct(EntityTypeFactory $entityTypeFactory)
+    {
+        $this->entityTypeFactory = $entityTypeFactory;
+    }
 
     /**
      * Create a instance of an entity model on the map at specific position
@@ -38,7 +47,9 @@ class EntityInstanceManager
             throw new Exception('Unable to create entity instance. MapItem "' . $entityInstance->getMapItem()->getId() . '" has already an entity');
         }
         // create a instance from the unit pattern
-        $entityInstance = new EntityInstance();
+        $class = $this->entityTypeFactory->getEntityType($entityModel->getType())->getClass();
+        /** @var EntityInstance $entityInstance */
+        $entityInstance = new $class;
         $entityInstance->hydrateFromModel($entityModel);
         $entityInstance->setLabel('John Panda');
         $entityInstance->setPencil($entityModel->getPencil());

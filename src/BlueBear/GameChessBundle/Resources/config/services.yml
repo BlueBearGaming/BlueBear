@@ -1,11 +1,13 @@
+parameters:
+    chess.engine.context.utilities.class: BlueBear\GameChessBundle\Event\ChessContextUtilities
+
 services:
     chess.listeners.select:
         class: BlueBear\GameChessBundle\Event\Listener\SelectListener
-        arguments: [@bluebear.engine.context.utilities]
+        arguments: [@chess.engine.context.utilities]
         tags:
             - {name: kernel.event_listener, event: bluebear.chess.select, method: onSelect}
 
-#    chess.rules.pawn:
-#        class: RuleSet
-#        tags:
-#            - {name: bluebear.rules, domain: pawn}
+    chess.engine.context.utilities:
+        class: %chess.engine.context.utilities.class%
+        arguments: [@bluebear.manager.entity_instance]

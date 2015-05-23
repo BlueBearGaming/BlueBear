@@ -9,33 +9,34 @@ blue_bear_engine:
             response: BlueBear\EngineBundle\Event\Response\MapUpdateResponse
     game:
         entity_type:
-            piece:
+            chess_piece:
                 label: Piece
                 description: Chess piece
                 behaviors: [selectable]
-            pawn:
+                class: BlueBear\GameChessBundle\Entity\Piece
+            chess_pawn:
                 label: Pawn
-                parent: piece
+                parent: chess_piece
                 description: Pawn
-            rook:
+            chess_rook:
                 label: Rook
-                parent: piece
+                parent: chess_piece
                 description: Rook
-            bishop:
+            chess_bishop:
                 label: Bishop
-                parent: piece
+                parent: chess_piece
                 description: Bishop
-            knight:
+            chess_knight:
                 label: Knight
-                parent: piece
+                parent: chess_piece
                 description: Knight
-            queen:
+            chess_queen:
                 label: Queen
-                parent: piece
+                parent: chess_piece
                 description: Queen
-            king:
+            chess_king:
                 label: King
-                parent: piece
+                parent: chess_piece
                 description: King
         # entity behaviors (and their associated event to listen)
         behaviors:
