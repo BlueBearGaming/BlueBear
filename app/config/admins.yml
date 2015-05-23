@@ -15,6 +15,10 @@ blue_bear_admin:
         max_per_page: 25
         # use default bootstrap integration
         bootstrap: false
+        # Routing options
+        routing:
+            name_pattern: 'bluebear_admin_{admin}_{action}'
+            url_pattern: '{admin}/{action}'
     # list of managed admins
     admins:
         # entities (pencil is an example)

@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
     "hash": "206d543f40e2e6cc8050459d5b2e9731",
@@ -103,12 +103,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/CleverGaming/AdminBundle.git",
-                "reference": "36a0c6c1a63dcc64119dac53c0cc48d96a5c41ce"
+                "reference": "5e48581953a9f00ebc831a1fdc632f7f4365d01a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CleverGaming/AdminBundle/zipball/36a0c6c1a63dcc64119dac53c0cc48d96a5c41ce",
-                "reference": "36a0c6c1a63dcc64119dac53c0cc48d96a5c41ce",
+                "url": "https://api.github.com/repos/CleverGaming/AdminBundle/zipball/5e48581953a9f00ebc831a1fdc632f7f4365d01a",
+                "reference": "5e48581953a9f00ebc831a1fdc632f7f4365d01a",
                 "shasum": ""
             },
             "require": {
@@ -154,7 +154,7 @@
                 "backoffice",
                 "generic"
             ],
-            "time": "2015-05-06 18:57:09"
+            "time": "2015-05-21 20:24:30"
         },
         {
             "name": "bluebear/basebundle",
@@ -163,12 +163,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/CleverGaming/BaseBundle.git",
-                "reference": "d2ac6e74d7709f1d0b4fda948aed880eb3db64a9"
+                "reference": "e564d220ed510c23a88e5075a0359d826540093d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CleverGaming/BaseBundle/zipball/d2ac6e74d7709f1d0b4fda948aed880eb3db64a9",
-                "reference": "d2ac6e74d7709f1d0b4fda948aed880eb3db64a9",
+                "url": "https://api.github.com/repos/CleverGaming/BaseBundle/zipball/e564d220ed510c23a88e5075a0359d826540093d",
+                "reference": "e564d220ed510c23a88e5075a0359d826540093d",
                 "shasum": ""
             },
             "require": {
@@ -208,7 +208,7 @@
                 "base",
                 "shortcut"
             ],
-            "time": "2015-05-03 15:13:02"
+            "time": "2015-05-21 19:11:46"
         },
         {
             "name": "clever-gaming/jikpoze",
