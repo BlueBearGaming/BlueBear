@@ -6,7 +6,7 @@ blue_bear_engine:
             response: BlueBear\EngineBundle\Event\Response\MapLoadResponse
         bluebear.chess.select:
             request: BlueBear\GameChessBundle\Event\Request\SelectRequest
-            response: BlueBear\GameChessBundle\Event\Response\SelectResponse
+            response: BlueBear\EngineBundle\Event\Response\MapUpdateResponse
     game:
         entity_type:
             piece:

@@ -8,6 +8,7 @@ use BlueBear\CoreBundle\Entity\Map\Layer;
 use BlueBear\CoreBundle\Entity\Map\MapItem;
 use BlueBear\CoreBundle\Entity\Map\Pencil;
 use BlueBear\CoreBundle\Utils\Position;
+use BlueBear\EngineBundle\Event\Request\SubRequest\MapItemSubRequest;
 
 class MapUtils
 {
@@ -46,5 +47,10 @@ class MapUtils
             $mapItemForSelection,
             $mapItemForEvent
         ];
+    }
+
+    public function getSelectionForTarget(MapItemSubRequest $target)
+    {
+        return $this->getMapItemForSelection($target->position, $target->layer, $target->position);
     }
 }
