@@ -94,7 +94,7 @@ class ChessGameData implements FixtureInterface, ContainerAwareInterface
         $rowIndex = 0;
         $context = new Context();
         $context->setLabel('Initial context');
-        $isBlack = false;
+        $isBlack = true;
 
         while ($rowIndex < 8) {
             $columnIndex = 0;
@@ -156,8 +156,8 @@ class ChessGameData implements FixtureInterface, ContainerAwareInterface
         $this->createPiece('chess_knight_white', $context, new Position(6, 7));
         $this->createPiece('chess_bishop_white', $context, new Position(2, 7));
         $this->createPiece('chess_bishop_white', $context, new Position(5, 7));
-        $this->createPiece('chess_queen_white', $context, new Position(4, 7));
-        $this->createPiece('chess_king_white', $context, new Position(3, 7));
+        $this->createPiece('chess_queen_white', $context, new Position(3, 7));
+        $this->createPiece('chess_king_white', $context, new Position(4, 7));
         $this->createPiece('chess_pawn_white', $context, new Position(0, 6));
         $this->createPiece('chess_pawn_white', $context, new Position(1, 6));
         $this->createPiece('chess_pawn_white', $context, new Position(2, 6));
