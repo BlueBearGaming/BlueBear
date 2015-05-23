@@ -10,6 +10,9 @@ use BlueBear\CoreBundle\Entity\Map\Pencil;
 use BlueBear\CoreBundle\Utils\Position;
 use BlueBear\EngineBundle\Event\Request\SubRequest\MapItemSubRequest;
 
+/**
+ * @deprecated
+ */
 class MapUtils
 {
     public function getMapItemForSelection(Position $sourcePosition, $sourceLayerType, Position $selectionPosition)

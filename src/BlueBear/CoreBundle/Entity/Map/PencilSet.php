@@ -8,6 +8,7 @@ use BlueBear\CoreBundle\Entity\Behavior\Nameable;
 use BlueBear\CoreBundle\Entity\Behavior\Typeable;
 use BlueBear\CoreBundle\Entity\Editor\Image;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 
@@ -52,7 +53,7 @@ class PencilSet
     }
 
     /**
-     * @return ArrayCollection
+     * @return Pencil[]|Collection
      */
     public function getPencils()
     {
@@ -67,6 +68,9 @@ class PencilSet
         $this->pencils = $pencils;
     }
 
+    /**
+     * @return Map[]|Collection
+     */
     public function getMaps()
     {
         return $this->maps;
@@ -102,5 +106,19 @@ class PencilSet
     {
         $this->sprite = $sprite;
         return $this;
+    }
+
+    /**
+     * @param string $pencilName
+     * @return Pencil|null
+     */
+    public function getPencilByName($pencilName)
+    {
+        foreach ($this->getPencils() as $pencil) {
+            if ($pencil->getName() === $pencilName) {
+                return $pencil;
+            }
+        }
+        return null;
     }
 }

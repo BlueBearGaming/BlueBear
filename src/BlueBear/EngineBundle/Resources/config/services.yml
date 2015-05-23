@@ -22,6 +22,9 @@ parameters:
     # entity type factory
     bluebear.game.entity_type_factory: BlueBear\EngineBundle\Factory\EntityTypeFactory
 
+    # Context utilities
+    bluebear.engine.context.utilities.class: BlueBear\EngineBundle\Engine\ContextUtilities
+
 services:
     # engine
     bluebear.engine.engine:
@@ -77,3 +80,6 @@ services:
         calls:
             - [setContainer, [@service_container]]
             - [createEntityTypes, [%bluebear.game.entity_type%, %bluebear.game.attribute%, %bluebear.game.behaviors%]]
+
+    bluebear.engine.context.utilities:
+        class: %bluebear.engine.context.utilities.class%

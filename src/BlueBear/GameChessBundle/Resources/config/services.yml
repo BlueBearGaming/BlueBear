@@ -1,6 +1,7 @@
 services:
     chess.listeners.select:
         class: BlueBear\GameChessBundle\Event\Listener\SelectListener
+        arguments: [@bluebear.engine.context.utilities]
         tags:
             - {name: kernel.event_listener, event: bluebear.chess.select, method: onSelect}
 

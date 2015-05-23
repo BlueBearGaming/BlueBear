@@ -8,6 +8,7 @@ use BlueBear\CoreBundle\Entity\Behavior\Nameable;
 use BlueBear\CoreBundle\Entity\Behavior\Timestampable;
 use BlueBear\CoreBundle\Entity\Behavior\Typeable;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 
@@ -80,7 +81,7 @@ class Map
     }
 
     /**
-     * @return ArrayCollection
+     * @return PencilSet[]|Collection
      */
     public function getPencilSets()
     {
@@ -101,7 +102,7 @@ class Map
     }
 
     /**
-     * @return ArrayCollection
+     * @return Layer[]|Collection
      */
     public function getLayers()
     {
@@ -133,7 +134,7 @@ class Map
     }
 
     /**
-     * @return ArrayCollection
+     * @return Context[]|Collection
      */
     public function getContexts()
     {
@@ -178,5 +179,34 @@ class Map
     public function setStartY($startY)
     {
         $this->startY = $startY;
+    }
+
+    /**
+     * @param string $pencilName
+     * @return Pencil|null
+     */
+    public function getPencilByName($pencilName)
+    {
+        foreach ($this->getPencilSets() as $pencilSet) {
+            $pencil = $pencilSet->getPencilByName($pencilName);
+            if ($pencil) {
+                return $pencil;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * @param string $layerName
+     * @return Layer|null
+     */
+    public function getLayerByName($layerName)
+    {
+        foreach ($this->getLayers() as $layer) {
+            if ($layer->getName() === $layerName) {
+                return $layer;
+            }
+        }
+        return null;
     }
 }

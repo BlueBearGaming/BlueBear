@@ -6,7 +6,7 @@ use BlueBear\CoreBundle\Entity\Behavior\Data;
 use BlueBear\CoreBundle\Entity\Behavior\Id;
 use BlueBear\CoreBundle\Entity\Behavior\Label;
 use BlueBear\CoreBundle\Entity\Behavior\Timestampable;
-use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 
@@ -55,7 +55,7 @@ class Context
     protected $room;
 
     /**
-     * @return ArrayCollection
+     * @return MapItem[]|Collection
      */
     public function getMapItems()
     {
@@ -87,7 +87,7 @@ class Context
     }
 
     /**
-     * @return mixed
+     * @return UserContext[]|Collection
      */
     public function getUserContexts()
     {
@@ -132,5 +132,38 @@ class Context
     public function setListeners($listeners)
     {
         $this->listeners = $listeners;
+    }
+
+    /**
+     * @param string $layerName
+     * @param int $x
+     * @param int $y
+     * @return MapItem[]
+     */
+    public function getMapItemsByLayerNameAndPosition($layerName, $x, $y)
+    {
+        $mapItems = [];
+        foreach ($this->getMapItems() as $mapItem) {
+            if ($mapItem->getLayerName() === $layerName && $mapItem->getX() === $x && $mapItem->getY() === $y) {
+                $mapItems[] = $mapItem;
+            }
+        }
+        return $mapItems;
+    }
+
+    /**
+     * @param string $layerName
+     * @param int $x
+     * @param int $y
+     * @return MapItem|null
+     */
+    public function getMapItemByLayerNameAndPosition($layerName, $x, $y)
+    {
+        foreach ($this->getMapItems() as $mapItem) {
+            if ($mapItem->getLayerName() === $layerName && $mapItem->getX() === $x && $mapItem->getY() === $y) {
+                return $mapItem;
+            }
+        }
+        return null;
     }
 }
