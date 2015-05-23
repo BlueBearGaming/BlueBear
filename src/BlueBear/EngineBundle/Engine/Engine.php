@@ -116,11 +116,13 @@ class Engine
     public function setAllowedEvents(array $eventsConfig)
     {
         foreach ($eventsConfig as $eventName => $eventConfig) {
-            if (!array_key_exists('request', $eventConfig) or
-                !array_key_exists('response', $eventConfig)
-            ) {
-                throw new Exception('Event in configuration should have a request and response');
+            if (!array_key_exists('request', $eventConfig)) {
+                $eventConfig['request'] = 'BlueBear\EngineBundle\Event\Request\MapItemClickRequest';
             }
+            if (!array_key_exists('response', $eventConfig)) {
+                $eventConfig['response'] = 'BlueBear\EngineBundle\Event\Response\MapUpdateResponse';
+            }
+            // Check classes ?
             $this->allowedEvents[$eventName] = $eventConfig;
         }
     }

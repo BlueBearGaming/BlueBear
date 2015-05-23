@@ -15,4 +15,20 @@ class Piece extends EntityInstance
     {
         return substr($this->getName(), -5) === 'white';
     }
+
+    /**
+     * @return int
+     */
+    public function getX()
+    {
+        return $this->getMapItem()->getX();
+    }
+
+    /**
+     * @return int
+     */
+    public function getY()
+    {
+        return $this->getMapItem()->getY();
+    }
 }

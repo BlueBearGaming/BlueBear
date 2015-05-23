@@ -4,40 +4,54 @@ blue_bear_engine:
         bluebear.engine.mapLoad:
             request: BlueBear\EngineBundle\Event\Request\MapLoadRequest
             response: BlueBear\EngineBundle\Event\Response\MapLoadResponse
-        bluebear.chess.select:
-            request: BlueBear\GameChessBundle\Event\Request\SelectRequest
-            response: BlueBear\EngineBundle\Event\Response\MapUpdateResponse
+        bluebear.chess.pawn.select: ~
+        bluebear.chess.rook.select: ~
+        bluebear.chess.bishop.select: ~
+        bluebear.chess.knight.select: ~
+        bluebear.chess.queen.select: ~
+        bluebear.chess.king.select: ~
+        bluebear.chess.pawn.move: ~
+        bluebear.chess.rook.move: ~
+        bluebear.chess.bishop.move: ~
+        bluebear.chess.knight.move: ~
+        bluebear.chess.queen.move: ~
+        bluebear.chess.king.move: ~
+        # all empty events descriptions will automatically default to clickRequest and mapUpdateResponse
     game:
         entity_type:
             chess_piece:
                 label: Piece
-                description: Chess piece
-                behaviors: [selectable]
+                description: Chess piece (common logic to all pieces)
                 class: BlueBear\GameChessBundle\Entity\Piece
             chess_pawn:
                 label: Pawn
                 parent: chess_piece
-                description: Pawn
+                behaviors: [selectable_pawn]
             chess_rook:
                 label: Rook
                 parent: chess_piece
-                description: Rook
+                behaviors: [selectable_rook]
             chess_bishop:
                 label: Bishop
                 parent: chess_piece
-                description: Bishop
+                behaviors: [selectable_bishop]
             chess_knight:
                 label: Knight
                 parent: chess_piece
-                description: Knight
+                behaviors: [selectable_knight]
             chess_queen:
                 label: Queen
                 parent: chess_piece
-                description: Queen
+                behaviors: [selectable_queen]
             chess_king:
                 label: King
                 parent: chess_piece
-                description: King
+                behaviors: [selectable_king]
         # entity behaviors (and their associated event to listen)
         behaviors:
-            selectable: bluebear.chess.select
+            selectable_pawn: bluebear.chess.pawn.select
+            selectable_rook: bluebear.chess.rook.select
+            selectable_bishop: bluebear.chess.bishop.select
+            selectable_knight: bluebear.chess.knight.select
+            selectable_queen: bluebear.chess.queen.select
+            selectable_king: bluebear.chess.king.select

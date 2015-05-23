@@ -30,39 +30,42 @@ class ChessContextUtilities extends ContextUtilities
     }
 
     /**
-     * @param MapItemSubRequest $target
+     * @param Piece $piece
      * @param int $x
      * @param int $y
      * @param array $mapItems
      * @return string
      */
-    public function handlePossibleAction(MapItemSubRequest $target, $x, $y, array &$mapItems)
+    public function handlePossibleAction(Piece $piece, $x, $y, array &$mapItems)
     {
-        if ($this->handlePossibleMovement($target, $x, $y, $mapItems) === self::MOVEMENT) {
+        if ($this->handlePossibleMovement($piece, $x, $y, $mapItems) === self::MOVEMENT) {
             return self::MOVEMENT;
         }
-        if ($this->handlePossibleCapture($target, $x, $y, $mapItems) === self::CAPTURE) {
+        if ($this->handlePossibleCapture($piece, $x, $y, $mapItems) === self::CAPTURE) {
             return self::CAPTURE;
         }
         return self::BLOCKED;
     }
 
     /**
-     * @param MapItemSubRequest $target
+     * @param Piece $piece
      * @param int $x
      * @param int $y
      * @param array $mapItems
      * @return string
      */
-    public function handlePossibleMovement(MapItemSubRequest $target, $x, $y, &$mapItems)
+    public function handlePossibleMovement(Piece $piece, $x, $y, &$mapItems)
     {
         $found = $this->findByPosition($x, $y);
         if (!$found) {
-            if ($this->isKingChecked($target, $x, $y)) {
+            if ($this->isOutsideOfBoard($x, $y)) {
+                return self::BLOCKED;
+            }
+            if ($this->isKingChecked($piece, $x, $y)) {
                 return self::BLOCKED;
             }
             // Move to free position
-            $mapItems[] = $this->createEventMapItem($x, $y, $this->createClickListener('chess.move', $target));
+            $mapItems[] = $this->createEventMapItem($x, $y, $this->createClickListener($piece));
             $mapItems[] = $this->createSelectionMapItem($x, $y); // @todo create pencil for 'movement'
             return self::MOVEMENT;
         }
@@ -70,22 +73,21 @@ class ChessContextUtilities extends ContextUtilities
     }
 
     /**
-     * @param MapItemSubRequest $target
+     * @param Piece $piece
      * @param int $x
      * @param int $y
      * @param array $mapItems
      * @return string
      */
-    public function handlePossibleCapture(MapItemSubRequest $target, $x, $y, &$mapItems)
+    public function handlePossibleCapture(Piece $piece, $x, $y, &$mapItems)
     {
-        $initial = $this->findTarget($target);
         $found = $this->findByPosition($x, $y);
-        if ($found && $found->isWhite() !== $initial->isWhite()) { // If found is of the opposite color of the actual player
-            if ($this->isKingChecked($target, $x, $y)) {
+        if ($found && $found->isWhite() !== $piece->isWhite()) { // If found is of the opposite color of the actual player
+            if ($this->isKingChecked($piece, $x, $y)) {
                 return self::BLOCKED;
             }
             // Capture the opponent's piece
-            $mapItems[] = $this->createEventMapItem($x, $y, $this->createClickListener('chess.capture', $target));
+            $mapItems[] = $this->createEventMapItem($x, $y, $this->createClickListener($piece));
             $mapItems[] = $this->createSelectionMapItem($x, $y); // @todo create pencil for 'capture'
             return self::CAPTURE;
         }
@@ -93,15 +95,21 @@ class ChessContextUtilities extends ContextUtilities
     }
 
     /**
-     * @param string $name
-     * @param MapItemSubRequest $source
+     * @param Piece $piece
      * @return array
      */
-    protected function createClickListener($name, MapItemSubRequest $source = null)
+    protected function createClickListener(Piece $piece)
     {
-        $listener = ['name' => $name];
-        if ($source) {
-            $listener['source'] = $source;
+        $type = str_replace('chess_', '', $piece->getType());
+        $listener = ['name' => "bluebear.chess.{$type}.move"];
+        if ($piece) {
+            $listener['source'] = [
+                'layer' => $piece->getMapItem()->getLayerName(),
+                'position' => [
+                    'x' => $piece->getX(),
+                    'y' => $piece->getY(),
+                ],
+            ];
         }
         return ['click' => $listener];
     }
@@ -120,18 +128,31 @@ class ChessContextUtilities extends ContextUtilities
         return null;
     }
 
+    /**
+     * @param MapItemSubRequest $target
+     * @return Piece|null
+     */
     public function findTarget(MapItemSubRequest $target)
     {
         return $this->findByPosition($target->position->x, $target->position->y);
     }
 
     /**
-     * @param $target
+     * @param Piece $piece
+     * @return \BlueBear\CoreBundle\Entity\Map\MapItem
+     */
+    public function selectPiece(Piece $piece)
+    {
+        return $this->createSelectionMapItem($piece->getX(), $piece->getY());
+    }
+
+    /**
+     * @param Piece $piece
      * @param $x
      * @param $y
      * @return bool
      */
-    public function isKingChecked($target, $x, $y)
+    public function isKingChecked(Piece $piece, $x, $y)
     {
         // @todo check if king is checked with new move
         return false;
@@ -154,5 +175,36 @@ class ChessContextUtilities extends ContextUtilities
                 $this->pieces[$piece->getMapItem()->getX()][$piece->getMapItem()->getY()] = $piece;
             }
         }
+    }
+
+    public function isOutsideOfBoard($x, $y)
+    {
+        return $x < 0 || $y < 0 || $x > 7 || $y > 7;
+    }
+
+    /**
+     * @param Piece $piece
+     * @param $moveX
+     * @param $moveY
+     * @param array $moves
+     * @return array
+     */
+    public function findPath(Piece $piece, $moveX, $moveY, array &$moves = [])
+    {
+        $x = $piece->getX();
+        $y = $piece->getY();
+        do {
+            $x += $moveX;
+            $y += $moveY;
+            if ($this->isOutsideOfBoard($x, $y)) {
+                return $moves;
+            }
+            $found = $this->findByPosition($x, $y);
+            if ($found && $found->isWhite() === $piece->isWhite()) {
+                return $moves;
+            }
+            $moves[] = ['x' => $x, 'y' => $y];
+        } while (!$found);
+        return $moves;
     }
 }

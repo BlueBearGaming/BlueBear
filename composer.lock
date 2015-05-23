@@ -103,12 +103,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/CleverGaming/AdminBundle.git",
-                "reference": "5e48581953a9f00ebc831a1fdc632f7f4365d01a"
+                "reference": "f1973b0a6287b459ff9e18c8065d67f4278a69c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CleverGaming/AdminBundle/zipball/5e48581953a9f00ebc831a1fdc632f7f4365d01a",
-                "reference": "5e48581953a9f00ebc831a1fdc632f7f4365d01a",
+                "url": "https://api.github.com/repos/CleverGaming/AdminBundle/zipball/f1973b0a6287b459ff9e18c8065d67f4278a69c3",
+                "reference": "f1973b0a6287b459ff9e18c8065d67f4278a69c3",
                 "shasum": ""
             },
             "require": {
@@ -154,7 +154,7 @@
                 "backoffice",
                 "generic"
             ],
-            "time": "2015-05-21 20:24:30"
+            "time": "2015-05-23 17:11:14"
         },
         {
             "name": "bluebear/basebundle",
@@ -216,12 +216,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/CleverGaming/Jikpoze.git",
-                "reference": "fbe8422e96f89e52497e50f86468b15f1250ca2e"
+                "reference": "2e0d456cd01e2d0b966b9029cadaa28282d7d447"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CleverGaming/Jikpoze/zipball/fbe8422e96f89e52497e50f86468b15f1250ca2e",
-                "reference": "fbe8422e96f89e52497e50f86468b15f1250ca2e",
+                "url": "https://api.github.com/repos/CleverGaming/Jikpoze/zipball/2e0d456cd01e2d0b966b9029cadaa28282d7d447",
+                "reference": "2e0d456cd01e2d0b966b9029cadaa28282d7d447",
                 "shasum": ""
             },
             "type": "game-engine",
@@ -245,7 +245,7 @@
                 "stagexl",
                 "tiles"
             ],
-            "time": "2015-05-05 18:02:10"
+            "time": "2015-05-23 22:07:50"
         },
         {
             "name": "components/jquery",

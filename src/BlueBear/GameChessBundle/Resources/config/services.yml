@@ -2,11 +2,47 @@ parameters:
     chess.engine.context.utilities.class: BlueBear\GameChessBundle\Event\ChessContextUtilities
 
 services:
-    chess.listeners.select:
-        class: BlueBear\GameChessBundle\Event\Listener\SelectListener
-        arguments: [@chess.engine.context.utilities]
+    chess.listeners.pawn.select:
+        class: BlueBear\GameChessBundle\Event\Listener\PawnEventListener
+        arguments: [@chess.engine.context.utilities, @bluebear.manager.map_item, @bluebear.game.entity_type_factory]
         tags:
-            - {name: kernel.event_listener, event: bluebear.chess.select, method: onSelect}
+            - {name: kernel.event_listener, event: bluebear.chess.pawn.select, method: onSelect}
+            - {name: kernel.event_listener, event: bluebear.chess.pawn.move, method: onMove}
+
+    chess.listeners.rook.select:
+        class: BlueBear\GameChessBundle\Event\Listener\RookEventListener
+        arguments: [@chess.engine.context.utilities, @bluebear.manager.map_item, @bluebear.game.entity_type_factory]
+        tags:
+            - {name: kernel.event_listener, event: bluebear.chess.rook.select, method: onSelect}
+            - {name: kernel.event_listener, event: bluebear.chess.rook.move, method: onMove}
+
+    chess.listeners.bishop.select:
+        class: BlueBear\GameChessBundle\Event\Listener\BishopEventListener
+        arguments: [@chess.engine.context.utilities, @bluebear.manager.map_item, @bluebear.game.entity_type_factory]
+        tags:
+            - {name: kernel.event_listener, event: bluebear.chess.bishop.select, method: onSelect}
+            - {name: kernel.event_listener, event: bluebear.chess.bishop.move, method: onMove}
+
+    chess.listeners.knight.select:
+        class: BlueBear\GameChessBundle\Event\Listener\KnightEventListener
+        arguments: [@chess.engine.context.utilities, @bluebear.manager.map_item, @bluebear.game.entity_type_factory]
+        tags:
+            - {name: kernel.event_listener, event: bluebear.chess.knight.select, method: onSelect}
+            - {name: kernel.event_listener, event: bluebear.chess.knight.move, method: onMove}
+
+    chess.listeners.queen.select:
+        class: BlueBear\GameChessBundle\Event\Listener\QueenEventListener
+        arguments: [@chess.engine.context.utilities, @bluebear.manager.map_item, @bluebear.game.entity_type_factory]
+        tags:
+            - {name: kernel.event_listener, event: bluebear.chess.queen.select, method: onSelect}
+            - {name: kernel.event_listener, event: bluebear.chess.queen.move, method: onMove}
+
+    chess.listeners.king.select:
+        class: BlueBear\GameChessBundle\Event\Listener\KingEventListener
+        arguments: [@chess.engine.context.utilities, @bluebear.manager.map_item, @bluebear.game.entity_type_factory]
+        tags:
+            - {name: kernel.event_listener, event: bluebear.chess.king.select, method: onSelect}
+            - {name: kernel.event_listener, event: bluebear.chess.king.move, method: onMove}
 
     chess.engine.context.utilities:
         class: %chess.engine.context.utilities.class%
