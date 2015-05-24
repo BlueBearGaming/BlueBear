@@ -18,7 +18,7 @@ set :use_set_permissions,  true
 
 set :dump_assetic_assets, true
 set :shared_files,        ["app/config/parameters.yml"]
-set :shared_children,     [app_path + "/logs", web_path + "/uploads", web_path + "/resources", "vendor"]
+set :shared_children,     [app_path + "/logs", web_path + "/uploads", web_path + "/resources", "vendor", web_path + "/jikpoze"]
 set :use_composer,        true
 set :update_vendors,      false
 
