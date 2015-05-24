@@ -30,7 +30,7 @@ class Pencil
      * Image used in render
      *
      * @var Image
-     * @ORM\OneToOne(targetEntity="BlueBear\CoreBundle\Entity\Editor\Image", inversedBy="pencil", fetch="EAGER", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="BlueBear\CoreBundle\Entity\Editor\Image", inversedBy="pencil", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="image_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      * @Serializer\Expose()
      */
@@ -40,7 +40,7 @@ class Pencil
      * PencilSet which this pencil belongs
      *
      * @ORM\JoinColumn(name="pencil_set_id")
-     * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\PencilSet", inversedBy="pencils")
+     * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\PencilSet", fetch="EAGER", inversedBy="pencils")
      */
     protected $pencilSet;
 

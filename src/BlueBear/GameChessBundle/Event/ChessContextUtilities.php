@@ -170,6 +170,9 @@ class ChessContextUtilities extends ContextUtilities
         $pieces = $this->entityInstanceManager->findBy([
             'mapItem' => $this->context->getMapItems()->toArray(),
         ]);
+        if (count($pieces) === 0) {
+            throw new \Exception("No piece found on board");
+        }
         foreach ($pieces as $piece) {
             if ($piece instanceof Piece) {
                 $this->pieces[$piece->getMapItem()->getX()][$piece->getMapItem()->getY()] = $piece;

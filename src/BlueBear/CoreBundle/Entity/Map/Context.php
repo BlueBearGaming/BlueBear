@@ -29,7 +29,7 @@ class Context
     protected $userContexts;
 
     /**
-     * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Map", inversedBy="contexts")
+     * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Map", fetch="EAGER", inversedBy="contexts")
      * @Serializer\Expose()
      */
     protected $map;

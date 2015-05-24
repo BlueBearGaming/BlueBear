@@ -28,7 +28,7 @@ class Map
     /**
      * Map pencil sets
      *
-     * @ORM\ManyToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\PencilSet", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\PencilSet", fetch="EAGER", cascade={"persist"})
      * @Serializer\Expose()
      */
     protected $pencilSets;
@@ -36,7 +36,7 @@ class Map
     /**
      * Map layers
      *
-     * @ORM\ManyToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\Layer", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\Layer", fetch="EAGER", cascade={"persist"})
      * @Serializer\Expose()
      */
     protected $layers;

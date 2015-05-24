@@ -32,7 +32,10 @@ class EngineController extends Controller
 
         //if ($engineEvent->getRequestClientUpdate()) {
             $client = $this->get('elephantio_client.default');
-            $client->send(EngineEvent::ENGINE_CLIENT_UPDATE, ['event' => $content]);
+            // Register async callback
+            $this->get('bluebear.kernel.terminate.listener')->addCallBack(function() use ($client, $content) {
+                $client->send(EngineEvent::ENGINE_CLIENT_UPDATE, ['event' => $content]);
+            });
         //}
         $response = new Response();
         $response->setStatusCode(200);

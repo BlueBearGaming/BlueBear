@@ -26,7 +26,7 @@ class PencilSet
     /**
      * List of pencils attached to the pencil set
      *
-     * @ORM\OneToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\Pencil", mappedBy="pencilSet")
+     * @ORM\OneToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\Pencil", fetch="EAGER", mappedBy="pencilSet")
      * @Serializer\Expose()
      */
     protected $pencils;
@@ -41,7 +41,7 @@ class PencilSet
      * Sprite used to group pencils images
      *
      * @var Image
-     * @ORM\OneToOne(targetEntity="BlueBear\CoreBundle\Entity\Editor\Image", inversedBy="pencilSet", fetch="EAGER", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="BlueBear\CoreBundle\Entity\Editor\Image", inversedBy="pencilSet", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="sprite_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      * @Serializer\Expose()
      */

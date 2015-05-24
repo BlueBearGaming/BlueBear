@@ -61,6 +61,11 @@ services:
             - [setEventDispatcher, [@event_dispatcher]]
             - [setContextManager, [@bluebear.manager.context]]
 
+    bluebear.kernel.terminate.listener:
+         class: BlueBear\EngineBundle\Listener\KernelTerminateEventListener
+         tags:
+           - { name: kernel.event_listener, event: kernel.terminate, method: terminate }
+
     bluebear.engine.context_factory:
         class: %bluebear.engine.context_factory%
         calls:

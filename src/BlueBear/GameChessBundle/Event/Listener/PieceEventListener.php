@@ -43,6 +43,7 @@ abstract class PieceEventListener
 
     /**
      * @param EngineEvent $engineEvent
+     * @throws \Exception
      */
     public function onSelect(EngineEvent $engineEvent)
     {
@@ -55,6 +56,9 @@ abstract class PieceEventListener
         $context = $engineEvent->getContext();
         $this->contextUtilities->setContext($context);
         $this->piece = $this->contextUtilities->findTarget($request->target);
+        if (!$this->piece) {
+            throw new \Exception("No valid target found");
+        }
 
         // Select current piece
         $this->mapItems = [
