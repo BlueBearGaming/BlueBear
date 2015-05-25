@@ -1,0 +1,20 @@
+{% extends "BlueBearBackofficeBundle::layout.html.twig" %}
+
+{% block content %}
+    <a href="{{ path('bluebear.chess.joinGame') }}" class="find-game">Trouver une partie</a>
+{% endblock %}
+
+{% block javascript %}
+    <script src="{{ asset('jikpoze/js/socket.io.js') }}"></script>
+    <script>
+        var BlueBearClient = function () {
+            this.init = function () {
+
+            }
+        };
+
+        $(document).on('ready', function () {
+            var socket = io('http://127.0.0.1:8000');
+        });
+    </script>
+{% endblock %}

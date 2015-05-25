@@ -24,8 +24,12 @@ blue_bear_backoffice:
     prefix:   /
 
 # BlueBear Game
+#blue_bear_game:
+#    resource: "@BlueBearGameBundle/Resources/config/routing.yml"
+#    prefix:   /
+
 blue_bear_game:
-    resource: "@BlueBearGameBundle/Resources/config/routing.yml"
+    resource: "@BlueBearGameChessBundle/Resources/config/routing.yml"
     prefix:   /
 
 # File upload (includes oneup routing)

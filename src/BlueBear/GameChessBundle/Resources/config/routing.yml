@@ -1,3 +1,7 @@
-blue_bear_game_chess_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: BlueBearGameChessBundle:Default:index }
+bluebear.chess.play:
+    path:     /play
+    defaults: { _controller: BlueBearGameChessBundle:Game:play }
+
+bluebear.chess.joinGame:
+    path:     /joinGame
+    defaults: { _controller: BlueBearGameChessBundle:Game:joinGame }
