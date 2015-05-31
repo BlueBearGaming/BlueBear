@@ -52,6 +52,11 @@ class EngineEvent extends Event
     const ENGINE_MAP_SAVE = 'bluebear.engine.onMapSave';
 
     /**
+     * Game
+     */
+    const ENGINE_GAME_CREATE = 'bluebear.engine.gameCreate';
+
+    /**
      * Map events
      */
     const ENGINE_MAP_LOAD = 'bluebear.engine.mapLoad';
