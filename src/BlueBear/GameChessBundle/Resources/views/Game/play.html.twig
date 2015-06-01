@@ -4,17 +4,30 @@
     <a href="{{ path('bluebear.chess.joinGame') }}" class="find-game">Trouver une partie</a>
 {% endblock %}
 
-{% block javascript %}
+{% block javascripts %}
     <script src="{{ asset('jikpoze/js/socket.io.js') }}"></script>
     <script>
-        var BlueBearClient = function () {
-            this.init = function () {
+        var BlueBearClient = {
+            socket: null,
 
+            init: function () {
+                this.socket = io('http://127.0.0.1:8000');
+            },
+
+            findGame: function () {
+                this.socket.emit('bluebear.chess.findGame')
             }
         };
 
         $(document).on('ready', function () {
-            var socket = io('http://127.0.0.1:8000');
+            BlueBearClient.init();
+
+            $('.find-game').on('click', function () {
+                BlueBearClient.findGame();
+                console.log('click');
+
+                return false;
+            });
         });
     </script>
 {% endblock %}
