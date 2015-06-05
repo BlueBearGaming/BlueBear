@@ -12,6 +12,7 @@ parameters:
     bluebear.engine.event.mapitem_subscriber: BlueBear\EngineBundle\Event\Subscriber\MapItemSubscriber
     bluebear.engine.event.map_subscriber: BlueBear\EngineBundle\Event\Subscriber\MapSubscriber
     bluebear.engine.event.engine_subscriber: BlueBear\EngineBundle\Event\Subscriber\EngineSubscriber
+    bluebear.engine.event.dynamic_mapping_subscriber: BlueBear\EngineBundle\Event\Subscriber\DynamicMappingSubscriber
 
     # pathfinder
     bluebear.engine.path_finder: BlueBear\EngineBundle\Path\PathFinder
@@ -60,6 +61,20 @@ services:
         calls:
             - [setEventDispatcher, [@event_dispatcher]]
             - [setContextManager, [@bluebear.manager.context]]
+            - [setAnnotationProcessor, [@bluebear.engine.annotation_processor]]
+
+    bluebear.engine.annotation_driver:
+        class: BlueBear\EngineBundle\Engine\Annotation\AnnotationDriver
+        calls:
+            - [setReader, [@annotation_reader]]
+
+    bluebear.engine.metadata_factory:
+        class: Metadata\MetadataFactory
+        arguments: [@bluebear.engine.annotation_driver]
+
+    bluebear.engine.annotation_processor:
+        class: BlueBear\EngineBundle\Engine\Annotation\AnnotationProcessor
+        arguments: [@bluebear.engine.metadata_factory]
 
     bluebear.kernel.terminate.listener:
          class: BlueBear\EngineBundle\Listener\KernelTerminateEventListener

@@ -38,11 +38,11 @@ io.on('connection', function (socket) {
                 method: 'POST'
             };
             var req = http.request(options, function (res) {
-                console.log('STATUS: ' + res.statusCode);
-                console.log('HEADERS: ' + JSON.stringify(res.headers));
+                //console.log('STATUS: ' + res.statusCode);
+                //console.log('HEADERS: ' + JSON.stringify(res.headers));
                 res.setEncoding('utf8');
-                res.on('data', function (chunk) {
-                    console.log('BODY: ' + chunk);
+                res.on('data', function (content) {
+                    console.log(content);
                 });
             });
             // write data to request body

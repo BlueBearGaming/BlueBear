@@ -5,6 +5,7 @@ namespace BlueBear\EditorBundle\Controller;
 use BlueBear\BaseBundle\Behavior\ControllerTrait;
 use BlueBear\CoreBundle\Entity\Map\Map;
 use BlueBear\CoreBundle\Manager\MapManager;
+use BlueBear\EngineBundle\Factory\GenericFactory;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;

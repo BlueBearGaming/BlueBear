@@ -1,0 +1,18 @@
+bluebear.roguebear.race:
+    factory: 'BlueBear\EngineBundle\Factory\GenericFactory'
+    class: BlueBear\EngineBundle\Engine\Entity\Race
+    form_type: 'race'
+    data:
+        dwarf:
+            attributeModifiers:
+                - { attribute: dexterity, modifier: 2 }
+                - { attribute: intelligence, modifier: 2 }
+                - { attribute: constitution, modifier: -2 }
+            classSize: medium
+            feats:
+                slow_steady: ~
+                darkvision: ~
+                defensive_training: ~
+                greed: ~
+            weaponFamiliarities: [battleaxes, heavy_picks, warhammers]
+            languages: [common, dwarven]
