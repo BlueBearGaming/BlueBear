@@ -62,6 +62,7 @@ services:
             - [setEventDispatcher, [@event_dispatcher]]
             - [setContextManager, [@bluebear.manager.context]]
             - [setAnnotationProcessor, [@bluebear.engine.annotation_processor]]
+            - [setContainer, [@service_container]]
 
     bluebear.engine.annotation_driver:
         class: BlueBear\EngineBundle\Engine\Annotation\AnnotationDriver
@@ -74,7 +75,10 @@ services:
 
     bluebear.engine.annotation_processor:
         class: BlueBear\EngineBundle\Engine\Annotation\AnnotationProcessor
-        arguments: [@bluebear.engine.metadata_factory]
+        arguments: [@bluebear.engine.metadata_factory, @bluebear.engine.unit_of_work]
+
+    bluebear.engine.unit_of_work:
+        class: BlueBear\EngineBundle\Engine\UnitOfWork\UnitOfWork
 
     bluebear.kernel.terminate.listener:
          class: BlueBear\EngineBundle\Listener\KernelTerminateEventListener

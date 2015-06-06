@@ -35,98 +35,13 @@ class Race
 
     protected $languages;
 
-    /**
-     * @return string
-     */
-    public function getCode()
+    public function __set($property, $value)
     {
-        return $this->code;
+        $this->$property = $value;
     }
 
-    /**
-     * @return AttributeModifier[]
-     */
-    public function getAttributeModifiers()
+    public function __get($property)
     {
-        return $this->attributeModifiers;
-    }
-
-    /**
-     * @return ClassSize
-     */
-    public function getClassSize()
-    {
-        return $this->classSize;
-    }
-
-    /**
-     * @return Feat[]
-     */
-    public function getFeats()
-    {
-        return $this->feats;
-    }
-
-    /**
-     * @param string $code
-     */
-    public function setCode($code)
-    {
-        $this->code = $code;
-    }
-
-    /**
-     * @param AttributeModifier[] $attributeModifiers
-     */
-    public function setAttributeModifiers($attributeModifiers)
-    {
-        $this->attributeModifiers = $attributeModifiers;
-    }
-
-    /**
-     * @param string $classSize
-     */
-    public function setClassSize($classSize)
-    {
-        $this->classSize = $classSize;
-    }
-
-    /**
-     * @param Feat[] $feats
-     */
-    public function setFeats($feats)
-    {
-        $this->feats = $feats;
-    }
-
-    /**
-     * @param WeaponProficiency[] $weaponFamiliarities
-     */
-    public function setWeaponFamiliarities($weaponFamiliarities)
-    {
-        $this->weaponFamiliarities = $weaponFamiliarities;
-    }
-    /**
-     * @return WeaponProficiency[]
-     */
-    public function getWeaponFamiliarities()
-    {
-        return $this->weaponFamiliarities;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getLanguages()
-    {
-        return $this->languages;
-    }
-
-    /**
-     * @param mixed $languages
-     */
-    public function setLanguages($languages)
-    {
-        $this->languages = $languages;
+        return $this->$property;
     }
 }

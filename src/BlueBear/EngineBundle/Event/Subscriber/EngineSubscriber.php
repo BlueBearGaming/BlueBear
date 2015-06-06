@@ -2,20 +2,27 @@
 
 namespace BlueBear\EngineBundle\Event\Subscriber;
 
+use BlueBear\BaseBundle\Behavior\ContainerTrait;
 use BlueBear\CoreBundle\Entity\Behavior\HasEventDispatcher;
 use BlueBear\CoreBundle\Entity\Map\Context;
 use BlueBear\CoreBundle\Manager\ContextManager;
 use BlueBear\EngineBundle\Engine\Annotation\AnnotationProcessor;
 use BlueBear\EngineBundle\Event\EngineEvent;
+use ComponentInstaller\Util\Filesystem;
 use Exception;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Finder\Finder;
+use Symfony\Component\Finder\SplFileInfo;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\KernelEvent;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Component\Yaml\Parser;
 
 class EngineSubscriber implements EventSubscriberInterface
 {
-    use HasEventDispatcher;
+    use HasEventDispatcher, ContainerTrait;
 
     /**
      * @var ContextManager
@@ -67,7 +74,23 @@ class EngineSubscriber implements EventSubscriberInterface
 
     public function onKernelRequest(KernelEvent $event)
     {
-        $this->annotationProcessor->process();
+        if ($event->getRequestType() == HttpKernelInterface::MASTER_REQUEST) {
+            $parse = new Parser();
+            $finder = new Finder();
+            $finder->files()->in(__DIR__ . '/../../Resources/data');
+
+            /** @var SplFileInfo $file */
+            foreach ($finder as $file) {
+                $data = $parse->parse(file_get_contents($file->getRealPath()));
+
+                foreach ($data as $entityData) {
+                    $this->annotationProcessor->process($entityData);
+                }
+            }
+            $this->annotationProcessor->processRelations();
+            var_dump($this->getContainer()->get('bluebear.engine.unit_of_work'));
+            die('panda');
+        }
     }
 
     /**
