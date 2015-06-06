@@ -2,13 +2,19 @@
 
 namespace BlueBear\EngineBundle\Engine\Annotation;
 
+use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\Annotations\Reader;
 use Metadata\ClassMetadata;
 use Metadata\Driver\DriverInterface;
+use Metadata\MergeableClassMetadata;
+use Metadata\PropertyMetadata;
 use ReflectionClass;
 
 class AnnotationDriver implements DriverInterface
 {
+    /**
+     * @var AnnotationReader
+     */
     protected $reader;
 
     /**
@@ -18,8 +24,32 @@ class AnnotationDriver implements DriverInterface
      */
     public function loadMetadataForClass(ReflectionClass $class)
     {
+        $classMetadata = new MergeableClassMetadata($class->getName());
 
-        die('panda');
+        foreach ($class->getProperties() as $reflectionProperty) {
+            $propertyMetadata = new PropertyMetadata($class->getName(), $reflectionProperty->getName());
+
+            $annotation = $this->reader->getPropertyAnnotation(
+                $reflectionProperty,
+                'BlueBear\EngineBundle\Engine\Annotation\Id'
+            );
+            if ($annotation) {
+                /** @var IdMetadata $propertyMetadata */
+                $propertyMetadata->idProperty = $propertyMetadata->name;
+            }
+            $classMetadata->addPropertyMetadata($propertyMetadata);
+
+            /** @var Relation $annotation */
+            $annotation = $this->reader->getPropertyAnnotation(
+                $reflectionProperty,
+                'BlueBear\EngineBundle\Engine\Annotation\Relation'
+            );
+            if ($annotation) {
+                /** @var RelationMetadata $propertyMetadata */
+                $propertyMetadata->relationClass = $annotation->relationClass;
+            }
+        }
+        return $classMetadata;
     }
 
     public function setReader(Reader $reader)

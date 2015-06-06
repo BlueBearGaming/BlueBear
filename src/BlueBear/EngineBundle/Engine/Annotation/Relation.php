@@ -2,13 +2,15 @@
 
 namespace BlueBear\EngineBundle\Engine\Annotation;
 
-
+/**
+ * @Annotation
+ */
 class Relation
 {
-    protected $class;
+    public $relationClass;
 
     public function __construct(array $data)
     {
-        $this->class = $data['class'];
+        $this->relationClass = $data['class'];
     }
 }

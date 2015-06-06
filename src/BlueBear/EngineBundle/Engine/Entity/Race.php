@@ -2,6 +2,7 @@
 
 namespace BlueBear\EngineBundle\Engine\Entity;
 
+use BlueBear\EngineBundle\Engine\Annotation as Game;
 
 class Race
 {

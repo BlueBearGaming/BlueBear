@@ -6,5 +6,5 @@ use Metadata\PropertyMetadata;
 
 class IdMetadata extends PropertyMetadata
 {
-
+    public $idProperty;
 }

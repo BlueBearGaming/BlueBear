@@ -6,5 +6,5 @@ use Metadata\PropertyMetadata;
 
 class RelationMetadata extends PropertyMetadata
 {
-    public $class;
+    public $relationClass;
 }
