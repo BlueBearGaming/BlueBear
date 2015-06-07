@@ -7,6 +7,11 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
 
 class UnitOfWork
 {
+    /**
+     * @var UnitOfWork
+     */
+    public static $instance;
+
     protected $entities = [];
 
     protected $idProperties = [];
@@ -16,6 +21,7 @@ class UnitOfWork
     public function __construct()
     {
         $this->propertyAccessor = PropertyAccess::createPropertyAccessor();
+        UnitOfWork::$instance = $this;
     }
 
     public function add($entity)
@@ -46,5 +52,33 @@ class UnitOfWork
     public function isClassRegistered($class)
     {
         return array_key_exists($class, $this->entities) and array_key_exists($class, $this->idProperties);
+    }
+
+    public function load(EntityReference $entityReference)
+    {
+        if (!$this->isClassRegistered($entityReference->getClass())) {
+            throw new Exception("Class {$entityReference->getClass()} is not registered in unit of work");
+        }
+        if (!$entityReference->getId()) {
+            throw new Exception('Entity reference has no id');
+        }
+        $entity = $this->entities[$entityReference->getClass()][$entityReference->getId()];
+
+        return $entity;
+    }
+
+    public function getIdProperty($class)
+    {
+        if (!$this->isClassRegistered($class)) {
+            throw new Exception("Class {$class} is not registered in unit of work");
+        }
+        return $this->idProperties[$class];
+    }
+
+    public static function lazyLoad(EntityReference $entityReference)
+    {
+        $unitOfWork = UnitOfWork::$instance;
+
+        return $unitOfWork->load($entityReference);
     }
 }

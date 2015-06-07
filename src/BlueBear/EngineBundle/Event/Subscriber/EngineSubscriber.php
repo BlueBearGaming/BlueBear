@@ -7,16 +7,15 @@ use BlueBear\CoreBundle\Entity\Behavior\HasEventDispatcher;
 use BlueBear\CoreBundle\Entity\Map\Context;
 use BlueBear\CoreBundle\Manager\ContextManager;
 use BlueBear\EngineBundle\Engine\Annotation\AnnotationProcessor;
+use BlueBear\EngineBundle\Engine\Entity\Race;
+use BlueBear\EngineBundle\Engine\UnitOfWork\EntityReference;
 use BlueBear\EngineBundle\Event\EngineEvent;
-use ComponentInstaller\Util\Filesystem;
 use Exception;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\KernelEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Yaml\Parser;
 
@@ -88,7 +87,15 @@ class EngineSubscriber implements EventSubscriberInterface
                 }
             }
             $this->annotationProcessor->processRelations();
-            var_dump($this->getContainer()->get('bluebear.engine.unit_of_work'));
+            $unitOfWork = $this->getContainer()->get('bluebear.engine.unit_of_work');
+
+            /** @var Race $dwarf */
+            $dwarf = $unitOfWork->load(new EntityReference('BlueBear\EngineBundle\Engine\Entity\Race', 'dwarf'));
+            $test = $dwarf->getClassSize()->get(0);
+
+            var_dump($test);
+
+
             die('panda');
         }
     }

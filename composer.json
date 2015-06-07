@@ -9,10 +9,10 @@
         }
     },
     "repositories": [
-      {
-        "type": "vcs",
-        "url": "git@github.com:log0ymxm/bootswatch-scss.git"
-      }
+        {
+            "type": "vcs",
+            "url": "git@github.com:log0ymxm/bootswatch-scss.git"
+        }
     ],
     "require": {
         "php": ">=5.3.3",

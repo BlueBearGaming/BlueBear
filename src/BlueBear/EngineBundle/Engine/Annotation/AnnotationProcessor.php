@@ -2,34 +2,63 @@
 
 namespace BlueBear\EngineBundle\Engine\Annotation;
 
+use BlueBear\EngineBundle\Engine\UnitOfWork\EntityReference;
+use BlueBear\EngineBundle\Engine\UnitOfWork\EntityReferenceCollection;
 use BlueBear\EngineBundle\Engine\UnitOfWork\UnitOfWork;
 use Exception;
 use Metadata\MetadataFactoryInterface;
 use Symfony\Component\PropertyAccess\PropertyAccess;
-use Symfony\Component\Yaml\Parser;
 
+/**
+ * Class AnnotationProcessor
+ *
+ * Process annotation for game unit of work
+ */
 class AnnotationProcessor
 {
+    /**
+     * @var MetadataFactoryInterface
+     */
     protected $metadataFactory;
 
+    /**
+     * @var UnitOfWork
+     */
     protected $unitOfWork;
 
+    /**
+     * @var array
+     */
     protected $registeredRelations = [];
 
+    /**
+     * Initialize processor with unit of work and metadata factory
+     *
+     * @param MetadataFactoryInterface $metadataFactory
+     * @param UnitOfWork $unitOfWork
+     */
     public function __construct(MetadataFactoryInterface $metadataFactory, UnitOfWork $unitOfWork)
     {
         $this->metadataFactory = $metadataFactory;
         $this->unitOfWork = $unitOfWork;
     }
 
+    /**
+     * Register classes and load data in the unit of work
+     *
+     * @param array $entityData
+     * @throws Exception
+     */
     public function process(array $entityData)
     {
+        // entity class
         $class = $entityData['class'];
         $classMetadata = $this->metadataFactory->getMetadataForClass($class);
         $accessor = PropertyAccess::createPropertyAccessor();
         $idProperty = null;
         $relations = [];
 
+        // process annotations id and relation
         foreach ($classMetadata->propertyMetadata as $propertyMetadata) {
             /* @var IdMetadata $propertyMetadata */
             if (isset($propertyMetadata->idProperty)) {
@@ -46,9 +75,10 @@ class AnnotationProcessor
         // class has an id property, it can be registered in unit of work
         $this->unitOfWork->registerClass($class, $idProperty);
 
-        if (!is_array($entityData['data'])) {
+        if (!array_key_exists('data', $entityData) || !is_array($entityData['data'])) {
             return;
         }
+        // insert dynamic data
         foreach ($entityData['data'] as $id => $entityData) {
             $entity = new $class;
             $accessor->setValue($entity, $idProperty, $id);
@@ -69,8 +99,9 @@ class AnnotationProcessor
 
                     $this->registeredRelations[$class][] = [
                         'attribute' => $attributeName,
-                        'relationClass' =>  $relation->relationClass,
-                        'data' => $attributeData
+                        'relationClass' => $relation->relationClass,
+                        'data' => $attributeData,
+                        'owner' => $entity
                     ];
                 }
             }
@@ -80,33 +111,50 @@ class AnnotationProcessor
 
     public function processRelations()
     {
-        //var_dump($this->registeredRelations);
         $accessor = PropertyAccess::createPropertyAccessor();
 
         foreach ($this->registeredRelations as $classRelations) {
 
             foreach ($classRelations as $relation) {
                 //var_dump($relation);
-                if (isset($relation['data'])) {
-                    if (!is_array($relation['data'])) {
-                        $relation['data'] = [$relation['data']];
-                    }
-
-                    foreach ($relation['data'] as $entityData) {
-                        $entity = new $relation['relationClass'];
-
-                        foreach ($entityData as $attributeName => $attributeData) {
-                            if (is_array($attributeData)) {
-                                $accessor->setValue($entity, $attributeName, $attributeData);
-                            } else if (is_string($attributeData) or is_numeric($attributeData)) {
-                                $accessor->setValue($entity, $attributeName, $attributeData);
-                            } else {
-                                throw new Exception('Not handled parse type : ' . print_r($attributeData));
-                            }
-                        }
-                        $this->unitOfWork->add($entity);
-                    }
+                if (!array_key_exists('data', $relation)) {
+                    continue;
                 }
+                if (!is_array($relation['data'])) {
+                    $relation['data'] = [$relation['data']];
+                }
+                $owner = $relation['owner'];
+                $attribute = $relation['attribute'];
+
+                foreach ($relation['data'] as $entityData) {
+                    $entity = new $relation['relationClass'];
+
+                    foreach ($entityData as $attributeName => $attributeData) {
+                        if (is_array($attributeData)) {
+                            $accessor->setValue($entity, $attributeName, $attributeData);
+                        } else if (is_string($attributeData) or is_numeric($attributeData)) {
+                            $accessor->setValue($entity, $attributeName, $attributeData);
+                        } else {
+                            throw new Exception('Not handled parse type : ' . print_r($attributeData));
+                        }
+                    }
+                    $ownerRelationsCollection = $accessor->getValue($owner, $attribute);
+
+                    if (!$ownerRelationsCollection) {
+                        $ownerRelationsCollection = new EntityReferenceCollection($relation['relationClass']);
+                    }
+                    if (!($ownerRelationsCollection instanceof EntityReferenceCollection)) {
+                        throw new Exception("Attribute {$attribute} should be an instance of EntityReferenceCollection");
+                    }
+                    $idProperty = $this->unitOfWork->getIdProperty($relation['relationClass']);
+                    $ownerRelationsCollection->add(new EntityReference(
+                        $relation['relationClass'],
+                        $accessor->getValue($entity, $idProperty)
+                    ));
+                    $accessor->setValue($owner, $attribute, $ownerRelationsCollection);
+                    $this->unitOfWork->add($entity);
+                }
+
             }
         }
     }

@@ -3,6 +3,8 @@
 namespace BlueBear\EngineBundle\Engine\Entity;
 
 use BlueBear\EngineBundle\Engine\Annotation as Game;
+use BlueBear\EngineBundle\Engine\UnitOfWork\EntityReferenceCollection;
+use Doctrine\Common\Collections\Collection;
 
 class Race
 {
@@ -13,13 +15,14 @@ class Race
     protected $code;
 
     /**
-     * @var AttributeModifier[]
+     * @var EntityReferenceCollection
      * @Game\Relation(class="BlueBear\EngineBundle\Engine\Entity\AttributeModifier")
      */
     protected $attributeModifiers;
 
     /**
-     * @var string
+     * @var EntityReferenceCollection
+     * @Game\Relation(class="BlueBear\EngineBundle\Engine\Entity\ClassSize")
      */
     protected $classSize;
 
@@ -35,13 +38,99 @@ class Race
 
     protected $languages;
 
-    public function __set($property, $value)
+    /**
+     * @return string
+     */
+    public function getCode()
     {
-        $this->$property = $value;
+        return $this->code;
     }
 
-    public function __get($property)
+    /**
+     * @param string $code
+     */
+    public function setCode($code)
     {
-        return $this->$property;
+        $this->code = $code;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getAttributeModifiers()
+    {
+        return $this->attributeModifiers;
+    }
+
+    /**
+     * @param Collection $attributeModifiers
+     */
+    public function setAttributeModifiers($attributeModifiers)
+    {
+        $this->attributeModifiers = $attributeModifiers;
+    }
+
+    /**
+     * @return string
+     */
+    public function getClassSize()
+    {
+        return $this->classSize;
+    }
+
+    /**
+     * @param string $classSize
+     */
+    public function setClassSize($classSize)
+    {
+        $this->classSize = $classSize;
+    }
+
+    /**
+     * @return Feat[]
+     */
+    public function getFeats()
+    {
+        return $this->feats;
+    }
+
+    /**
+     * @param Feat[] $feats
+     */
+    public function setFeats($feats)
+    {
+        $this->feats = $feats;
+    }
+
+    /**
+     * @return WeaponProficiency[]
+     */
+    public function getWeaponFamiliarities()
+    {
+        return $this->weaponFamiliarities;
+    }
+
+    /**
+     * @param WeaponProficiency[] $weaponFamiliarities
+     */
+    public function setWeaponFamiliarities($weaponFamiliarities)
+    {
+        $this->weaponFamiliarities = $weaponFamiliarities;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLanguages()
+    {
+        return $this->languages;
+    }
+
+    /**
+     * @param mixed $languages
+     */
+    public function setLanguages($languages)
+    {
+        $this->languages = $languages;
     }
 }

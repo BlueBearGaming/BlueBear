@@ -1,4 +1,4 @@
-bluebear.data.race:
+race:
     class: BlueBear\EngineBundle\Engine\Entity\Race
     form_type: race
     data:
@@ -7,7 +7,8 @@ bluebear.data.race:
                 - { code: dwarf.dexterity, attribute: dexterity, modifier: 2 }
                 - { code: dwarf.intelligence, attribute: intelligence, modifier: 2 }
                 - { code: dwarf.constitution, attribute: constitution, modifier: -2 }
-            classSize: medium
+            classSize:
+                - { code: medium }
             feats:
                 slow_steady: ~
                 darkvision: ~
@@ -16,7 +17,10 @@ bluebear.data.race:
             weaponFamiliarities: [battleaxes, heavy_picks, warhammers]
             languages: [common, dwarven]
 
-bluebear.data.attributeModifiers:
+attribute_modifiers:
     class: BlueBear\EngineBundle\Engine\Entity\AttributeModifier
     form_type: attribute_modifier
-    data:
+
+class_size:
+    class: BlueBear\EngineBundle\Engine\Entity\ClassSize
+    form_type: class_size
