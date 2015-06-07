@@ -1,6 +1,6 @@
 <?php
 
-namespace BlueBear\EngineBundle\Engine\Entity;
+namespace BlueBear\EngineBundle\Engine\Entity\Attribute;
 
 use BlueBear\EngineBundle\Engine\Annotation as Game;
 
@@ -14,6 +14,7 @@ class AttributeModifier
 
     /**
      * @var Attribute
+     * @Game\Relation(class="BlueBear\EngineBundle\Engine\Entity\Attribute\Attribute", type="OneToOne")
      */
     protected $attribute;
 

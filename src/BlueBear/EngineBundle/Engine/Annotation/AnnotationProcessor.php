@@ -135,36 +135,30 @@ class AnnotationProcessor
                     $accessor->setValue($owner, $relation->getAttributeName(), $reference);
 
                 } else if ($relation->getRelationType() == Relation::RELATION_ONE_TO_MANY) {
-                    foreach ($data as $entityData) {
+                    $ownerRelationsCollection = new EntityReferenceCollection($relation->getRelationClass());
+
+                    foreach ($data as $entityDataIdentifier => $entityData) {
                         $class = $relation->getRelationClass();
                         $entity = new $class;
 
-                        foreach ($entityData as $attributeName => $attributeData) {
-                            if (is_array($attributeData)) {
-                                $accessor->setValue($entity, $attributeName, $attributeData);
-                            } else if (is_string($attributeData) or is_numeric($attributeData)) {
-                                $accessor->setValue($entity, $attributeName, $attributeData);
-                            } else {
-                                throw new Exception('Not handled parse type : ' . print_r($attributeData));
+                        if ($entityData) {
+                            foreach ($entityData as $attributeName => $attributeData) {
+                                if (is_array($attributeData)) {
+                                    $accessor->setValue($entity, $attributeName, $attributeData);
+                                } else if (is_string($attributeData) or is_numeric($attributeData)) {
+                                    $accessor->setValue($entity, $attributeName, $attributeData);
+                                } else {
+                                    throw new Exception('Not handled parse type : ' . print_r($attributeData));
+                                }
                             }
+                            $this->unitOfWork->add($entity);
                         }
-                        $ownerRelationsCollection = $accessor->getValue($relation->getOwner(), $relation->getAttributeName());
-
-                        if (!$ownerRelationsCollection) {
-                            $ownerRelationsCollection = new EntityReferenceCollection($relation->getRelationClass());
-                        }
-                        if (!($ownerRelationsCollection instanceof EntityReferenceCollection)) {
-                            throw new Exception("Attribute {$relation->getAttributeName()} should be an instance of EntityReferenceCollection");
-                        }
-
                         $ownerRelationsCollection->add(new EntityReference(
                             $relation->getRelationClass(),
                             $accessor->getValue($entity, $idProperty)
                         ));
-
-                        $accessor->setValue($owner, $relation->getAttributeName(), $ownerRelationsCollection);
-                        $this->unitOfWork->add($entity);
                     }
+                    $accessor->setValue($owner, $relation->getAttributeName(), $ownerRelationsCollection);
                 } else {
                     throw new Exception("Relation of type {$relation->getRelationType()} are not handled : ");
                 }

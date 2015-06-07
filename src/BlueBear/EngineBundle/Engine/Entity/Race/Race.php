@@ -1,8 +1,9 @@
 <?php
 
-namespace BlueBear\EngineBundle\Engine\Entity;
+namespace BlueBear\EngineBundle\Engine\Entity\Race;
 
 use BlueBear\EngineBundle\Engine\Annotation as Game;
+use BlueBear\EngineBundle\Engine\Entity\ClassSize;
 use BlueBear\EngineBundle\Engine\UnitOfWork\EntityReferenceCollection;
 use Doctrine\Common\Collections\Collection;
 
@@ -16,7 +17,7 @@ class Race
 
     /**
      * @var EntityReferenceCollection
-     * @Game\Relation(class="BlueBear\EngineBundle\Engine\Entity\AttributeModifier", type="OneToMany")
+     * @Game\Relation(class="BlueBear\EngineBundle\Engine\Entity\Attribute\AttributeModifier", type="OneToMany")
      */
     protected $attributeModifiers;
 
@@ -28,10 +29,13 @@ class Race
 
     /**
      * @var
+     * @Game\Relation(class="BlueBear\EngineBundle\Engine\Entity\Race\RacialTrait", type="OneToMany")
      */
     protected $racialTraits;
 
     protected $languages;
+
+    protected $weaponFamiliarities;
 
     /**
      * @return string
@@ -111,5 +115,21 @@ class Race
     public function setRacialTraits($racialTraits)
     {
         $this->racialTraits = $racialTraits;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getWeaponFamiliarities()
+    {
+        return $this->weaponFamiliarities;
+    }
+
+    /**
+     * @param mixed $weaponFamiliarities
+     */
+    public function setWeaponFamiliarities($weaponFamiliarities)
+    {
+        $this->weaponFamiliarities = $weaponFamiliarities;
     }
 }

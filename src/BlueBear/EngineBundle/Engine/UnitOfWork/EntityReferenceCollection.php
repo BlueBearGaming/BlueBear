@@ -72,12 +72,11 @@ class EntityReferenceCollection
     public function get($key)
     {
         $entityReference = $this->entityReferences[$key];
-        $entity = $entityReference;
 
         if ($entityReference instanceof EntityReference) {
-            $entity = UnitOfWork::lazyLoad($entityReference);
+            $this->entityReferences[$key] = UnitOfWork::lazyLoad($entityReference);
         }
-        return $entity;
+        return $this->entityReferences[$key];
     }
 
     /**

@@ -7,7 +7,8 @@ use BlueBear\CoreBundle\Entity\Behavior\HasEventDispatcher;
 use BlueBear\CoreBundle\Entity\Map\Context;
 use BlueBear\CoreBundle\Manager\ContextManager;
 use BlueBear\EngineBundle\Engine\Annotation\AnnotationProcessor;
-use BlueBear\EngineBundle\Engine\Entity\Race;
+use BlueBear\EngineBundle\Engine\Entity\Race\Race;
+use BlueBear\EngineBundle\Engine\UnitOfWork\EntityReference;
 use BlueBear\EngineBundle\Event\EngineEvent;
 use Exception;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -93,11 +94,17 @@ class EngineSubscriber implements EventSubscriberInterface
             }
             $this->annotationProcessor->processRelations();
             /** @var Race $dwarf */
-//            $dwarf = $this->getContainer()->get('bluebear.engine.unit_of_work')->load(new EntityReference(
-//                'BlueBear\EngineBundle\Engine\Entity\Race',
-//                'dwarf'
-//            ));
-            //var_dump($dwarf->getClassSize()->getCode());
+            $dwarf = $this->getContainer()->get('bluebear.engine.unit_of_work')->load(new EntityReference(
+                Race::class,
+                'dwarf'
+            ));
+            // normal loading
+            var_dump($dwarf->getAttributeModifiers());
+            // lazy loading
+            var_dump($dwarf->getAttributeModifiers()->get(0));
+            var_dump($dwarf->getAttributeModifiers());
+            //var_dump($dwarf->getRacialTraits());
+            //print_r($this->getContainer()->get('bluebear.engine.unit_of_work'));
         }
     }
 

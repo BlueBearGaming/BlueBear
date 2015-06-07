@@ -1,27 +1,93 @@
 race:
-    class: BlueBear\EngineBundle\Engine\Entity\Race
+    class: BlueBear\EngineBundle\Engine\Entity\Race\Race
     form_type: race
     data:
         dwarf:
             attributeModifiers:
-                - { code: dwarf.dexterity, attribute: dexterity, modifier: 2 }
-                - { code: dwarf.intelligence, attribute: intelligence, modifier: 2 }
-                - { code: dwarf.constitution, attribute: constitution, modifier: -2 }
+                - { code: dwarf.charisma, attribute: charisma, modifier: -2 }
+                - { code: dwarf.wisdom, attribute: wisdom, modifier: 2 }
+                - { code: dwarf.constitution, attribute: constitution, modifier: 2 }
             classSize: medium
             racialTraits:
                 slow_steady: ~
                 darkvision: ~
                 defensive_training: ~
                 greed: ~
-            weaponFamiliarities: [battleaxes, heavy_picks, warhammers]
+                hatred: ~
+                hardy: ~
+                stability: ~
+                stone_cunning: ~
+            weaponFamiliarities: [battleaxes, heavy_picks, warhammers, darwens]
             languages: [common, dwarven]
+        elf:
+            attributeModifiers:
+                - { code: dwarf.dexterity, attribute: dexterity, modifier: 2 }
+                - { code: dwarf.intelligence, attribute: intelligence, modifier: 2 }
+                - { code: dwarf.constitution, attribute: constitution, modifier: -2 }
+            classSize: medium
+            racialTraits:
+                normal_speed: ~
+                low_light_vision: ~
+                elven_immunities: ~
+                elven_magic: ~
+                keen_senses: ~
+            weaponFamiliarities: [longbows, composite_longbow, longswords, rapiers, shortbows, composite_shortbows), elven]
+            languages: [common, dwarven]
+        gnome:
+            attributeModifiers:
+                - { code: dwarf.charisma, attribute: charisma, modifier: 2 }
+                - { code: dwarf.strength, attribute: strength, modifier: -2 }
+                - { code: dwarf.constitution, attribute: constitution, modifier: 2 }
+            classSize: small
+            racialTraits:
+                slow_speed: ~
+                low_light_vision: ~
+                defensive_training: ~
+                gnome_magic: ~
+                hatred: ~
+                illusion_resistance: ~
+                keen_senses: ~
+                obsessive: ~
+            weaponFamiliarities: [gnome]
+            languages: [common, gnome, sylvan]
+
+attribute:
+    class: BlueBear\EngineBundle\Engine\Entity\Attribute\Attribute
 
 attribute_modifiers:
-    class: BlueBear\EngineBundle\Engine\Entity\AttributeModifier
-    form_type: attribute_modifier
+    class: BlueBear\EngineBundle\Engine\Entity\Attribute\AttributeModifier
 
+attribute_setters:
+    class: BlueBear\EngineBundle\Engine\Entity\Attribute\AttributeSetter
+
+racial_trait:
+    class: BlueBear\EngineBundle\Engine\Entity\Race\RacialTrait
+    data:
+        slow_steady:
+            attributeSetters:
+                - { code: slow_steady, attribute: speed, modifier: 20 }
+        darkvision:
+            attributeSetters:
+                - { code: darkvision, attribute: visibility_range, modifier: 60 }
+        defensive_training: ~
+        hatred: ~
+        greed: ~
+        hardy: ~
+        stability: ~
+        stone_cunning: ~
+        normal_speed: ~
+        low_light_vision: ~
+        elven_immunities: ~
+        elven_magic: ~
+        keen_senses: ~
+        slow_speed: ~
+        gnome_magic: ~
+        illusion_resistance: ~
+        keen_senses: ~
+        obsessive: ~
 class_size:
     class: BlueBear\EngineBundle\Engine\Entity\ClassSize
     form_type: class_size
     data:
+        small: ~
         medium: ~
