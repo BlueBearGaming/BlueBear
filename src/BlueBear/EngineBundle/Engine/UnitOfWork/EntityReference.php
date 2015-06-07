@@ -9,10 +9,20 @@ class EntityReference
 
     protected $class;
 
+    protected $reference;
+
     public function __construct($class, $id)
     {
         $this->class = $class;
         $this->id = $id;
+    }
+
+    public function __call($method, $arguments = null)
+    {
+        if (!isset($this->reference)) {
+            $this->reference = UnitOfWork::$instance->lazyLoad($this);
+        }
+        return $this->reference->$method($arguments);
     }
 
     /**

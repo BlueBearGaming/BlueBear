@@ -8,12 +8,9 @@ use BlueBear\CoreBundle\Entity\Map\Context;
 use BlueBear\CoreBundle\Manager\ContextManager;
 use BlueBear\EngineBundle\Engine\Annotation\AnnotationProcessor;
 use BlueBear\EngineBundle\Engine\Entity\Race;
-use BlueBear\EngineBundle\Engine\UnitOfWork\EntityReference;
 use BlueBear\EngineBundle\Event\EngineEvent;
 use Exception;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\Finder\Finder;
-use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\HttpKernel\Event\KernelEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -75,28 +72,32 @@ class EngineSubscriber implements EventSubscriberInterface
     {
         if ($event->getRequestType() == HttpKernelInterface::MASTER_REQUEST) {
             $parse = new Parser();
-            $finder = new Finder();
-            $finder->files()->in(__DIR__ . '/../../Resources/data');
+            $files = [];
+            $kernel = $this->container->get('kernel');
+            $configuration = $this->container->getParameter('bluebear.game.data');
 
-            /** @var SplFileInfo $file */
-            foreach ($finder as $file) {
-                $data = $parse->parse(file_get_contents($file->getRealPath()));
+            foreach ($configuration as $file) {
+                $file = $kernel->locateResource($file);
+
+                if (!$file) {
+                    throw new Exception('Invalid data file ' . $file);
+                }
+                $files[] = $file;
+            }
+            foreach ($files as $file) {
+                $data = $parse->parse(file_get_contents($file));
 
                 foreach ($data as $entityData) {
                     $this->annotationProcessor->process($entityData);
                 }
             }
             $this->annotationProcessor->processRelations();
-            $unitOfWork = $this->getContainer()->get('bluebear.engine.unit_of_work');
-
             /** @var Race $dwarf */
-            $dwarf = $unitOfWork->load(new EntityReference('BlueBear\EngineBundle\Engine\Entity\Race', 'dwarf'));
-            $test = $dwarf->getClassSize()->get(0);
-
-            var_dump($test);
-
-
-            die('panda');
+//            $dwarf = $this->getContainer()->get('bluebear.engine.unit_of_work')->load(new EntityReference(
+//                'BlueBear\EngineBundle\Engine\Entity\Race',
+//                'dwarf'
+//            ));
+            //var_dump($dwarf->getClassSize()->getCode());
         }
     }
 

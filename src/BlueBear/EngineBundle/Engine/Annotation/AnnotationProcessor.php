@@ -4,6 +4,7 @@ namespace BlueBear\EngineBundle\Engine\Annotation;
 
 use BlueBear\EngineBundle\Engine\UnitOfWork\EntityReference;
 use BlueBear\EngineBundle\Engine\UnitOfWork\EntityReferenceCollection;
+use BlueBear\EngineBundle\Engine\UnitOfWork\Relation;
 use BlueBear\EngineBundle\Engine\UnitOfWork\UnitOfWork;
 use Exception;
 use Metadata\MetadataFactoryInterface;
@@ -78,31 +79,35 @@ class AnnotationProcessor
         if (!array_key_exists('data', $entityData) || !is_array($entityData['data'])) {
             return;
         }
-        // insert dynamic data
+        // create entity from configuration
         foreach ($entityData['data'] as $id => $entityData) {
             $entity = new $class;
             $accessor->setValue($entity, $idProperty, $id);
 
-            foreach ($entityData as $attributeName => $attributeData) {
+            if ($entityData) {
+                // insert dynamic data
+                foreach ($entityData as $attributeName => $attributeData) {
 
-                if (!array_key_exists($attributeName, $relations)) {
-                    if (is_array($attributeData)) {
-                        $accessor->setValue($entity, $attributeName, $attributeData);
-                    } else if (is_string($attributeData)) {
-                        $accessor->setValue($entity, $attributeName, $attributeData);
+                    if (!array_key_exists($attributeName, $relations)) {
+                        if (is_array($attributeData)) {
+                            $accessor->setValue($entity, $attributeName, $attributeData);
+                        } else if (is_string($attributeData)) {
+                            $accessor->setValue($entity, $attributeName, $attributeData);
+                        } else {
+                            throw new Exception('Not handled parse type : ' . print_r($attributeData));
+                        }
                     } else {
-                        throw new Exception('Not handled parse type : ' . print_r($attributeData));
-                    }
-                } else {
-                    /** @var RelationMetadata $relation */
-                    $relation = $relations[$attributeName];
+                        /** @var RelationMetadata $relation */
+                        $relation = $relations[$attributeName];
 
-                    $this->registeredRelations[$class][] = [
-                        'attribute' => $attributeName,
-                        'relationClass' => $relation->relationClass,
-                        'data' => $attributeData,
-                        'owner' => $entity
-                    ];
+                        $this->registeredRelations[$class][] = new Relation(
+                            $attributeName,
+                            $relation->relationClass,
+                            $relation->relationType,
+                            $entity,
+                            $attributeData
+                        );
+                    }
                 }
             }
             $this->unitOfWork->add($entity);
@@ -114,49 +119,58 @@ class AnnotationProcessor
         $accessor = PropertyAccess::createPropertyAccessor();
 
         foreach ($this->registeredRelations as $classRelations) {
-
+            /** @var Relation $relation */
             foreach ($classRelations as $relation) {
-                //var_dump($relation);
-                if (!array_key_exists('data', $relation)) {
-                    continue;
-                }
-                if (!is_array($relation['data'])) {
-                    $relation['data'] = [$relation['data']];
-                }
-                $owner = $relation['owner'];
-                $attribute = $relation['attribute'];
+                $data = $relation->getData();
+                $owner = $relation->getOwner();
+                $idProperty = $this->unitOfWork->getIdProperty($relation->getRelationClass());
 
-                foreach ($relation['data'] as $entityData) {
-                    $entity = new $relation['relationClass'];
+                if ($relation->getRelationType() == Relation::RELATION_ONE_TO_ONE) {
+                    // if provided data is a string, we create an entity reference and we check if it has been registered
+                    // in unit of work
+                    $reference = new EntityReference($relation->getRelationClass(), $data);
+                    // if entity is not registered, an exception will be thrown
+                    $this->unitOfWork->load($reference);
+                    // setting entity reference
+                    $accessor->setValue($owner, $relation->getAttributeName(), $reference);
 
-                    foreach ($entityData as $attributeName => $attributeData) {
-                        if (is_array($attributeData)) {
-                            $accessor->setValue($entity, $attributeName, $attributeData);
-                        } else if (is_string($attributeData) or is_numeric($attributeData)) {
-                            $accessor->setValue($entity, $attributeName, $attributeData);
-                        } else {
-                            throw new Exception('Not handled parse type : ' . print_r($attributeData));
+                } else if ($relation->getRelationType() == Relation::RELATION_ONE_TO_MANY) {
+                    foreach ($data as $entityData) {
+                        $class = $relation->getRelationClass();
+                        $entity = new $class;
+
+                        foreach ($entityData as $attributeName => $attributeData) {
+                            if (is_array($attributeData)) {
+                                $accessor->setValue($entity, $attributeName, $attributeData);
+                            } else if (is_string($attributeData) or is_numeric($attributeData)) {
+                                $accessor->setValue($entity, $attributeName, $attributeData);
+                            } else {
+                                throw new Exception('Not handled parse type : ' . print_r($attributeData));
+                            }
                         }
-                    }
-                    $ownerRelationsCollection = $accessor->getValue($owner, $attribute);
+                        $ownerRelationsCollection = $accessor->getValue($relation->getOwner(), $relation->getAttributeName());
 
-                    if (!$ownerRelationsCollection) {
-                        $ownerRelationsCollection = new EntityReferenceCollection($relation['relationClass']);
+                        if (!$ownerRelationsCollection) {
+                            $ownerRelationsCollection = new EntityReferenceCollection($relation->getRelationClass());
+                        }
+                        if (!($ownerRelationsCollection instanceof EntityReferenceCollection)) {
+                            throw new Exception("Attribute {$relation->getAttributeName()} should be an instance of EntityReferenceCollection");
+                        }
+
+                        $ownerRelationsCollection->add(new EntityReference(
+                            $relation->getRelationClass(),
+                            $accessor->getValue($entity, $idProperty)
+                        ));
+
+                        $accessor->setValue($owner, $relation->getAttributeName(), $ownerRelationsCollection);
+                        $this->unitOfWork->add($entity);
                     }
-                    if (!($ownerRelationsCollection instanceof EntityReferenceCollection)) {
-                        throw new Exception("Attribute {$attribute} should be an instance of EntityReferenceCollection");
-                    }
-                    $idProperty = $this->unitOfWork->getIdProperty($relation['relationClass']);
-                    $ownerRelationsCollection->add(new EntityReference(
-                        $relation['relationClass'],
-                        $accessor->getValue($entity, $idProperty)
-                    ));
-                    $accessor->setValue($owner, $attribute, $ownerRelationsCollection);
-                    $this->unitOfWork->add($entity);
+                } else {
+                    throw new Exception("Relation of type {$relation->getRelationType()} are not handled : ");
                 }
-
             }
         }
+
     }
 
 

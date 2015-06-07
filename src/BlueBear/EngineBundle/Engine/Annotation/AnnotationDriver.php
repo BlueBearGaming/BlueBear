@@ -47,6 +47,7 @@ class AnnotationDriver implements DriverInterface
             if ($annotation) {
                 /** @var RelationMetadata $propertyMetadata */
                 $propertyMetadata->relationClass = $annotation->relationClass;
+                $propertyMetadata->relationType = $annotation->relationType;
             }
         }
         return $classMetadata;

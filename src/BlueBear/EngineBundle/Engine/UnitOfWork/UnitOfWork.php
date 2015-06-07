@@ -18,6 +18,9 @@ class UnitOfWork
 
     protected $propertyAccessor;
 
+    /**
+     * Initialize property accessor and unit of work instance
+     */
     public function __construct()
     {
         $this->propertyAccessor = PropertyAccess::createPropertyAccessor();
@@ -61,6 +64,9 @@ class UnitOfWork
         }
         if (!$entityReference->getId()) {
             throw new Exception('Entity reference has no id');
+        }
+        if (!array_key_exists($entityReference->getId(), $this->entities[$entityReference->getClass()])) {
+            throw new Exception("Entity {$entityReference->getId()} of class {$entityReference->getClass()} was not found");
         }
         $entity = $this->entities[$entityReference->getClass()][$entityReference->getId()];
 

@@ -7,9 +7,8 @@ race:
                 - { code: dwarf.dexterity, attribute: dexterity, modifier: 2 }
                 - { code: dwarf.intelligence, attribute: intelligence, modifier: 2 }
                 - { code: dwarf.constitution, attribute: constitution, modifier: -2 }
-            classSize:
-                - { code: medium }
-            feats:
+            classSize: medium
+            racialTraits:
                 slow_steady: ~
                 darkvision: ~
                 defensive_training: ~
@@ -24,3 +23,5 @@ attribute_modifiers:
 class_size:
     class: BlueBear\EngineBundle\Engine\Entity\ClassSize
     form_type: class_size
+    data:
+        medium: ~

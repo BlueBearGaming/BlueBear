@@ -16,25 +16,20 @@ class Race
 
     /**
      * @var EntityReferenceCollection
-     * @Game\Relation(class="BlueBear\EngineBundle\Engine\Entity\AttributeModifier")
+     * @Game\Relation(class="BlueBear\EngineBundle\Engine\Entity\AttributeModifier", type="OneToMany")
      */
     protected $attributeModifiers;
 
     /**
      * @var EntityReferenceCollection
-     * @Game\Relation(class="BlueBear\EngineBundle\Engine\Entity\ClassSize")
+     * @Game\Relation(class="BlueBear\EngineBundle\Engine\Entity\ClassSize", type="OneToOne")
      */
     protected $classSize;
 
     /**
-     * @var Feat[]
+     * @var
      */
-    protected $feats;
-
-    /**
-     * @var WeaponProficiency[]
-     */
-    protected $weaponFamiliarities;
+    protected $racialTraits;
 
     protected $languages;
 
@@ -71,7 +66,7 @@ class Race
     }
 
     /**
-     * @return string
+     * @return ClassSize
      */
     public function getClassSize()
     {
@@ -84,38 +79,6 @@ class Race
     public function setClassSize($classSize)
     {
         $this->classSize = $classSize;
-    }
-
-    /**
-     * @return Feat[]
-     */
-    public function getFeats()
-    {
-        return $this->feats;
-    }
-
-    /**
-     * @param Feat[] $feats
-     */
-    public function setFeats($feats)
-    {
-        $this->feats = $feats;
-    }
-
-    /**
-     * @return WeaponProficiency[]
-     */
-    public function getWeaponFamiliarities()
-    {
-        return $this->weaponFamiliarities;
-    }
-
-    /**
-     * @param WeaponProficiency[] $weaponFamiliarities
-     */
-    public function setWeaponFamiliarities($weaponFamiliarities)
-    {
-        $this->weaponFamiliarities = $weaponFamiliarities;
     }
 
     /**
@@ -132,5 +95,21 @@ class Race
     public function setLanguages($languages)
     {
         $this->languages = $languages;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRacialTraits()
+    {
+        return $this->racialTraits;
+    }
+
+    /**
+     * @param mixed $racialTraits
+     */
+    public function setRacialTraits($racialTraits)
+    {
+        $this->racialTraits = $racialTraits;
     }
 }
