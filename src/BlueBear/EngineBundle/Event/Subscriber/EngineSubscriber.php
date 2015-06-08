@@ -99,6 +99,7 @@ class EngineSubscriber implements EventSubscriberInterface
                 'dwarf'
             ));
             // normal loading
+            var_dump($dwarf);
             var_dump($dwarf->getAttributeModifiers());
             // lazy loading
             var_dump($dwarf->getAttributeModifiers()->get(0));
