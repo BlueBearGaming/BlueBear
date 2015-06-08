@@ -18,6 +18,7 @@ class MainController extends Controller
     public function createCharacterAction()
     {
         $unitOfWork = $this->get('bluebear.engine.unit_of_work');
+        /** @var Race[] $races */
         $races = $unitOfWork->loadAll(new EntityReference('BlueBear\DungeonBundle\Entity\Race\Race'));
 
         $racesArray = [];
@@ -25,13 +26,11 @@ class MainController extends Controller
         foreach ($races as $race) {
             $racesArray[$race->getCode()] = $race->getCode();
         }
-
-        $form = $this->createForm('dungeon_character', [
-            'races' => 'lol'
-        ]);
+        $form = $this->createForm('dungeon_character');
 
         return [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'races' => $races
         ];
     }
 }

@@ -19,6 +19,8 @@ race:
                 stone_cunning: ~
             weaponFamiliarities: [battleaxes, heavy_picks, warhammers, darwens]
             languages: [common, dwarven]
+            description: bluebear.dungeon.dwarf.description
+            longDescription: bluebear.dungeon.dwarf.long_description
         elf:
             attributeModifiers:
                 - { code: dwarf.dexterity, attribute: dexterity, modifier: 2 }
@@ -33,6 +35,8 @@ race:
                 keen_senses: ~
             weaponFamiliarities: [longbows, composite_longbow, longswords, rapiers, shortbows, composite_shortbows, elven]
             languages: [common, dwarven]
+            description: bluebear.dungeon.elf.description
+            longDescription: bluebear.dungeon.elf.long_description
         gnome:
             attributeModifiers:
                 - { code: dwarf.charisma, attribute: charisma, modifier: 2 }

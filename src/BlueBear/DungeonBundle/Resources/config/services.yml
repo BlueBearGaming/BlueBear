@@ -27,3 +27,5 @@ services:
         class: BlueBear\DungeonBundle\Form\CharacterType
         tags:
             - {name: form.type, alias: dungeon_character}
+        calls:
+            - [setUnitOfWork, [@bluebear.engine.unit_of_work]]

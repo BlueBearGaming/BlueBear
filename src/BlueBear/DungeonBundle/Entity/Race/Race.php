@@ -36,6 +36,10 @@ class Race
 
     protected $weaponFamiliarities;
 
+    protected $description;
+
+    protected $longDescription;
+
     /**
      * @return string
      */
@@ -130,5 +134,37 @@ class Race
     public function setWeaponFamiliarities($weaponFamiliarities)
     {
         $this->weaponFamiliarities = $weaponFamiliarities;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param mixed $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLongDescription()
+    {
+        return $this->longDescription;
+    }
+
+    /**
+     * @param mixed $longDescription
+     */
+    public function setLongDescription($longDescription)
+    {
+        $this->longDescription = $longDescription;
     }
 }
