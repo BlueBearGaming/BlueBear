@@ -11,7 +11,7 @@ class EntityReference
 
     protected $reference;
 
-    public function __construct($class, $id)
+    public function __construct($class, $id = null)
     {
         $this->class = $class;
         $this->id = $id;

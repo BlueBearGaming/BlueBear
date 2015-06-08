@@ -2,7 +2,6 @@
 
 namespace BlueBear\DungeonBundle\Form;
 
-
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -11,8 +10,9 @@ class CharacterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('race', 'choice', [
-                'expanded' => true
+            ->add('races', 'choice', [
+                //'expanded' => true,
+                //'data_class' => 'BlueBear\DungeonBundle\Entity\Race\Race'
             ]);
     }
 
@@ -23,6 +23,6 @@ class CharacterType extends AbstractType
      */
     public function getName()
     {
-        // TODO: Implement getName() method.
+        return 'dungeon_character';
     }
 }

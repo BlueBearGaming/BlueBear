@@ -73,6 +73,14 @@ class UnitOfWork
         return $entity;
     }
 
+    public function loadAll(EntityReference $entityReference)
+    {
+        if (!$this->isClassRegistered($entityReference->getClass())) {
+            throw new Exception("Class {$entityReference->getClass()} is not registered in unit of work");
+        }
+        return $this->entities[$entityReference->getClass()];
+    }
+
     public function getIdProperty($class)
     {
         if (!$this->isClassRegistered($class)) {
