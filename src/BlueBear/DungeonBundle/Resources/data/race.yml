@@ -1,5 +1,5 @@
 race:
-    class: BlueBear\EngineBundle\Engine\Entity\Race\Race
+    class: BlueBear\DungeonBundle\Entity\Race\Race
     form_type: race
     data:
         dwarf:
@@ -31,7 +31,7 @@ race:
                 elven_immunities: ~
                 elven_magic: ~
                 keen_senses: ~
-            weaponFamiliarities: [longbows, composite_longbow, longswords, rapiers, shortbows, composite_shortbows), elven]
+            weaponFamiliarities: [longbows, composite_longbow, longswords, rapiers, shortbows, composite_shortbows, elven]
             languages: [common, dwarven]
         gnome:
             attributeModifiers:
@@ -52,16 +52,16 @@ race:
             languages: [common, gnome, sylvan]
 
 attribute:
-    class: BlueBear\EngineBundle\Engine\Entity\Attribute\Attribute
+    class: BlueBear\DungeonBundle\Entity\Attribute\Attribute
 
 attribute_modifiers:
-    class: BlueBear\EngineBundle\Engine\Entity\Attribute\AttributeModifier
+    class: BlueBear\DungeonBundle\Entity\Attribute\AttributeModifier
 
 attribute_setters:
-    class: BlueBear\EngineBundle\Engine\Entity\Attribute\AttributeSetter
+    class: BlueBear\DungeonBundle\Entity\Attribute\AttributeSetter
 
 racial_trait:
-    class: BlueBear\EngineBundle\Engine\Entity\Race\RacialTrait
+    class: BlueBear\DungeonBundle\Entity\Race\RacialTrait
     data:
         slow_steady:
             attributeSetters:
@@ -86,7 +86,7 @@ racial_trait:
         keen_senses: ~
         obsessive: ~
 class_size:
-    class: BlueBear\EngineBundle\Engine\Entity\ClassSize
+    class: BlueBear\DungeonBundle\Entity\ClassSize
     form_type: class_size
     data:
         small: ~

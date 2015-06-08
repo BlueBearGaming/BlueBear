@@ -1,6 +1,6 @@
 <?php
 
-namespace BlueBear\EngineBundle\Engine\Annotation;
+namespace BlueBear\DungeonBundle\Annotation;
 
 use Metadata\PropertyMetadata;
 

@@ -1,4 +1,24 @@
 services:
-#    blue_bear_dungeon.example:
-#        class: BlueBear\DungeonBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+    bluebear.dungeon.event.kernel_request:
+        class: BlueBear\DungeonBundle\Event\Listener\KernelRequestListener
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+        calls:
+            - [setAnnotationProcessor, [@bluebear.engine.annotation_processor]]
+            - [setContainer, [@service_container]]
+
+    bluebear.engine.annotation_driver:
+        class: BlueBear\DungeonBundle\Annotation\AnnotationDriver
+        calls:
+            - [setReader, [@annotation_reader]]
+
+    bluebear.engine.metadata_factory:
+        class: Metadata\MetadataFactory
+        arguments: [@bluebear.engine.annotation_driver]
+
+    bluebear.engine.annotation_processor:
+        class: BlueBear\DungeonBundle\Annotation\AnnotationProcessor
+        arguments: [@bluebear.engine.metadata_factory, @bluebear.engine.unit_of_work]
+
+    bluebear.engine.unit_of_work:
+        class: BlueBear\DungeonBundle\UnitOfWork\UnitOfWork

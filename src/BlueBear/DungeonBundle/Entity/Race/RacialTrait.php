@@ -1,8 +1,8 @@
 <?php
 
-namespace BlueBear\EngineBundle\Engine\Entity\Race;
+namespace BlueBear\DungeonBundle\Entity\Race;
 
-use BlueBear\EngineBundle\Engine\Annotation as Game;
+use BlueBear\DungeonBundle\Annotation as Game;
 
 class RacialTrait
 {
@@ -13,7 +13,7 @@ class RacialTrait
     protected $code;
 
     /**
-     * @Game\Relation(class="BlueBear\EngineBundle\Engine\Entity\Attribute\AttributeSetter", type="OneToMany")
+     * @Game\Relation(class="BlueBear\DungeonBundle\Entity\Attribute\AttributeSetter", type="OneToMany")
      */
     protected $attributeSetters;
 

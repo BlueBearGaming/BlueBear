@@ -1,6 +1,6 @@
 <?php
 
-namespace BlueBear\EngineBundle\Engine\Annotation;
+namespace BlueBear\DungeonBundle\Annotation;
 
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\Annotations\Reader;
@@ -31,7 +31,7 @@ class AnnotationDriver implements DriverInterface
 
             $annotation = $this->reader->getPropertyAnnotation(
                 $reflectionProperty,
-                'BlueBear\EngineBundle\Engine\Annotation\Id'
+                Id::class
             );
             if ($annotation) {
                 /** @var IdMetadata $propertyMetadata */
@@ -42,7 +42,7 @@ class AnnotationDriver implements DriverInterface
             /** @var Relation $annotation */
             $annotation = $this->reader->getPropertyAnnotation(
                 $reflectionProperty,
-                'BlueBear\EngineBundle\Engine\Annotation\Relation'
+                Relation::class
             );
             if ($annotation) {
                 /** @var RelationMetadata $propertyMetadata */

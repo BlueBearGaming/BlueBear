@@ -1,6 +1,6 @@
 <?php
 
-namespace BlueBear\EngineBundle\Engine\UnitOfWork;
+namespace BlueBear\DungeonBundle\UnitOfWork;
 
 class EntityReferenceCollection
 {

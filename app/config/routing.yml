@@ -2,10 +2,6 @@ blue_bear_dungeon:
     resource: "@BlueBearDungeonBundle/Resources/config/routing.yml"
     prefix:   /
 
-bluebear_dungeon:
-    resource: "@BluebearDungeonBundle/Resources/config/routing.yml"
-    prefix:   /
-
 # PHP engine
 blue_bear_engine:
     resource: "@BlueBearEngineBundle/Resources/config/routing.yml"

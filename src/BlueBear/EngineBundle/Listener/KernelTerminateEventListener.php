@@ -8,7 +8,6 @@ class KernelTerminateEventListener
 {
     protected $callbacks = [];
 
-
     public function terminate(PostResponseEvent $postResponseEvent)
     {
         foreach ($this->callbacks as $callback) {

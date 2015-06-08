@@ -1,14 +1,14 @@
 <?php
 
-namespace BlueBear\EngineBundle\Engine\Entity\Attribute;
+namespace BlueBear\DungeonBundle\Entity;
 
-use BlueBear\EngineBundle\Engine\Annotation as Game;
+use BlueBear\DungeonBundle\Annotation as Game;
 
-class Attribute
+class ClassSize
 {
     /**
      * @var string
-     * @Game\Id()
+     * @Game\Id
      */
     protected $code;
 

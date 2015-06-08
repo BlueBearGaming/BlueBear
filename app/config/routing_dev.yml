@@ -1,4 +1,4 @@
-_main:
+c_main:
   resource: routing.yml
 
 _wdt:

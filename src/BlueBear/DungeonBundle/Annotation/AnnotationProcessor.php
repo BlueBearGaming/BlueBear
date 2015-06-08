@@ -1,11 +1,11 @@
 <?php
 
-namespace BlueBear\EngineBundle\Engine\Annotation;
+namespace BlueBear\DungeonBundle\Annotation;
 
-use BlueBear\EngineBundle\Engine\UnitOfWork\EntityReference;
-use BlueBear\EngineBundle\Engine\UnitOfWork\EntityReferenceCollection;
-use BlueBear\EngineBundle\Engine\UnitOfWork\Relation;
-use BlueBear\EngineBundle\Engine\UnitOfWork\UnitOfWork;
+use BlueBear\DungeonBundle\UnitOfWork\EntityReference;
+use BlueBear\DungeonBundle\UnitOfWork\EntityReferenceCollection;
+use BlueBear\DungeonBundle\UnitOfWork\Relation;
+use BlueBear\DungeonBundle\UnitOfWork\UnitOfWork;
 use Exception;
 use Metadata\MetadataFactoryInterface;
 use Symfony\Component\PropertyAccess\PropertyAccess;
@@ -164,8 +164,5 @@ class AnnotationProcessor
                 }
             }
         }
-
     }
-
-
 }

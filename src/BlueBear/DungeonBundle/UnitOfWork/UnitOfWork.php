@@ -1,6 +1,6 @@
 <?php
 
-namespace BlueBear\EngineBundle\Engine\UnitOfWork;
+namespace BlueBear\DungeonBundle\UnitOfWork;
 
 use Exception;
 use Symfony\Component\PropertyAccess\PropertyAccess;

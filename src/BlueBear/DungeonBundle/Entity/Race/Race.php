@@ -1,35 +1,34 @@
 <?php
 
-namespace BlueBear\EngineBundle\Engine\Entity\Race;
+namespace BlueBear\DungeonBundle\Entity\Race;
 
-use BlueBear\EngineBundle\Engine\Annotation as Game;
-use BlueBear\EngineBundle\Engine\Entity\ClassSize;
-use BlueBear\EngineBundle\Engine\UnitOfWork\EntityReferenceCollection;
+use BlueBear\DungeonBundle\Annotation as Game;
+use BlueBear\DungeonBundle\Entity\ClassSize;
+use BlueBear\DungeonBundle\UnitOfWork\EntityReferenceCollection;
 use Doctrine\Common\Collections\Collection;
 
 class Race
 {
     /**
-     * @var string
      * @Game\Id()
      */
     protected $code;
 
     /**
      * @var EntityReferenceCollection
-     * @Game\Relation(class="BlueBear\EngineBundle\Engine\Entity\Attribute\AttributeModifier", type="OneToMany")
+     * @Game\Relation(class="BlueBear\DungeonBundle\Entity\Attribute\AttributeModifier", type="OneToMany")
      */
     protected $attributeModifiers;
 
     /**
      * @var EntityReferenceCollection
-     * @Game\Relation(class="BlueBear\EngineBundle\Engine\Entity\ClassSize", type="OneToOne")
+     * @Game\Relation(class="BlueBear\DungeonBundle\Entity\ClassSize", type="OneToOne")
      */
     protected $classSize;
 
     /**
      * @var
-     * @Game\Relation(class="BlueBear\EngineBundle\Engine\Entity\Race\RacialTrait", type="OneToMany")
+     * @Game\Relation(class="BlueBear\DungeonBundle\Entity\Race\RacialTrait", type="OneToMany")
      */
     protected $racialTraits;
 

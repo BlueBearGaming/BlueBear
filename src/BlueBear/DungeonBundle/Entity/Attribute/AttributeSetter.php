@@ -1,8 +1,8 @@
 <?php
 
-namespace BlueBear\EngineBundle\Engine\Entity\Attribute;
+namespace BlueBear\DungeonBundle\Entity\Attribute;
 
-use BlueBear\EngineBundle\Engine\Annotation as Game;
+use BlueBear\DungeonBundle\Annotation as Game;
 
 class AttributeSetter
 {

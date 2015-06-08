@@ -1,9 +1,9 @@
 <?php
 
-namespace BlueBear\EngineBundle\Engine\Annotation;
+namespace BlueBear\DungeonBundle\Annotation;
 
 use Exception;
-use BlueBear\EngineBundle\Engine\UnitOfWork\Relation as Reference;
+use BlueBear\DungeonBundle\UnitOfWork\Relation as Reference;
 
 /**
  * @Annotation
