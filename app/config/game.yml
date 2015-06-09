@@ -61,5 +61,6 @@ blue_bear_engine:
 
         data:
             - @BlueBearDungeonBundle/Resources/data/race.yml
+            - @BlueBearDungeonBundle/Resources/data/class.yml
             - @BlueBearDungeonBundle/Resources/data/attribute.yml
             - @BlueBearDungeonBundle/Resources/data/racialTrait.yml

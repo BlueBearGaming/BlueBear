@@ -3,10 +3,10 @@ racial_trait:
     data:
         slow_steady:
             attributeSetters:
-                - { code: slow_steady, attribute: speed, modifier: 20 }
+                - { code: slow_steady, attribute: speed, setter: 20 }
         darkvision:
             attributeSetters:
-                - { code: darkvision, attribute: visibility_range, modifier: 60 }
+                - { code: darkvision, attribute: visibility_range, setter: 60 }
         defensive_training: ~
         hatred: ~
         greed: ~

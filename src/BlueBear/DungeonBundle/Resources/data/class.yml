@@ -1,0 +1,32 @@
+race:
+    class: BlueBear\DungeonBundle\Entity\CharacterClass\CharacterClass
+    data:
+        barbarian:
+            attributeSetters:
+                - { code: barbarian.life, attribute: life, setter: d12 }
+            skills: [acrobatics, climb, craft, handle_animal, intimidate, knowledge_nature, perception, ride, survival, swim]
+
+
+skill:
+    class:
+    data:
+        acrobatics:
+            attribute: dexterity
+        climb:
+            attribute: strength
+        craft:
+            attribute: intelligence
+        handle_animal:
+            attribute: charisma
+        intimidate:
+            attribute: charisma
+        knowledge_nature:
+            attribute: intelligence
+        perception:
+            attribute: wisdom
+        ride:
+            attribute: dexterity
+        survival:
+            attribute: wisdom
+        swim:
+            attribute: strength
