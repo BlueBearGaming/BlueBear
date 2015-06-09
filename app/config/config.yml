@@ -31,9 +31,16 @@ framework:
 twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
-    form:
-        resources:
-            - BlueBearCoreBundle:Form:fields.html.twig
+    form_themes:
+        # Default:
+        - form_div_layout.html.twig
+
+        # Bootstrap:
+        - bootstrap_3_layout.html.twig
+        - bootstrap_3_horizontal_layout.html.twig
+
+        # Custom
+        - BlueBearCoreBundle:Form:fields.html.twig
 
 # Monolog Configuration
 monolog:
