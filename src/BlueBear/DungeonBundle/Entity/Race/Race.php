@@ -3,168 +3,38 @@
 namespace BlueBear\DungeonBundle\Entity\Race;
 
 use BlueBear\DungeonBundle\Annotation as Game;
-use BlueBear\DungeonBundle\Entity\ClassSize;
 use BlueBear\DungeonBundle\UnitOfWork\EntityReferenceCollection;
-use Doctrine\Common\Collections\Collection;
 
 class Race
 {
     /**
      * @Game\Id()
      */
-    protected $code;
+    public $code;
 
     /**
      * @var EntityReferenceCollection
      * @Game\Relation(class="BlueBear\DungeonBundle\Entity\Attribute\AttributeModifier", type="OneToMany")
      */
-    protected $attributeModifiers;
+    public $attributeModifiers;
 
     /**
      * @var EntityReferenceCollection
      * @Game\Relation(class="BlueBear\DungeonBundle\Entity\ClassSize", type="OneToOne")
      */
-    protected $classSize;
+    public $classSize;
 
     /**
      * @var
      * @Game\Relation(class="BlueBear\DungeonBundle\Entity\Race\RacialTrait", type="OneToMany")
      */
-    protected $racialTraits;
+    public $racialTraits;
 
-    protected $languages;
+    public $languages;
 
-    protected $weaponFamiliarities;
+    public $weaponFamiliarities;
 
-    protected $description;
+    public $description;
 
-    protected $longDescription;
-
-    /**
-     * @return string
-     */
-    public function getCode()
-    {
-        return $this->code;
-    }
-
-    /**
-     * @param string $code
-     */
-    public function setCode($code)
-    {
-        $this->code = $code;
-    }
-
-    /**
-     * @return Collection
-     */
-    public function getAttributeModifiers()
-    {
-        return $this->attributeModifiers;
-    }
-
-    /**
-     * @param Collection $attributeModifiers
-     */
-    public function setAttributeModifiers($attributeModifiers)
-    {
-        $this->attributeModifiers = $attributeModifiers;
-    }
-
-    /**
-     * @return ClassSize
-     */
-    public function getClassSize()
-    {
-        return $this->classSize;
-    }
-
-    /**
-     * @param string $classSize
-     */
-    public function setClassSize($classSize)
-    {
-        $this->classSize = $classSize;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getLanguages()
-    {
-        return $this->languages;
-    }
-
-    /**
-     * @param mixed $languages
-     */
-    public function setLanguages($languages)
-    {
-        $this->languages = $languages;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getRacialTraits()
-    {
-        return $this->racialTraits;
-    }
-
-    /**
-     * @param mixed $racialTraits
-     */
-    public function setRacialTraits($racialTraits)
-    {
-        $this->racialTraits = $racialTraits;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getWeaponFamiliarities()
-    {
-        return $this->weaponFamiliarities;
-    }
-
-    /**
-     * @param mixed $weaponFamiliarities
-     */
-    public function setWeaponFamiliarities($weaponFamiliarities)
-    {
-        $this->weaponFamiliarities = $weaponFamiliarities;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * @param mixed $description
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getLongDescription()
-    {
-        return $this->longDescription;
-    }
-
-    /**
-     * @param mixed $longDescription
-     */
-    public function setLongDescription($longDescription)
-    {
-        $this->longDescription = $longDescription;
-    }
+    public $longDescription;
 }

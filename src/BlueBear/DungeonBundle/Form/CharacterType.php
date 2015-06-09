@@ -51,7 +51,7 @@ class CharacterType extends AbstractType
         $races = $this->unitOfWork->loadAll(new EntityReference('BlueBear\DungeonBundle\Entity\Race\Race'));
         /** @var Race $race */
         foreach ($races as $race) {
-            $sorted[$race->getCode()] = $race->getCode();
+            $sorted[$race->code] = $race->code;
         }
         return $sorted;
     }

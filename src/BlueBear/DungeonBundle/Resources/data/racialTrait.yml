@@ -1,0 +1,25 @@
+racial_trait:
+    class: BlueBear\DungeonBundle\Entity\Race\RacialTrait
+    data:
+        slow_steady:
+            attributeSetters:
+                - { code: slow_steady, attribute: speed, modifier: 20 }
+        darkvision:
+            attributeSetters:
+                - { code: darkvision, attribute: visibility_range, modifier: 60 }
+        defensive_training: ~
+        hatred: ~
+        greed: ~
+        hardy: ~
+        stability: ~
+        stone_cunning: ~
+        normal_speed: ~
+        low_light_vision: ~
+        elven_immunities: ~
+        elven_magic: ~
+        keen_senses: ~
+        slow_speed: ~
+        gnome_magic: ~
+        illusion_resistance: ~
+        keen_senses: ~
+        obsessive: ~

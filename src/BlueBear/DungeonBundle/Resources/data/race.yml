@@ -2,6 +2,7 @@ race:
     class: BlueBear\DungeonBundle\Entity\Race\Race
     form_type: race
     data:
+        # Dwarves
         dwarf:
             attributeModifiers:
                 - { code: dwarf.charisma, attribute: charisma, modifier: -2 }
@@ -21,6 +22,7 @@ race:
             languages: [common, dwarven]
             description: bluebear.dungeon.dwarf.description
             longDescription: bluebear.dungeon.dwarf.long_description
+        # Elves
         elf:
             attributeModifiers:
                 - { code: dwarf.dexterity, attribute: dexterity, modifier: 2 }
@@ -37,6 +39,7 @@ race:
             languages: [common, dwarven]
             description: bluebear.dungeon.elf.description
             longDescription: bluebear.dungeon.elf.long_description
+        # Gnomes
         gnome:
             attributeModifiers:
                 - { code: dwarf.charisma, attribute: charisma, modifier: 2 }
@@ -54,41 +57,9 @@ race:
                 obsessive: ~
             weaponFamiliarities: [gnome]
             languages: [common, gnome, sylvan]
+            description: bluebear.dungeon.gnome.description
+            longDescription: bluebear.dungeon.gnome.long_description
 
-attribute:
-    class: BlueBear\DungeonBundle\Entity\Attribute\Attribute
-
-attribute_modifiers:
-    class: BlueBear\DungeonBundle\Entity\Attribute\AttributeModifier
-
-attribute_setters:
-    class: BlueBear\DungeonBundle\Entity\Attribute\AttributeSetter
-
-racial_trait:
-    class: BlueBear\DungeonBundle\Entity\Race\RacialTrait
-    data:
-        slow_steady:
-            attributeSetters:
-                - { code: slow_steady, attribute: speed, modifier: 20 }
-        darkvision:
-            attributeSetters:
-                - { code: darkvision, attribute: visibility_range, modifier: 60 }
-        defensive_training: ~
-        hatred: ~
-        greed: ~
-        hardy: ~
-        stability: ~
-        stone_cunning: ~
-        normal_speed: ~
-        low_light_vision: ~
-        elven_immunities: ~
-        elven_magic: ~
-        keen_senses: ~
-        slow_speed: ~
-        gnome_magic: ~
-        illusion_resistance: ~
-        keen_senses: ~
-        obsessive: ~
 class_size:
     class: BlueBear\DungeonBundle\Entity\ClassSize
     form_type: class_size

@@ -1,0 +1,8 @@
+attribute:
+    class: BlueBear\DungeonBundle\Entity\Attribute\Attribute
+
+attribute_modifiers:
+    class: BlueBear\DungeonBundle\Entity\Attribute\AttributeModifier
+
+attribute_setters:
+    class: BlueBear\DungeonBundle\Entity\Attribute\AttributeSetter
