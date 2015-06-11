@@ -141,7 +141,7 @@ class AnnotationProcessor
                         $class = $relation->getRelationClass();
                         $entity = new $class;
 
-                        if ($entityData) {
+                        if ($entityData && is_array($entityData)) {
                             foreach ($entityData as $attributeName => $attributeData) {
                                 if (is_array($attributeData)) {
                                     $accessor->setValue($entity, $attributeName, $attributeData);

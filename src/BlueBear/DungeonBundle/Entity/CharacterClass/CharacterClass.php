@@ -15,4 +15,13 @@ class CharacterClass
      * @Game\Relation(class="BlueBear\DungeonBundle\Entity\Attribute\AttributeSetter", type="OneToMany")
      */
     public $attributeSetters;
+
+    /**
+     * @Game\Relation(class="BlueBear\DungeonBundle\Entity\Skill", type="OneToMany")
+     */
+    public $skills;
+
+    public $feats;
+
+    public $allowedArmors;
 }

@@ -1,12 +1,13 @@
 <?php
 
-namespace BlueBear\RogueBearBundle\Engine\Entity;
+namespace BlueBear\DungeonBundle\Entity;
 
+use BlueBear\DungeonBundle\Annotation as Game;
 
 class Feat
 {
     /**
-     * @var string
+     * @Game\Id()
      */
     protected $code;
 

@@ -38,7 +38,6 @@ class MainController extends Controller
 
             return $this->redirectToRoute('');
         }
-
         return [
             'form' => $form->createView(),
             'races' => $races
