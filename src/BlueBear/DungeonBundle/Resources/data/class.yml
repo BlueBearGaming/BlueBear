@@ -8,6 +8,7 @@ race:
             allowedArmors: [common, war, light, medium, shields]
             feats:
                 barbarian.fast_movement:
+                    type: extraordinary
                     condition:
                         - {property: class, value: barbarian, type: match_one}
                         - {property: equipment[].type, value: heavy_armor, type: match_none}
