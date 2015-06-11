@@ -1,0 +1,59 @@
+{% extends "@BlueBearBackoffice/layout.html.twig" %}
+
+{% block container %}
+    <div class="container">
+        <div class="row-fluid">
+            <form action="{{ path('bluebear.dungeon.selectClass', {race: app.request.get('race')}) }}" method="post">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Choose your race
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-md-3">{{ form_widget(form) }}</div>
+                        <div class="col-md-9">
+                            {% for class in classes %}
+                                <span class="hidden class-description {{ class.code }}">
+                                    {{ class.description | trans | nl2br }}<br/>
+
+                                    <a class="more" href="#" data-toggle="collapse" data-target=".{{ class.code }}-more">
+                                        more&nbsp;<i class="fa fa-plus-circle"></i></a>
+                                </span>
+                                <div class="{{ class.code }}-more collapse race-long-description">
+                                    {% for feat in class.feats %}
+                                        {{ feat.label | trans }}<br/>
+                                    {% endfor %}
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                    </div>
+                    <div class="panel-footer">
+                        <a href="{{ path('bluebear.dungeon.selectRace') }}">{{ 'bluebear.dungeon.previous' }}</a>
+                        <input type="submit" class="btn btn-default" value="{{ 'bluebear.dungeon.next' }}" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(document).on('ready', function () {
+            var raceDescriptions = $('.class-description');
+            var choices = $('.class-container').find('input[type=radio]');
+
+            choices.on('click', function () {
+                raceDescriptions.hide();
+                $('.class-long-description').addClass('collapsed').removeClass('in');
+                $('.class-description.' + $(this).val()).show().removeClass('hidden');
+            });
+
+            if (choices.is(':checked')) {
+                raceDescriptions.addClass('hidden');
+                $('.class-description.' + choices.filter(':checked').val()).show().removeClass('hidden');
+            }
+        })
+    </script>
+{% endblock %}
+

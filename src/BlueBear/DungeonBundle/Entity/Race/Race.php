@@ -30,6 +30,8 @@ class Race
      */
     public $racialTraits;
 
+    public $label;
+
     public $languages;
 
     public $weaponFamiliarities;

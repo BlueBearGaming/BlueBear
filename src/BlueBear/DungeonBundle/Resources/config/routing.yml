@@ -1,3 +1,11 @@
 bluebear.dungeon.createCharacter:
-    path:     /createCharacter
+    path:     /create/race
     defaults: { _controller: BlueBearDungeonBundle:Main:selectRace }
+
+bluebear.dungeon.selectRace:
+    path:     /create/race
+    defaults: { _controller: BlueBearDungeonBundle:Main:selectRace }
+
+bluebear.dungeon.selectClass:
+    path:     /create/{race}/class
+    defaults: { _controller: BlueBearDungeonBundle:Main:selectClass }

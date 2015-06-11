@@ -1,8 +1,82 @@
+bluebear.dungeon.dwarf: Dwarf
 bluebear.dungeon.dwarf.description: |
     These short and stocky defenders of mountain fortresses are often seen as stern and humorless.
     Known for mining the earth's treasures and crafting magnificent items from ore and gemstones,
     they have an unrivaled affinity for the bounties of the deep earth.
     Dwarves also have a tendency toward traditionalism and isolation that sometimes manifests as xenophobia.
+
+bluebear.dungeon.elf: Elf
+bluebear.dungeon.elf.description: |
+    Tall, noble, and often haughty, elves are long-lived and subtle masters of the wilderness. Elves excel in the arcane
+     arts. Often they use their intrinsic link to nature to forge new spells and create wondrous items that, like their
+     creators, seem nearly impervious to the ravages of time. A private and often introverted race, elves can give the
+     impression they are indifferent to the plights of others.
+
+bluebear.dungeon.gnome: Gnome
+bluebear.dungeon.gnome.description: |
+    Expatriates of the strange land of fey, these small folk have a reputation for flighty and eccentric behavior. Many
+    gnomes are whimsical artisans and tinkers, creating strange devices powered by magic, alchemy, and their quirky
+    imagination. Gnomes have an insatiable need for new experiences that often gets them in trouble.
+
+bluebear.dungeon.barbarian: Barbarian
+bluebear.dungeon.barbarian.description: |
+    For some, there is only rage. In the ways of their people, in the fury of their passion, in the howl of battle,
+    conflict is all these brutal souls know. Savages, hired muscle, masters of vicious martial techniques, they are not
+    soldiers or professional warriors—they are the battle possessed, creatures of slaughter and spirits of war. Known as
+    barbarians, these warmongers know little of training, preparation, or the rules of warfare; for them, only the
+    moment exists, with the foes that stand before them and the knowledge that the next moment might hold their death.
+    They possess a sixth sense in regard to danger and the endurance to weather all that might entail.
+    These brutal warriors might rise from all walks of life, both civilized and savage, though whole societies embracing
+    such philosophies roam the wild places of the world. Within barbarians storms the primal spirit of battle, and woe
+    to those who face their rage.
+
+    Role: Barbarians excel in combat, possessing the martial prowess and fortitude to take on foes seemingly far
+    superior to themselves. With rage granting them boldness and daring beyond that of most other warriors, barbarians
+    charge furiously into battle and ruin all who would stand in their way.
+
+    Alignment: Any nonlawful.
+
+    Hit Die: d12.
+
+bluebear.dungeon.monk: Monk
+bluebear.dungeon.monk.description: |
+    For the truly exemplary, martial skill transcends the battlefield—it is a lifestyle, a doctrine, a state of mind.
+    These warrior-artists search out methods of battle beyond swords and shields, finding weapons within themselves just
+     as capable of crippling or killing as any blade. These monks (so called since they adhere to ancient philosophies
+     and strict martial disciplines) elevate their bodies to become weapons of war, from battle-minded ascetics to
+     self-taught brawlers. Monks tread the path of discipline, and those with the will to endure that path discover
+     within themselves not what they are, but what they are meant to be.
+
+    Role: Monks excel at overcoming even the most daunting perils, striking where it's least expected, and taking
+    advantage of enemy vulnerabilities. Fleet of foot and skilled in combat, monks can navigate any battlefield with
+    ease, aiding allies wherever they are needed most.
+
+    Alignment: Any lawful.
+
+    Hit Die: d8.
+
+bluebear.dungeon.sorcerer: Sorcerer
+bluebear.dungeon.sorcerer.description: |
+    Scions of innately magical bloodlines, the chosen of deities, the spawn of monsters, pawns of fate and destiny, or
+    simply flukes of fickle magic, sorcerers look within themselves for arcane prowess and draw forth might few mortals
+    can imagine. Emboldened by lives ever threatening to be consumed by their innate powers, these magic-touched souls
+    endlessly indulge in and refine their mysterious abilities, gradually learning how to harness their birthright and
+    coax forth ever greater arcane feats. Just as varied as these innately powerful spellcasters' abilities and
+    inspirations are the ways in which they choose to utilize their gifts. While some seek to control their abilities
+    through meditation and discipline, becoming masters of their fantastic birthright, others give in to their magic,
+    letting it rule their lives with often explosive results. Regardless, sorcerers live and breathe that which other
+    spellcasters devote their lives to mastering, and for them magic is more than a boon or a field of study; it is life
+    itself.
+
+    Role: Sorcerers excel at casting a selection of favored spells frequently, making them powerful battle mages. As
+    they become familiar with a specific and ever-widening set of spells, sorcerers often discover new and versatile
+    ways of making use of magics other spellcasters might overlook. Their bloodlines also grant them additional
+    abilities, assuring that no two sorcerers are ever quite alike.
+
+    Alignment: Any.
+
+    Hit Die: d6.
+
 
 bluebear.dungeon.dwarf.long_description: |
     Dwarves are a stoic but stern race, ensconced in cities carved from the hearts of mountains and fiercely determined
@@ -72,12 +146,6 @@ bluebear.dungeon.dwarf.long_description: |
     to enrich the fortress-homes of their birth, or to reclaim fallen dwarven citadels from racial enemies.
     Dwarven warfare is often characterized by tunnel fighting and melee combat, and as such most dwarves tend toward
     classes such as fighters and barbarians.
-
-bluebear.dungeon.elf.description: |
-    Tall, noble, and often haughty, elves are long-lived and subtle masters of the wilderness. Elves excel in the arcane
-     arts. Often they use their intrinsic link to nature to forge new spells and create wondrous items that, like their
-     creators, seem nearly impervious to the ravages of time. A private and often introverted race, elves can give the
-     impression they are indifferent to the plights of others.
 
 bluebear.dungeon.elf.long_description: |
     The long-lived elves are children of the natural world, similar in many superficial ways to fey creatures, though
@@ -168,8 +236,3 @@ bluebear.dungeon.elf.long_description: |
     Most see combat as unpleasant even when needful, and prefer it be done as quickly as possible, preferably without
     getting close enough to smell their foes. This preference for making war at a distance, coupled with their natural
     accuracy and grasp of the arcane, encourages elves to pursue classes such as wizards and rangers.
-
-bluebear.dungeon.gnome.description: |
-    Expatriates of the strange land of fey, these small folk have a reputation for flighty and eccentric behavior. Many
-    gnomes are whimsical artisans and tinkers, creating strange devices powered by magic, alchemy, and their quirky
-    imagination. Gnomes have an insatiable need for new experiences that often gets them in trouble.

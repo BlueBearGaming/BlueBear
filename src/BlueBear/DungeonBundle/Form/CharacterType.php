@@ -2,11 +2,13 @@
 
 namespace BlueBear\DungeonBundle\Form;
 
+use BlueBear\DungeonBundle\Entity\CharacterClass\CharacterClass;
 use BlueBear\DungeonBundle\Entity\Race\Race;
 use BlueBear\DungeonBundle\UnitOfWork\EntityReference;
 use BlueBear\DungeonBundle\UnitOfWork\UnitOfWork;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class CharacterType extends AbstractType
 {
@@ -17,14 +19,35 @@ class CharacterType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('races', 'choice', [
-                'expanded' => true,
-                'choices' => $this->getRaces(),
-                'attr' => [
-                    'class' => 'race-container'
-                ]
-            ]);
+        $step = $options['step'];
+
+        if ($step == 1) {
+            $builder
+                ->add('race', 'choice', [
+                    'expanded' => true,
+                    'choices' => $this->getRaces(),
+                    'attr' => [
+                        'class' => 'race-container'
+                    ]
+                ]);
+        } else if ($step == 2) {
+            $builder->add('race', 'hidden');
+            $builder
+                ->add('class', 'choice', [
+                    'expanded' => true,
+                    'choices' => $this->getClasses(),
+                    'attr' => [
+                        'class' => 'class-container'
+                    ]
+                ]);
+        }
+    }
+
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults([
+            'step' => 1
+        ]);
     }
 
     /**
@@ -51,7 +74,18 @@ class CharacterType extends AbstractType
         $races = $this->unitOfWork->loadAll(new EntityReference('BlueBear\DungeonBundle\Entity\Race\Race'));
         /** @var Race $race */
         foreach ($races as $race) {
-            $sorted[$race->code] = $race->code;
+            $sorted[$race->code] = $race->label;
+        }
+        return $sorted;
+    }
+
+    protected function getClasses()
+    {
+        $sorted = [];
+        $classes = $this->unitOfWork->loadAll(new EntityReference('BlueBear\DungeonBundle\Entity\CharacterClass\CharacterClass'));
+        /** @var CharacterClass $class */
+        foreach ($classes as $class) {
+            $sorted[$class->code] = $class->label;
         }
         return $sorted;
     }

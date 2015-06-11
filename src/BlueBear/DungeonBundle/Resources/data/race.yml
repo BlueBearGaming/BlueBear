@@ -4,6 +4,7 @@ race:
     data:
         # Dwarves
         dwarf:
+            label: bluebear.dungeon.dwarf
             attributeModifiers:
                 - { code: dwarf.charisma, attribute: charisma, modifier: -2 }
                 - { code: dwarf.wisdom, attribute: wisdom, modifier: 2 }
@@ -24,6 +25,7 @@ race:
             longDescription: bluebear.dungeon.dwarf.long_description
         # Elves
         elf:
+            label: bluebear.dungeon.elf
             attributeModifiers:
                 - { code: dwarf.dexterity, attribute: dexterity, modifier: 2 }
                 - { code: dwarf.intelligence, attribute: intelligence, modifier: 2 }
@@ -41,6 +43,7 @@ race:
             longDescription: bluebear.dungeon.elf.long_description
         # Gnomes
         gnome:
+            label: bluebear.dungeon.gnome
             attributeModifiers:
                 - { code: dwarf.charisma, attribute: charisma, modifier: 2 }
                 - { code: dwarf.strength, attribute: strength, modifier: -2 }

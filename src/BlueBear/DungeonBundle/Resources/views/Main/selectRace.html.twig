@@ -3,16 +3,33 @@
 {% block container %}
     <div class="container">
         <div class="row-fluid">
-            <div class="col-md-3">
-                {{ form_widget(form) }}
+            <form action="{{ path('bluebear.dungeon.selectRace') }}" method="post">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Choose your race
+                </div>
+                <div class="panel-body">
+                        <div class="col-md-3">{{ form_widget(form) }}</div>
+                        <div class="col-md-9">
+                            {% for race in races %}
+                                <span class="hidden race-description {{ race.code }}">
+                                    {{ race.description | trans | nl2br }}
+
+                                    <a class="more" href="#" data-toggle="collapse" data-target=".{{ race.code }}-more">
+                                        more&nbsp;<i class="fa fa-plus-circle"></i></a>
+                                </span>
+                                <div class="{{ race.code }}-more collapse race-long-description">
+                                    {{ race.longDescription | trans | nl2br }}
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                </div>
+                <div class="panel-footer">
+                    <input type="submit" class="btn btn-default" value="bluebear.dungeon.next" />
+                </div>
             </div>
-            <div class="col-md-9">
-                {% for race in races %}
-                    <span class="hidden race-description {{ race.code }}">
-                        {{ race.description | trans | nl2br }}
-                    </span>
-                {% endfor %}
-            </div>
+            </form>
         </div>
     </div>
 {% endblock %}
@@ -21,12 +38,18 @@
     <script>
         $(document).on('ready', function () {
             var raceDescriptions = $('.race-description');
+            var choices = $('.race-container').find('input[type=radio]');
 
-            $('.race-container').find('input[type=radio]').on('click', function () {
-                raceDescriptions.addClass('hidden');
+            choices.on('click', function () {
+                raceDescriptions.hide();
+                $('.race-long-description').addClass('collapsed').removeClass('in');
                 $('.race-description.' + $(this).val()).show().removeClass('hidden');
-
             });
+
+            if (choices.is(':checked')) {
+                raceDescriptions.addClass('hidden');
+                $('.race-description.' + choices.filter(':checked').val()).show().removeClass('hidden');
+            }
         })
     </script>
 {% endblock %}

@@ -94,7 +94,7 @@ class AnnotationProcessor
                         } else if (is_string($attributeData)) {
                             $accessor->setValue($entity, $attributeName, $attributeData);
                         } else {
-                            throw new Exception('Not handled parse type : ' . print_r($attributeData));
+                            throw new Exception('Not handled parse type : ' . print_r($attributeData, true));
                         }
                     } else {
                         /** @var RelationMetadata $relation */
@@ -143,13 +143,20 @@ class AnnotationProcessor
 
                         if ($entityData && is_array($entityData)) {
                             foreach ($entityData as $attributeName => $attributeData) {
+                                if ($attributeData === null) {
+                                    continue;
+                                }
+
                                 if (is_array($attributeData)) {
                                     $accessor->setValue($entity, $attributeName, $attributeData);
                                 } else if (is_string($attributeData) or is_numeric($attributeData)) {
                                     $accessor->setValue($entity, $attributeName, $attributeData);
                                 } else {
-                                    throw new Exception('Not handled parse type : ' . print_r($attributeData));
+                                    throw new Exception('Not handled parse type : ' . print_r($attributeData, true));
                                 }
+                            }
+                            if (!$accessor->getValue($entity, $idProperty)) {
+                                $accessor->setValue($entity, $idProperty, $entityDataIdentifier);
                             }
                             $this->unitOfWork->add($entity);
                         }

@@ -2,6 +2,8 @@ race:
     class: BlueBear\DungeonBundle\Entity\CharacterClass\CharacterClass
     data:
         barbarian:
+            label: bluebear.dungeon.barbarian
+            description: bluebear.dungeon.barbarian.description
             attributeSetters:
                 - { code: barbarian.life, attribute: life, setter: d12 }
             skills: [acrobatics, climb, craft, handle_animal, intimidate, knowledge_nature, perception, ride, survival, swim]
@@ -15,6 +17,69 @@ race:
                         - {property: character.load, value: heavy, type: match_none}
                     attributeModifiers:
                         - {code: barbarian.fast_movement, attribute: speed, modifier: 3}
+                barbarian.berserk_rage:
+                    type: extraordinary
+                    condition:
+                    attributeModifiers:
+                barbarian.uncanny_dodge:
+                    label: Uncanny Dodge
+                    type: extraordinary
+                    condition:
+                        - {property: level, value: 2, type: match_one}
+                barbarian.trap_sense:
+                    label: Trap Sense
+                    type: extraordinary
+                    condition:
+                        - {property: level, value: 3, type: match_one}
+                        - {property: event, value: save.reflex, type: event}
+                        - {property: event.source, value: trap, type: match_one}
+                    attributeModifiers:
+                        - {code: barbarian.trap_sense.reflex, attribute: reflex, modifier: 1}
+                        - {code: barbarian.trap_sense.dodge, attribute: dodge, modifier: 1}
+                barbarian.improved_uncanny_dodge:
+                    label: Improved Uncanny Dodge
+                    type: extraordinary
+                    condition:
+                        - {property: level, value: 5, type: match_one}
+                barbarian.damage_reduction:
+                    label: Damage Reduction
+                    type: extraordinary
+                    condition:
+                        - {property: level, value: 8, type: match_one}
+                barbarian.greater_rage:
+                    label: Greater Rage
+                    type: extraordinary
+                    condition:
+                        - {property: level, value: 11, type: match_one}
+                        - {property: status, value: rage, type: match_one}
+                    attributeModifiers:
+                        - {code: barbarian.greater_rage.strength, attribute: strength, modifier: 6}
+                        - {code: barbarian.greater_rage.constitution, attribute: constitution, modifier: 6}
+                        - {code: barbarian.greater_rage.will, attribute: will, modifier: 3}
+                barbarian.indomitable_will:
+                    label: Indomitable Will
+                    type: extraordinary
+                    condition:
+                        - {property: level, value: 14, type: match_one}
+                        - {property: status, value: rage, type: match_one}
+                    attributeModifiers:
+                        - {code: barbarian.greater_rage.will, attribute: will, modifier: 4}
+                barbarian.tireless_rage:
+                    label: Tireless Rage
+                    type: extraordinary
+                    condition:
+                        - {property: level, value: 17, type: match_one}
+                barbarian.mighty_rage:
+                    label: Mighty Rage
+                    type: extraordinary
+                    condition:
+                        - {property: level, value: 17, type: match_one}
+        monk:
+            label: bluebear.dungeon.monk
+            description: bluebear.dungeon.monk.description
+        sorcerer:
+            label: bluebear.dungeon.sorcerer
+            description: bluebear.dungeon.sorcerer.description
 
 skill:
     class: BlueBear\DungeonBundle\Entity\Skill

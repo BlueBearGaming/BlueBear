@@ -21,7 +21,14 @@ class CharacterClass
      */
     public $skills;
 
+    public $label;
+
+    /**
+     * @Game\Relation(class="BlueBear\DungeonBundle\Entity\Feat", type="OneToMany")
+     */
     public $feats;
+
+    public $description;
 
     public $allowedArmors;
 }
