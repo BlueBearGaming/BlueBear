@@ -32,14 +32,17 @@ class CharacterType extends AbstractType
                 ]);
         } else if ($step == 2) {
             $builder->add('race', 'hidden');
-            $builder
-                ->add('class', 'choice', [
-                    'expanded' => true,
-                    'choices' => $this->getClasses(),
-                    'attr' => [
-                        'class' => 'class-container'
-                    ]
-                ]);
+            $builder->add('class', 'choice', [
+                'expanded' => true,
+                'choices' => $this->getClasses(),
+                'attr' => [
+                    'class' => 'class-container'
+                ]
+            ]);
+        } else if ($step == 3) {
+            $builder->add('race', 'hidden');
+            $builder->add('class', 'hidden');
+            $builder->add('ability', new AbilityType());
         }
     }
 

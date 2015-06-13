@@ -7,6 +7,8 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
 
 class UnitOfWork
 {
+    const CORE_RULES = 'core_rules';
+
     /**
      * @var UnitOfWork
      */

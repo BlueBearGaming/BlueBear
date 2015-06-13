@@ -9,3 +9,11 @@ bluebear.dungeon.selectRace:
 bluebear.dungeon.selectClass:
     path:     /create/{race}/class
     defaults: { _controller: BlueBearDungeonBundle:Main:selectClass }
+
+bluebear.dungeon.selectAttributes:
+    path:     /create/{race}/{class}/attributes
+    defaults: { _controller: BlueBearDungeonBundle:Main:selectAttributes }
+
+bluebear.dungeon.selectSkills:
+    path:     /create/{race}/{class}/skills
+    defaults: { _controller: BlueBearDungeonBundle:Main:selectSkills }
