@@ -90,7 +90,7 @@ class MainController extends Controller
         $form = $this->createForm('dungeon_character', [
             'race' => $race,
             'class' => $class,
-            'ability' => [
+            'attributes' => [
                 'strength' => $values[0],
                 'dexterity' => $values[1],
                 'constitution' => $values[2],
@@ -106,7 +106,7 @@ class MainController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            return $this->redirectToRoute('bluebear.dungeon.selectSkills', $form->getData());
+            return $this->redirectToRoute('bluebear.dungeon.selectProfile', $form->getData());
         }
         return [
             'form' => $form->createView(),
@@ -124,6 +124,7 @@ class MainController extends Controller
      */
     public function selectSkillsAction(Request $request, $race, $class)
     {
+        // TODO in progress
         $skills = $this
             ->get('bluebear.engine.unit_of_work')
             ->loadAll(new EntityReference('BlueBear\DungeonBundle\Entity\CharacterClass\CharacterClass'));
@@ -147,12 +148,23 @@ class MainController extends Controller
     /**
      * @Template()
      * @param Request $request
+     * @param $race
+     * @param $class
+     * @param $abilities
      * @return array
      */
-    public function selectProfileAction(Request $request)
+    public function selectProfileAction(Request $request, $race, $class, $abilities)
     {
-        return [
+        $form = $this->createForm('dungeon_character', [
+            'race' => $race,
+            'class' => $class,
+            'ability' => $abilities
+        ], [
+            'step' => 5
+        ]);
 
+        return [
+            'form' => $form->createView()
         ];
     }
 }

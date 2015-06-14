@@ -42,7 +42,21 @@ class CharacterType extends AbstractType
         } else if ($step == 3) {
             $builder->add('race', 'hidden');
             $builder->add('class', 'hidden');
-            $builder->add('ability', new AbilityType());
+            $builder->add('attributes', new AbilityType());
+        } else if ($step == 5) {
+            $builder->add('race', 'hidden');
+            $builder->add('class', 'hidden');
+            $builder->add('attributes', 'hidden');
+            $builder->add('name', 'text');
+            $builder->add('gender', 'choice',[
+                'expanded' => true,
+                'choices' => [
+                    'm' => 'Man',
+                    'f' => 'Woman',
+                    'o' => 'Other',
+                ]
+            ]);
+            $builder->add('abilities', 'hidden');
         }
     }
 
