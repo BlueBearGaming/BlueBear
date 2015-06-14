@@ -17,3 +17,7 @@ bluebear.dungeon.selectAttributes:
 bluebear.dungeon.selectSkills:
     path:     /create/{race}/{class}/skills
     defaults: { _controller: BlueBearDungeonBundle:Main:selectSkills }
+
+bluebear.dungeon.selectProfile:
+    path:     /create/{race}/{class}/skills/{attributesHash}/profile
+    defaults: { _controller: BlueBearDungeonBundle:Main:selectProfile }

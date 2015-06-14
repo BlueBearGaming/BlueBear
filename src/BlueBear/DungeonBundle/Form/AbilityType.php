@@ -13,15 +13,44 @@ class AbilityType extends AbstractType
     {
         $builder->add('strength', 'integer', [
             'attr' => [
-                'class' => 'col-sm-2'
+                'class' => 'sum-operand'
             ]
         ]);
-        $builder->add('dexterity', 'integer');
-        $builder->add('constitution', 'integer');
-        $builder->add('intelligence', 'integer');
-        $builder->add('wisdom', 'integer');
-        $builder->add('charisma', 'integer');
-        $builder->add('remaining', 'hidden');
+        $builder->add('dexterity', 'integer', [
+            'attr' => [
+                'class' => 'sum-operand'
+            ]
+        ]);
+        $builder->add('constitution', 'integer', [
+            'attr' => [
+                'class' => 'sum-operand'
+            ]
+        ]);
+        $builder->add('intelligence', 'integer', [
+            'attr' => [
+                'class' => 'sum-operand'
+            ]
+        ]);
+        $builder->add('wisdom', 'integer', [
+            'attr' => [
+                'class' => 'sum-operand'
+            ]
+        ]);
+        $builder->add('charisma', 'integer', [
+            'attr' => [
+                'class' => 'sum-operand'
+            ]
+        ]);
+        $builder->add('remaining', 'integer', [
+            'attr' => [
+                'class' => 'remaining'
+            ]
+        ]);
+        $builder->add('sum', 'hidden', [
+            'attr' => [
+                'class' => 'sum-result'
+            ]
+        ]);
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

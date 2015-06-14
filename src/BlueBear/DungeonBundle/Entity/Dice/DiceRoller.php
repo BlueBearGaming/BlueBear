@@ -3,9 +3,9 @@
 namespace BlueBear\DungeonBundle\Entity\Dice;
 
 
-class DiceLauncher
+class DiceRoller
 {
-    public function launch($diceCode)
+    public function roll($diceCode)
     {
         $diceArray = explode('d', $diceCode);
         $numberOfDice = $diceArray[0];

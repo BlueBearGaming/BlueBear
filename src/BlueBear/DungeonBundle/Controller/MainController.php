@@ -3,7 +3,7 @@
 namespace BlueBear\DungeonBundle\Controller;
 
 use BlueBear\BaseBundle\Behavior\ControllerTrait;
-use BlueBear\DungeonBundle\Entity\Dice\DiceLauncher;
+use BlueBear\DungeonBundle\Entity\Dice\DiceRoller;
 use BlueBear\DungeonBundle\UnitOfWork\EntityReference;
 use Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -77,9 +77,29 @@ class MainController extends Controller
      */
     public function selectAttributesAction(Request $request, $race, $class)
     {
+        // for now, we use the "standard" method to determine abilities points total. We launch 4d6, remove lowest values
+        // and sum remaining values until we have 6 values
+        $launcher = new DiceRoller();
+        $values = [];
+
+        while (count($values) < 6) {
+            $dices = $launcher->roll('4d6');
+            $launcher->removeLowest($dices);
+            $values[] = $launcher->sum($dices);
+        }
         $form = $this->createForm('dungeon_character', [
             'race' => $race,
-            'class' => $class
+            'class' => $class,
+            'ability' => [
+                'strength' => $values[0],
+                'dexterity' => $values[1],
+                'constitution' => $values[2],
+                'intelligence' => $values[3],
+                'wisdom' => $values[4],
+                'charisma' => $values[5],
+                'remaining' => 0,
+                'sum' => array_sum($values),
+            ]
         ], [
             'step' => 3
         ]);
@@ -88,16 +108,6 @@ class MainController extends Controller
         if ($form->isValid()) {
             return $this->redirectToRoute('bluebear.dungeon.selectSkills', $form->getData());
         }
-        // for now, we use the "standard" method to determine abilities points total. We launch 4d6, remove lowest values
-        // and sum remaining values until we have 6 values
-        $launcher = new DiceLauncher();
-        $values = [];
-
-        while (count($values) < 6) {
-            $dices = $launcher->launch('4d6');
-            $launcher->removeLowest($dices);
-            $values[] = $launcher->sum($dices);
-       }
         return [
             'form' => $form->createView(),
             'values' => $values
@@ -130,6 +140,18 @@ class MainController extends Controller
         }
         return [
             'form' => $form->createView(),
+
+        ];
+    }
+
+    /**
+     * @Template()
+     * @param Request $request
+     * @return array
+     */
+    public function selectProfileAction(Request $request)
+    {
+        return [
 
         ];
     }

@@ -5,9 +5,12 @@
 {%- endblock form_group_class %}
 
 {% block container %}
+    {% set parameters = {race: app.request.get('race'), class: app.request.get('class')} %}
+
     <div class="container">
         <div class="row-fluid">
-            <form action="{{ path('bluebear.dungeon.selectClass', {race: app.request.get('race')}) }}" method="post">
+            <form action="{{ path('bluebear.dungeon.selectAttributes', parameters) }}" method="post"
+                  class="sum-container">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         Choose your race
@@ -30,6 +33,40 @@
 {% endblock %}
 
 {% block javascripts %}
+    <script>
+        $(document).on('ready', function() {
+            var operands = $('.sum-operand');
+            var remaining = $('.remaining');
 
+            $('.sum-container').on('submit', function () {
+                var sum = 0;
+
+                operands.each(function () {
+                    sum += parseInt($(this).val());
+                });
+
+                if (sum != $('.sum-result').val()) {
+                    alert('sum ko');
+
+                    return false;
+                }
+            });
+            operands.each(function () {
+                $(this).data('value', $(this).val());
+            }).on('change', function () {
+                var differential = parseInt($(this).data('value')) - parseInt($(this).val());
+                var remainingPoint = parseInt(differential) + parseInt(remaining.val());
+
+                if (remainingPoint >= 0 && $(this).val() >= 0) {
+                    $(this).data('value', $(this).val());
+                    remaining.val(remainingPoint);
+                } else {
+                    alert('No more point');
+                    $(this).val($(this).data('value'));
+                }
+                return true;
+            });
+        });
+    </script>
 {% endblock %}
 

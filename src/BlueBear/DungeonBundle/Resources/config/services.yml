@@ -29,3 +29,7 @@ services:
             - {name: form.type, alias: dungeon_character}
         calls:
             - [setUnitOfWork, [@bluebear.engine.unit_of_work]]
+
+    bluebear.dungeon.cache:
+        class: Doctrine\Common\Cache\PhpFileCache
+        arguments: [%kernel.cache_dir%]
