@@ -1,7 +1,7 @@
 {% extends '@BlueBearBackoffice/layout.html.twig' %}
 
 {% block container %}
-    {% set parameters = {race: app.request.get('race'), class: app.request.get('class'), abilities, app.request.get('abilities')} %}
+    {% set parameters = {race: app.request.get('race'), class: app.request.get('class'), attributes: attributes} %}
 
     <div class="container">
         <div class="row-fluid">

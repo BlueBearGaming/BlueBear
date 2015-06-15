@@ -106,7 +106,13 @@ class MainController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            return $this->redirectToRoute('bluebear.dungeon.selectProfile', $form->getData());
+            $data = $form->getData();
+
+            return $this->redirectToRoute('bluebear.dungeon.selectProfile', [
+                'race' => $data['race'],
+                'class' => $data['class'],
+                'attributes' => serialize($data['attributes']),
+            ]);
         }
         return [
             'form' => $form->createView(),
@@ -150,21 +156,22 @@ class MainController extends Controller
      * @param Request $request
      * @param $race
      * @param $class
-     * @param $abilities
+     * @param $attributes
      * @return array
      */
-    public function selectProfileAction(Request $request, $race, $class, $abilities)
+    public function selectProfileAction(Request $request, $race, $class, $attributes)
     {
         $form = $this->createForm('dungeon_character', [
             'race' => $race,
             'class' => $class,
-            'ability' => $abilities
+            'attributes' => unserialize($attributes)
         ], [
             'step' => 5
         ]);
 
         return [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'attributes' => $attributes
         ];
     }
 }
