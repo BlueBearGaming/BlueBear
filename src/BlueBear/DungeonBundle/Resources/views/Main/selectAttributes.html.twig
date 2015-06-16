@@ -1,9 +1,5 @@
 {% extends '@BlueBearBackoffice/layout.html.twig' %}
 
-{% block form_group_class -%}
-    col-sm-8
-{%- endblock form_group_class %}
-
 {% block container %}
     {% set parameters = {race: app.request.get('race'), class: app.request.get('class')} %}
 
@@ -18,9 +14,7 @@
                     <div class="panel-body">
                         <div class="col-md-6">{{ form_widget(form) }}</div>
                         <div class="col-md-9">
-
                         </div>
-
                     </div>
                     <div class="panel-footer">
                         <a href="{{ path('bluebear.dungeon.selectRace') }}">{{ 'bluebear.dungeon.previous' }}</a>

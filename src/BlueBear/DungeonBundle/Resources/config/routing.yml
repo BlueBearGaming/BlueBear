@@ -1,3 +1,4 @@
+# Creating characters
 bluebear.dungeon.createCharacter:
     path:     /create/race
     defaults: { _controller: BlueBearDungeonBundle:Main:selectRace }
@@ -21,3 +22,8 @@ bluebear.dungeon.selectSkills:
 bluebear.dungeon.selectProfile:
     path:     /create/{race}/{class}/{attributes}/skills/profile
     defaults: { _controller: BlueBearDungeonBundle:Main:selectProfile }
+
+# Combats
+bluebear.dungeon.combat.create:
+    path: /combat/create
+    defaults: { _controller: BlueBearDungeonBundle:Combat:create }
