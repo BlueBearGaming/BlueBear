@@ -2,15 +2,23 @@
 
 namespace BlueBear\DungeonBundle\UnitOfWork;
 
+use Symfony\Component\PropertyAccess\PropertyAccess;
+
 class EntityReferenceCollection
 {
     protected $entityClass;
 
+    protected $entityProperty;
+
+    protected $propertyAccessor;
+
     protected $entityReferences = [];
 
-    public function __construct($entityClass)
+    public function __construct($entityClass, $entityProperty)
     {
         $this->entityClass = $entityClass;
+        $this->entityProperty = $entityProperty;
+        $this->propertyAccessor = PropertyAccess::createPropertyAccessor();
     }
 
     public function add($element)

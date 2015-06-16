@@ -1,11 +1,11 @@
-race:
+character_class:
     class: BlueBear\DungeonBundle\Entity\CharacterClass\CharacterClass
     data:
         barbarian:
             label: bluebear.dungeon.barbarian
             description: bluebear.dungeon.barbarian.description
             attributeSetters:
-                - { code: barbarian.life, attribute: life, setter: d12 }
+                - { code: character.life, attribute: life, setter: d12 }
             skills: [acrobatics, climb, craft, handle_animal, intimidate, knowledge_nature, perception, ride, survival, swim]
             allowedArmors: [common, war, light, medium, shields]
             feats:

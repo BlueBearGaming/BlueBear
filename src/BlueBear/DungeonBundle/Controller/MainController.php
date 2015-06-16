@@ -3,7 +3,9 @@
 namespace BlueBear\DungeonBundle\Controller;
 
 use BlueBear\BaseBundle\Behavior\ControllerTrait;
+use BlueBear\DungeonBundle\Entity\CharacterClass\CharacterClass;
 use BlueBear\DungeonBundle\Entity\Dice\DiceRoller;
+use BlueBear\DungeonBundle\Entity\Race\Race;
 use BlueBear\DungeonBundle\UnitOfWork\EntityReference;
 use Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -156,15 +158,25 @@ class MainController extends Controller
      * @param Request $request
      * @param $race
      * @param $class
-     * @param $attributes
      * @return array
      */
-    public function selectProfileAction(Request $request, $race, $class, $attributes)
+    public function selectProfileAction(Request $request, $race, $class)
     {
+        $attributes = unserialize($request->get('attributes'));
+        /** @var CharacterClass $class */
+        $class = $this->get('bluebear.engine.unit_of_work')->load(
+            new EntityReference('BlueBear\DungeonBundle\Entity\CharacterClass\CharacterClass', $class)
+        );
+        var_dump($class->attributeSetters);
+        var_dump($class->attributeSetters->get('character.life'));
+        die;
+
+
         $form = $this->createForm('dungeon_character', [
             'race' => $race,
             'class' => $class,
-            'attributes' => unserialize($attributes)
+            'attributes' => $request->get('attributes'),
+            'life' => $this->get('bluebear.dungeon.dice_roller')->roll()
         ], [
             'step' => 5
         ]);

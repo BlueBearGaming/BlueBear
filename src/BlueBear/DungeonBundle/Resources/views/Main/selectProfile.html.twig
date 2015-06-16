@@ -1,7 +1,7 @@
 {% extends '@BlueBearBackoffice/layout.html.twig' %}
 
 {% block container %}
-    {% set parameters = {race: app.request.get('race'), class: app.request.get('class'), attributes: attributes} %}
+    {% set parameters = {race: app.request.get('race'), class: app.request.get('class'), attributes: ''} %}
 
     <div class="container">
         <div class="row-fluid">
@@ -12,7 +12,9 @@
                         Choose your profile
                     </div>
                     <div class="panel-body">
-                        <div class="col-md-6">{{ form_widget(form) }}</div>
+                        <div class="col-md-6">
+                            {{ form_widget(form) }}
+                        </div>
                         <div class="col-md-9">
 
                         </div>

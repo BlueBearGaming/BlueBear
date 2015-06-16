@@ -33,3 +33,6 @@ services:
     bluebear.dungeon.cache:
         class: Doctrine\Common\Cache\PhpFileCache
         arguments: [%kernel.cache_dir%]
+
+    bluebear.dungeon.dice_roller:
+        class: BlueBear\DungeonBundle\Entity\Dice\DiceRoller
