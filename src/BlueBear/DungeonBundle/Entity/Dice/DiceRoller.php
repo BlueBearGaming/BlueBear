@@ -5,9 +5,18 @@ namespace BlueBear\DungeonBundle\Entity\Dice;
 
 class DiceRoller
 {
+    /**
+     * @param $diceCode
+     * @return Dice|Dice[]
+     */
     public function roll($diceCode)
     {
         $diceArray = explode('d', $diceCode);
+
+        if (!$diceArray[0]) {
+            // if no dice number is provided, we assume its one (d12 <=> 1d12)
+            $diceArray[0] = 1;
+        }
         $numberOfDice = $diceArray[0];
         $size = $diceArray[1];
         $dices = [];

@@ -5,6 +5,7 @@ namespace BlueBear\DungeonBundle\Controller;
 use BlueBear\BaseBundle\Behavior\ControllerTrait;
 use BlueBear\DungeonBundle\Entity\CharacterClass\CharacterClass;
 use BlueBear\DungeonBundle\Entity\Dice\DiceRoller;
+use BlueBear\DungeonBundle\Entity\ORM\Character;
 use BlueBear\DungeonBundle\Entity\Race\Race;
 use BlueBear\DungeonBundle\UnitOfWork\EntityReference;
 use Exception;
@@ -167,19 +168,32 @@ class MainController extends Controller
         $class = $this->get('bluebear.engine.unit_of_work')->load(
             new EntityReference('BlueBear\DungeonBundle\Entity\CharacterClass\CharacterClass', $class)
         );
-        var_dump($class->attributeSetters);
-        var_dump($class->attributeSetters->get('character.life'));
-        die;
-
-
+        $lifeDiceCode = $class->attributeSetters->get('character.life')->setter;
+        $dice = $this->get('bluebear.dungeon.dice_roller')->roll($lifeDiceCode);
         $form = $this->createForm('dungeon_character', [
             'race' => $race,
-            'class' => $class,
+            'class' => $class->code,
             'attributes' => $request->get('attributes'),
-            'life' => $this->get('bluebear.dungeon.dice_roller')->roll()
+            'life' => $dice->value
         ], [
             'step' => 5
         ]);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $data = $form->getData();
+            $character = new Character();
+            $character->race = $data['race'];
+            $character->class = $data['class'];
+            $character->attributes = unserialize($data['attributes']);
+            $character->hitPoints = $data['life'];
+
+
+            $this->get('doctrine')->getManager()->persist($character);
+            $this->get('doctrine')->getManager()->flush($character);
+
+            return $this->redirectToRoute('bluebear.dungeon.selectRace');
+        }
 
         return [
             'form' => $form->createView(),

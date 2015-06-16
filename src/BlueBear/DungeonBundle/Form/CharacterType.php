@@ -48,6 +48,9 @@ class CharacterType extends AbstractType
             $builder->add('class', 'hidden');
             $builder->add('attributes', 'hidden');
             $builder->add('name', 'text');
+            $builder->add('life', 'text', [
+                'read_only' => true
+            ]);
             $builder->add('gender', 'choice',[
                 'expanded' => true,
                 'choices' => [
@@ -56,7 +59,6 @@ class CharacterType extends AbstractType
                     'o' => 'Other',
                 ]
             ]);
-            $builder->add('abilities', 'hidden');
         }
     }
 

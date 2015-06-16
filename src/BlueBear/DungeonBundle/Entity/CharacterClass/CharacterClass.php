@@ -3,6 +3,7 @@
 namespace BlueBear\DungeonBundle\Entity\CharacterClass;
 
 use BlueBear\DungeonBundle\Annotation as Game;
+use BlueBear\DungeonBundle\UnitOfWork\EntityReferenceCollection;
 
 class CharacterClass
 {
@@ -12,7 +13,9 @@ class CharacterClass
     public $code;
 
     /**
+     *
      * @Game\Relation(class="BlueBear\DungeonBundle\Entity\Attribute\AttributeSetter", type="OneToMany")
+     * @var EntityReferenceCollection
      */
     public $attributeSetters;
 

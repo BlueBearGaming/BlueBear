@@ -2,6 +2,7 @@
 
 namespace BlueBear\DungeonBundle\UnitOfWork;
 
+use Exception;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
 class EntityReferenceCollection
@@ -23,7 +24,13 @@ class EntityReferenceCollection
 
     public function add($element)
     {
-        $this->entityReferences[] = $element;
+        if (get_class($element) == $this->entityClass) {
+            $this->entityReferences[$this->propertyAccessor->getValue($this->entityClass, $this->entityProperty)] = $element;
+        } else if ($element instanceof EntityReference) {
+            $this->entityReferences[$element->getId()] = $element;
+        } else {
+            throw new Exception('Invalid class ' . get_class($element). ' for adding in collection of ' . $this->entityClass);
+        }
     }
 
     /**

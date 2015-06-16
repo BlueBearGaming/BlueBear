@@ -135,7 +135,8 @@ class AnnotationProcessor
                     $accessor->setValue($owner, $relation->getAttributeName(), $reference);
 
                 } else if ($relation->getRelationType() == Relation::RELATION_ONE_TO_MANY) {
-                    $ownerRelationsCollection = new EntityReferenceCollection($relation->getRelationClass());
+                    // on OneToMany, we create a collection of entity references
+                    $ownerRelationsCollection = new EntityReferenceCollection($relation->getRelationClass(), $idProperty);
 
                     foreach ($data as $entityDataIdentifier => $entityData) {
                         $class = $relation->getRelationClass();
