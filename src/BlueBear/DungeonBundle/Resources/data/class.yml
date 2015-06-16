@@ -77,9 +77,13 @@ character_class:
         monk:
             label: bluebear.dungeon.monk
             description: bluebear.dungeon.monk.description
+            attributeSetters:
+                - { code: character.life, attribute: life, setter: d12 }
         sorcerer:
             label: bluebear.dungeon.sorcerer
             description: bluebear.dungeon.sorcerer.description
+            attributeSetters:
+                - { code: character.life, attribute: life, setter: d12 }
 
 skill:
     class: BlueBear\DungeonBundle\Entity\Skill

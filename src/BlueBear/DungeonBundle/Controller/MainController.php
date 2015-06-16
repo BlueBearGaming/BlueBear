@@ -188,11 +188,10 @@ class MainController extends Controller
             $character->hitPoints = $data['life'];
             $character->name = $data['life'];
 
-
             $this->get('doctrine')->getManager()->persist($character);
             $this->get('doctrine')->getManager()->flush($character);
 
-            return $this->redirectToRoute('bluebear.dungeon.selectRace');
+            return $this->redirectToRoute('bluebear_admin_character_list');
         }
 
         return [
