@@ -1,0 +1,27 @@
+character_class:
+    class: BlueBear\DungeonBundle\Entity\CharacterClass\CharacterClass
+    data:
+        warrior:
+            label: bluebear.panda.warrior
+            description: bluebear.panda.warrior.description
+            attributeSetters:
+                - { code: character.life, attribute: life, setter: d6 }
+            skills: []
+            allowedArmors: [all]
+            feats: []
+        zoo_keeper:
+            label: bluebear.panda.zoo_keeper
+            description: bluebear.panda.warrior.description
+            attributeSetters:
+                - { code: character.life, attribute: life, setter: d6 }
+            skills: []
+            allowedArmors: [all]
+            feats: []
+
+skill:
+    class: BlueBear\DungeonBundle\Entity\Skill
+    data: ~
+
+feats:
+    class: BlueBear\DungeonBundle\Entity\Feat
+

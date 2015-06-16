@@ -30,6 +30,11 @@ services:
         calls:
             - [setUnitOfWork, [@bluebear.engine.unit_of_work]]
 
+    bluebear.dungeon.form.character_edition:
+        class: BlueBear\DungeonBundle\Form\CharacterEditionType
+        tags:
+            - {name: form.type, alias: character_edition}
+
     bluebear.dungeon.cache:
         class: Doctrine\Common\Cache\PhpFileCache
         arguments: [%kernel.cache_dir%]

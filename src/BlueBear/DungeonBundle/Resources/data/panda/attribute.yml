@@ -2,6 +2,8 @@ attribute:
     class: BlueBear\DungeonBundle\Entity\Attribute\Attribute
     data:
         strength: ~
+        intelligence: ~
+        dexterity: ~
 
 attribute_modifiers:
     class: BlueBear\DungeonBundle\Entity\Attribute\AttributeModifier

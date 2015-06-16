@@ -1,0 +1,13 @@
+racial_trait:
+    class: BlueBear\DungeonBundle\Entity\Race\RacialTrait
+    data:
+        bamboo_eater:
+            description: Panda are in love with bamboos <3 When eating bamboos, pandas heals 4 Hit Points and get +1 Force during 2 turns
+            attributeModifiers:
+                - { code: bamboo_eater1, attribute: force, modifier : 1, duration: 1 }
+            attributeSetters:
+                - { code: bamboo_eater2, attribute: hit_points, setter: 4 }
+        stupid:
+            description: Unlike Pandas, Humans are pretty stupid. They get -1 in Intelligence
+            attributeSetters:
+                - { code: stupid, attribute: intelligence, setter: -1}

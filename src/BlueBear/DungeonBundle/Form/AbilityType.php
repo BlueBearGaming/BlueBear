@@ -11,36 +11,13 @@ class AbilityType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('strength', 'integer', [
-            'attr' => [
-                'class' => 'sum-operand'
-            ]
-        ]);
-        $builder->add('dexterity', 'integer', [
-            'attr' => [
-                'class' => 'sum-operand'
-            ]
-        ]);
-        $builder->add('constitution', 'integer', [
-            'attr' => [
-                'class' => 'sum-operand'
-            ]
-        ]);
-        $builder->add('intelligence', 'integer', [
-            'attr' => [
-                'class' => 'sum-operand'
-            ]
-        ]);
-        $builder->add('wisdom', 'integer', [
-            'attr' => [
-                'class' => 'sum-operand'
-            ]
-        ]);
-        $builder->add('charisma', 'integer', [
-            'attr' => [
-                'class' => 'sum-operand'
-            ]
-        ]);
+        foreach ($options['attributes'] as $attribute) {
+            $builder->add($attribute, 'integer', [
+                'attr' => [
+                    'class' => 'sum-operand'
+                ]
+            ]);
+        }
         $builder->add('remaining', 'integer', [
             'attr' => [
                 'class' => 'remaining'
@@ -56,7 +33,15 @@ class AbilityType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'rules' => UnitOfWork::CORE_RULES
+            'rules' => UnitOfWork::CORE_RULES,
+            'attributes' => [
+                'strength',
+                'dexterity',
+                'constitution',
+                'intelligence',
+                'wisdom',
+                'charisma',
+            ]
         ]);
     }
 

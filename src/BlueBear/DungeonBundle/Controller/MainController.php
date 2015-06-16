@@ -3,10 +3,10 @@
 namespace BlueBear\DungeonBundle\Controller;
 
 use BlueBear\BaseBundle\Behavior\ControllerTrait;
+use BlueBear\DungeonBundle\Entity\Attribute\Attribute;
 use BlueBear\DungeonBundle\Entity\CharacterClass\CharacterClass;
 use BlueBear\DungeonBundle\Entity\Dice\DiceRoller;
 use BlueBear\DungeonBundle\Entity\ORM\Character;
-use BlueBear\DungeonBundle\Entity\Race\Race;
 use BlueBear\DungeonBundle\UnitOfWork\EntityReference;
 use Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -80,31 +80,30 @@ class MainController extends Controller
      */
     public function selectAttributesAction(Request $request, $race, $class)
     {
+        $attributes = $this
+            ->get('bluebear.engine.unit_of_work')
+            ->loadAll(new EntityReference(Attribute::class));
         // for now, we use the "standard" method to determine abilities points total. We launch 4d6, remove lowest values
         // and sum remaining values until we have 6 values
         $launcher = new DiceRoller();
         $values = [];
-
-        while (count($values) < 6) {
+        $attributeNames = [];
+        /** @var Attribute $attribute */
+        foreach ($attributes as $attribute) {
             $dices = $launcher->roll('4d6');
             $launcher->removeLowest($dices);
-            $values[] = $launcher->sum($dices);
+            $values[$attribute->code] = $launcher->sum($dices);
+            $attributeNames[] = $attribute->code;
         }
+        $values['sum'] = array_sum($values);
+        $values['remaining'] = 0;
         $form = $this->createForm('dungeon_character', [
             'race' => $race,
             'class' => $class,
-            'attributes' => [
-                'strength' => $values[0],
-                'dexterity' => $values[1],
-                'constitution' => $values[2],
-                'intelligence' => $values[3],
-                'wisdom' => $values[4],
-                'charisma' => $values[5],
-                'remaining' => 0,
-                'sum' => array_sum($values),
-            ]
+            'attributes' => $values
         ], [
-            'step' => 3
+            'step' => 3,
+            'attributes' => $attributeNames
         ]);
         $form->handleRequest($request);
 
@@ -134,9 +133,9 @@ class MainController extends Controller
     public function selectSkillsAction(Request $request, $race, $class)
     {
         // TODO in progress
-        $skills = $this
-            ->get('bluebear.engine.unit_of_work')
-            ->loadAll(new EntityReference('BlueBear\DungeonBundle\Entity\CharacterClass\CharacterClass'));
+//        $skills = $this
+//            ->get('bluebear.engine.unit_of_work')
+//            ->loadAll(new EntityReference('BlueBear\DungeonBundle\Entity\CharacterClass\CharacterClass'));
         $form = $this->createForm('dungeon_character', [
             'race' => $race,
             'class' => $class
@@ -187,6 +186,7 @@ class MainController extends Controller
             $character->class = $data['class'];
             $character->attributes = unserialize($data['attributes']);
             $character->hitPoints = $data['life'];
+            $character->name = $data['life'];
 
 
             $this->get('doctrine')->getManager()->persist($character);

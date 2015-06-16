@@ -4,8 +4,6 @@ namespace BlueBear\DungeonBundle\Event\Listener;
 
 use BlueBear\BaseBundle\Behavior\ContainerTrait;
 use BlueBear\DungeonBundle\Annotation\AnnotationProcessor;
-use BlueBear\DungeonBundle\Entity\Race\Race;
-use BlueBear\DungeonBundle\UnitOfWork\EntityReference;
 use Exception;
 use Symfony\Component\HttpKernel\Event\KernelEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
@@ -46,19 +44,6 @@ class KernelRequestListener
             }
             $this->annotationProcessor->processRelations();
             $this->isUnitOfWorkLoaded = true;
-            /** @var Race $dwarf */
-            $dwarf = $this->getContainer()->get('bluebear.engine.unit_of_work')->load(new EntityReference(
-                Race::class,
-                'dwarf'
-            ));
-            // normal loading
-            //var_dump($dwarf);
-            //var_dump($dwarf->getAttributeModifiers());
-            // lazy loading
-            //var_dump($dwarf->getAttributeModifiers()->get(0));
-            //var_dump($dwarf->getAttributeModifiers());
-            //var_dump($dwarf->getRacialTraits());
-            //print_r($this->getContainer()->get('bluebear.engine.unit_of_work'));
         }
     }
 

@@ -10,42 +10,17 @@ class RacialTrait
      * @var string
      * @Game\Id()
      */
-    protected $code;
+    public $code;
 
     /**
      * @Game\Relation(class="BlueBear\DungeonBundle\Entity\Attribute\AttributeSetter", type="OneToMany")
      */
-    protected $attributeSetters;
+    public $attributeSetters;
 
     /**
-     * @return string
+     * @Game\Relation(class="BlueBear\DungeonBundle\Entity\Attribute\AttributeModifier", type="OneToMany")
      */
-    public function getCode()
-    {
-        return $this->code;
-    }
+    public $attributeModifiers;
 
-    /**
-     * @param string $code
-     */
-    public function setCode($code)
-    {
-        $this->code = $code;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAttributeSetters()
-    {
-        return $this->attributeSetters;
-    }
-
-    /**
-     * @param mixed $attributeSetters
-     */
-    public function setAttributeSetters($attributeSetters)
-    {
-        $this->attributeSetters = $attributeSetters;
-    }
+    public $description;
 }

@@ -42,7 +42,9 @@ class CharacterType extends AbstractType
         } else if ($step == 3) {
             $builder->add('race', 'hidden');
             $builder->add('class', 'hidden');
-            $builder->add('attributes', new AbilityType());
+            $builder->add('attributes', new AbilityType(), [
+                'attributes' => $options['attributes']
+            ]);
         } else if ($step == 5) {
             $builder->add('race', 'hidden');
             $builder->add('class', 'hidden');
@@ -65,7 +67,8 @@ class CharacterType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'step' => 1
+            'step' => 1,
+            'attributes' => []
         ]);
     }
 

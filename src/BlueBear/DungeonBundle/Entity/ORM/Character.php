@@ -32,6 +32,11 @@ class Character
     public $class;
 
     /**
+     * @ORM\Column(name="name", type="string", length=255)
+     */
+    public $name;
+
+    /**
      * @ORM\Column(name="attributes", type="array")
      */
     public $attributes;

@@ -103,12 +103,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/CleverGaming/AdminBundle.git",
-                "reference": "c287751c68050d8bb4a49da2f751faff1d0bd2e0"
+                "reference": "4ba23e632bb50ef55f9f9403a0e83e18ccf5c424"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CleverGaming/AdminBundle/zipball/c287751c68050d8bb4a49da2f751faff1d0bd2e0",
-                "reference": "c287751c68050d8bb4a49da2f751faff1d0bd2e0",
+                "url": "https://api.github.com/repos/CleverGaming/AdminBundle/zipball/4ba23e632bb50ef55f9f9403a0e83e18ccf5c424",
+                "reference": "4ba23e632bb50ef55f9f9403a0e83e18ccf5c424",
                 "shasum": ""
             },
             "require": {
@@ -154,7 +154,7 @@
                 "backoffice",
                 "generic"
             ],
-            "time": "2015-05-24 21:50:48"
+            "time": "2015-06-16 20:56:00"
         },
         {
             "name": "bluebear/basebundle",
@@ -1071,16 +1071,16 @@
         },
         {
             "name": "doctrine/instantiator",
-            "version": "1.0.4",
+            "version": "1.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/instantiator.git",
-                "reference": "f976e5de371104877ebc89bd8fecb0019ed9c119"
+                "reference": "8e884e78f9f0eb1329e445619e04456e64d8051d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/f976e5de371104877ebc89bd8fecb0019ed9c119",
-                "reference": "f976e5de371104877ebc89bd8fecb0019ed9c119",
+                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/8e884e78f9f0eb1329e445619e04456e64d8051d",
+                "reference": "8e884e78f9f0eb1329e445619e04456e64d8051d",
                 "shasum": ""
             },
             "require": {
@@ -1091,7 +1091,7 @@
                 "ext-pdo": "*",
                 "ext-phar": "*",
                 "phpunit/phpunit": "~4.0",
-                "squizlabs/php_codesniffer": "2.0.*@ALPHA"
+                "squizlabs/php_codesniffer": "~2.0"
             },
             "type": "library",
             "extra": {
@@ -1100,8 +1100,8 @@
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "Doctrine\\Instantiator\\": "src"
+                "psr-4": {
+                    "Doctrine\\Instantiator\\": "src/Doctrine/Instantiator/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1121,7 +1121,7 @@
                 "constructor",
                 "instantiate"
             ],
-            "time": "2014-10-13 12:58:55"
+            "time": "2015-06-14 21:17:01"
         },
         {
             "name": "doctrine/lexer",
@@ -1380,12 +1380,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Atlantic18/DoctrineExtensions.git",
-                "reference": "fd62bcf0cb6610c1140f4c420f818edd8a06845d"
+                "reference": "dedfbd7bd2ffb290ea19f3b1bbae52aa36c6008a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/fd62bcf0cb6610c1140f4c420f818edd8a06845d",
-                "reference": "fd62bcf0cb6610c1140f4c420f818edd8a06845d",
+                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/dedfbd7bd2ffb290ea19f3b1bbae52aa36c6008a",
+                "reference": "dedfbd7bd2ffb290ea19f3b1bbae52aa36c6008a",
                 "shasum": ""
             },
             "require": {
@@ -1394,9 +1394,9 @@
                 "php": ">=5.3.2"
             },
             "require-dev": {
-                "doctrine/common": ">=2.5.0-BETA1",
-                "doctrine/mongodb-odm": ">=1.0.0-BETA12",
-                "doctrine/orm": ">=2.5.0-RC1",
+                "doctrine/common": ">=2.5.0",
+                "doctrine/mongodb-odm": ">=1.0.0-BETA13",
+                "doctrine/orm": ">=2.5.0",
                 "phpunit/phpunit": "~4.4",
                 "phpunit/phpunit-mock-objects": "~2.3",
                 "symfony/yaml": "~2.6"
@@ -1451,7 +1451,7 @@
                 "tree",
                 "uploadable"
             ],
-            "time": "2015-06-02 19:14:28"
+            "time": "2015-06-16 19:54:17"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -2191,12 +2191,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phiamo/MopaBootstrapBundle.git",
-                "reference": "22bc280b9a254caa42c5b44b55f43eb33ab15426"
+                "reference": "4d4b6291b47fc70491a4f92105be39d6bcccbb95"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phiamo/MopaBootstrapBundle/zipball/22bc280b9a254caa42c5b44b55f43eb33ab15426",
-                "reference": "22bc280b9a254caa42c5b44b55f43eb33ab15426",
+                "url": "https://api.github.com/repos/phiamo/MopaBootstrapBundle/zipball/4d4b6291b47fc70491a4f92105be39d6bcccbb95",
+                "reference": "4d4b6291b47fc70491a4f92105be39d6bcccbb95",
                 "shasum": ""
             },
             "require": {
@@ -2254,7 +2254,7 @@
                 "form",
                 "template"
             ],
-            "time": "2015-06-07 17:15:45"
+            "time": "2015-06-11 12:44:01"
         },
         {
             "name": "mopa/composer-bridge",
@@ -3222,12 +3222,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/bootstrap-sass.git",
-                "reference": "1f269b15ff91ebe35fc04959a6e38caecb19dc4f"
+                "reference": "c7d05c1e11570e68141ec21c9db40fdbd8c4e006"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap-sass/zipball/1f269b15ff91ebe35fc04959a6e38caecb19dc4f",
-                "reference": "1f269b15ff91ebe35fc04959a6e38caecb19dc4f",
+                "url": "https://api.github.com/repos/twbs/bootstrap-sass/zipball/c7d05c1e11570e68141ec21c9db40fdbd8c4e006",
+                "reference": "c7d05c1e11570e68141ec21c9db40fdbd8c4e006",
                 "shasum": ""
             },
             "type": "library",
@@ -3267,7 +3267,7 @@
                 "css",
                 "sass"
             ],
-            "time": "2015-03-18 21:35:54"
+            "time": "2015-06-10 16:41:00"
         },
         {
             "name": "twig/extensions",

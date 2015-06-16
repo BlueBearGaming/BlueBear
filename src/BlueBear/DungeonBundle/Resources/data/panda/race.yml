@@ -1,0 +1,30 @@
+race:
+    class: BlueBear\DungeonBundle\Entity\Race\Race
+    form_type: race
+    data:
+        panda:
+            label: bluebear.dungeon.panda
+            classSize: big
+            racialTraits:
+                bamboo_eater: ~
+            weaponFamiliarities: [bamboo, beer_barrel]
+            languages: [pandaren]
+            description: bluebear.dungeon.panda.description
+            longDescription: bluebear.dungeon.panda.long_description
+        human:
+            label: bluebear.dungeon.human
+            classSize: medium
+            racialTraits:
+                stupid: ~
+            weaponFamiliarities: [net, hypodermic gun]
+            languages: [human]
+            description: bluebear.dungeon.human.description
+            longDescription: bluebear.dungeon.human.long_description
+
+class_size:
+    class: BlueBear\DungeonBundle\Entity\ClassSize
+    form_type: class_size
+    data:
+        small: ~
+        medium: ~
+        big: ~
