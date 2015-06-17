@@ -60,11 +60,11 @@ blue_bear_engine:
             movement: {label: bluebear.attributes.movement, type: int}
 
         data:
-#            - @BlueBearDungeonBundle/Resources/data/panda/race.yml
-#            - @BlueBearDungeonBundle/Resources/data/panda/racialTrait.yml
-#            - @BlueBearDungeonBundle/Resources/data/panda/class.yml
-#            - @BlueBearDungeonBundle/Resources/data/panda/attribute.yml
-            - @BlueBearDungeonBundle/Resources/data/race.yml
-            - @BlueBearDungeonBundle/Resources/data/class.yml
-            - @BlueBearDungeonBundle/Resources/data/attribute.yml
-            - @BlueBearDungeonBundle/Resources/data/racialTrait.yml
+            - @BlueBearDungeonBundle/Resources/data/panda/race.yml
+            - @BlueBearDungeonBundle/Resources/data/panda/racialTrait.yml
+            - @BlueBearDungeonBundle/Resources/data/panda/class.yml
+            - @BlueBearDungeonBundle/Resources/data/panda/attribute.yml
+#            - @BlueBearDungeonBundle/Resources/data/race.yml
+#            - @BlueBearDungeonBundle/Resources/data/class.yml
+#            - @BlueBearDungeonBundle/Resources/data/attribute.yml
+#            - @BlueBearDungeonBundle/Resources/data/racialTrait.yml

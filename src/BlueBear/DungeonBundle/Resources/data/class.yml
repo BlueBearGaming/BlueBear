@@ -5,85 +5,79 @@ character_class:
             label: bluebear.dungeon.barbarian
             description: bluebear.dungeon.barbarian.description
             attributeSetters:
-                - { code: character.life, attribute: life, setter: d12 }
+                - hitPoints ={2d6+4}
             skills: [acrobatics, climb, craft, handle_animal, intimidate, knowledge_nature, perception, ride, survival, swim]
             allowedArmors: [common, war, light, medium, shields]
             feats:
                 barbarian.fast_movement:
-                    type: extraordinary
-                    condition:
-                        - {property: class, equals: barbarian, type: match_one}
-                        - {property: equipment[].type, equals: heavy_armor, type: match_none}
-                        - {property: character.load, equals: heavy, type: match_none}
+                    trigger: permanent
+                    category: extraordinary
+                    condition: NOT character.hasEquipmentType("heavy_armor") AND character.load != "heavy"
                     attributeModifiers:
-                        - {code: barbarian.fast_movement, attribute: speed, modifier: 3}
+                        - speed +3
                 barbarian.berserk_rage:
-                    type: extraordinary
+                    trigger: action
+                    category: extraordinary
                     condition:
                     attributeModifiers:
                 barbarian.uncanny_dodge:
                     label: Uncanny Dodge
-                    type: extraordinary
-                    condition:
-                        - {property: level, equals: 2, type: match_one}
+                    category: extraordinary
+                    condition: character.level >= 2
                 barbarian.trap_sense:
+                    trigger: save.reflex
                     label: Trap Sense
-                    type: extraordinary
-                    condition:
-                        - {property: level, min: 3, type: match_one}
-                        - {property: event.name, equals: save.reflex, type: event}
-                        - {property: event.source, equals: trap, type: match_one}
+                    category: extraordinary
+                    condition: character.level >= 3 AND event.source.type = "trap"
                     attributeModifiers:
-                        - {code: barbarian.trap_sense.reflex, attribute: reflex, modifier: 1}
-                        - {code: barbarian.trap_sense.dodge, attribute: dodge, modifier: 1}
+                        - reflex +1
+                        - dodge +1
                 barbarian.improved_uncanny_dodge:
                     label: Improved Uncanny Dodge
-                    type: extraordinary
-                    condition:
-                        - {property: level, equals: 5, type: match_one}
+                    category: extraordinary
+                    condition: character.level >= 5
+                    replace: [barbarian.uncanny_dodge]
                 barbarian.damage_reduction:
                     label: Damage Reduction
-                    type: extraordinary
+                    category: extraordinary
                     condition:
                         - {property: level, equals: 8, type: match_one}
                 barbarian.greater_rage:
                     label: Greater Rage
-                    type: extraordinary
+                    category: extraordinary
                     condition:
                         - {property: level, equals: 11, type: match_one}
                         - {property: status, equals: rage, type: match_one}
                     attributeModifiers:
-                        - {code: barbarian.greater_rage.strength, attribute: strength, modifier: 6}
-                        - {code: barbarian.greater_rage.constitution, attribute: constitution, modifier: 6}
-                        - {code: barbarian.greater_rage.will, attribute: will, modifier: 3}
+                        - strength +6
+                        - constitution +6
+                        - will +3
+                    replace: [barbarian.berserk_rage]
                 barbarian.indomitable_will:
                     label: Indomitable Will
-                    type: extraordinary
-                    condition:
-                        - {property: level, equals: 14, type: match_one}
-                        - {property: status, equals: rage, type: match_one}
+                    category: extraordinary
+                    condition: character.level >= 14 AND "rage" IN character.status
                     attributeModifiers:
-                        - {code: barbarian.greater_rage.will, attribute: will, modifier: 4}
+                        - 'will +4'
                 barbarian.tireless_rage:
                     label: Tireless Rage
-                    type: extraordinary
-                    condition:
-                        - {property: level, equals: 17, type: match_one}
+                    category: extraordinary
+                    condition: 'character.level >= 17'
                 barbarian.mighty_rage:
                     label: Mighty Rage
-                    type: extraordinary
-                    condition:
-                        - {property: level, equals: 17, type: match_one}
+                    category: extraordinary
+                    condition: 'character.level >= 17'
+                    replace: [barbarian.berserk_rage, barbarian.greater_rage]
         monk:
             label: bluebear.dungeon.monk
             description: bluebear.dungeon.monk.description
-            attributeSetters:
-                - { code: character.life, attribute: life, setter: d12 }
+            attributeModifiers:
+                - hitPoints ={1d12+2}
         sorcerer:
             label: bluebear.dungeon.sorcerer
             description: bluebear.dungeon.sorcerer.description
-            attributeSetters:
-                - { code: character.life, attribute: life, setter: d12 }
+            attributeModifiers:
+                - hitPoints ={1d12}
 
 skill:
     class: BlueBear\DungeonBundle\Entity\Skill
