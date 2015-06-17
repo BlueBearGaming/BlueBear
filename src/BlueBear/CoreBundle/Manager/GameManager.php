@@ -12,24 +12,13 @@ class GameManager
 {
     use ManagerTrait;
 
-    public function create(Context $initialContext)
+    public function create()
     {
         $game = new Game();
-        $context = new Context();
-        $mapItems = $initialContext->getMapItems();
+        $game->setHash(uniqid('game_'));
+        $this->save($game);
 
-        foreach ($mapItems as $mapItem) {
-            $clonedMapItem = new MapItem();
-            $clonedMapItem->setPencil($mapItem->getPencil());
-            $clonedMapItem->setLayer($mapItem->getLayer());
-            $clonedMapItem->setListeners($mapItem->getListeners());
-            $clonedMapItem->setPosition($mapItem->getPosition());
-            $clonedMapItem->setContext($context);
-        }
-
-
-
-
+        return $game;
     }
 
     public function getRepository()

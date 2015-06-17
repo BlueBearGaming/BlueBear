@@ -6,6 +6,7 @@ parameters:
     bluebear.manager.map: BlueBear\CoreBundle\Manager\MapManager
     bluebear.manager.map_item: BlueBear\CoreBundle\Manager\MapItemManager
     bluebear.manager.context: BlueBear\CoreBundle\Manager\ContextManager
+    bluebear.manager.game: BlueBear\CoreBundle\Manager\GameManager
 
 services:
     # ImageManager
@@ -37,13 +38,21 @@ services:
         class: %bluebear.manager.map%
         calls:
             - [setContainer, [@service_container]]
+
     # MapItemManager
     bluebear.manager.map_item:
         class: %bluebear.manager.map_item%
         calls:
             - [setContainer, [@service_container]]
+
     # ContextManager
     bluebear.manager.context:
         class: %bluebear.manager.context%
+        calls:
+            - [setContainer, [@service_container]]
+
+    # GameManager
+    bluebear.manager.game:
+        class: %bluebear.manager.game%
         calls:
             - [setContainer, [@service_container]]

@@ -34,6 +34,9 @@ class CombatController extends Controller
         $form = $this->createForm(new CombatType(), null, [
             'entities' => $data
         ]);
+        if ($form->isValid()) {
+            $this->get('bluebear.manager.game')->create();
+        }
         return [
             'form' => $form->createView()
         ];
