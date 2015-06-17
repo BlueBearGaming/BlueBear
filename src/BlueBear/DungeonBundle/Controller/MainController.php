@@ -186,7 +186,7 @@ class MainController extends Controller
             $character->class = $data['class'];
             $character->attributes = unserialize($data['attributes']);
             $character->hitPoints = $data['life'];
-            $character->name = $data['life'];
+            $character->name = $data['name'];
 
             $this->get('doctrine')->getManager()->persist($character);
             $this->get('doctrine')->getManager()->flush($character);
