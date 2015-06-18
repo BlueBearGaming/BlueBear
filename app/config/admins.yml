@@ -106,13 +106,3 @@ blue_bear_admin:
                     permissions: [ROLE_ADMIN]
                 delete:
                     permissions: [ROLE_ADMIN]
-        character:
-            entity: BlueBear\DungeonBundle\Entity\ORM\Character
-            form: character_edition
-            actions:
-                list:
-                    fields:
-                        id: ~
-                        name: ~
-                edit: ~
-                delete: ~

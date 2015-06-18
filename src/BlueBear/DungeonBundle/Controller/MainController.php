@@ -8,6 +8,8 @@ use BlueBear\DungeonBundle\Entity\CharacterClass\CharacterClass;
 use BlueBear\DungeonBundle\Entity\Dice\DiceRoller;
 use BlueBear\DungeonBundle\Entity\ORM\Character;
 use BlueBear\DungeonBundle\UnitOfWork\EntityReference;
+use BlueBear\EngineBundle\Entity\EntityInstance;
+use BlueBear\EngineBundle\Entity\EntityInstanceAttribute;
 use Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -181,13 +183,18 @@ class MainController extends Controller
 
         if ($form->isValid()) {
             $data = $form->getData();
-            $character = new Character();
-            $character->race = $data['race'];
-            $character->class = $data['class'];
-            $character->attributes = unserialize($data['attributes']);
-            $character->hitPoints = $data['life'];
-            $character->name = $data['name'];
+            $character = new EntityInstance();
+            $character->setRaceCode($data['race']);
+            $character->setClassCode($data['class']);
+            $character->setHitPoints($data['life']);
+            $character->setName($data['name']);
 
+            foreach ($data['attributes'] as $attributeName => $attributeValue) {
+                $attribute = new EntityInstanceAttribute();
+                $attribute->setName($attributeName);
+                $attribute->setValue($attributeValue);
+                $character->addAttribute($attribute);
+            }
             $this->get('doctrine')->getManager()->persist($character);
             $this->get('doctrine')->getManager()->flush($character);
 

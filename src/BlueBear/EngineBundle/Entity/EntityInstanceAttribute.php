@@ -56,7 +56,7 @@ class EntityInstanceAttribute
     /**
      * @param mixed $entityInstance
      */
-    public function setEntityInstance($entityInstance)
+    public function setEntityInstance(EntityInstance $entityInstance)
     {
         $this->entityInstance = $entityInstance;
     }
