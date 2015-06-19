@@ -17,7 +17,7 @@ blue_bear_admin:
         bootstrap: false
         # Routing options
         routing:
-            name_pattern: 'bluebear_admin_{admin}_{action}'
+            name_pattern: 'bluebear.admin.{admin}.{action}'
             url_pattern: '{admin}/{action}'
     # list of managed admins
     admins:
@@ -36,9 +36,9 @@ blue_bear_admin:
             # availables actions (by default)
             actions:
                 list:
-                    title: Pencils list
+                    #title: Pencils list
                     permissions: [ROLE_ADMIN, ROLE_USER]
-                    export: ~
+                    export: [html, pdf, xls, csv]
                     # available fields for this action
                     fields:
                         id: ~
