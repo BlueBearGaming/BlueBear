@@ -2,11 +2,8 @@
 
 namespace BlueBear\CoreBundle\Manager;
 
-
 use BlueBear\BaseBundle\Behavior\ManagerTrait;
-use BlueBear\CoreBundle\Entity\Map\Context;
-use BlueBear\CoreBundle\Entity\Map\Game;
-use BlueBear\CoreBundle\Entity\Map\MapItem;
+use BlueBear\CoreBundle\Entity\Game\Game;
 
 class GameManager
 {

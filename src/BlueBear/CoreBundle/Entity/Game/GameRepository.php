@@ -1,6 +1,6 @@
 <?php
 
-namespace BlueBear\CoreBundle\Entity\Map;
+namespace BlueBear\CoreBundle\Entity\Game;
 
 use Doctrine\ORM\EntityRepository;
 

@@ -5,8 +5,12 @@ namespace BlueBear\DungeonBundle\Controller;
 use BlueBear\BaseBundle\Behavior\ControllerTrait;
 use BlueBear\DungeonBundle\Entity\ORM\Character;
 use BlueBear\DungeonBundle\Form\Type\CombatType;
+use BlueBear\EngineBundle\Event\EngineEvent;
+use BlueBear\EngineBundle\Event\EventRequest;
+use BlueBear\EngineBundle\Event\Request\GameCreateRequest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class CombatController extends Controller
 {
@@ -14,8 +18,10 @@ class CombatController extends Controller
 
     /**
      * @Template()
+     * @param Request $request
+     * @return array
      */
-    public function createAction()
+    public function createAction(Request $request)
     {
         $characters = $this
             ->getEntityManager()
@@ -26,16 +32,31 @@ class CombatController extends Controller
             $this->addFlash('info', 'You should create characters first');
             return $this->redirectToRoute('bluebear.dungeon.selectRace');
         }
-        $data = [];
+        $sortedCharacters = [];
         /** @var Character $character */
         foreach ($characters as $character) {
-            $data[$character->id] = $character->name;
+            $sortedCharacters[$character->id] = $character->name;
         }
         $form = $this->createForm(new CombatType(), null, [
-            'entities' => $data
+            'entities' => $sortedCharacters
         ]);
+        $form->handleRequest($request);
+
         if ($form->isValid()) {
-            $this->get('bluebear.manager.game')->create();
+            $data = $form->getData();
+            $figher1 = $this
+                ->getEntityManager()
+                ->getRepository('BlueBearDungeonBundle:ORM\Character')
+                ->find($data[0]);
+            $figher2 = $this
+                ->getEntityManager()
+                ->getRepository('BlueBearDungeonBundle:ORM\Character')
+                ->find($data[1]);
+
+            $eventRequest = new GameCreateRequest();
+            $engineEvent = new EngineEvent($eventRequest);
+
+            $this->get('event_dispatcher')->dispatch(EngineEvent::ENGINE_GAME_CREATE, $engineEvent);
         }
         return [
             'form' => $form->createView()
