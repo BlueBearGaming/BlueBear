@@ -43,16 +43,9 @@ class CombatController extends Controller
 
         if ($form->isValid()) {
             $data = $form->getData();
-            $figher1 = $this
-                ->getEntityManager()
-                ->getRepository('BlueBearDungeonBundle:ORM\Character')
-                ->find($data[0]);
-            $figher2 = $this
-                ->getEntityManager()
-                ->getRepository('BlueBearDungeonBundle:ORM\Character')
-                ->find($data[1]);
-
+            var_dump($data);
             $eventRequest = new GameCreateRequest();
+            //$eventRequest->entityModelIds = [$data['fighter_1'], $data['fighter_1']];
             $engineEvent = new EngineEvent($eventRequest);
 
             $this->get('event_dispatcher')->dispatch(EngineEvent::ENGINE_GAME_CREATE, $engineEvent);
