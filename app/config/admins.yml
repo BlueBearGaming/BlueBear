@@ -74,6 +74,7 @@ blue_bear_admin:
                     fields:
                         id: ~
                         name: ~
+                        type: ~
                 create: ~
                 edit: ~
                 delete: ~

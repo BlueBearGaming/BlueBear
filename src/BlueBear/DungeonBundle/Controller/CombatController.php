@@ -3,10 +3,9 @@
 namespace BlueBear\DungeonBundle\Controller;
 
 use BlueBear\BaseBundle\Behavior\ControllerTrait;
-use BlueBear\DungeonBundle\Entity\ORM\Character;
 use BlueBear\DungeonBundle\Form\Type\CombatType;
+use BlueBear\EngineBundle\Entity\EntityModel;
 use BlueBear\EngineBundle\Event\EngineEvent;
-use BlueBear\EngineBundle\Event\EventRequest;
 use BlueBear\EngineBundle\Event\Request\GameCreateRequest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -25,7 +24,7 @@ class CombatController extends Controller
     {
         $characters = $this
             ->getEntityManager()
-            ->getRepository('BlueBearDungeonBundle:ORM\Character')
+            ->getRepository('BlueBearEngineBundle:EntityModel')
             ->findAll();
 
         if (count($characters) == 0) {
@@ -33,9 +32,9 @@ class CombatController extends Controller
             return $this->redirectToRoute('bluebear.dungeon.selectRace');
         }
         $sortedCharacters = [];
-        /** @var Character $character */
+        /** @var EntityModel $character */
         foreach ($characters as $character) {
-            $sortedCharacters[$character->id] = $character->name;
+            $sortedCharacters[$character->getId()] = $character->getLabel();
         }
         $form = $this->createForm(new CombatType(), null, [
             'entities' => $sortedCharacters

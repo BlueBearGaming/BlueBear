@@ -19,6 +19,8 @@ class GameSubscriber implements EventSubscriberInterface
 
     public function onGameCreate(EngineEvent $event)
     {
-
+        // TODO create game, create players
+        // TODO init action stack, request next action stack
+        // TODO create actions for
     }
 }
