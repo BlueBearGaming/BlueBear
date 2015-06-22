@@ -1,6 +1,6 @@
 <?php
 
-namespace BlueBear\CoreBundle\Entity\Map;
+namespace BlueBear\CoreBundle\Entity\Game;
 
 use BlueBear\BaseBundle\Entity\Behaviors\Id;
 use BlueBear\BaseBundle\Entity\Behaviors\Nameable;
@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  *
  * @ORM\Table(name="game", indexes={@ORM\Index(name="hash_idx", columns={"hash"})})
- * @ORM\Entity(repositoryClass="BlueBear\CoreBundle\Entity\Map\GameRepository")
+ * @ORM\Entity(repositoryClass="BlueBear\CoreBundle\Entity\Game\GameRepository")
  * @ORM\HasLifecycleCallbacks()
  */
 class Game
