@@ -110,6 +110,8 @@ class MainController extends Controller
 
         if ($form->isValid()) {
             $data = $form->getData();
+            unset($data['attributes']['remaining']);
+            unset($data['attributes']['sum']);
 
             return $this->redirectToRoute('bluebear.dungeon.selectProfile', [
                 'race' => $data['race'],
@@ -174,7 +176,7 @@ class MainController extends Controller
             'race' => $race,
             'class' => $class->code,
             'attributes' => $request->get('attributes'),
-            'life' => $dice->value
+            'hitPoints' => $dice->value
         ], [
             'step' => 5
         ]);
@@ -183,11 +185,11 @@ class MainController extends Controller
         if ($form->isValid()) {
             $data = $form->getData();
             $data['attributes'] = unserialize($data['attributes']);
+            $data['attributes']['hit_points'] = $data['hitPoints'];
+            $data['attributes']['race'] = $data['race'];
+            $data['attributes']['class'] = $data['class'];
             // creating entity model
             $character = new EntityModel();
-            $character->setRaceCode($data['race']);
-            $character->setClassCode($data['class']);
-            $character->setHitPoints($data['life']);
             $character->setName($data['name']);
             $character->setLabel($data['name']);
             $character->setType('unit');
@@ -196,7 +198,7 @@ class MainController extends Controller
                 $attribute = new EntityModelAttribute();
                 $attribute->setName($attributeName);
                 $attribute->setValue($attributeValue);
-                $attribute->setType('panda');
+                $attribute->setType(is_numeric($attributeValue) ? 'integer' : 'string');
                 $character->addAttribute($attribute);
             }
             // persist entity model

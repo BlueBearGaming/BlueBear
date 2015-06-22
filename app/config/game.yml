@@ -20,26 +20,26 @@ blue_bear_engine:
         entity_type:
             door:
                 label: Door
-                attributes: [hp, armor]
+                attributes: [hit_points, armor]
                 description: A way to go into another room
             unit:
                 label: Unit
-                attributes: [hp, race, class, intelligence, dexterity, force, movement]
+                attributes: [hit_points, race, class, intelligence, dexterity, strength, movement]
                 description: Unit on map (panda or foes)
                 behaviors: [selectable, movable]
             # item container represents a item which can holding other items, like a chest
             item_container:
                 label: ItemContainer
-                attributes: [hp, armor]
+                attributes: [hit_points, armor]
                 description: An item container can hold other items, like a chest...
             item:
                 label: Item
-                attributes: [hp, armor]
+                attributes: [hit_points, armor]
                 description: An item on the map
                 behaviors: [selectable]
             weapon:
                 label: Weapon
-                attributes: [hp, armor]
+                attributes: [hit_points, armor]
                 description: A weapon to deal damage
 #        # entity behaviors (and their associated event to listen)
         behaviors:
@@ -51,10 +51,10 @@ blue_bear_engine:
             class: {label: bluebear.attributes.class, type: string}
             armor: {label: bluebear.attributes.armor, type: int}
             # attack and defence are calculated from dexterity and force
-            hp: {label: bluebear.attributes.hit_point, type: int}
+            hit_points: {label: bluebear.attributes.hit_point, type: int}
             intelligence: {label: bluebear.attributes.intelligence, type: int}
             dexterity: {label: bluebear.attributes.dexterity, type: int}
-            force: {label: bluebear.attributes.force, type: int}
+            strength: {label: bluebear.attributes.strength, type: int}
             level: {label: bluebear.attributes.level, type: int}
             # movement
             movement: {label: bluebear.attributes.movement, type: int}

@@ -27,16 +27,23 @@ class EntityModelManager
                 ->getEntityType($entityModel->getType());
             $entityTypeAttributes = $entityType->getAttributes();
             $entityTypeBehaviors = $entityType->getBehaviors();
-
+            $existingAttributes = $entityModel->getAttributes();
+            $sortedExistingAttributes = [];
+            /** @var EntityModelAttribute $existingAttribute */
+            foreach ($existingAttributes as $existingAttribute) {
+                $sortedExistingAttributes[$existingAttribute->getName()] = $existingAttribute;
+            }
             /** @var EntityTypeAttribute $attribute */
             foreach ($entityTypeAttributes as $attribute) {
-                $entityModelAttribute = new EntityModelAttribute();
-                $entityModelAttribute->setName($attribute->getName());
-                $entityModelAttribute->setLabel($attribute->getLabel());
-                $entityModelAttribute->setType($attribute->getType());
-                // those attributes are set by default for this model, they can not be removed
-                $entityModelAttribute->setIsDefault(true);
-                $entityModel->addAttribute($entityModelAttribute);
+                if (!array_key_exists($attribute->getName(), $sortedExistingAttributes)) {
+                    $entityModelAttribute = new EntityModelAttribute();
+                    $entityModelAttribute->setName($attribute->getName());
+                    $entityModelAttribute->setLabel($attribute->getLabel());
+                    $entityModelAttribute->setType($attribute->getType());
+                    // those attributes are set by default for this model, they can not be removed
+                    $entityModelAttribute->setIsDefault(true);
+                    $entityModel->addAttribute($entityModelAttribute);
+                }
             }
             /** @var EntityBehavior $behavior */
             foreach ($entityTypeBehaviors as $behavior) {

@@ -8,12 +8,14 @@ use BlueBear\CoreBundle\Entity\Behavior\Nameable;
 use BlueBear\CoreBundle\Entity\Behavior\Typeable;
 use BlueBear\CoreBundle\Entity\Behavior\Valuable;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Generic attributes
  *
  * @ORM\Table(name="entity_model_attribute")
  * @ORM\Entity(repositoryClass="BlueBear\EngineBundle\Repository\EntityModelAttributeRepository")
+ * @UniqueEntity("name")
  * @ORM\HasLifecycleCallbacks()
  */
 class EntityModelAttribute

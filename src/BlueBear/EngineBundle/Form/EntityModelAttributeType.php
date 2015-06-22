@@ -12,7 +12,9 @@ class EntityModelAttributeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('name', 'text');
-        $builder->add('value', 'text');
+        $builder->add('value', 'text', [
+            'required' => false
+        ]);
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

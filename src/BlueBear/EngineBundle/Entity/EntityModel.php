@@ -7,7 +7,6 @@ use BlueBear\CoreBundle\Entity\Behavior\Label;
 use BlueBear\CoreBundle\Entity\Behavior\Nameable;
 use BlueBear\CoreBundle\Entity\Behavior\Timestampable;
 use BlueBear\CoreBundle\Entity\Behavior\Typeable;
-use BlueBear\EngineBundle\Behavior\GameCharacterTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -22,11 +21,11 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 class EntityModel
 {
-    use Id, GameCharacterTrait, Nameable, Label, Timestampable, Typeable;
+    use Id, Nameable, Label, Timestampable, Typeable;
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="BlueBear\EngineBundle\Entity\EntityModelAttribute", mappedBy="entityModel", cascade={"persist", "remove"}, fetch="EAGER")
+     * @ORM\OneToMany(targetEntity="BlueBear\EngineBundle\Entity\EntityModelAttribute", mappedBy="entityModel", cascade={"persist", "remove"}, fetch="EAGER", indexBy="name")
      */
     protected $attributes;
 
@@ -57,7 +56,7 @@ class EntityModel
     }
 
     /**
-     * @return mixed
+     * @return ArrayCollection
      */
     public function getAttributes()
     {
