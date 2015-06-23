@@ -50,7 +50,9 @@ class Engine
             $eventRequest = $this->getRequestForEvent($eventName, $eventData);
             $eventResponse = $this->getResponseForEvent($eventName);
             // TODO handle dynamic class
-            $engineEvent = new EngineEvent($eventRequest, $eventResponse);
+            $eventClass = $this->getClassForEvent($eventName);
+            /** @var EngineEvent $engineEvent */
+            $engineEvent = new $eventClass($eventRequest, $eventResponse);
             $engineEvent->setOriginEventName($eventName);
             // trigger onEngineEvent
             $this->getEventDispatcher()->dispatch(EngineEvent::ENGINE_ON_ENGINE_EVENT, $engineEvent);
@@ -108,6 +110,23 @@ class Engine
         }
         // create new EventResponse object
         return new $responseClass($eventName);
+    }
+
+    protected function getClassForEvent($eventName)
+    {
+        if (!array_key_exists($eventName, $this->allowedEvents)) {
+            throw new Exception("Not allowed event name \"{$eventName}\"");
+        }
+        if (array_key_exists('event_class', $this->allowedEvents[$eventName])) {
+            $eventClass = $this->allowedEvents[$eventName]['event_class'];
+
+            if (!is_subclass_of($eventClass, 'BlueBear\EngineBundle\Event\EngineEvent')) {
+                throw new Exception("{$eventClass} should extend 'BlueBear\\EngineBundle\\Event\\EngineEvent'");
+            }
+        } else {
+            $eventClass = 'BlueBear\EngineBundle\Event\EngineEvent';
+        }
+        return $eventClass;
     }
 
     /**

@@ -27,6 +27,7 @@ class Configuration implements ConfigurationInterface
                         ->children()
                             ->scalarNode('request')->end()
                             ->scalarNode('response')->end()
+                            ->scalarNode('event_class')->end()
                         ->end()
                     ->end()
                 ->end()
