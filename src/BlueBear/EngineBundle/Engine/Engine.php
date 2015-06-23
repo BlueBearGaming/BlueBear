@@ -40,11 +40,8 @@ class Engine
 //            }
             // check if event is allowed
             if (!in_array($eventName, $this->getAllowedEvents())) {
-                throw new Exception('Invalid event name. Allowed events name are "' .
+                throw new Exception('Invalid event name ' . $eventName . '. Allowed events name are "' .
                     implode('", "', $this->getAllowedEvents()) . '"');
-            }
-            if (!$eventData) {
-                throw new Exception('Empty event data');
             }
             // deserialize event request
             $eventRequest = $this->getRequestForEvent($eventName, $eventData);
@@ -136,4 +133,4 @@ class Engine
     {
         return array_keys($this->allowedEvents);
     }
-} 
+}

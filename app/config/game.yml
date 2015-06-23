@@ -1,21 +1,27 @@
 # BlueBear Engine
 blue_bear_engine:
-#    events:
-#        bluebear.engine.mapLoad:
-#            request: BlueBear\EngineBundle\Event\Request\MapLoadRequest
-#            response: BlueBear\EngineBundle\Event\Response\MapLoadResponse
-#        bluebear.engine.mapItemClick:
-#            request: BlueBear\EngineBundle\Event\Request\MapItemClickRequest
-#            response: BlueBear\EngineBundle\Event\Response\MapItemClickResponse
-#        bluebear.engine.mapItemMove:
-#            request: BlueBear\EngineBundle\Event\Request\MapItemClickRequest
-#            response: BlueBear\EngineBundle\Event\Response\MapItemClickResponse
-#        bluebear.editor.mapUpdate:
-#            request: BlueBear\EngineBundle\Event\Request\MapUpdateRequest
-#            response: BlueBear\EngineBundle\Event\Response\MapUpdateResponse
-#        bluebear.editor.putEntity:
-#            request: BlueBear\EditorBundle\Event\Request\PutEntityRequest
-#            response: BlueBear\EditorBundle\Event\Response\PutEntityResponse
+    events:
+        # Engine Events
+        bluebear.engine.mapLoad:
+            request: BlueBear\EngineBundle\Event\Request\MapLoadRequest
+            response: BlueBear\EngineBundle\Event\Response\MapLoadResponse
+        bluebear.engine.mapItemClick:
+            request: BlueBear\EngineBundle\Event\Request\MapItemClickRequest
+            response: BlueBear\EngineBundle\Event\Response\MapItemClickResponse
+        bluebear.engine.mapItemMove:
+            request: BlueBear\EngineBundle\Event\Request\MapItemClickRequest
+            response: BlueBear\EngineBundle\Event\Response\MapItemClickResponse
+        # Editor Events
+        bluebear.editor.mapUpdate:
+            request: BlueBear\EngineBundle\Event\Request\MapUpdateRequest
+            response: BlueBear\EngineBundle\Event\Response\MapUpdateResponse
+        bluebear.editor.putEntity:
+            request: BlueBear\EditorBundle\Event\Request\PutEntityRequest
+            response: BlueBear\EditorBundle\Event\Response\PutEntityResponse
+        # Combat Events
+        bluebear.combat.init:
+            request: BlueBear\EngineBundle\Event\Request\CombatRequest
+            response: BlueBear\EngineBundle\Event\Response\CombatResponse
     game:
         entity_type:
             door:

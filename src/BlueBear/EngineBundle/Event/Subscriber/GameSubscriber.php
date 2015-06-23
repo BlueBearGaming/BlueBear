@@ -4,7 +4,8 @@ namespace BlueBear\EngineBundle\Event\Subscriber;
 
 use BlueBear\BaseBundle\Behavior\ContainerTrait;
 use BlueBear\EngineBundle\Event\EngineEvent;
-use JMS\Serializer\EventDispatcher\EventSubscriberInterface;
+use BlueBear\EngineBundle\Event\GameEvent;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class GameSubscriber implements EventSubscriberInterface
 {
@@ -17,10 +18,13 @@ class GameSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onGameCreate(EngineEvent $event)
+    public function onGameCreate(GameEvent $event)
     {
-        // TODO create game, create players
-        // TODO init action stack, request next action stack
-        // TODO create actions for
+        $gameManager = $this
+            ->container
+            ->get('bluebear.manager.game');
+        // creating game object
+        $game = $gameManager->create();
+        $event->setGame($game);
     }
 }

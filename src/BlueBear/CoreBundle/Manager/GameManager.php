@@ -4,7 +4,6 @@ namespace BlueBear\CoreBundle\Manager;
 
 use BlueBear\BaseBundle\Behavior\ManagerTrait;
 use BlueBear\CoreBundle\Entity\Game\Game;
-use BlueBear\CoreBundle\Entity\Map\Player;
 
 class GameManager
 {
@@ -14,14 +13,15 @@ class GameManager
     {
         $game = new Game();
         $game->setHash(uniqid('game_'));
+        $game->setName('My favourite game');
         $this->save($game);
 
         // TODO create user player and IA player
-        $player = new Player();
-        $player->setIsHuman(true);
-
-        $player = new Player();
-        $player->setIsHuman(false);
+//        $player = new Player();
+//        $player->setIsHuman(true);
+//
+//        $player = new Player();
+//        $player->setIsHuman(false);
 
         return $game;
     }
@@ -30,6 +30,6 @@ class GameManager
     {
         return $this
             ->getEntityManager()
-            ->getRepository('BlueBearCoreBundle:Map\Game');
+            ->getRepository('BlueBearCoreBundle:Game\Game');
     }
 }

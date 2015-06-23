@@ -84,7 +84,7 @@ class EngineEvent extends Event
     const ENGINE_EVENT_RESPONSE_OK = 'ok';
     const ENGINE_EVENT_RESPONSE_KO = 'error';
 
-    public function __construct(EventRequest $eventRequest, EventResponse $eventResponse = null)
+    public function __construct(EventRequest $eventRequest = null, EventResponse $eventResponse = null)
     {
         $this->request = $eventRequest;
         $this->response = $eventResponse;
