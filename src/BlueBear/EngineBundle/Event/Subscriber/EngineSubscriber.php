@@ -6,7 +6,6 @@ use BlueBear\BaseBundle\Behavior\ContainerTrait;
 use BlueBear\CoreBundle\Entity\Behavior\HasEventDispatcher;
 use BlueBear\CoreBundle\Entity\Map\Context;
 use BlueBear\CoreBundle\Manager\ContextManager;
-use BlueBear\EngineBundle\Engine\Annotation\AnnotationProcessor;
 use BlueBear\EngineBundle\Event\EngineEvent;
 use Exception;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -71,21 +70,5 @@ class EngineSubscriber implements EventSubscriberInterface
     public function setContextManager($contextManager)
     {
         $this->contextManager = $contextManager;
-    }
-
-    /**
-     * @return AnnotationProcessor
-     */
-    public function getAnnotationProcessor()
-    {
-        return $this->annotationProcessor;
-    }
-
-    /**
-     * @param AnnotationProcessor $annotationProcessor
-     */
-    public function setAnnotationProcessor($annotationProcessor)
-    {
-        $this->annotationProcessor = $annotationProcessor;
     }
 }

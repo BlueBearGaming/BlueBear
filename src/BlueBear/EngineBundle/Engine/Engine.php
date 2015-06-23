@@ -43,9 +43,13 @@ class Engine
                 throw new Exception('Invalid event name ' . $eventName . '. Allowed events name are "' .
                     implode('", "', $this->getAllowedEvents()) . '"');
             }
+            if (!is_string($eventData)) {
+                throw new Exception('You should pass a json string as engine event data');
+            }
             // deserialize event request
             $eventRequest = $this->getRequestForEvent($eventName, $eventData);
             $eventResponse = $this->getResponseForEvent($eventName);
+            // TODO handle dynamic class
             $engineEvent = new EngineEvent($eventRequest, $eventResponse);
             $engineEvent->setOriginEventName($eventName);
             // trigger onEngineEvent

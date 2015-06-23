@@ -39,7 +39,7 @@ services:
             - [setSerializer, [@jms_serializer]]
             - [setAllowedEvents, [%bluebear.engine.events%]]
 
-    # events subscribers
+    # Events Subscribers
     bluebear.engine.event.mapitem_subscriber:
         class: %bluebear.engine.event.mapitem_subscriber%
         tags:
@@ -61,6 +61,7 @@ services:
             - {name: kernel.event_subscriber}
         calls:
             - [setEventDispatcher, [@event_dispatcher]]
+            - [setContextManager, [@bluebear.manager.context]]
 
     bluebear.engine.event.game_subscriber:
         class: %bluebear.engine.event.game_subscriber%

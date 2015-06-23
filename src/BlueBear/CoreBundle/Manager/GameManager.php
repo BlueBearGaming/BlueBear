@@ -4,6 +4,7 @@ namespace BlueBear\CoreBundle\Manager;
 
 use BlueBear\BaseBundle\Behavior\ManagerTrait;
 use BlueBear\CoreBundle\Entity\Game\Game;
+use BlueBear\CoreBundle\Entity\Map\Context;
 
 class GameManager
 {
@@ -14,7 +15,11 @@ class GameManager
         $game = new Game();
         $game->setHash(uniqid('game_'));
         $game->setName('My favourite game');
+        $context = new Context();
+        $this->save($context, false);
+        $game->setContext($context);
         $this->save($game);
+
 
         // TODO create user player and IA player
 //        $player = new Player();

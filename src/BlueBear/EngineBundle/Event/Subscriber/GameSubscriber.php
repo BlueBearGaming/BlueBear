@@ -14,7 +14,8 @@ class GameSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            EngineEvent::ENGINE_GAME_CREATE => 'onGameCreate'
+            EngineEvent::ENGINE_GAME_CREATE => 'onGameCreate',
+            EngineEvent::ENGINE_GAME_COMBAT_INIT => 'onCombatInit',
         ];
     }
 
@@ -26,5 +27,10 @@ class GameSubscriber implements EventSubscriberInterface
         // creating game object
         $game = $gameManager->create();
         $event->setGame($game);
+    }
+
+    public function onCombatInit(GameEvent $event)
+    {
+        die('init action stack');
     }
 }

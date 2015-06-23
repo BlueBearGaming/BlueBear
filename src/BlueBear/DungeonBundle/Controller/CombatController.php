@@ -53,8 +53,8 @@ class CombatController extends Controller
 
             $game = $gameEvent->getGame();
             $initAction = new GameAction();
-            $initAction->setName('bluebear.combat.init');
-            $initAction->setAction('bluebear.combat.init');
+            $initAction->setName(EngineEvent::ENGINE_GAME_COMBAT_INIT);
+            $initAction->setAction(EngineEvent::ENGINE_GAME_COMBAT_INIT);
             $initAction->setGame($game);
             $this
                 ->get('doctrine')
@@ -87,7 +87,10 @@ class CombatController extends Controller
         $actionStack = $game->getActionStack();
         /** @var GameAction $action */
         foreach ($actionStack as $action) {
-            $event = $this->get('bluebear.engine.engine')->run($action->getAction(), '');
+            $parameters = [
+                'contextId' => $game->getContext()->getId()
+            ];
+            $event = $this->get('bluebear.engine.engine')->run($action->getAction(), json_encode($parameters, JSON_FORCE_OBJECT));
             var_dump($event->getResponse());
         }
         die('lol');

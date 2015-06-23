@@ -19,9 +19,9 @@ class Game
 
     /**
      * @ORM\OneToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Context")
-     * @ORM\JoinColumn(name="initial_context_id")
+     * @ORM\JoinColumn(name="context_id")
      */
-    protected $initialContext;
+    protected $context;
 
     /**
      * @ORM\Column(name="hash", type="string", length=255)
@@ -42,17 +42,17 @@ class Game
     /**
      * @return mixed
      */
-    public function getInitialContext()
+    public function getContext()
     {
-        return $this->initialContext;
+        return $this->context;
     }
 
     /**
-     * @param mixed $initialContext
+     * @param mixed $context
      */
-    public function setInitialContext($initialContext)
+    public function setContext($context)
     {
-        $this->initialContext = $initialContext;
+        $this->context = $context;
     }
 
     /**

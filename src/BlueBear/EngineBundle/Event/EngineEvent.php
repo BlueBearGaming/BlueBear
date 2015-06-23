@@ -55,6 +55,7 @@ class EngineEvent extends Event
      * Game
      */
     const ENGINE_GAME_CREATE = 'bluebear.engine.gameCreate';
+    const ENGINE_GAME_COMBAT_INIT = 'bluebear.combat.init';
 
     /**
      * Map events
@@ -64,12 +65,6 @@ class EngineEvent extends Event
     /**
      * MapItem events
      */
-//    const ENGINE_ON_BEFORE_LEAVE = 'bluebear.engine.onBeforeLeave';
-//    const ENGINE_ON_LEAVE = 'bluebear.engine.onLeave';
-//    const ENGINE_ON_AFTER_LEAVE = 'bluebear.engine.onAfterLeave';
-//    const ENGINE_ON_BEFORE_ENTER = 'bluebear.engine.onBeforeEnter';
-//    const ENGINE_ON_ENTER = 'bluebear.engine.onEnter';
-//    const ENGINE_ON_AFTER_ENTER = 'bluebear.engine.onAfterEnter';
     const ENGINE_MAP_ITEM_CLICK = 'bluebear.engine.mapItemClick';
     const ENGINE_MAP_ITEM_MOVE = 'bluebear.engine.mapItemMove';
     const ENGINE_CLIENT_UPDATE = 'bluebear.engine.clientUpdate';
