@@ -3,8 +3,11 @@
 namespace BlueBear\DungeonBundle\Controller;
 
 use BlueBear\BaseBundle\Behavior\ControllerTrait;
+use BlueBear\CoreBundle\Constant\Map\Constant;
 use BlueBear\CoreBundle\Entity\Game\Game;
 use BlueBear\CoreBundle\Entity\Game\GameAction;
+use BlueBear\CoreBundle\Entity\Map\Layer;
+use BlueBear\CoreBundle\Utils\Position;
 use BlueBear\DungeonBundle\Form\Type\CombatType;
 use BlueBear\EngineBundle\Entity\EntityModel;
 use BlueBear\EngineBundle\Event\EngineEvent;
@@ -56,6 +59,33 @@ class CombatController extends Controller
             $initAction->setName(EngineEvent::ENGINE_GAME_COMBAT_INIT);
             $initAction->setAction(EngineEvent::ENGINE_GAME_COMBAT_INIT);
             $initAction->setGame($game);
+
+            $data = $form->getData();
+            $fighter1 = $this
+                ->getEntityManager()
+                ->getRepository('BlueBearEngineBundle:EntityModel')
+                ->find($data['fighter_1']);
+            $fighter2 = $this
+                ->getEntityManager()
+                ->getRepository('BlueBearEngineBundle:EntityModel')
+                ->find($data['fighter_2']);
+
+            $layer = new Layer();
+            $layer->setName('TEST');
+            $layer->setType(Constant::LAYER_TYPE_UNIT);
+            $this
+                ->getEntityManager()
+                ->persist($layer);
+            $this
+                ->getEntityManager()
+                ->persist($layer);
+            $this
+                ->getEntityManager()
+                ->flush($layer);
+            $this
+                ->get('bluebear.manager.entity_instance')
+                ->create($game->getContext(), $fighter1, new Position(0, 0), $layer);
+
             $this
                 ->get('doctrine')
                 ->getManager()
@@ -90,7 +120,9 @@ class CombatController extends Controller
             $parameters = [
                 'contextId' => $game->getContext()->getId()
             ];
-            $event = $this->get('bluebear.engine.engine')->run($action->getAction(), json_encode($parameters, JSON_FORCE_OBJECT));
+            $event = $this
+                ->get('bluebear.engine.engine')
+                ->run($action->getAction(), json_encode($parameters, JSON_FORCE_OBJECT));
             var_dump($event->getResponse());
         }
         die('lol');

@@ -49,6 +49,7 @@ class EntityInstanceManager
         // create a instance from the unit pattern
         $class = $this->entityTypeFactory->getEntityType($entityModel->getType())->getClass();
         /** @var EntityInstance $entityInstance */
+        var_dump($this->entityTypeFactory->getEntityTypes(), $entityModel->getType());
         $entityInstance = new $class;
         $entityInstance->hydrateFromModel($entityModel);
         $entityInstance->setLabel('John Panda');

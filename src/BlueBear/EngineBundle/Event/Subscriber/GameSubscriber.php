@@ -3,6 +3,7 @@
 namespace BlueBear\EngineBundle\Event\Subscriber;
 
 use BlueBear\BaseBundle\Behavior\ContainerTrait;
+use BlueBear\CoreBundle\Entity\Game\GameAction;
 use BlueBear\EngineBundle\Event\EngineEvent;
 use BlueBear\EngineBundle\Event\GameEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -31,6 +32,26 @@ class GameSubscriber implements EventSubscriberInterface
 
     public function onCombatInit(GameEvent $event)
     {
+//        $initAction = $event
+//            ->getGame()
+//            ->getActionStack();
+
+        $actionStack = $this
+            ->getContainer()
+            ->get('doctrine')
+            ->getManager()
+            ->getRepository('BlueBearCoreBundle:Game\GameAction')
+            ->findAll();
+
+
+
+
+        //var_dump($initAction);
+
+        $action = new GameAction();
+
+
+
         die('init action stack');
     }
 }

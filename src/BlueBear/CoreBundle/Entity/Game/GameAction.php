@@ -22,6 +22,11 @@ class GameAction
     protected $action;
 
     /**
+     * @ORM\Column(name="data", type="text")
+     */
+    protected $data;
+
+    /**
      * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Game\Game", inversedBy="actionStack")
      */
     protected $game;

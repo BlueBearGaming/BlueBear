@@ -33,7 +33,7 @@ class Layer
      * @ORM\Column(name="z_index", type="integer")
      * @Serializer\Expose()
      */
-    protected $index;
+    protected $index = 0;
 
     /**
      *
