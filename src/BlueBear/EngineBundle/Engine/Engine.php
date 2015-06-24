@@ -52,6 +52,7 @@ class Engine
             // TODO handle dynamic class
             $eventClass = $this->getClassForEvent($eventName);
             /** @var EngineEvent $engineEvent */
+            //var_dump($eventClass);
             $engineEvent = new $eventClass($eventRequest, $eventResponse);
             $engineEvent->setOriginEventName($eventName);
             // trigger onEngineEvent

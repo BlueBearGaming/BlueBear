@@ -44,7 +44,7 @@ class MapManager
         $this->save($map);
 
         // if map is new, we create a initial context
-        if ($isNew) {
+        if ($isNew && $map->getContexts()->count() == 0) {
             $context = new Context();
             $context->setLabel('Initial context');
             $context->setVersion(0);

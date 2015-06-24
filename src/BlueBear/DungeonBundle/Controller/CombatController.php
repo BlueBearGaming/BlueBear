@@ -7,6 +7,7 @@ use BlueBear\CoreBundle\Constant\Map\Constant;
 use BlueBear\CoreBundle\Entity\Game\Game;
 use BlueBear\CoreBundle\Entity\Game\GameAction;
 use BlueBear\CoreBundle\Entity\Map\Layer;
+use BlueBear\CoreBundle\Entity\Map\Map;
 use BlueBear\CoreBundle\Utils\Position;
 use BlueBear\DungeonBundle\Form\Type\CombatType;
 use BlueBear\EngineBundle\Entity\EntityModel;
@@ -82,9 +83,23 @@ class CombatController extends Controller
             $this
                 ->getEntityManager()
                 ->flush($layer);
+
+            $map = new Map();
+            $map->setName('testlolpandabite');
+            $map->setLayers([
+                $layer
+            ]);
+            $map->setCellSize(1);
+            $map->setContexts([
+                $game->getContext()
+            ]);
+            $this->get('bluebear.manager.map')->saveMap($map);
+
             $this
                 ->get('bluebear.manager.entity_instance')
                 ->create($game->getContext(), $fighter1, new Position(0, 0), $layer);
+
+
 
             $this
                 ->get('doctrine')

@@ -44,7 +44,7 @@ class Layer
     public function isAllowed(array $layers)
     {
         foreach ($layers as $layer) {
-            if ($layer->getId() == $this->getId() and
+            if ($layer->getId() == $this->getId() &&
                 $layer->getName() == $this->getName()
             ) {
                 return true;
