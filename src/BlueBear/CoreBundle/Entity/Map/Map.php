@@ -25,6 +25,10 @@ class Map
 {
     use Id, Nameable, Label, Timestampable, Typeable;
 
+    const TYPE_SQUARE = 'square';
+    const TYPE_ISOMETRIC = 'isometric';
+    const TYPE_HEXAGONAL = 'hexagonal';
+
     /**
      * Map pencil sets
      *

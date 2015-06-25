@@ -22,7 +22,7 @@ class GameAction
     protected $action;
 
     /**
-     * @ORM\Column(name="data", type="text")
+     * @ORM\Column(name="data", type="text", nullable=true)
      */
     protected $data;
 

@@ -93,6 +93,8 @@ class CombatController extends Controller
             $map->setContexts([
                 $game->getContext()
             ]);
+            $map->setType(Map::TYPE_SQUARE);
+            $game->getContext()->setMap($map);
             $this->get('bluebear.manager.map')->saveMap($map);
 
             $this

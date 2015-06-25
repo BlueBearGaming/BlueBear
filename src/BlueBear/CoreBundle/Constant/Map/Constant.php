@@ -4,6 +4,8 @@
 namespace BlueBear\CoreBundle\Constant\Map;
 
 
+use BlueBear\CoreBundle\Entity\Map\Map;
+
 class Constant
 {
     const LAYER_TYPE_UNIT = 'units';
@@ -41,9 +43,9 @@ class Constant
     public static function getMapTypes()
     {
         return [
-            'square' => 'Square',
-            'isometric' => 'Isometric',
-            'hexagonal' => 'Hexagonal'
+            Map::TYPE_SQUARE => 'Square',
+            Map::TYPE_ISOMETRIC => 'Isometric',
+            Map::TYPE_HEXAGONAL => 'Hexagonal'
         ];
     }
 

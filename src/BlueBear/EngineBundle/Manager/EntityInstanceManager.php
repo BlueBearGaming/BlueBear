@@ -48,7 +48,7 @@ class EntityInstanceManager
         }
         // create a instance from the unit pattern
         $class = $this->entityTypeFactory->getEntityType($entityModel->getType())->getClass();
-        var_dump($entityModel->getType(), $class);
+
         if (!$class) {
             $class = 'BlueBear\EngineBundle\Entity\EntityInstance';
         }

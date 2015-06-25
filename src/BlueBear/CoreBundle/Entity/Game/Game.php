@@ -5,6 +5,7 @@ namespace BlueBear\CoreBundle\Entity\Game;
 use BlueBear\BaseBundle\Entity\Behaviors\Id;
 use BlueBear\BaseBundle\Entity\Behaviors\Nameable;
 use BlueBear\BaseBundle\Entity\Behaviors\Timestampable;
+use BlueBear\CoreBundle\Entity\Map\Context;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -40,7 +41,7 @@ class Game
     }
 
     /**
-     * @return mixed
+     * @return Context
      */
     public function getContext()
     {
