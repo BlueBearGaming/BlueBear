@@ -60,6 +60,10 @@ class CombatController extends Controller
             $initAction->setName(EngineEvent::ENGINE_GAME_COMBAT_INIT);
             $initAction->setAction(EngineEvent::ENGINE_GAME_COMBAT_INIT);
             $initAction->setGame($game);
+            $initAction->setData(json_encode([
+                'gameId' => $game->getId(),
+                'contextId' => $game->getContext()->getId()
+            ]));
 
             $data = $form->getData();
             $fighter1 = $this
@@ -133,13 +137,10 @@ class CombatController extends Controller
             ->find($request->get('gameId'));
         $actionStack = $game->getActionStack();
         /** @var GameAction $action */
-        foreach ($actionStack as $action) {
-            $parameters = [
-                'contextId' => $game->getContext()->getId()
-            ];
+       foreach ($actionStack as $action) {
             $event = $this
                 ->get('bluebear.engine.engine')
-                ->run($action->getAction(), json_encode($parameters, JSON_FORCE_OBJECT));
+                ->run($action->getAction(), $action->getData());
             var_dump($event->getResponse());
         }
         die('lol');

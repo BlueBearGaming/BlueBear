@@ -44,7 +44,7 @@ class Engine
                     implode('", "', $this->getAllowedEvents()) . '"');
             }
             if (!is_string($eventData)) {
-                throw new Exception('You should pass a json string as engine event data');
+                throw new Exception('You should pass a json string as engine event data instead of ' . print_r($eventData, true));
             }
             // deserialize event request
             $eventRequest = $this->getRequestForEvent($eventName, $eventData);
@@ -54,7 +54,6 @@ class Engine
             $engineEvent = new $eventClass($eventRequest, $eventResponse);
             $engineEvent->setOriginEventName($eventName);
             // trigger onEngineEvent
-            var_dump($eventName);
             $this->getEventDispatcher()->dispatch('bluebear.engine.engineEvent', $engineEvent);
             // trigger required event
             $this->getEventDispatcher()->dispatch($eventName, $engineEvent);
