@@ -49,14 +49,13 @@ class Engine
             // deserialize event request
             $eventRequest = $this->getRequestForEvent($eventName, $eventData);
             $eventResponse = $this->getResponseForEvent($eventName);
-            // TODO handle dynamic class
             $eventClass = $this->getClassForEvent($eventName);
             /** @var EngineEvent $engineEvent */
-            //var_dump($eventClass);
             $engineEvent = new $eventClass($eventRequest, $eventResponse);
             $engineEvent->setOriginEventName($eventName);
             // trigger onEngineEvent
-            $this->getEventDispatcher()->dispatch(EngineEvent::ENGINE_ON_ENGINE_EVENT, $engineEvent);
+            var_dump($eventName);
+            $this->getEventDispatcher()->dispatch('bluebear.engine.engineEvent', $engineEvent);
             // trigger required event
             $this->getEventDispatcher()->dispatch($eventName, $engineEvent);
         } catch (Exception $e) {

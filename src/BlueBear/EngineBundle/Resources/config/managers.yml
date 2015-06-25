@@ -6,12 +6,17 @@ parameters:
 services:
     # managers
     bluebear.manager.entity_instance:
-            class: %bluebear.manager.entity_instance%
-            arguments: [@bluebear.game.entity_type_factory]
-            calls:
-                - [setContainer, [@service_container]]
+        class: %bluebear.manager.entity_instance%
+        arguments: [@bluebear.game.entity_type_factory]
+        calls:
+            - [setContainer, [@service_container]]
 
     bluebear.manager.entity_model:
         class: %bluebear.manager.entity_model%
+        calls:
+            - [setContainer, [@service_container]]
+
+    bluebear.manager.game_action:
+        class: BlueBear\CoreBundle\Manager\GameActionManager
         calls:
             - [setContainer, [@service_container]]

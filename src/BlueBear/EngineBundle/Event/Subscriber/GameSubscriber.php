@@ -38,15 +38,15 @@ class GameSubscriber implements EventSubscriberInterface
 
         $actionStack = $this
             ->getContainer()
-            ->get('doctrine')
-            ->getManager()
-            ->getRepository('BlueBearCoreBundle:Game\GameAction')
-            ->findAll();
+            ->get('bluebear.manager.game_action')
+            ->findBy([
+                'game' => $event->getGame()
+            ]);
 
 
 
 
-        //var_dump($initAction);
+        var_dump($event);
 
         $action = new GameAction();
 

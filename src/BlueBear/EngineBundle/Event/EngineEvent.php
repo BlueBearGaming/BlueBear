@@ -14,6 +14,8 @@ class EngineEvent extends Event
      */
     protected $name;
 
+    protected $type;
+
     /**
      * Origin event name (in case of sub-event)
      *
