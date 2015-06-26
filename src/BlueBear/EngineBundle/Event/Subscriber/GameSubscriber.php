@@ -4,10 +4,10 @@ namespace BlueBear\EngineBundle\Event\Subscriber;
 
 use BlueBear\BaseBundle\Behavior\ContainerTrait;
 use BlueBear\CoreBundle\Entity\Game\GameAction;
+use BlueBear\EngineBundle\Entity\EntityInstance;
 use BlueBear\EngineBundle\Event\EngineEvent;
 use BlueBear\EngineBundle\Event\GameEvent;
 use BlueBear\EngineBundle\Event\Request\CombatRequest;
-use Doctrine\Common\Collections\ArrayCollection;
 use Exception;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -41,7 +41,7 @@ class GameSubscriber implements EventSubscriberInterface
         if (!$request->gameId) {
             throw new Exception('You should provide a gameId');
         }
-        /** @var ArrayCollection $actionStack */
+        /** @var GameAction[] $actionStack */
         $actionStack = $this
             ->getContainer()
             ->get('bluebear.manager.game_action')
@@ -50,18 +50,31 @@ class GameSubscriber implements EventSubscriberInterface
             ]);
 
         // first is current action, we should remove it from the stack
-        $currentAction = $actionStack->first();
+        //$currentAction = $actionStack->first();
 
+        $entityInstances = $this
+            ->getContainer()
+            ->get('bluebear.manager.entity_instance')
+            ->findAll();
+//        $fighter2 = $this
+//            ->getContainer()
+//            ->get('bluebear.manager.entity_instance')
+//            ->find(35);
+        /** @var EntityInstance[] $fighters */
+        $fighters = [array_pop($entityInstances), array_pop($entityInstances)];
+        $max = null;
 
+        foreach ($fighters as $fighter) {
+            var_dump($fighter->get('dexterity'));
+        }
 
-
-        var_dump($actionStack);
-        var_dump($event);
+        //var_dump($fighters);
+        //var_dump($fighter2);
 
         $action = new GameAction();
 
 
 
-        die('init action stack');
+
     }
 }

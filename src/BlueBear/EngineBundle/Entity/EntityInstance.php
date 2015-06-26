@@ -19,8 +19,6 @@ use Exception;
  *
  * @ORM\Table(name="entity_instance")
  * @ORM\Entity(repositoryClass="BlueBear\EngineBundle\Repository\EntityInstanceRepository")
- * @ORM\InheritanceType("SINGLE_TABLE")
- * @ORM\DiscriminatorColumn(name="doctrine_type", type="string")
  * @ORM\HasLifecycleCallbacks()
  */
 class EntityInstance

@@ -101,10 +101,12 @@ class CombatController extends Controller
             $game->getContext()->setMap($map);
             $this->get('bluebear.manager.map')->saveMap($map);
 
-            $this
+            $entityInstance1 = $this
                 ->get('bluebear.manager.entity_instance')
                 ->create($game->getContext(), $fighter1, new Position(0, 0), $layer);
-
+            $entityInstance1 = $this
+                ->get('bluebear.manager.entity_instance')
+                ->create($game->getContext(), $fighter2, new Position(0, 1), $layer);
 
 
             $this
@@ -128,6 +130,7 @@ class CombatController extends Controller
     /**
      * @Template()
      * @param Request $request
+     * @return array
      */
     public function runAction(Request $request)
     {
@@ -143,6 +146,6 @@ class CombatController extends Controller
                 ->run($action->getAction(), $action->getData());
             var_dump($event->getResponse());
         }
-        die('lol');
+        return [];
     }
 }

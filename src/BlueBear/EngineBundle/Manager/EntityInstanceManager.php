@@ -33,6 +33,7 @@ class EntityInstanceManager
      * @param EntityModel $entityModel
      * @param Position $position
      * @param Layer $layer
+     * @return EntityInstance
      * @throws Exception
      */
     public function create(Context $context, EntityModel $entityModel, Position $position, Layer $layer)
@@ -78,6 +79,8 @@ class EntityInstanceManager
         $entityManager->persist($mapItem);
         $entityManager->persist($entityInstance);
         $entityManager->flush();
+
+        return $entityInstance;
     }
 
     /**
