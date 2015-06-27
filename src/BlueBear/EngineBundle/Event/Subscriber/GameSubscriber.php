@@ -52,13 +52,18 @@ class GameSubscriber implements EventSubscriberInterface
         $actionManager = $this
             ->getContainer()
             ->get('bluebear.manager.game_action');
-        // TODO get correct entity instance instead of last one
-        $entityInstances = $this
-            ->getContainer()
-            ->get('bluebear.manager.entity_instance')
-            ->findAll();
-        /** @var EntityInstance[] $fighters */
-        $fighters = [array_pop($entityInstances), array_pop($entityInstances)];
+        $action = $actionManager->findFirst($request->gameId);
+        $fighters = [];
+        /** @var CombatRequest $data */
+        $data = json_decode($action->getData());
+
+        foreach ($data->entityInstanceIds as $entityInstanceId) {
+            $entityInstance = $this
+                ->getContainer()
+                ->get('bluebear.manager.entity_instance')
+                ->find($entityInstanceId);
+            $fighters[] = $entityInstance;
+        }
         $max = null;
 
         usort($fighters, function ($entityInstance1, $entityInstance2) {
@@ -73,14 +78,14 @@ class GameSubscriber implements EventSubscriberInterface
             ->find($request->gameId);
 
         foreach ($fighters as $turn => $fighter) {
+            $data = new CombatRequest();
+            $data->gameId = $request->gameId;
+            $data->lockedEntityInstanceId = $fighter->getId();
+            $data->turn = $turn;
             $action = new GameAction();
             $action->setName("game : {$request->gameId}, turn: {$turn}, entity: {$fighter->getId()}, {$fighter->getName()}");
             $action->setAction(EngineEvent::ENGINE_GAME_TURN);
-            $action->setData(json_encode([
-                'gameId' => $request->gameId,
-                'entityInstanceId' => $fighter->getId(),
-                'turn' => $turn
-            ]));
+            $action->setData(json_encode($data));
             $action->setGame($game);
             $actionManager->save($action);
         }
@@ -106,11 +111,10 @@ class GameSubscriber implements EventSubscriberInterface
             ->findFirst($request->gameId);
         /** @var CombatRequest $data */
         $data = json_decode($action->getData());
-
         /** @var EntityInstance $entityInstance */
         $entityInstance = $this
             ->get('bluebear.manager.entity_instance')
-            ->find($data->entityInstanceId);
+            ->find($data->lockedEntityInstanceId);
         /** @var CharacterClass $class */
         $class = $this
             ->getContainer()
@@ -120,8 +124,12 @@ class GameSubscriber implements EventSubscriberInterface
         /** @var GameTurnResponse $response */
         $response = $event->getResponse();
         $response->setData([
-            'entityInstanceId' => $entityInstance->getId(),
-            'attacks' => $class->attacks->getValues()
+            'entityInstance' => [
+                'label' => $entityInstance->getLabel(),
+                'id' => $entityInstance->getId()
+            ],
+            'attacks' => $class->attacks->getValues(),
+            'turn' => $request->turn
         ]);
     }
 }

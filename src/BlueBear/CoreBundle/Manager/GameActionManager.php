@@ -27,16 +27,16 @@ class GameActionManager
 
     public function removeFirst($gameId)
     {
-        $this
-            ->getEntityManager()
-            ->createQueryBuilder()
-            ->delete('BlueBearCoreBundle:Game\GameAction')
+        $action = $this
+            ->getRepository()
+            ->createQueryBuilder('action')
             ->where('action.game = :game')
             ->setMaxResults(1)
-            ->setParameter('game', $gameId);
-        $this
-            ->getEntityManager()
-            ->flush();
+            ->setParameter('game', $gameId)
+            ->getQuery()
+            ->getOneOrNullResult();
+
+        $this->delete($action);
     }
 
     /**

@@ -117,7 +117,15 @@ class EntityReferenceCollection
      */
     public function getValues()
     {
-        return $this->entityReferences;
+        $values = [];
+
+        foreach ($this->entityReferences as $key => $entityReference) {
+            if ($entityReference instanceof EntityReference) {
+                $this->entityReferences[$key] = UnitOfWork::lazyLoad($entityReference);
+            }
+            $values[] = $this->entityReferences[$key];
+        }
+        return $values;
     }
 
     /**

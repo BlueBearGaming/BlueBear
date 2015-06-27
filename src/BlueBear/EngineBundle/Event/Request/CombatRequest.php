@@ -17,12 +17,20 @@ class CombatRequest extends EventRequest
     public $gameId;
 
     /**
-     * Entity instance id
+     * On a unit turn, this is the id of the entity instance for this unit
      *
      * @Expose()
      * @Type("integer")
      */
-    public $entityInstanceId;
+    public $lockedEntityInstanceId;
+
+    /**
+     * Entity instance ids
+     *
+     * @Expose()
+     * @Type("array")
+     */
+    public $entityInstanceIds;
 
     /**
      * Current turn number

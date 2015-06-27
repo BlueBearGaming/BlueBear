@@ -102,7 +102,7 @@ abstract class PieceEventListener
         }
 
         $mapItem = $this->piece->getMapItem();
-
+        // TODO corriger le gros fix dégeulasse
         // Gros fix dégueulasse:
         $entitiesBehaviors = $this->entityTypeFactory->getEntityBehaviors();
         $behaviors = $this->piece->getBehaviors();

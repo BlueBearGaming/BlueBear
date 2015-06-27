@@ -13,10 +13,13 @@ use BlueBear\DungeonBundle\Form\Type\CombatType;
 use BlueBear\EngineBundle\Entity\EntityModel;
 use BlueBear\EngineBundle\Event\EngineEvent;
 use BlueBear\EngineBundle\Event\GameEvent;
+use BlueBear\EngineBundle\Event\Request\CombatRequest;
 use BlueBear\EngineBundle\Event\Request\GameCreateRequest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class CombatController extends Controller
 {
@@ -56,14 +59,7 @@ class CombatController extends Controller
                 ->dispatch(EngineEvent::ENGINE_GAME_CREATE, $gameEvent);
 
             $game = $gameEvent->getGame();
-            $initAction = new GameAction();
-            $initAction->setName(EngineEvent::ENGINE_GAME_COMBAT_INIT);
-            $initAction->setAction(EngineEvent::ENGINE_GAME_COMBAT_INIT);
-            $initAction->setGame($game);
-            $initAction->setData(json_encode([
-                'gameId' => $game->getId(),
-                'contextId' => $game->getContext()->getId()
-            ]));
+
 
             $data = $form->getData();
             $fighter1 = $this
@@ -104,11 +100,22 @@ class CombatController extends Controller
             $entityInstance1 = $this
                 ->get('bluebear.manager.entity_instance')
                 ->create($game->getContext(), $fighter1, new Position(0, 0), $layer);
-            $entityInstance1 = $this
+            $entityInstance2 = $this
                 ->get('bluebear.manager.entity_instance')
                 ->create($game->getContext(), $fighter2, new Position(0, 1), $layer);
+            $initAction = new GameAction();
+            $initAction->setName(EngineEvent::ENGINE_GAME_COMBAT_INIT);
+            $initAction->setAction(EngineEvent::ENGINE_GAME_COMBAT_INIT);
+            $initAction->setGame($game);
 
-
+            $actionData = new CombatRequest();
+            $actionData->gameId = $game->getId();
+            $actionData->contextId = $game->getContext()->getId();
+            $actionData->entityInstanceIds = [
+                $entityInstance1->getId(),
+                $entityInstance2->getId()
+            ];
+            $initAction->setData(json_encode($actionData));
             $this
                 ->get('doctrine')
                 ->getManager()
@@ -147,6 +154,18 @@ class CombatController extends Controller
                 ->run($action->getAction(), $action->getData());
             $response = $event->getResponse();
            break;
+        }
+        if ($request->isXmlHttpRequest()) {
+            $serializer = $this->get('jms_serializer');
+            $content = $serializer->serialize($response, 'json');
+
+            $response = new Response();
+            $response->setStatusCode(200);
+            $response->setContent($content);
+            $response->headers->set('Content-Type', 'application/json');
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+
+            return $response;
         }
         return [
             'response' => $response
