@@ -56,6 +56,7 @@ class EngineEvent extends Event
      */
     const ENGINE_GAME_CREATE = 'bluebear.engine.gameCreate';
     const ENGINE_GAME_COMBAT_INIT = 'bluebear.combat.init';
+    const ENGINE_GAME_TURN = 'bluebear.game.turn';
 
     /**
      * Map events

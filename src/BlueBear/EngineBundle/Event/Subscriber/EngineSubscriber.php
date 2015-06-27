@@ -42,18 +42,17 @@ class EngineSubscriber implements EventSubscriberInterface
     {
         $request = $event->getRequest();
 
-        if (!$request->contextId) {
-            throw new Exception('Invalid context id');
-        }
-        /** @var Context $context */
-        $context = $this
-            ->getContextManager()
-            ->find($request->contextId);
+        if ($request->contextId) {
+            /** @var Context $context */
+            $context = $this
+                ->getContextManager()
+                ->find($request->contextId);
 
-        if (!$context) {
-            throw new Exception('Context not found or invalid context map');
+            if (!$context) {
+                throw new Exception('Context not found or invalid context map');
+            }
+            $event->setContext($context);
         }
-        $event->setContext($context);
     }
 
     /**

@@ -8,7 +8,7 @@ use JMS\Serializer\Annotation\AccessorOrder;
  *
  * @AccessorOrder("custom", custom={"code", "timestamp", "name", "data"})
  */
-class EventResponse
+abstract class EventResponse
 {
     /**
      * Response class name ("bluebear.game.myEvent" for example)
@@ -44,5 +44,13 @@ class EventResponse
         $this->name = $eventName;
         $this->code = EngineEvent::ENGINE_EVENT_RESPONSE_OK;
         $this->timestamp = (int) date('U');
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getData()
+    {
+        return $this->data;
     }
 }

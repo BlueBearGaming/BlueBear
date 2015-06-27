@@ -9,10 +9,26 @@ use JMS\Serializer\Annotation\Type;
 class CombatRequest extends EventRequest
 {
     /**
-     * Map context id
+     * Game id
      *
      * @Expose()
      * @Type("integer")
      */
     public $gameId;
+
+    /**
+     * Entity instance id
+     *
+     * @Expose()
+     * @Type("integer")
+     */
+    public $entityInstanceId;
+
+    /**
+     * Current turn number
+     *
+     * @Expose()
+     * @Type("integer")
+     */
+    public $turn;
 }

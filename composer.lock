@@ -103,12 +103,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/CleverGaming/AdminBundle.git",
-                "reference": "4ba23e632bb50ef55f9f9403a0e83e18ccf5c424"
+                "reference": "eb66e26f85736ebaa5fd04eaa2be210b547e537e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CleverGaming/AdminBundle/zipball/4ba23e632bb50ef55f9f9403a0e83e18ccf5c424",
-                "reference": "4ba23e632bb50ef55f9f9403a0e83e18ccf5c424",
+                "url": "https://api.github.com/repos/CleverGaming/AdminBundle/zipball/eb66e26f85736ebaa5fd04eaa2be210b547e537e",
+                "reference": "eb66e26f85736ebaa5fd04eaa2be210b547e537e",
                 "shasum": ""
             },
             "require": {
@@ -119,7 +119,7 @@
                 "ee/dataexporter-bundle": "*",
                 "php": ">=5.4",
                 "sensio/framework-extra-bundle": "~3.0",
-                "symfony/symfony": "2.6.*",
+                "symfony/symfony": ">=2.6",
                 "white-october/pagerfanta-bundle": "~1.0"
             },
             "type": "symfony-bundle",
@@ -154,7 +154,7 @@
                 "backoffice",
                 "generic"
             ],
-            "time": "2015-06-16 20:56:00"
+            "time": "2015-06-20 10:15:44"
         },
         {
             "name": "bluebear/basebundle",
@@ -163,12 +163,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/CleverGaming/BaseBundle.git",
-                "reference": "85242fdb6cc0be1212482af803f43a8267563aa4"
+                "reference": "ccd03b7de68e1051107b6f45b6c704dc42ce0385"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CleverGaming/BaseBundle/zipball/85242fdb6cc0be1212482af803f43a8267563aa4",
-                "reference": "85242fdb6cc0be1212482af803f43a8267563aa4",
+                "url": "https://api.github.com/repos/CleverGaming/BaseBundle/zipball/ccd03b7de68e1051107b6f45b6c704dc42ce0385",
+                "reference": "ccd03b7de68e1051107b6f45b6c704dc42ce0385",
                 "shasum": ""
             },
             "require": {
@@ -208,7 +208,7 @@
                 "base",
                 "shortcut"
             ],
-            "time": "2015-06-03 13:55:28"
+            "time": "2015-06-27 12:08:56"
         },
         {
             "name": "clever-gaming/jikpoze",
@@ -379,16 +379,16 @@
         },
         {
             "name": "doctrine/annotations",
-            "version": "v1.2.4",
+            "version": "v1.2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/annotations.git",
-                "reference": "b5202eb9e83f8db52e0e58867e0a46e63be8332e"
+                "reference": "f4a91702ca3cd2e568c3736aa031ed00c3752af4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/annotations/zipball/b5202eb9e83f8db52e0e58867e0a46e63be8332e",
-                "reference": "b5202eb9e83f8db52e0e58867e0a46e63be8332e",
+                "url": "https://api.github.com/repos/doctrine/annotations/zipball/f4a91702ca3cd2e568c3736aa031ed00c3752af4",
+                "reference": "f4a91702ca3cd2e568c3736aa031ed00c3752af4",
                 "shasum": ""
             },
             "require": {
@@ -443,7 +443,7 @@
                 "docblock",
                 "parser"
             ],
-            "time": "2014-12-23 22:40:37"
+            "time": "2015-06-17 12:21:22"
         },
         {
             "name": "doctrine/cache",
@@ -1380,12 +1380,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Atlantic18/DoctrineExtensions.git",
-                "reference": "dedfbd7bd2ffb290ea19f3b1bbae52aa36c6008a"
+                "reference": "68aa09eb4823765c34716ae2f8d14ffb4ddf09a7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/dedfbd7bd2ffb290ea19f3b1bbae52aa36c6008a",
-                "reference": "dedfbd7bd2ffb290ea19f3b1bbae52aa36c6008a",
+                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/68aa09eb4823765c34716ae2f8d14ffb4ddf09a7",
+                "reference": "68aa09eb4823765c34716ae2f8d14ffb4ddf09a7",
                 "shasum": ""
             },
             "require": {
@@ -1451,7 +1451,7 @@
                 "tree",
                 "uploadable"
             ],
-            "time": "2015-06-16 19:54:17"
+            "time": "2015-06-23 15:25:10"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -2113,16 +2113,16 @@
         },
         {
             "name": "monolog/monolog",
-            "version": "1.13.1",
+            "version": "1.14.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "c31a2c4e8db5da8b46c74cf275d7f109c0f249ac"
+                "reference": "b287fbbe1ca27847064beff2bad7fb6920bf08cc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/c31a2c4e8db5da8b46c74cf275d7f109c0f249ac",
-                "reference": "c31a2c4e8db5da8b46c74cf275d7f109c0f249ac",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/b287fbbe1ca27847064beff2bad7fb6920bf08cc",
+                "reference": "b287fbbe1ca27847064beff2bad7fb6920bf08cc",
                 "shasum": ""
             },
             "require": {
@@ -2133,12 +2133,14 @@
                 "psr/log-implementation": "1.0.0"
             },
             "require-dev": {
-                "aws/aws-sdk-php": "~2.4, >2.4.8",
+                "aws/aws-sdk-php": "^2.4.9",
                 "doctrine/couchdb": "~1.0@dev",
                 "graylog2/gelf-php": "~1.0",
-                "phpunit/phpunit": "~4.0",
-                "raven/raven": "~0.5",
-                "ruflin/elastica": "0.90.*",
+                "php-console/php-console": "^3.1.3",
+                "phpunit/phpunit": "~4.5",
+                "phpunit/phpunit-mock-objects": "2.3.0",
+                "raven/raven": "~0.8",
+                "ruflin/elastica": ">=0.90 <3.0",
                 "swiftmailer/swiftmailer": "~5.3",
                 "videlalvaro/php-amqplib": "~2.4"
             },
@@ -2148,6 +2150,7 @@
                 "ext-amqp": "Allow sending log messages to an AMQP server (1.0+ required)",
                 "ext-mongo": "Allow sending log messages to a MongoDB server",
                 "graylog2/gelf-php": "Allow sending log messages to a GrayLog2 server",
+                "php-console/php-console": "Allow sending log messages to Google Chrome",
                 "raven/raven": "Allow sending log messages to a Sentry server",
                 "rollbar/rollbar": "Allow sending log messages to Rollbar",
                 "ruflin/elastica": "Allow sending log messages to an Elastic Search server",
@@ -2156,7 +2159,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.13.x-dev"
+                    "dev-master": "1.14.x-dev"
                 }
             },
             "autoload": {
@@ -2182,7 +2185,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2015-03-09 09:58:04"
+            "time": "2015-06-19 13:29:54"
         },
         {
             "name": "mopa/bootstrap-bundle",
@@ -2191,12 +2194,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phiamo/MopaBootstrapBundle.git",
-                "reference": "4d4b6291b47fc70491a4f92105be39d6bcccbb95"
+                "reference": "5bf0bf7577dc21e92a6ef399dc69017799a5dedb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phiamo/MopaBootstrapBundle/zipball/4d4b6291b47fc70491a4f92105be39d6bcccbb95",
-                "reference": "4d4b6291b47fc70491a4f92105be39d6bcccbb95",
+                "url": "https://api.github.com/repos/phiamo/MopaBootstrapBundle/zipball/5bf0bf7577dc21e92a6ef399dc69017799a5dedb",
+                "reference": "5bf0bf7577dc21e92a6ef399dc69017799a5dedb",
                 "shasum": ""
             },
             "require": {
@@ -2254,7 +2257,7 @@
                 "form",
                 "template"
             ],
-            "time": "2015-06-11 12:44:01"
+            "time": "2015-06-24 15:36:04"
         },
         {
             "name": "mopa/composer-bridge",
@@ -2670,20 +2673,20 @@
         },
         {
             "name": "robloach/component-installer",
-            "version": "0.2.0",
+            "version": "0.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/RobLoach/component-installer.git",
-                "reference": "9ebfe24d48b08ce63cf377d719e4ad045e057855"
+                "reference": "6f654095da6e364261093c2d9ca416e1027d0169"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/RobLoach/component-installer/zipball/9ebfe24d48b08ce63cf377d719e4ad045e057855",
-                "reference": "9ebfe24d48b08ce63cf377d719e4ad045e057855",
+                "url": "https://api.github.com/repos/RobLoach/component-installer/zipball/6f654095da6e364261093c2d9ca416e1027d0169",
+                "reference": "6f654095da6e364261093c2d9ca416e1027d0169",
                 "shasum": ""
             },
             "require": {
-                "composer-plugin-api": "1.0.0",
+                "composer-plugin-api": "^1.0",
                 "kriswallsmith/assetic": "1.*",
                 "php": ">=5.3.2"
             },
@@ -2714,7 +2717,7 @@
                 }
             ],
             "description": "Allows installation of Components via Composer.",
-            "time": "2015-06-08 13:01:20"
+            "time": "2015-06-18 13:02:30"
         },
         {
             "name": "sensio/distribution-bundle",
@@ -3222,12 +3225,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/bootstrap-sass.git",
-                "reference": "c7d05c1e11570e68141ec21c9db40fdbd8c4e006"
+                "reference": "d64d48fd23c9624cc5c996e6516b7dc33fde5919"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap-sass/zipball/c7d05c1e11570e68141ec21c9db40fdbd8c4e006",
-                "reference": "c7d05c1e11570e68141ec21c9db40fdbd8c4e006",
+                "url": "https://api.github.com/repos/twbs/bootstrap-sass/zipball/d64d48fd23c9624cc5c996e6516b7dc33fde5919",
+                "reference": "d64d48fd23c9624cc5c996e6516b7dc33fde5919",
                 "shasum": ""
             },
             "type": "library",
@@ -3267,7 +3270,7 @@
                 "css",
                 "sass"
             ],
-            "time": "2015-06-10 16:41:00"
+            "time": "2015-06-16 16:29:50"
         },
         {
             "name": "twig/extensions",

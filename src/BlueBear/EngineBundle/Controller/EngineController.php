@@ -4,7 +4,6 @@ namespace BlueBear\EngineBundle\Controller;
 
 use BlueBear\BaseBundle\Behavior\ControllerTrait;
 use BlueBear\EngineBundle\Engine\Engine;
-use BlueBear\EngineBundle\Event\EngineEvent;
 use JMS\Serializer\Serializer;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,7 +33,7 @@ class EngineController extends Controller
             $client = $this->get('elephantio_client.default');
             // Register async callback
             $this->get('bluebear.kernel.terminate.listener')->addCallBack(function() use ($client, $content) {
-                $client->send(EngineEvent::ENGINE_CLIENT_UPDATE, ['event' => $content]);
+                //$client->send(EngineEvent::ENGINE_CLIENT_UPDATE, ['event' => $content]);
             });
         //}
         $response = new Response();

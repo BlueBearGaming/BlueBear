@@ -144,10 +144,10 @@ class AnnotationProcessor
 
                         if ($entityData && is_array($entityData)) {
                             foreach ($entityData as $attributeName => $attributeData) {
+
                                 if ($attributeData === null) {
                                     continue;
                                 }
-
                                 if (is_array($attributeData)) {
                                     $accessor->setValue($entity, $attributeName, $attributeData);
                                 } else if (is_string($attributeData) or is_numeric($attributeData)) {
@@ -160,6 +160,12 @@ class AnnotationProcessor
                                 $accessor->setValue($entity, $idProperty, $entityDataIdentifier);
                             }
                             $this->unitOfWork->add($entity);
+                        } else if ($entityDataIdentifier and !$entityData) {
+                            // if the identifier is provided as array key
+                            $accessor->setValue($entity, $idProperty, $entityDataIdentifier);
+                        } else {
+                            // if the identifier is provided as array value
+                            $accessor->setValue($entity, $idProperty, $entityData);
                         }
                         $ownerRelationsCollection->add(new EntityReference(
                             $relation->getRelationClass(),

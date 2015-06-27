@@ -139,13 +139,17 @@ class CombatController extends Controller
             ->get('bluebear.manager.game')
             ->find($request->get('gameId'));
         $actionStack = $game->getActionStack();
+        $response = null;
         /** @var GameAction $action */
        foreach ($actionStack as $action) {
             $event = $this
                 ->get('bluebear.engine.engine')
                 ->run($action->getAction(), $action->getData());
-            var_dump($event->getResponse());
+            $response = $event->getResponse();
+           break;
         }
-        return [];
+        return [
+            'response' => $response
+        ];
     }
 }
