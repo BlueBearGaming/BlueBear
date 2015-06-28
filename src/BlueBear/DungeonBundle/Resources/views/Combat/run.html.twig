@@ -3,7 +3,7 @@
 {% block container %}
     {% if response %}
 
-        {{ dump(response) }}
+        {#{{ dump(response) }}#}
 
 
         Combat will begin !!!
@@ -14,7 +14,7 @@
 
             <input type="hidden" name="eventData" value="{{ response.data | json_encode }}"/>
 
-            <input type="submit" class="btn btn-default" value="Start"/>
+            <input type="submit" class="btn btn-default start-button" value="Start"/>
         </form>
 
         <div class="combat-container">
@@ -56,9 +56,18 @@
                         if (response.name == 'bluebear.combat.init') {
                             combatForm.attr('action', response.endPoint);
                         } else if (response.name == 'bluebear.game.turn') {
+                            var turnClass = 'turn' + response.data.turn + '-' + response.data.entityInstance.id;
+                            var existing = combatContainer.find('.' + turnClass);
                             var newTurn = turnTemplate.clone();
                             newTurn.html(newTurn.html().replace('__NAME__', response.data.entityInstance.label));
-                            combatContainer.append(newTurn);
+                            newTurn.html(newTurn.html().replace('__HIT_POINTS__', response.data.entityInstance.hitPoints));
+                            newTurn.addClass(turnClass);
+
+                            if (existing.length) {
+                                existing.replaceWith(newTurn);
+                            } else {
+                                combatContainer.append(newTurn);
+                            }
                         }
                     }
                 });

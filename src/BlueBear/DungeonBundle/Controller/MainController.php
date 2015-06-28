@@ -170,13 +170,21 @@ class MainController extends Controller
         $class = $this->get('bluebear.engine.unit_of_work')->load(
             new EntityReference('BlueBear\DungeonBundle\Entity\CharacterClass\CharacterClass', $class)
         );
-        $lifeDiceCode = $class->attributeSetters->get('character.life')->setter;
-        $dice = $this->get('bluebear.dungeon.dice_roller')->roll($lifeDiceCode);
+        $lifeDiceCode = $class->attributeSetters->get($class->code . '.life')->setter;
+        $dices = $this->get('bluebear.dungeon.dice_roller')->roll($lifeDiceCode);
+        $sum = 0;
+
+        if (!is_array($dices)) {
+            $dices = [$dices];
+        }
+        foreach ($dices as $dice) {
+            $sum += (int)$dice->value;
+        }
         $form = $this->createForm('dungeon_character', [
             'race' => $race,
             'class' => $class->code,
             'attributes' => $request->get('attributes'),
-            'hitPoints' => $dice->value
+            'hitPoints' => $sum
         ], [
             'step' => 5
         ]);

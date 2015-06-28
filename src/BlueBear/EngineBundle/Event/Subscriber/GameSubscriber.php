@@ -126,7 +126,8 @@ class GameSubscriber implements EventSubscriberInterface
         $response->setData([
             'entityInstance' => [
                 'label' => $entityInstance->getLabel(),
-                'id' => $entityInstance->getId()
+                'id' => $entityInstance->getId(),
+                'hitPoints' => $entityInstance->get('hit_points'),
             ],
             'attacks' => $class->attacks->getValues(),
             'turn' => $request->turn

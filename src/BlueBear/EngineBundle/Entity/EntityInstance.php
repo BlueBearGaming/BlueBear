@@ -71,6 +71,8 @@ class EntityInstance
         $this->name = $entityModel->getName();
         $this->label = $entityModel->getLabel();
         $this->type = $entityModel->getType();
+        $this->pencil = $entityModel->getPencil();
+
         /** @var EntityModelAttribute $entityModelAttribute */
         foreach ($entityModel->getAttributes() as $entityModelAttribute) {
             $instanceAttribute = new EntityInstanceAttribute();
