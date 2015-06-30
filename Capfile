@@ -22,7 +22,7 @@ set :shared_children,     [app_path + "/logs", web_path + "/uploads", web_path +
 set :use_composer,        true
 set :update_vendors,      false
 
-set :repository,       "https://bluebear@github.com/CleverGaming/BlueBear.git"
+set :repository,       "git@github.com:BlueBearGaming/BlueBear.git"
 set :scm,              :git
 set :deploy_via,       :remote_cache
 set :model_manager,    "doctrine"
