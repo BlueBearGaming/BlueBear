@@ -4,8 +4,6 @@
     {% if response %}
 
         {#{{ dump(response) }}#}
-
-
         Combat will begin !!!
         <br/>
         <form action="{{ path('bluebear.dungeon.combat.run', {gameId: app.request.get('gameId')}) }}" method="post"
@@ -26,14 +24,18 @@
                 Name : __NAME__<br/>
                 HitPoints : __HIT_POINTS__<br/>
                 Attacks : __ATTACK__
+
+            </div>
+
+            <div class="attack-template">
+                <form action="{{ path('bluebear_engine_trigger_event', {eventName: 'bluebear.combat.attack'}) }}" method="post">
+                    __NAME__<br/>
+                    __DESCRIPTION__<br/>
+                    <input type="hidden" name="eventData" value=""/>
+                    <input type="submit" value="Attack"/>
+                </form>
             </div>
         </div>
-
-
-
-
-
-
 
     {% else %}
         Error on combat creation... Loser !
@@ -43,6 +45,7 @@
             var combatForm = $('.combat-form');
             var combatContainer = $('.combat-container');
             var turnTemplate = $('.turn-template');
+            var attackTemplate = $('.attack-template');
 
             combatForm.on('submit', function () {
 
@@ -59,8 +62,17 @@
                             var turnClass = 'turn' + response.data.turn + '-' + response.data.entityInstance.id;
                             var existing = combatContainer.find('.' + turnClass);
                             var newTurn = turnTemplate.clone();
+                            var attacksContent = [];
+                            $.each(response.data.attacks, function (index, value) {
+                                var newAttack = attackTemplate.clone();
+                                newAttack.html(newAttack.html().replace('__NAME__', value.label));
+                                newAttack.html(newAttack.html().replace('__DESCRIPTION__', value.description));
+                                attacksContent.push(newAttack.html());
+                            });
                             newTurn.html(newTurn.html().replace('__NAME__', response.data.entityInstance.label));
                             newTurn.html(newTurn.html().replace('__HIT_POINTS__', response.data.entityInstance.hitPoints));
+                            newTurn.html(newTurn.html().replace('__ATTACKS__', attacksContent));
+
                             newTurn.addClass(turnClass);
 
                             if (existing.length) {

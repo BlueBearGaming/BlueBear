@@ -27,6 +27,10 @@ blue_bear_engine:
             request: BlueBear\EngineBundle\Event\Request\CombatRequest
             response: BlueBear\EngineBundle\Event\Response\GameTurnResponse
             event_class: BlueBear\EngineBundle\Event\GameEvent
+        bluebear.combat.attack:
+            request: BlueBear\EngineBundle\Event\Request\CombatRequest
+            response: BlueBear\EngineBundle\Event\Response\GameTurnResponse
+            event_class: BlueBear\EngineBundle\Event\GameEvent
     game:
         entity_type:
             door:
