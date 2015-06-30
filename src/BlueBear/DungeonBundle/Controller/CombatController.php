@@ -141,20 +141,16 @@ class CombatController extends Controller
      */
     public function runAction(Request $request)
     {
-        /** @var Game $game */
-        $game = $this
-            ->get('bluebear.manager.game')
-            ->find($request->get('gameId'));
-        $actionStack = $game->getActionStack();
-        $response = null;
-        /** @var GameAction $action */
-       foreach ($actionStack as $action) {
-            $event = $this
-                ->get('bluebear.engine.engine')
-                ->run($action->getAction(), $action->getData());
-            $response = $event->getResponse();
-           break;
-        }
+        // get first action from the stack
+        $currentAction = $this
+            ->get('bluebear.manager.game_action')
+            ->findFirst($request->get('gameId'));
+        $this->forward404Unless($currentAction, 'Action not found for game ' . $request->get('gameId'));
+        $event = $this
+            ->get('bluebear.engine.engine')
+            ->run($currentAction->getAction(), $currentAction->getData());
+        $response = $event->getResponse();
+
         if ($request->isXmlHttpRequest()) {
             $serializer = $this->get('jms_serializer');
             $content = $serializer->serialize($response, 'json');

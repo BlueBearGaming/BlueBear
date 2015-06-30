@@ -25,7 +25,8 @@ class GameSubscriber implements EventSubscriberInterface
         return [
             EngineEvent::ENGINE_GAME_CREATE => 'onGameCreate',
             EngineEvent::ENGINE_GAME_COMBAT_INIT => 'onCombatInit',
-            EngineEvent::ENGINE_GAME_TURN => 'onGameTurn'
+            EngineEvent::ENGINE_GAME_TURN => 'onGameTurn',
+            EngineEvent::ENGINE_GAME_COMBAT_ATTACK => 'onCombatAttack'
         ];
     }
 
@@ -120,17 +121,19 @@ class GameSubscriber implements EventSubscriberInterface
             ->getContainer()
             ->get('bluebear.engine.unit_of_work')
             ->load(new EntityReference(CharacterClass::class, $entityInstance->get('class')));
-
         /** @var GameTurnResponse $response */
         $response = $event->getResponse();
         $response->setData([
-            'entityInstance' => [
-                'label' => $entityInstance->getLabel(),
-                'id' => $entityInstance->getId(),
-                'hitPoints' => $entityInstance->get('hit_points'),
-            ],
+            'entityInstance' => $entityInstance,
             'attacks' => $class->attacks->getValues(),
-            'turn' => $request->turn
+            'turn' => 50,
+            'gameId' => $request->gameId,
+            'contextId' => $request->contextId
         ]);
+    }
+
+    public function onCombatAttack(GameEvent $event)
+    {
+
     }
 }

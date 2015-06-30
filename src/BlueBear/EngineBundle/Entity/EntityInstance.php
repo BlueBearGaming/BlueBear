@@ -11,6 +11,7 @@ use BlueBear\CoreBundle\Entity\Map\MapItem;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Exception;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * UnitInstance
@@ -19,6 +20,8 @@ use Exception;
  *
  * @ORM\Table(name="entity_instance")
  * @ORM\Entity(repositoryClass="BlueBear\EngineBundle\Repository\EntityInstanceRepository")
+ * @Serializer\ExclusionPolicy("all")
+ * @Serializer\AccessorOrder("custom", custom={"id", "name", "label"})
  * @ORM\HasLifecycleCallbacks()
  */
 class EntityInstance

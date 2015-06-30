@@ -1,0 +1,50 @@
+<div class="turn turn-{{ data.turn }}">
+    <p>{{ data.entityInstance.label }}</p>
+
+    <p>{{ data.entityInstance.get('hit_points') }}/??</p>
+
+    <p>{{ data.entityInstance.get('race') }}</p>
+
+    <ul>
+        {% for attack in data.attacks %}
+            <li>
+                <form action="{{ path('bluebear_engine_trigger_event', {eventName: 'bluebear.combat.attack'}) }}"
+                      method="post" class="attack-form" data-attack="{{ attack.code }}">
+                    <p>{{ attack.label }}</p>
+
+                    <p>{{ attack.description }}</p>
+                    <input type="hidden" name="eventData"/>
+                    <input type="submit" class="btn btn-default" value="Attack"/>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<script>
+    var attackRequest = {
+        gameId: {{ data.gameId }},
+        contextId: {{ data.contextId }},
+        entityInstanceId: {{ data.entityInstance.id }},
+        turn: {{ data.turn }},
+        attack: ''
+    };
+    var attackForm = $('.attack-form');
+
+    attackForm.off().on('submit', function () {
+        attackRequest.attack = attackForm.data('attack');
+        attackForm.find('input[name="eventData"]').val(JSON.stringify(attackRequest));
+
+        $.ajax({
+            url: attackForm.attr('action'),
+            method: 'post',
+            data: attackForm.serialize(),
+            success: function (response) {
+                console.log('attack success', response);
+            }
+        });
+
+        return false;
+    });
+
+</script>

@@ -2,16 +2,11 @@
 
 {% block container %}
     {% if response %}
+        <h2>Combat will begin !!!</h2>
 
-        {#{{ dump(response) }}#}
-        Combat will begin !!!
-        <br/>
-        <form action="{{ path('bluebear.dungeon.combat.run', {gameId: app.request.get('gameId')}) }}" method="post"
-              class="combat-form">
-
-
+        <form action="{{ path('bluebear.dungeon.combat.run', {gameId: app.request.get('gameId')}) }}"
+              method="post" class="combat-form">
             <input type="hidden" name="eventData" value="{{ response.data | json_encode }}"/>
-
             <input type="submit" class="btn btn-default start-button" value="Start"/>
         </form>
 
@@ -19,23 +14,24 @@
 
         </div>
 
-        <div class="hide">
-            <div class="turn-template">
-                Name : __NAME__<br/>
-                HitPoints : __HIT_POINTS__<br/>
-                Attacks : __ATTACK__
+        {#<div class="hide">#}
+            {#<div class="turn-template">#}
+                {#Name : __NAME__<br/>#}
+                {#HitPoints : __HIT_POINTS__<br/>#}
+                {#Attacks : __ATTACKS__#}
 
-            </div>
+            {#</div>#}
 
-            <div class="attack-template">
-                <form action="{{ path('bluebear_engine_trigger_event', {eventName: 'bluebear.combat.attack'}) }}" method="post">
-                    __NAME__<br/>
-                    __DESCRIPTION__<br/>
-                    <input type="hidden" name="eventData" value=""/>
-                    <input type="submit" value="Attack"/>
-                </form>
-            </div>
-        </div>
+            {#<div class="attack-template">#}
+                {#<form action="{{ path('bluebear_engine_trigger_event', {eventName: 'bluebear.combat.attack'}) }}"#}
+                      {#method="post" class="attack-form">#}
+                    {#__NAME__<br/>#}
+                    {#__DESCRIPTION__<br/>#}
+                    {#<input type="hidden" name="eventData" value=""/>#}
+                    {#<input type="submit" value="Attack" class="btn btn-success"/>#}
+                {#</form>#}
+            {#</div>#}
+        {#</div>#}
 
     {% else %}
         Error on combat creation... Loser !
@@ -54,32 +50,46 @@
                     method: 'post',
                     data: combatForm.serialize(),
                     success: function (response) {
-                        console.log(response);
+                        //console.log(response);
 
                         if (response.name == 'bluebear.combat.init') {
                             combatForm.attr('action', response.endPoint);
                         } else if (response.name == 'bluebear.game.turn') {
-                            var turnClass = 'turn' + response.data.turn + '-' + response.data.entityInstance.id;
-                            var existing = combatContainer.find('.' + turnClass);
-                            var newTurn = turnTemplate.clone();
-                            var attacksContent = [];
-                            $.each(response.data.attacks, function (index, value) {
-                                var newAttack = attackTemplate.clone();
-                                newAttack.html(newAttack.html().replace('__NAME__', value.label));
-                                newAttack.html(newAttack.html().replace('__DESCRIPTION__', value.description));
-                                attacksContent.push(newAttack.html());
-                            });
-                            newTurn.html(newTurn.html().replace('__NAME__', response.data.entityInstance.label));
-                            newTurn.html(newTurn.html().replace('__HIT_POINTS__', response.data.entityInstance.hitPoints));
-                            newTurn.html(newTurn.html().replace('__ATTACKS__', attacksContent));
-
-                            newTurn.addClass(turnClass);
+                            var existing = combatContainer.find('.turn-' + response.data.turn);
+                            //console.log('response', existing);
 
                             if (existing.length) {
-                                existing.replaceWith(newTurn);
+                                existing.replaceWith($(response.content));
                             } else {
-                                combatContainer.append(newTurn);
+                                combatContainer.append($(response.content));
                             }
+
+
+//                            var turnClass = 'turn' + response.data.turn + '-' + response.data.entityInstance.id;
+//                            var existing = combatContainer.find('.' + turnClass);
+//                            var newTurn = turnTemplate.clone();
+//                            var attacksContent = [];
+//                            $.each(response.data.attacks, function (index, value) {
+//                                var newAttack = attackTemplate.clone();
+//                                newAttack.html(newAttack.html().replace('__NAME__', value.label));
+//                                newAttack.html(newAttack.html().replace('__DESCRIPTION__', value.description));
+//                                attacksContent.push(newAttack.html());
+//                            });
+//                            newTurn.html(newTurn.html().replace('__NAME__', response.data.entityInstance.label));
+//                            newTurn.html(newTurn.html().replace('__HIT_POINTS__', response.data.entityInstance.hitPoints));
+//                            newTurn.html(newTurn.html().replace('__ATTACKS__', attacksContent));
+//
+//                            newTurn.addClass(turnClass);
+//
+//                            if (existing.length) {
+//                                existing.replaceWith(newTurn);
+//                            } else {
+//                                combatContainer.append(newTurn);
+//                            }
+//                            combatContainer.find('.attack-form').off().on('submit', function () {
+//                                return false;
+//
+//                            });
                         }
                     }
                 });
