@@ -3,6 +3,7 @@
 namespace BlueBear\EngineBundle\Event\Subscriber;
 
 use BlueBear\BaseBundle\Behavior\ContainerTrait;
+use BlueBear\CoreBundle\Entity\Game\Game;
 use BlueBear\CoreBundle\Entity\Game\GameAction;
 use BlueBear\DungeonBundle\Entity\CharacterClass\CharacterClass;
 use BlueBear\DungeonBundle\UnitOfWork\EntityReference;
@@ -121,6 +122,11 @@ class GameSubscriber implements EventSubscriberInterface
             ->getContainer()
             ->get('bluebear.engine.unit_of_work')
             ->load(new EntityReference(CharacterClass::class, $entityInstance->get('class')));
+        /** @var Game $game */
+        $game = $this
+            ->getContainer()
+            ->get('bluebear.manager.game')
+            ->find($request->gameId);
         /** @var GameTurnResponse $response */
         $response = $event->getResponse();
         $response->setData([
@@ -128,7 +134,7 @@ class GameSubscriber implements EventSubscriberInterface
             'attacks' => $class->attacks->getValues(),
             'turn' => 50,
             'gameId' => $request->gameId,
-            'contextId' => $request->contextId
+            'contextId' => $game->getContext()->getId()
         ]);
     }
 

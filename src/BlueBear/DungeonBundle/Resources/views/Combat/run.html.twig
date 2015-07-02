@@ -59,11 +59,14 @@
                             //console.log('response', existing);
 
                             if (existing.length) {
-                                existing.replaceWith($(response.content));
+                                existing.replaceWith($(response.data.content));
                             } else {
-                                combatContainer.append($(response.content));
+                                combatContainer.append($(response.data.content));
                             }
-
+//                            combatContainer.find('.attack-form').off().on('submit', function () {
+//                                console.log('submit ?');
+//                                return false;
+//                            });
 
 //                            var turnClass = 'turn' + response.data.turn + '-' + response.data.entityInstance.id;
 //                            var existing = combatContainer.find('.' + turnClass);
@@ -86,10 +89,7 @@
 //                            } else {
 //                                combatContainer.append(newTurn);
 //                            }
-//                            combatContainer.find('.attack-form').off().on('submit', function () {
-//                                return false;
-//
-//                            });
+
                         }
                     }
                 });

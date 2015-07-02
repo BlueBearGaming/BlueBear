@@ -15,6 +15,8 @@ use BlueBear\EngineBundle\Event\EngineEvent;
 use BlueBear\EngineBundle\Event\GameEvent;
 use BlueBear\EngineBundle\Event\Request\CombatRequest;
 use BlueBear\EngineBundle\Event\Request\GameCreateRequest;
+use BlueBear\EngineBundle\Event\Response\CombatResponse;
+use BlueBear\EngineBundle\Event\Response\GameTurnResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -149,12 +151,19 @@ class CombatController extends Controller
         $event = $this
             ->get('bluebear.engine.engine')
             ->run($currentAction->getAction(), $currentAction->getData());
-        $response = $event->getResponse();
+        $eventResponse = $event->getResponse();
 
         if ($request->isXmlHttpRequest()) {
+            if ($event->getName() == EngineEvent::ENGINE_GAME_TURN) {
+                /** @var GameTurnResponse $eventResponse */
+                $data = $eventResponse->getData();
+                $data['content'] = $this->renderView('@BlueBearDungeon/Combat/turn.html.twig', [
+                    'data' => $data
+                ]);
+                $eventResponse->setData($data);
+            }
             $serializer = $this->get('jms_serializer');
-            $content = $serializer->serialize($response, 'json');
-
+            $content = $serializer->serialize($eventResponse, 'json');
             $response = new Response();
             $response->setStatusCode(200);
             $response->setContent($content);
@@ -164,7 +173,7 @@ class CombatController extends Controller
             return $response;
         }
         return [
-            'response' => $response
+            'response' => $eventResponse
         ];
     }
 }
