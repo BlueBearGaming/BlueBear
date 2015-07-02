@@ -21,7 +21,7 @@ class DoctrineEventListener
             if ($type->getClass()) {
                 $this->mapping[$type->getName()] = $type->getClass();
             } else {
-                $this->mapping[$type->getName()] = self::ENTITY_INSTANCE_CLASS;
+                //$this->mapping[$type->getName()] = self::ENTITY_INSTANCE_CLASS;
             }
         }
     }

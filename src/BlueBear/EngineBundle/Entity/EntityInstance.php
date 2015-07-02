@@ -206,6 +206,4 @@ class EntityInstance
     {
         $this->allowedLayerTypes = $allowedLayerTypes;
     }
-
-
 }
