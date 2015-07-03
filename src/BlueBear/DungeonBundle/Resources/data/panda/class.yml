@@ -34,9 +34,12 @@ attacks:
         bear_hand:
             label: Bear Hand
             description: The panda attacks with its own bear hand
+            damage: 20
         net:
             label: Net
             description: Humans try to recapture the pandas with nets
+            damage: 5
         hypodermic_gun:
             label: Hypodermic Gun
             description: Vils humans will try to force excited pandas to sleep. Bad....
+            damage: 5

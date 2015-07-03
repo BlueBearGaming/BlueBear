@@ -28,8 +28,8 @@ blue_bear_engine:
             response: BlueBear\EngineBundle\Event\Response\GameTurnResponse
             event_class: BlueBear\EngineBundle\Event\GameEvent
         bluebear.combat.attack:
-            request: BlueBear\EngineBundle\Event\Request\CombatRequest
-            response: BlueBear\EngineBundle\Event\Response\GameTurnResponse
+            request: BlueBear\EngineBundle\Event\Request\AttackRequest
+            response: BlueBear\EngineBundle\Event\Response\AttackResponse
             event_class: BlueBear\EngineBundle\Event\GameEvent
     game:
         entity_type:

@@ -10,6 +10,7 @@ use BlueBear\DungeonBundle\UnitOfWork\EntityReference;
 use BlueBear\EngineBundle\Entity\EntityInstance;
 use BlueBear\EngineBundle\Event\EngineEvent;
 use BlueBear\EngineBundle\Event\GameEvent;
+use BlueBear\EngineBundle\Event\Request\AttackRequest;
 use BlueBear\EngineBundle\Event\Request\CombatRequest;
 use BlueBear\EngineBundle\Event\Response\CombatResponse;
 use BlueBear\EngineBundle\Event\Response\GameTurnResponse;
@@ -140,6 +141,16 @@ class GameSubscriber implements EventSubscriberInterface
 
     public function onCombatAttack(GameEvent $event)
     {
+        /** @var AttackRequest $request */
+        $request = $event->getRequest();
+        /** @var EntityInstance $attacker */
+        $attacker = $this
+            ->get('bluebear.manager.entity_instance')
+            ->find($request->attackerId);
+        $attacks = $this
+            ->getContainer()
+            ->get('bluebear.engine.unit_of_work')
+            ->load(new EntityReference(CharacterClass::class, $attacker->get('class')));
 
     }
 }

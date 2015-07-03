@@ -91,7 +91,7 @@ class AnnotationProcessor
                     if (!array_key_exists($attributeName, $relations)) {
                         if (is_array($attributeData)) {
                             $accessor->setValue($entity, $attributeName, $attributeData);
-                        } else if (is_string($attributeData)) {
+                        } else if (is_string($attributeData) || is_numeric($attributeData)) {
                             $accessor->setValue($entity, $attributeName, $attributeData);
                         } else {
                             throw new Exception('Not handled parse type : ' . print_r($attributeData, true));

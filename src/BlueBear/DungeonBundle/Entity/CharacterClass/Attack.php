@@ -14,4 +14,6 @@ class Attack
     public $label;
 
     public $description;
+
+    public $damage;
 }
