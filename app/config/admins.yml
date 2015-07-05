@@ -86,6 +86,7 @@ blue_bear_admin:
                     fields:
                         id: ~
                         name: ~
+                        label: ~
                 create: ~
                 edit: ~
                 delete: ~

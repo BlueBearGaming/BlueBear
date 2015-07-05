@@ -1,11 +1,10 @@
 <?php
 
-namespace BlueBear\EngineBundle\Event\Request;
+namespace BlueBear\EngineBundle\Event\Data;
 
-use BlueBear\EngineBundle\Event\EventRequest;
 use JMS\Serializer\Annotation as Serializer;
 
-class CombatRequest extends EventRequest
+class CombatInitData
 {
     /**
      * @Serializer\Expose()

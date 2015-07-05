@@ -25,8 +25,7 @@ abstract class EventResponse
     public $code;
 
     /**
-     * Response data. This property is protected because you should implement a setData method to organize data part of
-     * the response
+     * Response data
      *
      * @var mixed
      */
@@ -52,5 +51,10 @@ abstract class EventResponse
     public function getData()
     {
         return $this->data;
+    }
+
+    public function setData($data)
+    {
+        $this->data = $data;
     }
 }

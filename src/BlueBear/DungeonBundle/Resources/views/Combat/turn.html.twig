@@ -1,9 +1,9 @@
 <div class="turn turn-{{ data.turn }}">
-    <p>{{ data.entityInstance.label }}</p>
+    <p>{{ data.source.label }}</p>
 
-    <p>{{ data.entityInstance.get('hit_points') }}/??</p>
+    <p>{{ data.source.get('hit_points') }}/{{ data.source.get('max_hit_points') }}</p>
 
-    <p>{{ data.entityInstance.get('race') }}</p>
+    <p>{{ data.source.get('race') }}</p>
 
     <ul>
         {% for attack in data.attacks %}
@@ -25,7 +25,8 @@
     var attackRequest = {
         gameId: {{ data.gameId }},
         contextId: {{ data.contextId }},
-        entityInstanceId: {{ data.entityInstance.id }},
+        attackerId: {{ data.source.id }},
+        defenderId: {{ data.targets[0].id }}, {# only one target handle in hell arena #}
         turn: {{ data.turn }},
         attack: ''
     };

@@ -32,6 +32,12 @@ class GameAction
     protected $game;
 
     /**
+     * @ORM\ManyToOne(targetEntity="BlueBear\EngineBundle\Entity\EntityInstance")
+     * @ORM\JoinColumn(name="entity_instance_id", nullable=true)
+     */
+    protected $entityInstance;
+
+    /**
      * @return mixed
      */
     public function getAction()
@@ -77,5 +83,21 @@ class GameAction
     public function setData($data)
     {
         $this->data = $data;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEntityInstance()
+    {
+        return $this->entityInstance;
+    }
+
+    /**
+     * @param mixed $entityInstance
+     */
+    public function setEntityInstance($entityInstance)
+    {
+        $this->entityInstance = $entityInstance;
     }
 }

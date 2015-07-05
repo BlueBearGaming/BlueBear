@@ -11,11 +11,15 @@ use BlueBear\CoreBundle\Entity\Map\Map;
 use BlueBear\CoreBundle\Utils\Position;
 use BlueBear\DungeonBundle\Form\Type\CombatType;
 use BlueBear\EngineBundle\Entity\EntityModel;
+use BlueBear\EngineBundle\Event\Data\CombatData;
+use BlueBear\EngineBundle\Event\Data\CombatInitData;
 use BlueBear\EngineBundle\Event\EngineEvent;
+use BlueBear\EngineBundle\Event\EventRequest;
 use BlueBear\EngineBundle\Event\GameEvent;
 use BlueBear\EngineBundle\Event\Request\CombatRequest;
 use BlueBear\EngineBundle\Event\Request\GameCreateRequest;
 use BlueBear\EngineBundle\Event\Response\CombatResponse;
+use BlueBear\EngineBundle\Event\Response\ErrorResponse;
 use BlueBear\EngineBundle\Event\Response\GameTurnResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -110,14 +114,15 @@ class CombatController extends Controller
             $initAction->setAction(EngineEvent::ENGINE_GAME_COMBAT_INIT);
             $initAction->setGame($game);
 
-            $actionData = new CombatRequest();
+            $actionData = new CombatInitData();
             $actionData->gameId = $game->getId();
             $actionData->contextId = $game->getContext()->getId();
-            $actionData->entityInstanceIds = [
+            $actionData->fightersIds = [
                 $entityInstance1->getId(),
                 $entityInstance2->getId()
             ];
-            $initAction->setData(json_encode($actionData));
+            $serializer = $this->get('serializer');
+            $initAction->setData($serializer->serialize($actionData, 'json'));
             $this
                 ->get('doctrine')
                 ->getManager()
@@ -153,9 +158,14 @@ class CombatController extends Controller
             ->run($currentAction->getAction(), $currentAction->getData());
         $eventResponse = $event->getResponse();
 
+        if ($eventResponse instanceof ErrorResponse) {
+            print_r($eventResponse);
+            die;
+        }
+
         if ($request->isXmlHttpRequest()) {
             if ($event->getName() == EngineEvent::ENGINE_GAME_TURN) {
-                /** @var GameTurnResponse $eventResponse */
+                /** @var CombatData $data */
                 $data = $eventResponse->getData();
                 $data['content'] = $this->renderView('@BlueBearDungeon/Combat/turn.html.twig', [
                     'data' => $data
@@ -173,7 +183,8 @@ class CombatController extends Controller
             return $response;
         }
         return [
-            'response' => $eventResponse
+            'response' => $eventResponse,
+            'eventData' => $eventResponse->getData()
         ];
     }
 }
