@@ -141,7 +141,20 @@ class GameSubscriber implements EventSubscriberInterface
         $serializer = $this
             ->getContainer()
             ->get('serializer');
-        var_dump($action->getData());
+        //var_dump($action->getData());
+        //$json = json_decode($action->getData(), JSON_FORCE_OBJECT);
+
+        //var_dump($json['source']);
+
+        //$json = '{"source":{"id":56,"name":"John Le Panda","label":"John Le Panda","type":"unit"}}';
+        $json = '{"source":{"id":56, "type": "lol"}}';
+        var_dump($json);
+        //$test = $serializer->deserialize($json, 'BlueBear\EngineBundle\Entity\EntityInstance', 'json');
+        $test = $serializer->deserialize($json, 'BlueBear\EngineBundle\Event\Data\CombatData', 'json');
+
+        var_dump($test);
+
+        die;
         $event->getResponse()->setData($serializer->deserialize($action->getData(), 'BlueBear\EngineBundle\Event\Data\CombatData', 'json'));
     }
 

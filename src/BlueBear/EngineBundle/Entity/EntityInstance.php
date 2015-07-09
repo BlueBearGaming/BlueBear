@@ -20,9 +20,9 @@ use JMS\Serializer\Annotation as Serializer;
  *
  * @ORM\Table(name="entity_instance")
  * @ORM\Entity(repositoryClass="BlueBear\EngineBundle\Repository\EntityInstanceRepository")
+ * @ORM\HasLifecycleCallbacks()
  * @Serializer\ExclusionPolicy("all")
  * @Serializer\AccessorOrder("custom", custom={"id", "name", "label"})
- * @ORM\HasLifecycleCallbacks()
  */
 class EntityInstance
 {

@@ -10,9 +10,9 @@ class CombatData
      * Source entity instance id
      *
      * @Serializer\Expose()
-     * @Serializer\Type("BlueBear\EngineBundle\Event\Data\CombatData")
+     * @Serializer\Type("array")
      */
-    public $source;
+    public $source = [];
 
     /**
      * Available attacks for source entity instance
@@ -26,7 +26,7 @@ class CombatData
      * @Serializer\Expose()
      * @Serializer\Type("array")
      */
-    public $targets;
+    public $targets = [];
 
     /**
      * @Serializer\Expose()
