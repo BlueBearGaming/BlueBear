@@ -39,9 +39,9 @@
         "components/jquery": "1.11.*",
         "components/jqueryui": "1.11.*",
         "oneup/uploader-bundle": "1.3.*",
-        "jms/serializer-bundle": "0.13.*",
+        "jms/serializer-bundle": "dev-master",
         "clever-gaming/jikpoze": "*@dev",
-        "bluebear/basebundle": "0.2",
+        "bluebear/basebundle": "dev-0.2-dev",
         "bluebear/adminbundle": "dev-0.2-dev",
         "packagist/yuicompressor-bin": "~2.4",
         "nc/elephantio-bundle": "~2.0"
