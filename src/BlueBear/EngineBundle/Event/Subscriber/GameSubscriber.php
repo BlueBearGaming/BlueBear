@@ -31,7 +31,8 @@ class GameSubscriber implements EventSubscriberInterface
             EngineEvent::ENGINE_GAME_CREATE => 'onGameCreate',
             EngineEvent::ENGINE_GAME_COMBAT_INIT => 'onCombatInit',
             EngineEvent::ENGINE_GAME_TURN => 'onGameTurn',
-            EngineEvent::ENGINE_GAME_COMBAT_ATTACK => 'onCombatAttack'
+            EngineEvent::ENGINE_GAME_COMBAT_ATTACK => 'onCombatAttack',
+            EngineEvent::ENGINE_GAME_COMBAT_ATTACK => 'onEndOfTurn'
         ];
     }
 
@@ -174,5 +175,18 @@ class GameSubscriber implements EventSubscriberInterface
             $defender->set('status', 'dead');
         }
         $entityInstanceManager->save($defender);
+        $entityInstanceManager->flush();
+
+        $event = new GameEvent();
+        $this
+            ->container
+            ->get('event_dispatcher')
+            ->dispatch(EngineEvent::ENGINE_GAME_END_OF_TURN, $event);
+
+    }
+
+    public function onEndOfTurn(GameEvent $event)
+    {
+
     }
 }
