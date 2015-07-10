@@ -82,6 +82,17 @@ class EntityReferenceCollection
     }
 
     /**
+     * Checks whether the collection contains an element with the specified key/index.
+     *
+     * @param $key
+     * @return bool
+     */
+    public function has($key)
+    {
+        return $this->containsKey($key);
+    }
+
+    /**
      * Gets the element at the specified key/index.
      *
      * @param string|integer $key The key/index of the element to retrieve.

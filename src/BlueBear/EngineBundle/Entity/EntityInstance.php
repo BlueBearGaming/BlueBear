@@ -14,15 +14,15 @@ use Exception;
 use JMS\Serializer\Annotation as Serializer;
 
 /**
- * UnitInstance
+ * EntityInstance
  *
- * Represents a instance of a unit on map
+ * Represents a instance of an entity model on map
  *
  * @ORM\Table(name="entity_instance")
  * @ORM\Entity(repositoryClass="BlueBear\EngineBundle\Repository\EntityInstanceRepository")
  * @ORM\HasLifecycleCallbacks()
  * @Serializer\ExclusionPolicy("all")
- * @Serializer\AccessorOrder("custom", custom={"id", "name", "label"})
+ * @Serializer\AccessorOrder("custom", custom={"id", "name", "label", "attributes"})
  */
 class EntityInstance
 {
@@ -30,6 +30,8 @@ class EntityInstance
 
     /**
      * @ORM\OneToMany(targetEntity="BlueBear\EngineBundle\Entity\EntityInstanceAttribute", cascade={"persist", "remove"}, mappedBy="entityInstance", indexBy="name")
+     * @Serializer\Expose()
+     * @Serializer\Type("array<BlueBear\EngineBundle\Entity\EntityInstanceAttribute>")
      */
     protected $attributes;
 
@@ -47,7 +49,7 @@ class EntityInstance
     /**
      * @ORM\Column(name="behaviors", type="array")
      */
-    protected $behaviors = [];
+    protected $behaviors;
 
     /**
      * Allowed layers for this entity
@@ -62,6 +64,21 @@ class EntityInstance
     public function __construct()
     {
         $this->attributes = new ArrayCollection();
+    }
+
+    /**
+     * @Serializer\PostDeserialize()
+     */
+    public function postDeserialize()
+    {
+        if (is_array($this->attributes)) {
+            $attributes = $this->attributes;
+            $this->attributes = new ArrayCollection();
+            /** @var EntityInstanceAttribute $attribute */
+            foreach ($attributes as $attribute) {
+                $this->attributes->set($attribute->getName(), $attribute);
+            }
+        }
     }
 
     /**
@@ -117,9 +134,9 @@ class EntityInstance
      */
     public function setAttributes($attributes)
     {
-        $this->attributes = $attributes;
         /** @var EntityInstanceAttribute $attribute */
-        foreach ($this->attributes as $attribute) {
+        foreach ($attributes as $attribute) {
+            $this->attributes->set($attribute->getName(), $attribute);
             $attribute->setEntityInstance($this);
         }
     }
@@ -148,6 +165,22 @@ class EntityInstance
             throw new Exception('Attribute not found : ' . $attributeName);
         }
         return $this->attributes[$attributeName]->getValue();
+    }
+
+    /**
+     * Set the value of an attribute
+     *
+     * @param $attributeName
+     * @param $value
+     * @return mixed
+     * @throws Exception
+     */
+    public function set($attributeName, $value)
+    {
+        if (!array_key_exists($attributeName, $this->attributes->toArray())) {
+            throw new Exception('Attribute not found : ' . $attributeName);
+        }
+        return $this->attributes[$attributeName]->setValue($value);
     }
 
     /**

@@ -6,13 +6,13 @@ use JMS\Serializer\Annotation as Serializer;
 
 class CombatData
 {
-    /***
+    /**
      * Source entity instance id
      *
      * @Serializer\Expose()
-     * @Serializer\Type("array")
+     * @Serializer\Type("BlueBear\EngineBundle\Entity\EntityInstance")
      */
-    public $source = [];
+    public $source;
 
     /**
      * Available attacks for source entity instance

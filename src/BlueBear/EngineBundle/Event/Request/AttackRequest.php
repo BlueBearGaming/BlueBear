@@ -21,7 +21,19 @@ class AttackRequest extends EventRequest
 
     /**
      * @Serializer\Expose()
+     * @Serializer\Type("integer")
+     */
+    public $gameId;
+
+    /**
+     * @Serializer\Expose()
+     * @Serializer\Type("integer")
+     */
+    public $turn;
+
+    /**
+     * @Serializer\Expose()
      * @Serializer\Type("string")
      */
-    public $attackType;
+    public $attack;
 }

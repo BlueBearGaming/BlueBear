@@ -6,5 +6,5 @@ use BlueBear\EngineBundle\Event\EventResponse;
 
 class GameTurnResponse extends EventResponse
 {
-
+    public $content;
 }

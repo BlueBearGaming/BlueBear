@@ -56,12 +56,12 @@
                             combatForm.attr('action', response.endPoint);
                         } else if (response.name == 'bluebear.game.turn') {
                             var existing = combatContainer.find('.turn-' + response.data.turn);
-                            //console.log('response', existing);
+                            console.log('response', response);
 
                             if (existing.length) {
-                                existing.replaceWith($(response.data.content));
+                                existing.replaceWith($(response.content));
                             } else {
-                                combatContainer.append($(response.data.content));
+                                combatContainer.append($(response.content));
                             }
 //                            combatContainer.find('.attack-form').off().on('submit', function () {
 //                                console.log('submit ?');

@@ -195,6 +195,7 @@ class MainController extends Controller
             $data['attributes'] = unserialize($data['attributes']);
             $data['attributes']['hit_points'] = $data['hitPoints'];
             $data['attributes']['max_hit_points'] = $data['hitPoints'];
+            $data['attributes']['status'] = 'alive';
             $data['attributes']['race'] = $data['race'];
             $data['attributes']['class'] = $data['class'];
             // creating entity model

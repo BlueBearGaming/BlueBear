@@ -167,7 +167,7 @@ class CombatController extends Controller
             if ($event->getName() == EngineEvent::ENGINE_GAME_TURN) {
                 /** @var CombatData $data */
                 $data = $eventResponse->getData();
-                $data['content'] = $this->renderView('@BlueBearDungeon/Combat/turn.html.twig', [
+                $eventResponse->content = $this->renderView('@BlueBearDungeon/Combat/turn.html.twig', [
                     'data' => $data
                 ]);
                 $eventResponse->setData($data);

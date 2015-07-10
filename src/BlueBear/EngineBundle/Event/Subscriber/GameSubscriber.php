@@ -5,6 +5,7 @@ namespace BlueBear\EngineBundle\Event\Subscriber;
 use BlueBear\BaseBundle\Behavior\ContainerTrait;
 use BlueBear\CoreBundle\Entity\Game\Game;
 use BlueBear\CoreBundle\Entity\Game\GameAction;
+use BlueBear\DungeonBundle\Entity\CharacterClass\Attack;
 use BlueBear\DungeonBundle\Entity\CharacterClass\CharacterClass;
 use BlueBear\DungeonBundle\UnitOfWork\EntityReference;
 use BlueBear\EngineBundle\Entity\EntityInstance;
@@ -15,7 +16,7 @@ use BlueBear\EngineBundle\Event\GameEvent;
 use BlueBear\EngineBundle\Event\Request\AttackRequest;
 use BlueBear\EngineBundle\Event\Request\CombatRequest;
 use BlueBear\EngineBundle\Event\Response\CombatResponse;
-use BlueBear\EngineBundle\Event\Response\GameTurnResponse;
+use BlueBear\EngineBundle\Manager\EntityInstanceManager;
 use Exception;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\RouterInterface;
@@ -141,20 +142,6 @@ class GameSubscriber implements EventSubscriberInterface
         $serializer = $this
             ->getContainer()
             ->get('serializer');
-        //var_dump($action->getData());
-        //$json = json_decode($action->getData(), JSON_FORCE_OBJECT);
-
-        //var_dump($json['source']);
-
-        //$json = '{"source":{"id":56,"name":"John Le Panda","label":"John Le Panda","type":"unit"}}';
-        $json = '{"source":{"id":56, "type": "lol"}}';
-        var_dump($json);
-        //$test = $serializer->deserialize($json, 'BlueBear\EngineBundle\Entity\EntityInstance', 'json');
-        $test = $serializer->deserialize($json, 'BlueBear\EngineBundle\Event\Data\CombatData', 'json');
-
-        var_dump($test);
-
-        die;
         $event->getResponse()->setData($serializer->deserialize($action->getData(), 'BlueBear\EngineBundle\Event\Data\CombatData', 'json'));
     }
 
@@ -162,14 +149,30 @@ class GameSubscriber implements EventSubscriberInterface
     {
         /** @var AttackRequest $request */
         $request = $event->getRequest();
+        /** @var EntityInstanceManager $entityInstanceManager */
+        $entityInstanceManager = $this->get('bluebear.manager.entity_instance');
         /** @var EntityInstance $attacker */
-        $attacker = $this
-            ->get('bluebear.manager.entity_instance')
-            ->find($request->attackerId);
-        $attacks = $this
+        $attacker = $entityInstanceManager->find($request->attackerId);
+        /** @var EntityInstance $defender */
+        $defender = $entityInstanceManager->find($request->defenderId);
+        /** @var CharacterClass $attackerClass */
+        $attackerClass = $this
             ->getContainer()
             ->get('bluebear.engine.unit_of_work')
             ->load(new EntityReference(CharacterClass::class, $attacker->get('class')));
 
+        if (!$attackerClass->attacks->has($request->attack)) {
+            throw new Exception("Invalid attack {$request->attack} for class {$attacker->get('class')}");
+        }
+        /** @var Attack $attack */
+        $attack = $attackerClass->attacks->get($request->attack);
+        $defenderHp = (int)$defender->get('hit_points');
+        $defenderHp -= (int)$attack->damage;
+        $defender->set('hit_points', $defenderHp);
+
+        if ($defenderHp < 0) {
+            $defender->set('status', 'dead');
+        }
+        $entityInstanceManager->save($defender);
     }
 }
