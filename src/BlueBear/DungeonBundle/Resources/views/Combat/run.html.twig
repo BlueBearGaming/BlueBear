@@ -40,22 +40,19 @@
         $(document).on('ready', function () {
             var combatForm = $('.combat-form');
             var combatContainer = $('.combat-container');
-            var turnTemplate = $('.turn-template');
-            var attackTemplate = $('.attack-template');
 
             combatForm.on('submit', function () {
-
                 $.ajax({
                     url: combatForm.attr('action'),
                     method: 'post',
                     data: combatForm.serialize(),
                     success: function (response) {
-                        //console.log(response);
+                        combatForm.find('input[type=submit]').hide();
 
                         if (response.name == 'bluebear.combat.init') {
                             combatForm.attr('action', response.endPoint);
                         } else if (response.name == 'bluebear.game.turn') {
-                            var existing = combatContainer.find('.turn-' + response.data.turn);
+                            var existing = combatContainer.find('.turn-' + response.data.turn +  '-' + response.data.sourceId);
                             console.log('response', response);
 
                             if (existing.length) {

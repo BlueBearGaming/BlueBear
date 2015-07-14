@@ -4,6 +4,7 @@ namespace BlueBear\EngineBundle\Controller;
 
 use BlueBear\BaseBundle\Behavior\ControllerTrait;
 use BlueBear\EngineBundle\Engine\Engine;
+use BlueBear\EngineBundle\Event\Response\ErrorResponse;
 use JMS\Serializer\Serializer;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,15 +30,21 @@ class EngineController extends Controller
         $serializer = $this->get('jms_serializer');
         $content = $serializer->serialize($engineEvent->getResponse(), 'json');
 
-        //if ($engineEvent->getRequestClientUpdate()) {
-            $client = $this->get('elephantio_client.default');
-            // Register async callback
-            $this->get('bluebear.kernel.terminate.listener')->addCallBack(function() use ($client, $content) {
-                //$client->send(EngineEvent::ENGINE_CLIENT_UPDATE, ['event' => $content]);
-            });
-        //}
+        // TODO handle clients event dispatching
+//        if ($engineEvent->getRequestClientUpdate()) {
+//            $client = $this->get('elephantio_client.default');
+//             Register async callback
+//            $this->get('bluebear.kernel.terminate.listener')->addCallBack(function() use ($client, $content) {
+//                $client->send(EngineEvent::ENGINE_CLIENT_UPDATE, ['event' => $content]);
+//            });
+//        }
         $response = new Response();
-        $response->setStatusCode(200);
+
+        if ($engineEvent->getResponse() instanceof ErrorResponse) {
+            $response->setStatusCode(500);
+        } else {
+            $response->setStatusCode(200);
+        }
         $response->setContent($content);
         $response->headers->set('Content-Type', 'application/json');
         $response->headers->set('Access-Control-Allow-Origin', '*');

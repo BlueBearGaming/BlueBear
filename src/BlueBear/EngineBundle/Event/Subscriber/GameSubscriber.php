@@ -15,6 +15,7 @@ use BlueBear\EngineBundle\Event\EngineEvent;
 use BlueBear\EngineBundle\Event\GameEvent;
 use BlueBear\EngineBundle\Event\Request\AttackRequest;
 use BlueBear\EngineBundle\Event\Request\CombatRequest;
+use BlueBear\EngineBundle\Event\Request\GameTurnRequest;
 use BlueBear\EngineBundle\Event\Response\CombatResponse;
 use BlueBear\EngineBundle\Manager\EntityInstanceManager;
 use Exception;
@@ -84,38 +85,12 @@ class GameSubscriber implements EventSubscriberInterface
         $game = $this
             ->get('bluebear.manager.game')
             ->find($request->gameId);
-        $unitOfWork = $this
-            ->getContainer()
-            ->get('bluebear.engine.unit_of_work');
-        $serializer = $this
-            ->getContainer()
-            ->get('serializer');
         /**
          * @var int $turn
          * @var EntityInstance $fighter
          */
         foreach ($fighters as $turn => $fighter) {
-            /** @var CharacterClass $class */
-            $class = $unitOfWork->load(new EntityReference(CharacterClass::class, $fighter->get('class')));
-            $responseData = new CombatData();
-            $responseData->turn = $turn;
-            $responseData->gameId = $request->gameId;
-            $responseData->contextId = $request->contextId;
-            $responseData->source = $fighter;
-            $responseData->attacks = $class->attacks->getValues();
-            /** @var EntityInstance $currentFighter */
-            foreach ($fighters as $currentFighter) {
-                if ($currentFighter->getId() != $fighter->getId()) {
-                    $responseData->targets[] = $currentFighter;
-                }
-            }
-            $action = new GameAction();
-            $action->setName("game : {$request->gameId}, turn: {$turn}, entity: {$fighter->getId()}, {$fighter->getName()}");
-            $action->setAction(EngineEvent::ENGINE_GAME_TURN);
-            $action->setData($serializer->serialize($responseData, 'json'));
-            $action->setGame($game);
-            $action->setEntityInstance($fighter);
-            $actionManager->save($action);
+            $this->createTurn($fighter, $fighters, $turn, $game);
         }
         /** @var RouterInterface $router */
         $router = $this->get('router');
@@ -141,9 +116,23 @@ class GameSubscriber implements EventSubscriberInterface
             ->get('bluebear.manager.game_action')
             ->findFirst($request->gameId);
         $serializer = $this
-            ->getContainer()
+            ->container
             ->get('serializer');
-        $event->getResponse()->setData($serializer->deserialize($action->getData(), 'BlueBear\EngineBundle\Event\Data\CombatData', 'json'));
+        $entityInstanceManager = $this->container->get('bluebear.manager.entity_instance');
+        $json = $action->getData();
+        $actionData = new CombatData();
+        /** @var GameTurnRequest $data */
+        $data = $serializer->deserialize($json, 'BlueBear\EngineBundle\Event\Request\GameTurnRequest', 'json');
+        $actionData->source = $entityInstanceManager->find($data->sourceId);
+
+        foreach ($data->targetsIds as $targetId) {
+            $actionData->targets[] = $entityInstanceManager->find($targetId);
+        }
+        $actionData->gameId = $data->gameId;
+        $actionData->contextId = $data->contextId;
+        $actionData->attacks = $data->attacks;
+
+        $event->getResponse()->setData($actionData);
     }
 
     public function onCombatAttack(GameEvent $event)
@@ -177,16 +166,90 @@ class GameSubscriber implements EventSubscriberInterface
         $entityInstanceManager->save($defender);
         $entityInstanceManager->flush();
 
-        $event = new GameEvent();
+        $endOfTurnRequest = new GameTurnRequest();
+        $endOfTurnRequest->contextId = $request->contextId;
+        $endOfTurnRequest->gameId = $request->gameId;
+        $endOfTurnRequest->sourceId = $request->attackerId;
+        $endOfTurnRequest->targetsIds = [
+            $defender->getId()
+        ];
+
+        $endOfTurnEvent = new GameEvent();
+        $endOfTurnEvent->setName(EngineEvent::ENGINE_GAME_END_OF_TURN);
+        $endOfTurnEvent->setRequest($endOfTurnRequest);
+
         $this
             ->container
             ->get('event_dispatcher')
-            ->dispatch(EngineEvent::ENGINE_GAME_END_OF_TURN, $event);
+            ->dispatch(EngineEvent::ENGINE_GAME_END_OF_TURN, $endOfTurnEvent);
 
     }
 
     public function onEndOfTurn(GameEvent $event)
     {
+        /** @var GameTurnRequest $request */
+        $request = $event->getRequest();
+        /** @var GameAction $action */
+        $action = $this
+            ->get('bluebear.manager.game_action')
+            ->findFirst($request->gameId);
+        $this->get('bluebear.manager.game_action')->delete($action);
+        /** @var EntityInstance $source */
+        $source = $this
+            ->container
+            ->get('bluebear.manager.entity_instance')
+            ->find($request->sourceId);
+        $targets = [];
 
+        foreach ($request->targetsIds as $targetId) {
+            $targets[] = $this
+                ->container
+                ->get('bluebear.manager.entity_instance')
+                ->find($targetId);
+        }
+        /** @var Game $game */
+        $game = $this
+            ->container
+            ->get('bluebear.manager.game')
+            ->find($request->gameId);
+        // TODO handle life status with HOA Ruler
+        if ($source->get('status') != 'dead') {
+            $this->createTurn($source, $targets, (int)$request->turn + 1, $game);
+        }
+    }
+
+    protected function createTurn(EntityInstance $fighter, $fighters, $turn, Game $game)
+    {
+        $serializer = $this
+            ->getContainer()
+            ->get('serializer');
+        $unitOfWork = $this
+            ->getContainer()
+            ->get('bluebear.engine.unit_of_work');
+        /** @var CharacterClass $class */
+        $class = $unitOfWork->load(new EntityReference(CharacterClass::class, $fighter->get('class')));
+        $actionData = new GameTurnRequest();
+        $actionData->turn = $turn;
+        $actionData->gameId = $game->getId();
+        $actionData->contextId = $game->getContext()->getId();
+        $actionData->sourceId = $fighter->getId();
+        $actionData->attacks = $class->attacks->getValues();
+        /** @var EntityInstance $currentFighter */
+        foreach ($fighters as $currentFighter) {
+            if ($currentFighter->getId() != $fighter->getId()) {
+                $actionData->targetsIds[] = $currentFighter->getId();
+            }
+        }
+        $action = new GameAction();
+        $action->setName("game : {$game->getId()}, turn: {$turn}, entity: {$fighter->getId()}, {$fighter->getName()}");
+        $action->setAction(EngineEvent::ENGINE_GAME_TURN);
+        $action->setData($serializer->serialize($actionData, 'json'));
+        $action->setGame($game);
+        $action->setEntityInstance($fighter);
+
+        $this
+            ->container
+            ->get('bluebear.manager.entity_instance')
+            ->save($action);
     }
 }

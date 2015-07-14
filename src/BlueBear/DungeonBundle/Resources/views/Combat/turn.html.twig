@@ -1,10 +1,7 @@
-<div class="turn turn-{{ data.turn }}">
+<div class="turn turn-{{ data.turn }}-{{ data.source.id }}">
     <p>{{ data.source.label }}</p>
-
     <p>{{ data.source.get('hit_points') }}/{{ data.source.get('max_hit_points') }}</p>
-
     <p>{{ data.source.get('race') }}</p>
-
     <ul>
         {% for attack in data.attacks %}
             <li>
@@ -30,7 +27,7 @@
         turn: {{ data.turn }},
         attack: ''
     };
-    var attackForm = $('.attack-form');
+    var attackForm = $('.turn-' + {{ data.turn }} + '-' + {{ data.source.id }} + ' form');
 
     attackForm.off().on('submit', function () {
         attackRequest.attack = attackForm.data('attack');
@@ -42,10 +39,10 @@
             data: attackForm.serialize(),
             success: function (response) {
                 console.log('attack success', response);
+                var combatForm = $('.combat-form');
+                combatForm.submit();
             }
         });
-
         return false;
     });
-
 </script>

@@ -5,7 +5,7 @@ character_class:
             label: bluebear.panda.warrior
             description: bluebear.panda.warrior.description
             attributeSetters:
-                - { code: warrior.life, attribute: life, setter: 2d12 }
+                - { code: warrior.life, attribute: life, setter: 10d12 }
             skills: []
             allowedArmors: [all]
             feats: []
@@ -15,7 +15,7 @@ character_class:
             label: bluebear.panda.zoo_keeper
             description: bluebear.panda.warrior.description
             attributeSetters:
-                - { code: zoo_keeper.life, attribute: life, setter: d6 }
+                - { code: zoo_keeper.life, attribute: life, setter: 10d6 }
             skills: []
             allowedArmors: [all]
             feats: []

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "46313acc75a032664fbbf5fb7b3df4ba",
+    "hash": "c882569a5208087267341e84c89b1ebc",
     "packages": [
         {
             "name": "andres-montanez/magallanes",
@@ -103,16 +103,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/BlueBearGaming/AdminBundle.git",
-                "reference": "f1490b2b3ac4a1269605267d1cdbe7c61a1f0cef"
+                "reference": "0e4ca92a46bb2dbc3ce8dfaf7c79cd9c0361e9d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/BlueBearGaming/AdminBundle/zipball/f1490b2b3ac4a1269605267d1cdbe7c61a1f0cef",
-                "reference": "f1490b2b3ac4a1269605267d1cdbe7c61a1f0cef",
+                "url": "https://api.github.com/repos/BlueBearGaming/AdminBundle/zipball/0e4ca92a46bb2dbc3ce8dfaf7c79cd9c0361e9d2",
+                "reference": "0e4ca92a46bb2dbc3ce8dfaf7c79cd9c0361e9d2",
                 "shasum": ""
             },
             "require": {
-                "bluebear/basebundle": "dev-0.2-dev",
+                "bluebear/basebundle": "0.2",
                 "doctrine/data-fixtures": "*",
                 "doctrine/doctrine-bundle": "~1.2",
                 "doctrine/doctrine-fixtures-bundle": "*",
@@ -154,11 +154,11 @@
                 "backoffice",
                 "generic"
             ],
-            "time": "2015-07-06 11:46:34"
+            "time": "2015-07-14 14:28:38"
         },
         {
             "name": "bluebear/basebundle",
-            "version": "dev-0.2-dev",
+            "version": "v0.2",
             "target-dir": "BlueBear/BaseBundle",
             "source": {
                 "type": "git",
@@ -2112,16 +2112,16 @@
         },
         {
             "name": "monolog/monolog",
-            "version": "1.14.0",
+            "version": "1.15.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "b287fbbe1ca27847064beff2bad7fb6920bf08cc"
+                "reference": "dc5150cc608f2334c72c3b6a553ec9668a4156b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/b287fbbe1ca27847064beff2bad7fb6920bf08cc",
-                "reference": "b287fbbe1ca27847064beff2bad7fb6920bf08cc",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/dc5150cc608f2334c72c3b6a553ec9668a4156b0",
+                "reference": "dc5150cc608f2334c72c3b6a553ec9668a4156b0",
                 "shasum": ""
             },
             "require": {
@@ -2158,7 +2158,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.14.x-dev"
+                    "dev-master": "1.15.x-dev"
                 }
             },
             "autoload": {
@@ -2184,7 +2184,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2015-06-19 13:29:54"
+            "time": "2015-07-12 13:54:09"
         },
         {
             "name": "mopa/bootstrap-bundle",
@@ -3512,7 +3512,6 @@
         "log0ymxm/bootswatch-scss": 20,
         "jms/serializer-bundle": 20,
         "clever-gaming/jikpoze": 20,
-        "bluebear/basebundle": 20,
         "bluebear/adminbundle": 20
     },
     "prefer-stable": false,
