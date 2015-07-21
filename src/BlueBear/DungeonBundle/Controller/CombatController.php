@@ -8,6 +8,7 @@ use BlueBear\CoreBundle\Entity\Game\Game;
 use BlueBear\CoreBundle\Entity\Game\GameAction;
 use BlueBear\CoreBundle\Entity\Map\Layer;
 use BlueBear\CoreBundle\Entity\Map\Map;
+use BlueBear\CoreBundle\Entity\Map\Player;
 use BlueBear\CoreBundle\Utils\Position;
 use BlueBear\DungeonBundle\Form\Type\CombatType;
 use BlueBear\EngineBundle\Entity\EntityModel;
@@ -38,99 +39,44 @@ class CombatController extends Controller
      */
     public function createAction(Request $request)
     {
+        // get units list
         $characters = $this
             ->getEntityManager()
             ->getRepository('BlueBearEngineBundle:EntityModel')
             ->findAll();
-
-        if (count($characters) == 0) {
-            $this->addFlash('info', 'You should create characters first');
+        // we should have at least two fighters to fight !
+        if (count($characters) < 2) {
+            $this->addFlash('info', 'You should create 2 characters at least first');
             return $this->redirectToRoute('bluebear.dungeon.selectRace');
         }
-        $sortedCharacters = [];
-        /** @var EntityModel $character */
-        foreach ($characters as $character) {
-            $sortedCharacters[$character->getId()] = $character->getLabel();
-        }
+        $players = $this
+            ->getEntityManager()
+            ->getRepository('BlueBearCoreBundle:Map\Player')
+            ->findAll();
+
         $form = $this->createForm(new CombatType(), null, [
-            'entities' => $sortedCharacters
+            'entities' => $this->sortCharacters($characters),
+            'players' => $this->sortPlayers($players)
         ]);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+            $data = $form->getData();
             $eventRequest = new GameCreateRequest();
+            $eventRequest->fightersIdsByPlayer = [
+                $data['player_1'] => [
+                    $data['fighter_1']
+                ],
+                $data['player_2'] => [
+                    $data['fighter_2']
+                ]
+            ];
             $gameEvent = new GameEvent($eventRequest);
             $this
                 ->get('event_dispatcher')
-                ->dispatch(EngineEvent::ENGINE_GAME_CREATE, $gameEvent);
-
+                ->dispatch(EngineEvent::HELL_ARENA_GAME_CREATE, $gameEvent);
             $game = $gameEvent->getGame();
 
-
-            $data = $form->getData();
-            $fighter1 = $this
-                ->getEntityManager()
-                ->getRepository('BlueBearEngineBundle:EntityModel')
-                ->find($data['fighter_1']);
-            $fighter2 = $this
-                ->getEntityManager()
-                ->getRepository('BlueBearEngineBundle:EntityModel')
-                ->find($data['fighter_2']);
-
-            $layer = new Layer();
-            $layer->setName('TEST');
-            $layer->setType(Constant::LAYER_TYPE_UNIT);
-            $this
-                ->getEntityManager()
-                ->persist($layer);
-            $this
-                ->getEntityManager()
-                ->persist($layer);
-            $this
-                ->getEntityManager()
-                ->flush($layer);
-
-            $map = new Map();
-            $map->setName('testlolpandabite');
-            $map->setLayers([
-                $layer
-            ]);
-            $map->setCellSize(1);
-            $map->setContexts([
-                $game->getContext()
-            ]);
-            $map->setType(Map::TYPE_SQUARE);
-            $game->getContext()->setMap($map);
-            $this->get('bluebear.manager.map')->saveMap($map);
-
-            $entityInstance1 = $this
-                ->get('bluebear.manager.entity_instance')
-                ->create($game->getContext(), $fighter1, new Position(0, 0), $layer);
-            $entityInstance2 = $this
-                ->get('bluebear.manager.entity_instance')
-                ->create($game->getContext(), $fighter2, new Position(0, 1), $layer);
-            $initAction = new GameAction();
-            $initAction->setName(EngineEvent::ENGINE_GAME_COMBAT_INIT);
-            $initAction->setAction(EngineEvent::ENGINE_GAME_COMBAT_INIT);
-            $initAction->setGame($game);
-
-            $actionData = new CombatInitData();
-            $actionData->gameId = $game->getId();
-            $actionData->contextId = $game->getContext()->getId();
-            $actionData->fightersIds = [
-                $entityInstance1->getId(),
-                $entityInstance2->getId()
-            ];
-            $serializer = $this->get('serializer');
-            $initAction->setData($serializer->serialize($actionData, 'json'));
-            $this
-                ->get('doctrine')
-                ->getManager()
-                ->persist($initAction);
-            $game->addActionToStack($initAction);
-            $this
-                ->get('bluebear.manager.game')
-                ->save($game);
 
             return $this->redirectToRoute('bluebear.dungeon.combat.run', [
                 'gameId' => $game->getId()
@@ -186,5 +132,25 @@ class CombatController extends Controller
             'response' => $eventResponse,
             'eventData' => $eventResponse->getData()
         ];
+    }
+
+    protected function sortCharacters($characters)
+    {
+        $sortedCharacters = [];
+        /** @var EntityModel $character */
+        foreach ($characters as $character) {
+            $sortedCharacters[$character->getId()] = $character->getLabel();
+        }
+        return $sortedCharacters;
+    }
+
+    protected function sortPlayers($players)
+    {
+        $sortedPlayers = [];
+        /** @var Player $player */
+        foreach ($players as $player) {
+            $sortedPlayers[$player->getId()] = $player->getPseudonym();
+        }
+        return $sortedPlayers;
     }
 }

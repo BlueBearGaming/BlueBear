@@ -21,6 +21,7 @@ blue_bear_core:
 blue_bear_admin:
     resource: .
     type: extra
+    prefix: /admin
 
 # BlueBear Backoffice
 blue_bear_backoffice:

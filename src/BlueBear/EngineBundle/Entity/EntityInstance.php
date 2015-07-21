@@ -29,6 +29,11 @@ class EntityInstance
     use Id, Nameable, Label, Timestampable, Typeable;
 
     /**
+     * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Army", inversedBy="entityInstances")
+     */
+    protected $army;
+
+    /**
      * @ORM\OneToMany(targetEntity="BlueBear\EngineBundle\Entity\EntityInstanceAttribute", cascade={"persist", "remove"}, mappedBy="entityInstance", indexBy="name")
      * @Serializer\Expose()
      * @Serializer\Type("array<BlueBear\EngineBundle\Entity\EntityInstanceAttribute>")
@@ -238,5 +243,21 @@ class EntityInstance
     public function setAllowedLayerTypes($allowedLayerTypes)
     {
         $this->allowedLayerTypes = $allowedLayerTypes;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getArmy()
+    {
+        return $this->army;
+    }
+
+    /**
+     * @param mixed $army
+     */
+    public function setArmy($army)
+    {
+        $this->army = $army;
     }
 }

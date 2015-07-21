@@ -1,9 +1,11 @@
 parameters:
+    # Form Type
     bluebear.form.pencil_type: BlueBear\CoreBundle\Form\Map\PencilType
     bluebear.form.pencil_set_type: BlueBear\CoreBundle\Form\Map\PencilSetType
     bluebear.form.pencil_set_list_type: BlueBear\CoreBundle\Form\Map\PencilSetListType
     bluebear.form.layer_type: BlueBear\CoreBundle\Form\Map\LayerType
     bluebear.form.map_type: BlueBear\CoreBundle\Form\Map\MapType
+    bluebear.form.player: BlueBear\CoreBundle\Form\Type\PlayerType
     bluebear.form.resource_image_type: BlueBear\CoreBundle\Form\Editor\ImageType
     bluebear.form.engine_event_test_type: BlueBear\CoreBundle\Form\Engine\EngineEventTestType
     bluebear.form.engine_scenario_test: BlueBear\CoreBundle\Form\Engine\EngineScenarioTestType
@@ -43,6 +45,12 @@ services:
         calls:
             - [setPencilSetManager, [@bluebear.manager.pencil_set]]
             - [setLayerManager, [@bluebear.manager.layer]]
+
+    # LayerType
+    bluebear.form.player:
+        class: %bluebear.form.player%
+        tags:
+            - { name: form.type, alias: player }
 
     # Resources (uploadable entities)
     bluebear.form.resource_image:

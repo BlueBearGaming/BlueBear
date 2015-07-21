@@ -3,8 +3,12 @@
 namespace BlueBear\EngineBundle\Event\Subscriber;
 
 use BlueBear\BaseBundle\Behavior\ContainerTrait;
+use BlueBear\CoreBundle\Constant\Map\Constant;
 use BlueBear\CoreBundle\Entity\Game\Game;
 use BlueBear\CoreBundle\Entity\Game\GameAction;
+use BlueBear\CoreBundle\Entity\Map\Layer;
+use BlueBear\CoreBundle\Entity\Map\Map;
+use BlueBear\CoreBundle\Utils\Position;
 use BlueBear\DungeonBundle\Entity\CharacterClass\Attack;
 use BlueBear\DungeonBundle\Entity\CharacterClass\CharacterClass;
 use BlueBear\DungeonBundle\UnitOfWork\EntityReference;
@@ -15,9 +19,11 @@ use BlueBear\EngineBundle\Event\EngineEvent;
 use BlueBear\EngineBundle\Event\GameEvent;
 use BlueBear\EngineBundle\Event\Request\AttackRequest;
 use BlueBear\EngineBundle\Event\Request\CombatRequest;
+use BlueBear\EngineBundle\Event\Request\GameCreateRequest;
 use BlueBear\EngineBundle\Event\Request\GameTurnRequest;
 use BlueBear\EngineBundle\Event\Response\CombatResponse;
 use BlueBear\EngineBundle\Manager\EntityInstanceManager;
+use Doctrine\ORM\EntityManager;
 use Exception;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\RouterInterface;
@@ -29,7 +35,7 @@ class GameSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            EngineEvent::ENGINE_GAME_CREATE => 'onGameCreate',
+            EngineEvent::HELL_ARENA_GAME_CREATE => 'onGameArenaCreate',
             EngineEvent::ENGINE_GAME_COMBAT_INIT => 'onCombatInit',
             EngineEvent::ENGINE_GAME_TURN => 'onGameTurn',
             EngineEvent::ENGINE_GAME_COMBAT_ATTACK => 'onCombatAttack',
@@ -37,13 +43,72 @@ class GameSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onGameCreate(GameEvent $event)
+    public function onGameArenaCreate(GameEvent $event)
     {
+        /** @var GameCreateRequest $request */
+        $request = $event->getRequest();
+
         $gameManager = $this
             ->container
             ->get('bluebear.manager.game');
         // creating game object
         $game = $gameManager->create();
+        /** @var EntityManager $entityManager */
+        $entityManager = $this->container->get('doctrine.orm.entity_manager');
+        // get entity instances by id
+        $fighters = [];
+        $armyManager = $this->container->get('bluebear.manager.army');
+        $positionY = 0;
+        // dump map and dump layer for hell arena
+        $layer = $this->getDumbLayer();
+        $map = $this->getDumpMap($game);
+
+        foreach ($request->fightersIdsByPlayer as $playerId => $fightersIds) {
+            // get player
+            $player = $entityManager
+                ->getRepository('BlueBearCoreBundle:Map\Player')
+                ->find($playerId);
+            // find arena army
+            $arenaArmy = $entityManager
+                ->getRepository('BlueBearCoreBundle:Map\Army')
+                ->findOneBy([
+                    'player' => $playerId,
+                    'name' => 'test_army_arena'
+                ]);
+            // reset arena army
+            $armyManager->reset($arenaArmy);
+            $positionX = 0;
+
+            foreach ($fightersIds as $fighterId) {
+                $fighter = $entityManager
+                    ->getRepository('BlueBearEngineBundle:EntityModel')
+                    ->find($fighterId);
+                $instances[] = $this
+                    ->get('bluebear.manager.entity_instance')
+                    ->create($game->getContext(), $fighter, new Position($positionX, $positionY), $layer);
+                $positionX++;
+            }
+            $positionY++;
+        }
+        $initAction = new GameAction();
+        $initAction->setName(EngineEvent::ENGINE_GAME_COMBAT_INIT);
+        $initAction->setAction(EngineEvent::ENGINE_GAME_COMBAT_INIT);
+        $initAction->setGame($game);
+
+        $actionData = new CombatInitData();
+        $actionData->gameId = $game->getId();
+        $actionData->contextId = $game->getContext()->getId();
+        $actionData->fightersIds = $request->fightersIds;
+        $serializer = $this->get('serializer');
+        $initAction->setData($serializer->serialize($actionData, 'json'));
+        $this
+            ->get('doctrine')
+            ->getManager()
+            ->persist($initAction);
+        $game->addActionToStack($initAction);
+        $this
+            ->get('bluebear.manager.game')
+            ->save($game);
         $event->setGame($game);
     }
 
@@ -251,5 +316,60 @@ class GameSubscriber implements EventSubscriberInterface
             ->container
             ->get('bluebear.manager.entity_instance')
             ->save($action);
+    }
+
+    protected function getDumbLayer()
+    {
+        $layer = $this
+            ->container
+            ->get('bluebear.manager.layer')
+            ->findOneBy([
+                'name' => 'test_layer_arena'
+            ]);
+
+        if (!$layer) {
+            // create dumb layer for hell arena
+            $layer = new Layer();
+            $layer->setName('test_layer_arena');
+            $layer->setLabel('Test Layer for Hell Arena');
+            $layer->setType(Constant::LAYER_TYPE_UNIT);
+            $this
+                ->container
+                ->get('bluebear.manager.layer')
+                ->save($layer);
+        }
+        return $layer;
+    }
+
+    protected function getDumpMap(Game $game)
+    {
+        $map = $this
+            ->container
+            ->get('bluebear.manager.map')
+            ->findOneBy([
+                'name' => 'test_map_arena'
+            ]);
+        if (!$map) {
+            // in arena, map is just an entity instance container
+            $map = new Map();
+            $map->setName('test_map_arena');
+            $map->setLabel('Test Map for Arena');
+            $map->setLayers([
+                $this->getDumbLayer()
+            ]);
+            $map->setCellSize(1);
+            $map->setContexts([
+                $game->getContext()
+            ]);
+            $map->setType(Map::TYPE_SQUARE);
+        }
+        $game
+            ->getContext()
+            ->setMap($map);
+        $this
+            ->get('bluebear.manager.map')
+            ->saveMap($map);
+
+        return $map;
     }
 }

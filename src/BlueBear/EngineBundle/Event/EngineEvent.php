@@ -17,6 +17,7 @@ class EngineEvent extends Event
      * Game
      */
     const ENGINE_GAME_CREATE = 'bluebear.engine.gameCreate';
+    const HELL_ARENA_GAME_CREATE = 'bluebear.arena.gameCreate';
     const ENGINE_GAME_COMBAT_INIT = 'bluebear.combat.init';
     const ENGINE_GAME_COMBAT_ATTACK = 'bluebear.combat.attack';
     const ENGINE_GAME_TURN = 'bluebear.game.turn';

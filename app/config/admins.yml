@@ -38,7 +38,7 @@ blue_bear_admin:
                 list:
                     #title: Pencils list
                     permissions: [ROLE_ADMIN, ROLE_USER]
-                    export: [html, pdf, xls, csv]
+                    export: [html, xls, csv, json, xml]
                     # available fields for this action
                     fields:
                         id: ~
@@ -47,6 +47,7 @@ blue_bear_admin:
                         # displayed only 50 first characters in list action
                         description: {length: 50}
                         pencilSet: ~
+                        allowedLayerTypes: ~
                 create: ~
                 edit: ~
                 delete: ~
@@ -87,6 +88,7 @@ blue_bear_admin:
                         id: ~
                         name: ~
                         label: ~
+                    export: [html, xml, xls, csv, json]
                 create: ~
                 edit: ~
                 delete: ~
@@ -99,6 +101,24 @@ blue_bear_admin:
                         id: ~
                         username: ~
                         email: ~
+                        createdAt: ~
+                        updatedAt: ~
+                        enabled: ~
+                create:
+                    permissions: [ROLE_ADMIN]
+                edit:
+                    permissions: [ROLE_ADMIN]
+                delete:
+                    permissions: [ROLE_ADMIN]
+        player:
+            entity: BlueBear\CoreBundle\Entity\Map\Player
+            form: player
+            actions:
+                list:
+                    fields:
+                        id: ~
+                        name: ~
+                        pseudonym: ~
                         createdAt: ~
                         updatedAt: ~
                         enabled: ~

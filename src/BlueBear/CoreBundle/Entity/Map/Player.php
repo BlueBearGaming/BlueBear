@@ -22,6 +22,21 @@ class Player
     protected $isHuman = false;
 
     /**
+     * @ORM\Column(name="pseudonym", type="string", length=255)
+     */
+    protected $pseudonym;
+
+    /**
+     * @ORM\OneToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\Army", mappedBy="player")
+     */
+    protected $armies;
+
+    /**
+     * @ORM\Column(name="enabled", type="boolean")
+     */
+    protected $enabled = false;
+
+    /**
      * @return boolean
      */
     public function isIsHuman()
@@ -35,5 +50,53 @@ class Player
     public function setIsHuman($isHuman)
     {
         $this->isHuman = $isHuman;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPseudonym()
+    {
+        return $this->pseudonym;
+    }
+
+    /**
+     * @param mixed $pseudonym
+     */
+    public function setPseudonym($pseudonym)
+    {
+        $this->pseudonym = $pseudonym;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getArmies()
+    {
+        return $this->armies;
+    }
+
+    /**
+     * @param mixed $armies
+     */
+    public function setArmies($armies)
+    {
+        $this->armies = $armies;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEnabled()
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * @param mixed $enabled
+     */
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
     }
 }

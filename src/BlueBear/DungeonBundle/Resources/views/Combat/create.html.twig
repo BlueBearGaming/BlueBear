@@ -9,15 +9,18 @@
                     <div class="panel-heading">
                         Choose the fighters !!!
                     </div>
+                    {{ form_errors(form) }}
                     <div class="panel-body">
                         <div class="col-md-5">
                             {{ form_row(form.fighter_1) }}
+                            {{ form_row(form.player_1) }}
                         </div>
                         <div class="col-md-2">
                             VS
                         </div>
                         <div class="col-md-5">
                             {{ form_row(form.fighter_2) }}
+                            {{ form_row(form.player_2) }}
                         </div>
                         {{ form_rest(form) }}
                     </div>
