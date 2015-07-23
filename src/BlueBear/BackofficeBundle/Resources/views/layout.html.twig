@@ -3,10 +3,15 @@
 {% block stylesheets %}
     {% stylesheets
     'bundles/bluebearbackoffice/css/bootstrap-datetimepicker.min.css'
-    'bundles/bluebearbackoffice/css/backoffice.css'
     'bundles/bluebearbackoffice/css/font-awesome.min.css'
     filter='cssrewrite' %}
-    <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
+    <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen"/>
+    {% endstylesheets %}
+
+    {% stylesheets
+    '@BlueBearBackofficeBundle/Resources/sass/backoffice.scss'
+    filter='compass' %}
+    <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen"/>
     {% endstylesheets %}
 
     {% javascripts
@@ -20,8 +25,7 @@
     '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-subnav.js'
     '@MopaBootstrapBundle/Resources/public/components/smalot-bootstrap-datetimepicker/js/bootstrap-datetimepicker.js'
     '@MopaBootstrapBundle/Resources/public/components/smalot-bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.fr.js'
-    'bundles/bluebearbackoffice/js/vendors/highcharts.js'
-    %}
+    'bundles/bluebearbackoffice/js/vendors/highcharts.js' %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 {% endblock %}

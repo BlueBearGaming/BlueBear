@@ -1,12 +1,13 @@
 // Theme variables
-@import "darkly/variables";
+@import "bootswatch-scss/darkly/variables";
 
 @import "partials/variables";
 
 @import "bootstrap";
 
 // Theme
-@import "darkly/bootswatch";
+@import "bootswatch-scss/darkly/bootswatch";
 
 @import "partials/main";
 @import "partials/forms";
+@import "partials/hell_arena";
