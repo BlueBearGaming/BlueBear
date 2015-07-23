@@ -11,4 +11,6 @@ class Attribute
      * @Game\Id()
      */
     public $code;
+
+    public $creation = false;
 }

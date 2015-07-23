@@ -20,7 +20,7 @@ class CombatInitData
 
     /**
      * @Serializer\Expose()
-     * @Serializer\Type("array<integer>")
+     * @Serializer\Type("array<integer, BlueBear\EngineBundle\Event\Sub\FightersList>")
      */
-    public $fightersIds;
+    public $fightersByPlayer;
 }

@@ -12,11 +12,11 @@
                        aria-expanded="false">Map <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
-                        <li class="{{ getClassForRoute('bluebear.admin.pencil_set.list') }}">
-                            <a href="{{ path('bluebear.admin.pencil_set.list') }}">Pencil Sets</a>
+                        <li class="{{ getClassForRoute('bluebear.admin.entity_model.list') }}">
+                            <a href="{{ path('bluebear.admin.entity_model.list') }}">Entity Models list</a>
                         </li>
-                        <li class="{{ getClassForRoute('bluebear.admin.pencil.list') }}">
-                            <a href="{{ path('bluebear.admin.pencil.list') }}">Pencils</a>
+                        <li class="{{ getClassForRoute('bluebear.admin.entity_instance.list') }}">
+                            <a href="{{ path('bluebear.admin.entity_instance.list') }}">Entity Instances list</a>
                         </li>
                         <li class="{{ getClassForRoute('bluebear.admin.layer.list') }}">
                             <a href="{{ path('bluebear.admin.layer.list') }}">Layers</a>
@@ -24,11 +24,14 @@
                         <li class="{{ getClassForRoute('bluebear.admin.map.list') }}">
                             <a href="{{ path('bluebear.admin.map.list') }}">Maps</a>
                         </li>
-                        <li class="{{ getClassForRoute('bluebear.admin.entity_model.list') }}">
-                            <a href="{{ path('bluebear.admin.entity_model.list') }}">Entity Models list</a>
+                        <li class="{{ getClassForRoute('bluebear.admin.pencil_set.list') }}">
+                            <a href="{{ path('bluebear.admin.pencil_set.list') }}">Pencil Sets</a>
                         </li>
-                        <li class="{{ getClassForRoute('bluebear.admin.entity_instance.list') }}">
-                            <a href="{{ path('bluebear.admin.entity_instance.list') }}">Entity Instances list</a>
+                        <li class="{{ getClassForRoute('bluebear.admin.pencil.list') }}">
+                            <a href="{{ path('bluebear.admin.pencil.list') }}">Pencils</a>
+                        </li>
+                        <li class="{{ getClassForRoute('bluebear.admin.player.list') }}">
+                            <a href="{{ path('bluebear.admin.player.list') }}">Players</a>
                         </li>
                     </ul>
                 </li>
@@ -55,9 +58,6 @@
                         <li class="{{ getClassForRoute('bluebear.admin.user.list') }}">
                             <a href="{{ path('bluebear.admin.user.list') }}">Users</a>
                         </li>
-                        <li class="{{ getClassForRoute('bluebear.admin.player.list') }}">
-                            <a href="{{ path('bluebear.admin.player.list') }}">Players</a>
-                        </li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -80,7 +80,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="{{ getClassForRoute('fos_user_security_logout') }}">
-                    <a href="{{ path('fos_user_security_logout') }}">Logout ({{ app.user.username}})</a>
+                    <a href="{{ path('fos_user_security_logout') }}">Logout ({{ app.user.username }})</a>
                 </li>
             </ul>
         </div>

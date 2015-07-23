@@ -4,6 +4,7 @@ namespace BlueBear\CoreBundle\Manager;
 
 use BlueBear\BaseBundle\Behavior\ManagerTrait;
 use BlueBear\CoreBundle\Entity\Map\Army;
+use BlueBear\CoreBundle\Entity\Map\Player;
 use Doctrine\ORM\EntityRepository;
 
 class ArmyManager
@@ -14,6 +15,17 @@ class ArmyManager
     {
         $army->setEntityInstances(null);
         $this->save($army);
+    }
+
+    public function create($label, Player $player)
+    {
+        $army = new Army();
+        $army->setLabel($label);
+        $army->setName($label);
+        $army->setPlayer($player);
+        $this->save($army);
+
+        return $army;
     }
 
     /**

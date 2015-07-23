@@ -12,7 +12,9 @@ class PlayerType extends AbstractType
         $builder
             ->add('name', 'text')
             ->add('pseudonym', 'text')
-            ->add('enabled', 'checkbox');
+            ->add('enabled', 'checkbox', [
+                'required' => false
+            ]);
     }
 
     public function getName()

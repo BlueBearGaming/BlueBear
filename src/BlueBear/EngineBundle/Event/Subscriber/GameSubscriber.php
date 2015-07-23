@@ -6,6 +6,7 @@ use BlueBear\BaseBundle\Behavior\ContainerTrait;
 use BlueBear\CoreBundle\Constant\Map\Constant;
 use BlueBear\CoreBundle\Entity\Game\Game;
 use BlueBear\CoreBundle\Entity\Game\GameAction;
+use BlueBear\CoreBundle\Entity\Map\Army;
 use BlueBear\CoreBundle\Entity\Map\Layer;
 use BlueBear\CoreBundle\Entity\Map\Map;
 use BlueBear\CoreBundle\Utils\Position;
@@ -22,9 +23,11 @@ use BlueBear\EngineBundle\Event\Request\CombatRequest;
 use BlueBear\EngineBundle\Event\Request\GameCreateRequest;
 use BlueBear\EngineBundle\Event\Request\GameTurnRequest;
 use BlueBear\EngineBundle\Event\Response\CombatResponse;
+use BlueBear\EngineBundle\Event\Sub\FightersList;
 use BlueBear\EngineBundle\Manager\EntityInstanceManager;
 use Doctrine\ORM\EntityManager;
 use Exception;
+use JMS\Serializer\Serializer;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\RouterInterface;
 
@@ -47,7 +50,7 @@ class GameSubscriber implements EventSubscriberInterface
     {
         /** @var GameCreateRequest $request */
         $request = $event->getRequest();
-
+        $serializer = $this->get('serializer');
         $gameManager = $this
             ->container
             ->get('bluebear.manager.game');
@@ -56,18 +59,26 @@ class GameSubscriber implements EventSubscriberInterface
         /** @var EntityManager $entityManager */
         $entityManager = $this->container->get('doctrine.orm.entity_manager');
         // get entity instances by id
-        $fighters = [];
         $armyManager = $this->container->get('bluebear.manager.army');
         $positionY = 0;
         // dump map and dump layer for hell arena
         $layer = $this->getDumbLayer();
-        $map = $this->getDumpMap($game);
+        $this->getDumpMap($game);
+        // creating init combat action. It will creates fighters actions according to the game rules
+        $actionData = new CombatInitData();
+        $actionData->gameId = $game->getId();
+        $actionData->contextId = $game->getContext()->getId();
+        $actionData->fightersByPlayer = [];
 
         foreach ($request->fightersIdsByPlayer as $playerId => $fightersIds) {
             // get player
             $player = $entityManager
                 ->getRepository('BlueBearCoreBundle:Map\Player')
                 ->find($playerId);
+            // TODO check if player is allowed
+            if (!$player) {
+                throw new Exception("Invalid player id {$playerId} for fighters " . implode(', ', $fightersIds));
+            }
             // find arena army
             $arenaArmy = $entityManager
                 ->getRepository('BlueBearCoreBundle:Map\Army')
@@ -75,17 +86,24 @@ class GameSubscriber implements EventSubscriberInterface
                     'player' => $playerId,
                     'name' => 'test_army_arena'
                 ]);
-            // reset arena army
-            $armyManager->reset($arenaArmy);
+            // reset arena army if required
+            if ($arenaArmy) {
+                $armyManager->reset($arenaArmy);
+            } else {
+                $arenaArmy = $armyManager->create('test_army_arena', $player);
+            }
+            $actionData->fightersByPlayer[$playerId] = new FightersList();
             $positionX = 0;
-
+            // create fighter instance from model, and it to the current player army
             foreach ($fightersIds as $fighterId) {
-                $fighter = $entityManager
+                $fighterModel = $entityManager
                     ->getRepository('BlueBearEngineBundle:EntityModel')
                     ->find($fighterId);
-                $instances[] = $this
+                $fighterInstance = $this
                     ->get('bluebear.manager.entity_instance')
-                    ->create($game->getContext(), $fighter, new Position($positionX, $positionY), $layer);
+                    ->create($game->getContext(), $fighterModel, new Position($positionX, $positionY), $layer, $arenaArmy);
+                $instances[] = $fighterInstance;
+                $actionData->fightersByPlayer[$playerId]->entityInstances[] = $fighterInstance;
                 $positionX++;
             }
             $positionY++;
@@ -94,21 +112,18 @@ class GameSubscriber implements EventSubscriberInterface
         $initAction->setName(EngineEvent::ENGINE_GAME_COMBAT_INIT);
         $initAction->setAction(EngineEvent::ENGINE_GAME_COMBAT_INIT);
         $initAction->setGame($game);
-
-        $actionData = new CombatInitData();
-        $actionData->gameId = $game->getId();
-        $actionData->contextId = $game->getContext()->getId();
-        $actionData->fightersIds = $request->fightersIds;
-        $serializer = $this->get('serializer');
         $initAction->setData($serializer->serialize($actionData, 'json'));
+        // saving combat init action
         $this
             ->get('doctrine')
             ->getManager()
             ->persist($initAction);
         $game->addActionToStack($initAction);
+        // TODO game save useful here ?
         $this
             ->get('bluebear.manager.game')
             ->save($game);
+        // set current game for next event subscriber
         $event->setGame($game);
     }
 
@@ -118,27 +133,39 @@ class GameSubscriber implements EventSubscriberInterface
         $request = $event->getRequest();
         /** @var CombatResponse $response */
         $response = $event->getResponse();
+        /** @var Serializer $serializer */
+        $serializer = $this->get('serializer');
 
         if (!$request->gameId) {
             throw new Exception('You should provide a gameId');
         }
+        // get first action from stack which should contains combat init data
         $actionManager = $this
             ->getContainer()
             ->get('bluebear.manager.game_action');
         $action = $actionManager->findFirst($request->gameId);
         $fighters = [];
         /** @var CombatRequest $data */
-        $data = json_decode($action->getData());
+        $data = $serializer->deserialize($action->getData(), 'BlueBear\EngineBundle\Event\Request\CombatRequest', 'json');
 
-        foreach ($data->fightersIds as $entityInstanceId) {
-            $entityInstance = $this
-                ->getContainer()
-                ->get('bluebear.manager.entity_instance')
-                ->find($entityInstanceId);
-            $fighters[] = $entityInstance;
+        /**
+         * @var  $playerId
+         * @var FightersList $fighters
+         */
+        foreach ($data->fightersByPlayer as $playerId => $fighters) {
+            foreach ($fighters->entityInstances as $fighter) {
+                var_dump($fighter);
+                var_dump($fighters);
+                $entityInstance = $this
+                    ->getContainer()
+                    ->get('bluebear.manager.entity_instance')
+                    ->find($fighter->getId());
+                $entityInstance;
+            }
         }
         $max = null;
 
+        // TODO make this rule with rule engine
         usort($fighters, function ($entityInstance1, $entityInstance2) {
             /**
              * @var EntityInstance $entityInstance1

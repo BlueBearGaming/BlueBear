@@ -1,9 +1,12 @@
 attribute:
     class: BlueBear\DungeonBundle\Entity\Attribute\Attribute
     data:
-        strength: ~
-        intelligence: ~
-        dexterity: ~
+        strength:
+            creation: true
+        intelligence:
+            creation: true
+        dexterity:
+            creation: true
         status: ~
 
 attribute_modifiers:

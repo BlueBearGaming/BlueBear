@@ -91,6 +91,9 @@ class MainController extends Controller
         $attributeNames = [];
         /** @var Attribute $attribute */
         foreach ($attributes as $attribute) {
+            if (!$attribute->creation) {
+                continue;
+            }
             $dices = $launcher->roll('4d6');
             $launcher->removeLowest($dices);
             $values[$attribute->code] = $launcher->sum($dices);

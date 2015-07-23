@@ -3,6 +3,7 @@
 namespace BlueBear\EngineBundle\Manager;
 
 use BlueBear\BaseBundle\Behavior\ManagerTrait;
+use BlueBear\CoreBundle\Entity\Map\Army;
 use BlueBear\CoreBundle\Entity\Map\Context;
 use BlueBear\CoreBundle\Entity\Map\Layer;
 use BlueBear\CoreBundle\Entity\Map\MapItem;
@@ -36,7 +37,7 @@ class EntityInstanceManager
      * @return EntityInstance
      * @throws Exception
      */
-    public function create(Context $context, EntityModel $entityModel, Position $position, Layer $layer)
+    public function create(Context $context, EntityModel $entityModel, Position $position, Layer $layer, Army $army)
     {
         // we try to find if an other of the same instance and same type if on same position
         $entityInstance = $this
@@ -56,6 +57,7 @@ class EntityInstanceManager
         /** @var EntityInstance $entityInstance */
         $entityInstance = new $class;
         $entityInstance->hydrateFromModel($entityModel);
+        $entityInstance->setArmy($army);
 
         // we must check if layer is allowed
         $layers = $context->getMap()->getLayers();
