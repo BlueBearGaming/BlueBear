@@ -144,7 +144,7 @@ class GameSubscriber implements EventSubscriberInterface
             ->getContainer()
             ->get('bluebear.manager.game_action');
         $action = $actionManager->findFirst($request->gameId);
-        $fighters = [];
+        $entityInstances = [];
         /** @var CombatRequest $data */
         $data = $serializer->deserialize($action->getData(), 'BlueBear\EngineBundle\Event\Request\CombatRequest', 'json');
 
@@ -154,19 +154,17 @@ class GameSubscriber implements EventSubscriberInterface
          */
         foreach ($data->fightersByPlayer as $playerId => $fighters) {
             foreach ($fighters->entityInstances as $fighter) {
-                var_dump($fighter);
-                var_dump($fighters);
                 $entityInstance = $this
                     ->getContainer()
                     ->get('bluebear.manager.entity_instance')
                     ->find($fighter->getId());
-                $entityInstance;
+                $entityInstances[] = $entityInstance;
             }
         }
         $max = null;
 
         // TODO make this rule with rule engine
-        usort($fighters, function ($entityInstance1, $entityInstance2) {
+        usort($entityInstances, function ($entityInstance1, $entityInstance2) {
             /**
              * @var EntityInstance $entityInstance1
              * @var EntityInstance $entityInstance2
@@ -181,8 +179,8 @@ class GameSubscriber implements EventSubscriberInterface
          * @var int $turn
          * @var EntityInstance $fighter
          */
-        foreach ($fighters as $turn => $fighter) {
-            $this->createTurn($fighter, $fighters, $turn, $game);
+        foreach ($entityInstances as $turn => $fighter) {
+            $this->createTurn($fighter, $entityInstances, $turn, $game);
         }
         /** @var RouterInterface $router */
         $router = $this->get('router');
@@ -223,6 +221,7 @@ class GameSubscriber implements EventSubscriberInterface
         $actionData->gameId = $data->gameId;
         $actionData->contextId = $data->contextId;
         $actionData->attacks = $data->attacks;
+        $actionData->turn = $data->turn;
 
         $event->getResponse()->setData($actionData);
     }
