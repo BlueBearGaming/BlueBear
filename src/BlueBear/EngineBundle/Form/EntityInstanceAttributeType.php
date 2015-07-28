@@ -15,11 +15,9 @@ class EntityInstanceAttributeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('name', 'text');
-        $builder->add('value', 'text');
-        $builder->add('type', 'choice', [
-            'choices' => Constant::getEntityModelAttributesTypes()
+        $builder->add('value', 'text', [
+            'required' => false
         ]);
-        /** we need a event here, see https://github.com/symfony/symfony/issues/5694 **/
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $formEvent) {
             /** @var EntityInstanceAttribute $attribute */
             $attribute = $formEvent->getData();

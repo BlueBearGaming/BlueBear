@@ -25,7 +25,7 @@ class EntityModel
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="BlueBear\EngineBundle\Entity\EntityModelAttribute", mappedBy="entityModel", cascade={"persist", "remove"}, fetch="EAGER")
+     * @ORM\OneToMany(targetEntity="BlueBear\EngineBundle\Entity\EntityModelAttribute", mappedBy="entityModel", cascade={"persist", "remove"}, fetch="EAGER", indexBy="name")
      */
     protected $attributes;
 
@@ -56,7 +56,7 @@ class EntityModel
     }
 
     /**
-     * @return mixed
+     * @return ArrayCollection
      */
     public function getAttributes()
     {

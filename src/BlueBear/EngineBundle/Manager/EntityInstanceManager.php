@@ -3,6 +3,7 @@
 namespace BlueBear\EngineBundle\Manager;
 
 use BlueBear\BaseBundle\Behavior\ManagerTrait;
+use BlueBear\CoreBundle\Entity\Map\Army;
 use BlueBear\CoreBundle\Entity\Map\Context;
 use BlueBear\CoreBundle\Entity\Map\Layer;
 use BlueBear\CoreBundle\Entity\Map\MapItem;
@@ -33,9 +34,10 @@ class EntityInstanceManager
      * @param EntityModel $entityModel
      * @param Position $position
      * @param Layer $layer
+     * @return EntityInstance
      * @throws Exception
      */
-    public function create(Context $context, EntityModel $entityModel, Position $position, Layer $layer)
+    public function create(Context $context, EntityModel $entityModel, Position $position, Layer $layer, Army $army)
     {
         // we try to find if an other of the same instance and same type if on same position
         $entityInstance = $this
@@ -48,11 +50,14 @@ class EntityInstanceManager
         }
         // create a instance from the unit pattern
         $class = $this->entityTypeFactory->getEntityType($entityModel->getType())->getClass();
+
+        if (!$class) {
+            $class = 'BlueBear\EngineBundle\Entity\EntityInstance';
+        }
         /** @var EntityInstance $entityInstance */
         $entityInstance = new $class;
         $entityInstance->hydrateFromModel($entityModel);
-        $entityInstance->setLabel('John Panda');
-        $entityInstance->setPencil($entityModel->getPencil());
+        $entityInstance->setArmy($army);
 
         // we must check if layer is allowed
         $layers = $context->getMap()->getLayers();
@@ -74,6 +79,8 @@ class EntityInstanceManager
         $entityManager->persist($mapItem);
         $entityManager->persist($entityInstance);
         $entityManager->flush();
+
+        return $entityInstance;
     }
 
     /**

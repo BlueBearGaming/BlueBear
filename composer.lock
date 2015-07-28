@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "fdfa79a4661aa05af70db12af89b128e",
+    "hash": "c882569a5208087267341e84c89b1ebc",
     "packages": [
         {
             "name": "andres-montanez/magallanes",
@@ -102,24 +102,24 @@
             "target-dir": "BlueBear/AdminBundle",
             "source": {
                 "type": "git",
-                "url": "https://github.com/CleverGaming/AdminBundle.git",
-                "reference": "4ba23e632bb50ef55f9f9403a0e83e18ccf5c424"
+                "url": "https://github.com/BlueBearGaming/AdminBundle.git",
+                "reference": "0e4ca92a46bb2dbc3ce8dfaf7c79cd9c0361e9d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CleverGaming/AdminBundle/zipball/4ba23e632bb50ef55f9f9403a0e83e18ccf5c424",
-                "reference": "4ba23e632bb50ef55f9f9403a0e83e18ccf5c424",
+                "url": "https://api.github.com/repos/BlueBearGaming/AdminBundle/zipball/0e4ca92a46bb2dbc3ce8dfaf7c79cd9c0361e9d2",
+                "reference": "0e4ca92a46bb2dbc3ce8dfaf7c79cd9c0361e9d2",
                 "shasum": ""
             },
             "require": {
-                "bluebear/basebundle": "dev-0.2-dev",
+                "bluebear/basebundle": "0.2",
                 "doctrine/data-fixtures": "*",
                 "doctrine/doctrine-bundle": "~1.2",
                 "doctrine/doctrine-fixtures-bundle": "*",
                 "ee/dataexporter-bundle": "*",
                 "php": ">=5.4",
                 "sensio/framework-extra-bundle": "~3.0",
-                "symfony/symfony": "2.6.*",
+                "symfony/symfony": ">=2.6",
                 "white-october/pagerfanta-bundle": "~1.0"
             },
             "type": "symfony-bundle",
@@ -154,21 +154,21 @@
                 "backoffice",
                 "generic"
             ],
-            "time": "2015-06-16 20:56:00"
+            "time": "2015-07-14 14:28:38"
         },
         {
             "name": "bluebear/basebundle",
-            "version": "dev-0.2-dev",
+            "version": "v0.2",
             "target-dir": "BlueBear/BaseBundle",
             "source": {
                 "type": "git",
-                "url": "https://github.com/CleverGaming/BaseBundle.git",
-                "reference": "85242fdb6cc0be1212482af803f43a8267563aa4"
+                "url": "https://github.com/BlueBearGaming/BaseBundle.git",
+                "reference": "ccd03b7de68e1051107b6f45b6c704dc42ce0385"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CleverGaming/BaseBundle/zipball/85242fdb6cc0be1212482af803f43a8267563aa4",
-                "reference": "85242fdb6cc0be1212482af803f43a8267563aa4",
+                "url": "https://api.github.com/repos/BlueBearGaming/BaseBundle/zipball/ccd03b7de68e1051107b6f45b6c704dc42ce0385",
+                "reference": "ccd03b7de68e1051107b6f45b6c704dc42ce0385",
                 "shasum": ""
             },
             "require": {
@@ -208,20 +208,20 @@
                 "base",
                 "shortcut"
             ],
-            "time": "2015-06-03 13:55:28"
+            "time": "2015-06-27 12:08:56"
         },
         {
             "name": "clever-gaming/jikpoze",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/CleverGaming/Jikpoze.git",
-                "reference": "ba25745a2d8a4cc83670df36f116d036605f6cfa"
+                "url": "https://github.com/BlueBearGaming/Jikpoze.git",
+                "reference": "841ea9d47faf99f15134bf933584bd2b9e43fd70"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CleverGaming/Jikpoze/zipball/ba25745a2d8a4cc83670df36f116d036605f6cfa",
-                "reference": "ba25745a2d8a4cc83670df36f116d036605f6cfa",
+                "url": "https://api.github.com/repos/BlueBearGaming/Jikpoze/zipball/841ea9d47faf99f15134bf933584bd2b9e43fd70",
+                "reference": "841ea9d47faf99f15134bf933584bd2b9e43fd70",
                 "shasum": ""
             },
             "type": "game-engine",
@@ -232,12 +232,12 @@
             "authors": [
                 {
                     "name": "Vincent Chalnot",
-                    "email": "vchalnot@clever-age.com",
+                    "email": "vincent.chalnot@gmail.com",
                     "homepage": "http://chalnot.fr"
                 }
             ],
             "description": "2D game rendering engine with Dart and StageXL",
-            "homepage": "https://github.com/CleverGaming/Jikpoze",
+            "homepage": "https://github.com/BlueBearGaming/Jikpoze",
             "keywords": [
                 "dart",
                 "engine",
@@ -245,7 +245,7 @@
                 "stagexl",
                 "tiles"
             ],
-            "time": "2015-05-26 12:35:56"
+            "time": "2015-06-30 11:37:49"
         },
         {
             "name": "components/jquery",
@@ -379,16 +379,16 @@
         },
         {
             "name": "doctrine/annotations",
-            "version": "v1.2.4",
+            "version": "v1.2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/annotations.git",
-                "reference": "b5202eb9e83f8db52e0e58867e0a46e63be8332e"
+                "reference": "f4a91702ca3cd2e568c3736aa031ed00c3752af4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/annotations/zipball/b5202eb9e83f8db52e0e58867e0a46e63be8332e",
-                "reference": "b5202eb9e83f8db52e0e58867e0a46e63be8332e",
+                "url": "https://api.github.com/repos/doctrine/annotations/zipball/f4a91702ca3cd2e568c3736aa031ed00c3752af4",
+                "reference": "f4a91702ca3cd2e568c3736aa031ed00c3752af4",
                 "shasum": ""
             },
             "require": {
@@ -443,7 +443,7 @@
                 "docblock",
                 "parser"
             ],
-            "time": "2014-12-23 22:40:37"
+            "time": "2015-06-17 12:21:22"
         },
         {
             "name": "doctrine/cache",
@@ -1380,12 +1380,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Atlantic18/DoctrineExtensions.git",
-                "reference": "dedfbd7bd2ffb290ea19f3b1bbae52aa36c6008a"
+                "reference": "cdfe95db80e55f01718b6cb309c7565da4c11e21"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/dedfbd7bd2ffb290ea19f3b1bbae52aa36c6008a",
-                "reference": "dedfbd7bd2ffb290ea19f3b1bbae52aa36c6008a",
+                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/cdfe95db80e55f01718b6cb309c7565da4c11e21",
+                "reference": "cdfe95db80e55f01718b6cb309c7565da4c11e21",
                 "shasum": ""
             },
             "require": {
@@ -1395,7 +1395,7 @@
             },
             "require-dev": {
                 "doctrine/common": ">=2.5.0",
-                "doctrine/mongodb-odm": ">=1.0.0-BETA13",
+                "doctrine/mongodb-odm": "dev-master",
                 "doctrine/orm": ">=2.5.0",
                 "phpunit/phpunit": "~4.4",
                 "phpunit/phpunit-mock-objects": "~2.3",
@@ -1451,7 +1451,7 @@
                 "tree",
                 "uploadable"
             ],
-            "time": "2015-06-16 19:54:17"
+            "time": "2015-07-10 10:20:02"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -1871,29 +1871,31 @@
         },
         {
             "name": "jms/serializer",
-            "version": "0.16.0",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/schmittjoh/serializer.git",
-                "reference": "c8a171357ca92b6706e395c757f334902d430ea9"
+                "reference": "a29d9a204efc3ca3f39a9d182a83fd34462fef3f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/schmittjoh/serializer/zipball/c8a171357ca92b6706e395c757f334902d430ea9",
-                "reference": "c8a171357ca92b6706e395c757f334902d430ea9",
+                "url": "https://api.github.com/repos/schmittjoh/serializer/zipball/a29d9a204efc3ca3f39a9d182a83fd34462fef3f",
+                "reference": "a29d9a204efc3ca3f39a9d182a83fd34462fef3f",
                 "shasum": ""
             },
             "require": {
                 "doctrine/annotations": "1.*",
+                "doctrine/instantiator": "~1.0.3",
                 "jms/metadata": "~1.1",
                 "jms/parser-lib": "1.*",
-                "php": ">=5.3.2",
+                "php": ">=5.4.0",
                 "phpcollection/phpcollection": "~0.1"
             },
             "require-dev": {
                 "doctrine/orm": "~2.1",
                 "doctrine/phpcr-odm": "~1.0.1",
                 "jackalope/jackalope-doctrine-dbal": "1.0.*",
+                "phpunit/phpunit": "~4.0",
                 "propel/propel1": "~1.7",
                 "symfony/filesystem": "2.*",
                 "symfony/form": "~2.1",
@@ -1908,7 +1910,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.15-dev"
+                    "dev-master": "0.17-dev"
                 }
             },
             "autoload": {
@@ -1922,10 +1924,8 @@
             ],
             "authors": [
                 {
-                    "name": "Johannes Schmitt",
-                    "email": "schmittjoh@gmail.com",
-                    "homepage": "https://github.com/schmittjoh",
-                    "role": "Developer of wrapped JMSSerializerBundle"
+                    "name": "Johannes M. Schmitt",
+                    "email": "schmittjoh@gmail.com"
                 }
             ],
             "description": "Library for (de-)serializing data of any complexity; supports XML, JSON, and YAML.",
@@ -1937,25 +1937,25 @@
                 "serialization",
                 "xml"
             ],
-            "time": "2014-03-18 08:39:00"
+            "time": "2015-06-16 11:50:24"
         },
         {
             "name": "jms/serializer-bundle",
-            "version": "0.13.0",
+            "version": "dev-master",
             "target-dir": "JMS/SerializerBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/schmittjoh/JMSSerializerBundle.git",
-                "reference": "bb15db3e661168f4310fad48b86915ff1ca33795"
+                "reference": "d0215e9ba257cc43aa54b6525423fb816d779c91"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/schmittjoh/JMSSerializerBundle/zipball/bb15db3e661168f4310fad48b86915ff1ca33795",
-                "reference": "bb15db3e661168f4310fad48b86915ff1ca33795",
+                "url": "https://api.github.com/repos/schmittjoh/JMSSerializerBundle/zipball/d0215e9ba257cc43aa54b6525423fb816d779c91",
+                "reference": "d0215e9ba257cc43aa54b6525423fb816d779c91",
                 "shasum": ""
             },
             "require": {
-                "jms/serializer": "~0.11",
+                "jms/serializer": "^1.0.0",
                 "php": ">=5.3.2",
                 "symfony/framework-bundle": "~2.1"
             },
@@ -1968,6 +1968,7 @@
                 "symfony/finder": "*",
                 "symfony/form": "*",
                 "symfony/process": "*",
+                "symfony/stopwatch": "*",
                 "symfony/twig-bundle": "*",
                 "symfony/validator": "*",
                 "symfony/yaml": "*"
@@ -1978,7 +1979,7 @@
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.13-dev"
+                    "dev-master": "1.1-dev"
                 }
             },
             "autoload": {
@@ -1992,10 +1993,8 @@
             ],
             "authors": [
                 {
-                    "name": "Johannes Schmitt",
-                    "email": "schmittjoh@gmail.com",
-                    "homepage": "https://github.com/schmittjoh",
-                    "role": "Developer of wrapped JMSSerializerBundle"
+                    "name": "Johannes M. Schmitt",
+                    "email": "schmittjoh@gmail.com"
                 }
             ],
             "description": "Allows you to easily serialize, and deserialize data of any complexity",
@@ -2007,7 +2006,7 @@
                 "serialization",
                 "xml"
             ],
-            "time": "2013-12-05 14:36:11"
+            "time": "2015-06-25 11:04:52"
         },
         {
             "name": "kriswallsmith/assetic",
@@ -2113,16 +2112,16 @@
         },
         {
             "name": "monolog/monolog",
-            "version": "1.13.1",
+            "version": "1.15.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "c31a2c4e8db5da8b46c74cf275d7f109c0f249ac"
+                "reference": "dc5150cc608f2334c72c3b6a553ec9668a4156b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/c31a2c4e8db5da8b46c74cf275d7f109c0f249ac",
-                "reference": "c31a2c4e8db5da8b46c74cf275d7f109c0f249ac",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/dc5150cc608f2334c72c3b6a553ec9668a4156b0",
+                "reference": "dc5150cc608f2334c72c3b6a553ec9668a4156b0",
                 "shasum": ""
             },
             "require": {
@@ -2133,12 +2132,14 @@
                 "psr/log-implementation": "1.0.0"
             },
             "require-dev": {
-                "aws/aws-sdk-php": "~2.4, >2.4.8",
+                "aws/aws-sdk-php": "^2.4.9",
                 "doctrine/couchdb": "~1.0@dev",
                 "graylog2/gelf-php": "~1.0",
-                "phpunit/phpunit": "~4.0",
-                "raven/raven": "~0.5",
-                "ruflin/elastica": "0.90.*",
+                "php-console/php-console": "^3.1.3",
+                "phpunit/phpunit": "~4.5",
+                "phpunit/phpunit-mock-objects": "2.3.0",
+                "raven/raven": "~0.8",
+                "ruflin/elastica": ">=0.90 <3.0",
                 "swiftmailer/swiftmailer": "~5.3",
                 "videlalvaro/php-amqplib": "~2.4"
             },
@@ -2148,6 +2149,7 @@
                 "ext-amqp": "Allow sending log messages to an AMQP server (1.0+ required)",
                 "ext-mongo": "Allow sending log messages to a MongoDB server",
                 "graylog2/gelf-php": "Allow sending log messages to a GrayLog2 server",
+                "php-console/php-console": "Allow sending log messages to Google Chrome",
                 "raven/raven": "Allow sending log messages to a Sentry server",
                 "rollbar/rollbar": "Allow sending log messages to Rollbar",
                 "ruflin/elastica": "Allow sending log messages to an Elastic Search server",
@@ -2156,7 +2158,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.13.x-dev"
+                    "dev-master": "1.15.x-dev"
                 }
             },
             "autoload": {
@@ -2182,7 +2184,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2015-03-09 09:58:04"
+            "time": "2015-07-12 13:54:09"
         },
         {
             "name": "mopa/bootstrap-bundle",
@@ -2191,12 +2193,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phiamo/MopaBootstrapBundle.git",
-                "reference": "4d4b6291b47fc70491a4f92105be39d6bcccbb95"
+                "reference": "ee161a9c8ebc41358466076ff065d2df7a852ab7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phiamo/MopaBootstrapBundle/zipball/4d4b6291b47fc70491a4f92105be39d6bcccbb95",
-                "reference": "4d4b6291b47fc70491a4f92105be39d6bcccbb95",
+                "url": "https://api.github.com/repos/phiamo/MopaBootstrapBundle/zipball/ee161a9c8ebc41358466076ff065d2df7a852ab7",
+                "reference": "ee161a9c8ebc41358466076ff065d2df7a852ab7",
                 "shasum": ""
             },
             "require": {
@@ -2254,7 +2256,7 @@
                 "form",
                 "template"
             ],
-            "time": "2015-06-11 12:44:01"
+            "time": "2015-07-06 20:47:24"
         },
         {
             "name": "mopa/composer-bridge",
@@ -2670,20 +2672,20 @@
         },
         {
             "name": "robloach/component-installer",
-            "version": "0.2.0",
+            "version": "0.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/RobLoach/component-installer.git",
-                "reference": "9ebfe24d48b08ce63cf377d719e4ad045e057855"
+                "reference": "6f654095da6e364261093c2d9ca416e1027d0169"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/RobLoach/component-installer/zipball/9ebfe24d48b08ce63cf377d719e4ad045e057855",
-                "reference": "9ebfe24d48b08ce63cf377d719e4ad045e057855",
+                "url": "https://api.github.com/repos/RobLoach/component-installer/zipball/6f654095da6e364261093c2d9ca416e1027d0169",
+                "reference": "6f654095da6e364261093c2d9ca416e1027d0169",
                 "shasum": ""
             },
             "require": {
-                "composer-plugin-api": "1.0.0",
+                "composer-plugin-api": "^1.0",
                 "kriswallsmith/assetic": "1.*",
                 "php": ">=5.3.2"
             },
@@ -2714,7 +2716,7 @@
                 }
             ],
             "description": "Allows installation of Components via Composer.",
-            "time": "2015-06-08 13:01:20"
+            "time": "2015-06-18 13:02:30"
         },
         {
             "name": "sensio/distribution-bundle",
@@ -3222,12 +3224,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/bootstrap-sass.git",
-                "reference": "c7d05c1e11570e68141ec21c9db40fdbd8c4e006"
+                "reference": "8cd2bf8e01913aa63a3aab6107faf6462818608a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap-sass/zipball/c7d05c1e11570e68141ec21c9db40fdbd8c4e006",
-                "reference": "c7d05c1e11570e68141ec21c9db40fdbd8c4e006",
+                "url": "https://api.github.com/repos/twbs/bootstrap-sass/zipball/8cd2bf8e01913aa63a3aab6107faf6462818608a",
+                "reference": "8cd2bf8e01913aa63a3aab6107faf6462818608a",
                 "shasum": ""
             },
             "type": "library",
@@ -3267,7 +3269,7 @@
                 "css",
                 "sass"
             ],
-            "time": "2015-06-10 16:41:00"
+            "time": "2015-07-01 19:48:59"
         },
         {
             "name": "twig/extensions",
@@ -3508,8 +3510,8 @@
         "mopa/bootstrap-bundle": 20,
         "twbs/bootstrap-sass": 20,
         "log0ymxm/bootswatch-scss": 20,
+        "jms/serializer-bundle": 20,
         "clever-gaming/jikpoze": 20,
-        "bluebear/basebundle": 20,
         "bluebear/adminbundle": 20
     },
     "prefer-stable": false,

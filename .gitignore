@@ -13,10 +13,7 @@ web/js
 web/jikpoze
 *.log
 backups
-
-# sprites
-web/uploads/sprites
-web/uploads/tmp
+.sass-cache
 
 # kde, apple, stuff
 .ds_store

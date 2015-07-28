@@ -6,4 +6,5 @@ use BlueBear\EngineBundle\Event\EventRequest;
 
 class GameCreateRequest extends EventRequest
 {
+    public $fightersIdsByPlayer = [];
 }

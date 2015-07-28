@@ -34,4 +34,10 @@ class CharacterClass
     public $description;
 
     public $allowedArmors;
+
+    /**
+     * @Game\Relation(class="BlueBear\DungeonBundle\Entity\CharacterClass\Attack", type="OneToMany")
+     * @var EntityReferenceCollection
+     */
+    public $attacks;
 }

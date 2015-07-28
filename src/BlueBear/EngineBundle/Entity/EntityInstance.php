@@ -11,24 +11,32 @@ use BlueBear\CoreBundle\Entity\Map\MapItem;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Exception;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
- * UnitInstance
+ * EntityInstance
  *
- * Represents a instance of a unit on map
+ * Represents a instance of an entity model on map
  *
  * @ORM\Table(name="entity_instance")
  * @ORM\Entity(repositoryClass="BlueBear\EngineBundle\Repository\EntityInstanceRepository")
- * @ORM\InheritanceType("SINGLE_TABLE")
- * @ORM\DiscriminatorColumn(name="doctrine_type", type="string")
  * @ORM\HasLifecycleCallbacks()
+ * @Serializer\ExclusionPolicy("all")
+ * @Serializer\AccessorOrder("custom", custom={"id", "name", "label", "attributes"})
  */
 class EntityInstance
 {
     use Id, Nameable, Label, Timestampable, Typeable;
 
     /**
+     * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Army", inversedBy="entityInstances")
+     */
+    protected $army;
+
+    /**
      * @ORM\OneToMany(targetEntity="BlueBear\EngineBundle\Entity\EntityInstanceAttribute", cascade={"persist", "remove"}, mappedBy="entityInstance", indexBy="name")
+     * @Serializer\Expose()
+     * @Serializer\Type("array<BlueBear\EngineBundle\Entity\EntityInstanceAttribute>")
      */
     protected $attributes;
 
@@ -46,7 +54,7 @@ class EntityInstance
     /**
      * @ORM\Column(name="behaviors", type="array")
      */
-    protected $behaviors = [];
+    protected $behaviors;
 
     /**
      * Allowed layers for this entity
@@ -64,6 +72,21 @@ class EntityInstance
     }
 
     /**
+     * @Serializer\PostDeserialize()
+     */
+    public function postDeserialize()
+    {
+        if (is_array($this->attributes)) {
+            $attributes = $this->attributes;
+            $this->attributes = new ArrayCollection();
+            /** @var EntityInstanceAttribute $attribute */
+            foreach ($attributes as $attribute) {
+                $this->attributes->set($attribute->getName(), $attribute);
+            }
+        }
+    }
+
+    /**
      * Hydrate entity instance from model default data
      *
      * @param EntityModel $entityModel
@@ -73,6 +96,8 @@ class EntityInstance
         $this->name = $entityModel->getName();
         $this->label = $entityModel->getLabel();
         $this->type = $entityModel->getType();
+        $this->pencil = $entityModel->getPencil();
+
         /** @var EntityModelAttribute $entityModelAttribute */
         foreach ($entityModel->getAttributes() as $entityModelAttribute) {
             $instanceAttribute = new EntityInstanceAttribute();
@@ -114,11 +139,17 @@ class EntityInstance
      */
     public function setAttributes($attributes)
     {
-        $this->attributes = $attributes;
         /** @var EntityInstanceAttribute $attribute */
-        foreach ($this->attributes as $attribute) {
+        foreach ($attributes as $attribute) {
+            $this->attributes->set($attribute->getName(), $attribute);
             $attribute->setEntityInstance($this);
         }
+    }
+
+    public function addAttribute(EntityInstanceAttribute $attribute)
+    {
+        $this->attributes->add($attribute);
+        $attribute->setEntityInstance($this);
     }
 
     public function has($attributeName)
@@ -139,6 +170,22 @@ class EntityInstance
             throw new Exception('Attribute not found : ' . $attributeName);
         }
         return $this->attributes[$attributeName]->getValue();
+    }
+
+    /**
+     * Set the value of an attribute
+     *
+     * @param $attributeName
+     * @param $value
+     * @return mixed
+     * @throws Exception
+     */
+    public function set($attributeName, $value)
+    {
+        if (!array_key_exists($attributeName, $this->attributes->toArray())) {
+            throw new Exception('Attribute not found : ' . $attributeName);
+        }
+        return $this->attributes[$attributeName]->setValue($value);
     }
 
     /**
@@ -196,5 +243,21 @@ class EntityInstance
     public function setAllowedLayerTypes($allowedLayerTypes)
     {
         $this->allowedLayerTypes = $allowedLayerTypes;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getArmy()
+    {
+        return $this->army;
+    }
+
+    /**
+     * @param mixed $army
+     */
+    public function setArmy($army)
+    {
+        $this->army = $army;
     }
 }

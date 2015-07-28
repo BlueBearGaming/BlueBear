@@ -5,18 +5,21 @@ character_class:
             label: bluebear.panda.warrior
             description: bluebear.panda.warrior.description
             attributeSetters:
-                - { code: character.life, attribute: life, setter: d6 }
+                - { code: warrior.life, attribute: life, setter: 10d12 }
             skills: []
             allowedArmors: [all]
             feats: []
+            attacks:
+                bear_hand: ~
         zoo_keeper:
             label: bluebear.panda.zoo_keeper
             description: bluebear.panda.warrior.description
             attributeSetters:
-                - { code: character.life, attribute: life, setter: d6 }
+                - { code: zoo_keeper.life, attribute: life, setter: 10d6 }
             skills: []
             allowedArmors: [all]
             feats: []
+            attacks: [net, hypodermic_gun]
 
 skill:
     class: BlueBear\DungeonBundle\Entity\Skill
@@ -25,3 +28,18 @@ skill:
 feats:
     class: BlueBear\DungeonBundle\Entity\Feat
 
+attacks:
+    class: BlueBear\DungeonBundle\Entity\CharacterClass\Attack
+    data:
+        bear_hand:
+            label: Bear Hand
+            description: The panda attacks with its own bear hand
+            damage: 20
+        net:
+            label: Net
+            description: Humans try to recapture the pandas with nets
+            damage: 5
+        hypodermic_gun:
+            label: Hypodermic Gun
+            description: Vils humans will try to force excited pandas to sleep. Bad....
+            damage: 5

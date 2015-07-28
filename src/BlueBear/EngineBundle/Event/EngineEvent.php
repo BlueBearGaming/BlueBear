@@ -8,6 +8,44 @@ use Symfony\Component\EventDispatcher\Event;
 class EngineEvent extends Event
 {
     /**
+     * Engine events (private)
+     */
+    const ENGINE_ON_ENGINE_EVENT = 'bluebear.engine.engineEvent';
+    const ENGINE_MAP_SAVE = 'bluebear.engine.onMapSave';
+
+    /**
+     * Game
+     */
+    const ENGINE_GAME_CREATE = 'bluebear.engine.gameCreate';
+    const HELL_ARENA_GAME_CREATE = 'bluebear.arena.gameCreate';
+    const ENGINE_GAME_COMBAT_INIT = 'bluebear.combat.init';
+    const ENGINE_GAME_COMBAT_ATTACK = 'bluebear.combat.attack';
+    const ENGINE_GAME_TURN = 'bluebear.game.turn';
+    const ENGINE_GAME_END_OF_TURN = 'bluebear.game.endOfTurn';
+
+    /**
+     * Map events
+     */
+    const ENGINE_MAP_LOAD = 'bluebear.engine.mapLoad';
+
+    /**
+     * MapItem events
+     */
+    const ENGINE_MAP_ITEM_CLICK = 'bluebear.engine.mapItemClick';
+    const ENGINE_MAP_ITEM_MOVE = 'bluebear.engine.mapItemMove';
+    const ENGINE_CLIENT_UPDATE = 'bluebear.engine.clientUpdate';
+
+    const EDITOR_MAP_PUT_PENCIL = 'bluebear.editor.putPencil';
+    const EDITOR_MAP_PUT_ENTITY = 'bluebear.editor.putEntity';
+    const EDITOR_MAP_UPDATE = 'bluebear.editor.mapUpdate';
+
+    /**
+     * Engine event response code
+     */
+    const ENGINE_EVENT_RESPONSE_OK = 'ok';
+    const ENGINE_EVENT_RESPONSE_KO = 'error';
+
+    /**
      * Event name
      *
      * @var string
@@ -45,46 +83,7 @@ class EngineEvent extends Event
      */
     protected $requestClientUpdate = false;
 
-    /**
-     * Engine events (private)
-     */
-    const ENGINE_ON_ENGINE_EVENT = 'bluebear.engine.engineEvent';
-    const ENGINE_MAP_SAVE = 'bluebear.engine.onMapSave';
-
-    /**
-     * Game
-     */
-    const ENGINE_GAME_CREATE = 'bluebear.engine.gameCreate';
-
-    /**
-     * Map events
-     */
-    const ENGINE_MAP_LOAD = 'bluebear.engine.mapLoad';
-
-    /**
-     * MapItem events
-     */
-//    const ENGINE_ON_BEFORE_LEAVE = 'bluebear.engine.onBeforeLeave';
-//    const ENGINE_ON_LEAVE = 'bluebear.engine.onLeave';
-//    const ENGINE_ON_AFTER_LEAVE = 'bluebear.engine.onAfterLeave';
-//    const ENGINE_ON_BEFORE_ENTER = 'bluebear.engine.onBeforeEnter';
-//    const ENGINE_ON_ENTER = 'bluebear.engine.onEnter';
-//    const ENGINE_ON_AFTER_ENTER = 'bluebear.engine.onAfterEnter';
-    const ENGINE_MAP_ITEM_CLICK = 'bluebear.engine.mapItemClick';
-    const ENGINE_MAP_ITEM_MOVE = 'bluebear.engine.mapItemMove';
-    const ENGINE_CLIENT_UPDATE = 'bluebear.engine.clientUpdate';
-
-    const EDITOR_MAP_PUT_PENCIL = 'bluebear.editor.putPencil';
-    const EDITOR_MAP_PUT_ENTITY = 'bluebear.editor.putEntity';
-    const EDITOR_MAP_UPDATE = 'bluebear.editor.mapUpdate';
-
-    /**
-     * Engine event response code
-     */
-    const ENGINE_EVENT_RESPONSE_OK = 'ok';
-    const ENGINE_EVENT_RESPONSE_KO = 'error';
-
-    public function __construct(EventRequest $eventRequest, EventResponse $eventResponse = null)
+    public function __construct(EventRequest $eventRequest = null, EventResponse $eventResponse = null)
     {
         $this->request = $eventRequest;
         $this->response = $eventResponse;

@@ -8,9 +8,11 @@
         {% if maps|length > 0 %}
             <table class="table table-striped table-hover">
                 <thead>
-                <th>Id</th>
-                <th>Label</th>
-                <th></th>
+                <tr>
+                    <th>Id</th>
+                    <th>Label</th>
+                    <th></th>
+                </tr>
                 </thead>
                 <tbody>
                 {% for map in maps %}
@@ -26,7 +28,7 @@
                 </tbody>
             </table>
         {% else %}
-            No map was yet created in backoffice. Click <a href="{{ path('bluebear_admin_map_create') }}">here</a>
+            No map was yet created in backoffice. Click <a href="{{ path('bluebear.admin.map.create') }}">here</a>
             to create one.
         {% endif %}
     </div>

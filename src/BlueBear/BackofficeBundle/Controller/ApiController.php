@@ -17,7 +17,7 @@ use BlueBear\EngineBundle\Event\Request\MapLoadRequest;
 use BlueBear\EngineBundle\Event\Request\SubRequest\LoadContextSubRequest;
 use BlueBear\EngineBundle\Event\Request\SubRequest\MapItemSubRequest;
 use BlueBear\EngineBundle\Event\Request\SubRequest\UserContextSubRequest;
-use BlueBear\GameBundle\Entity\EntityModel;
+use BlueBear\EngineBundle\Entity\EntityModel;
 use BlueBear\GameBundle\Event\Entity\PutEntityRequest;
 use JMS\Serializer\Serializer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -47,7 +47,11 @@ class ApiController extends Controller
 
         if (!$map) {
             $this->setMessage('You should create a map before calling api', 'error');
-            return $this->redirect('@bluebear_admin_map_list');
+            return $this->redirectToRoute('bluebear.admin.map.list');
+        }
+        if (!count($map->getLayers())) {
+            $this->setMessage('Your map should have layers calling api', 'error');
+            return $this->redirectToRoute('bluebear.admin.layer.list');
         }
         $snippets = $this->getJsonSnippets($map);
 
@@ -200,7 +204,12 @@ class ApiController extends Controller
             $request = new PutEntityRequest();
             $request->contextId = $context->getId();
             $request->entityModelId = $entityModel->getId();
-            $request->layerName = $this->getRandomLayer($layers)->getName();
+
+            if (count($layers)) {
+                $request->layerName = $this->getRandomLayer($layers)->getName();
+            } else {
+                $this->addFlash('warning', 'Your entity model has no allowed layers');
+            }
             $request->x = 4;
             $request->y = 2;
         } else {

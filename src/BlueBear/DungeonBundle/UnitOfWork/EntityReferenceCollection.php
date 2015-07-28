@@ -27,6 +27,10 @@ class EntityReferenceCollection
         if (get_class($element) == $this->entityClass) {
             $this->entityReferences[$this->propertyAccessor->getValue($this->entityClass, $this->entityProperty)] = $element;
         } else if ($element instanceof EntityReference) {
+            // id should be valid. Empty id could lead to problems
+            if (!$element->getId()) {
+                throw new Exception('Invalid id for insertion : ' . $element->getId());
+            }
             $this->entityReferences[$element->getId()] = $element;
         } else {
             throw new Exception('Invalid class ' . get_class($element). ' for adding in collection of ' . $this->entityClass);
@@ -78,6 +82,17 @@ class EntityReferenceCollection
     }
 
     /**
+     * Checks whether the collection contains an element with the specified key/index.
+     *
+     * @param $key
+     * @return bool
+     */
+    public function has($key)
+    {
+        return $this->containsKey($key);
+    }
+
+    /**
      * Gets the element at the specified key/index.
      *
      * @param string|integer $key The key/index of the element to retrieve.
@@ -113,7 +128,15 @@ class EntityReferenceCollection
      */
     public function getValues()
     {
-        return $this->entityReferences;
+        $values = [];
+
+        foreach ($this->entityReferences as $key => $entityReference) {
+            if ($entityReference instanceof EntityReference) {
+                $this->entityReferences[$key] = UnitOfWork::lazyLoad($entityReference);
+            }
+            $values[] = $this->entityReferences[$key];
+        }
+        return $values;
     }
 
     /**

@@ -4,7 +4,6 @@ imports:
     - { resource: admins.yml }
     - { resource: menus.yml }
     - { resource: game.yml }
-    - { resource: @BlueBearGameChessBundle/Resources/config/game.yml }
     - { resource: actions.yml }
     - { resource: fileupload.yml }
 
@@ -54,7 +53,7 @@ monolog:
 # Assetic Configuration
 assetic:
     write_to: %kernel.root_dir%/../web
-    debug:          %kernel.debug%
+    debug: %kernel.debug%
     use_controller: false
     bundles:
         - BlueBearBackofficeBundle
@@ -63,6 +62,12 @@ assetic:
     java: %java_path%
     filters:
         cssrewrite: ~
+        sass: ~
+        compass:
+            load_paths:
+                - "/usr/bin/compass"
+                - "%kernel.root_dir%/../vendor/log0ymxm"
+                - "%kernel.root_dir%/../web/bundles"
         yui_css:
             jar: "%kernel.root_dir%/Resources/java/yuicompressor.jar"
         yui_js:

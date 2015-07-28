@@ -3,16 +3,17 @@ imports:
     - { resource: forms.yml }
 
 parameters:
-    # engine
+    # 3ngine
     bluebear.engine.engine: BlueBear\EngineBundle\Engine\Engine
     bluebear.engine.context_factory: BlueBear\EngineBundle\Engine\Context\ContextFactory
 
-    # events subscribers
+    # Events Subscribers
     bluebear.engine.event.mapitem_leave_subscriber: BlueBear\EngineBundle\Event\MapItem\MapItemLeaveSubscriber
     bluebear.engine.event.mapitem_subscriber: BlueBear\EngineBundle\Event\Subscriber\MapItemSubscriber
     bluebear.engine.event.map_subscriber: BlueBear\EngineBundle\Event\Subscriber\MapSubscriber
     bluebear.engine.event.engine_subscriber: BlueBear\EngineBundle\Event\Subscriber\EngineSubscriber
     bluebear.engine.event.dynamic_mapping_subscriber: BlueBear\EngineBundle\Event\Subscriber\DynamicMappingSubscriber
+    bluebear.engine.event.game_subscriber: BlueBear\EngineBundle\Event\Subscriber\GameSubscriber
 
     # pathfinder
     bluebear.engine.path_finder: BlueBear\EngineBundle\Path\PathFinder
@@ -38,7 +39,7 @@ services:
             - [setSerializer, [@jms_serializer]]
             - [setAllowedEvents, [%bluebear.engine.events%]]
 
-    # events subscribers
+    # Events Subscribers
     bluebear.engine.event.mapitem_subscriber:
         class: %bluebear.engine.event.mapitem_subscriber%
         tags:
@@ -60,12 +61,21 @@ services:
             - {name: kernel.event_subscriber}
         calls:
             - [setEventDispatcher, [@event_dispatcher]]
+            - [setContextManager, [@bluebear.manager.context]]
+
+    bluebear.engine.event.game_subscriber:
+        class: %bluebear.engine.event.game_subscriber%
+        tags:
+            - {name: kernel.event_subscriber}
+        calls:
+            - [setContainer, [@service_container]]
 
     bluebear.kernel.terminate.listener:
          class: BlueBear\EngineBundle\Listener\KernelTerminateEventListener
          tags:
            - { name: kernel.event_listener, event: kernel.terminate, method: terminate }
 
+    # ContextFactory
     bluebear.engine.context_factory:
         class: %bluebear.engine.context_factory%
         calls:

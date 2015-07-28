@@ -16,7 +16,7 @@ race:
             classSize: medium
             racialTraits:
                 stupid: ~
-            weaponFamiliarities: [net, hypodermic gun]
+            weaponFamiliarities: [net, hypodermic_gun]
             languages: [human]
             description: bluebear.dungeon.human.description
             longDescription: bluebear.dungeon.human.long_description

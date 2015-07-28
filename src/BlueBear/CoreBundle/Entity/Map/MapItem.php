@@ -58,7 +58,7 @@ class MapItem
         return $this->pencil;
     }
 
-    public function setPencil(Pencil $pencil)
+    public function setPencil($pencil)
     {
         $this->pencil = $pencil;
         return $this;
@@ -69,7 +69,7 @@ class MapItem
         return $this->layer;
     }
 
-    public function setLayer(Layer $layer)
+    public function setLayer($layer)
     {
         $this->layer = $layer;
         return $this;
@@ -86,7 +86,7 @@ class MapItem
     /**
      * @param Context $context
      */
-    public function setContext(Context $context)
+    public function setContext($context)
     {
         $this->context = $context;
     }

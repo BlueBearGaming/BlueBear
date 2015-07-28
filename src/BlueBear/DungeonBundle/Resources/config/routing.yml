@@ -27,3 +27,7 @@ bluebear.dungeon.selectProfile:
 bluebear.dungeon.combat.create:
     path: /combat/create
     defaults: { _controller: BlueBearDungeonBundle:Combat:create }
+
+bluebear.dungeon.combat.run:
+    path: /combat/run/{gameId}
+    defaults: { _controller: BlueBearDungeonBundle:Combat:run }

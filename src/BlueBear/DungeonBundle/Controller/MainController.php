@@ -6,8 +6,9 @@ use BlueBear\BaseBundle\Behavior\ControllerTrait;
 use BlueBear\DungeonBundle\Entity\Attribute\Attribute;
 use BlueBear\DungeonBundle\Entity\CharacterClass\CharacterClass;
 use BlueBear\DungeonBundle\Entity\Dice\DiceRoller;
-use BlueBear\DungeonBundle\Entity\ORM\Character;
 use BlueBear\DungeonBundle\UnitOfWork\EntityReference;
+use BlueBear\EngineBundle\Entity\EntityModel;
+use BlueBear\EngineBundle\Entity\EntityModelAttribute;
 use Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -90,6 +91,9 @@ class MainController extends Controller
         $attributeNames = [];
         /** @var Attribute $attribute */
         foreach ($attributes as $attribute) {
+            if (!$attribute->creation) {
+                continue;
+            }
             $dices = $launcher->roll('4d6');
             $launcher->removeLowest($dices);
             $values[$attribute->code] = $launcher->sum($dices);
@@ -109,6 +113,8 @@ class MainController extends Controller
 
         if ($form->isValid()) {
             $data = $form->getData();
+            unset($data['attributes']['remaining']);
+            unset($data['attributes']['sum']);
 
             return $this->redirectToRoute('bluebear.dungeon.selectProfile', [
                 'race' => $data['race'],
@@ -167,13 +173,21 @@ class MainController extends Controller
         $class = $this->get('bluebear.engine.unit_of_work')->load(
             new EntityReference('BlueBear\DungeonBundle\Entity\CharacterClass\CharacterClass', $class)
         );
-        $lifeDiceCode = $class->attributeSetters->get('character.life')->setter;
-        $dice = $this->get('bluebear.dungeon.dice_roller')->roll($lifeDiceCode);
+        $lifeDiceCode = $class->attributeSetters->get($class->code . '.life')->setter;
+        $dices = $this->get('bluebear.dungeon.dice_roller')->roll($lifeDiceCode);
+        $sum = 0;
+
+        if (!is_array($dices)) {
+            $dices = [$dices];
+        }
+        foreach ($dices as $dice) {
+            $sum += (int)$dice->value;
+        }
         $form = $this->createForm('dungeon_character', [
             'race' => $race,
             'class' => $class->code,
             'attributes' => $request->get('attributes'),
-            'life' => $dice->value
+            'hitPoints' => $sum
         ], [
             'step' => 5
         ]);
@@ -181,17 +195,31 @@ class MainController extends Controller
 
         if ($form->isValid()) {
             $data = $form->getData();
-            $character = new Character();
-            $character->race = $data['race'];
-            $character->class = $data['class'];
-            $character->attributes = unserialize($data['attributes']);
-            $character->hitPoints = $data['life'];
-            $character->name = $data['name'];
+            $data['attributes'] = unserialize($data['attributes']);
+            $data['attributes']['hit_points'] = $data['hitPoints'];
+            $data['attributes']['max_hit_points'] = $data['hitPoints'];
+            $data['attributes']['status'] = 'alive';
+            $data['attributes']['race'] = $data['race'];
+            $data['attributes']['class'] = $data['class'];
+            // creating entity model
+            $character = new EntityModel();
+            $character->setName($data['name']);
+            $character->setLabel($data['name']);
+            $character->setType('unit');
+            // filling eav values
+            foreach ($data['attributes'] as $attributeName => $attributeValue) {
+                $attribute = new EntityModelAttribute();
+                $attribute->setName($attributeName);
+                $attribute->setValue($attributeValue);
+                $attribute->setType(is_numeric($attributeValue) ? 'integer' : 'string');
+                $character->addAttribute($attribute);
+            }
+            // persist entity model
+            $this
+                ->get('bluebear.manager.entity_model')
+                ->save($character);
 
-            $this->get('doctrine')->getManager()->persist($character);
-            $this->get('doctrine')->getManager()->flush($character);
-
-            return $this->redirectToRoute('bluebear_admin_character_list');
+            return $this->redirectToRoute('bluebear.admin.entity_model.list');
         }
 
         return [

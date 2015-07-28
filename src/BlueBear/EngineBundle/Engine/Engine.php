@@ -40,19 +40,21 @@ class Engine
 //            }
             // check if event is allowed
             if (!in_array($eventName, $this->getAllowedEvents())) {
-                throw new Exception('Invalid event name. Allowed events name are "' .
+                throw new Exception('Invalid event name ' . $eventName . '. Allowed events name are "' .
                     implode('", "', $this->getAllowedEvents()) . '"');
             }
-            if (!$eventData) {
-                throw new Exception('Empty event data');
+            if (!is_string($eventData)) {
+                throw new Exception('You should pass a json string as engine event data instead of ' . print_r($eventData, true));
             }
             // deserialize event request
             $eventRequest = $this->getRequestForEvent($eventName, $eventData);
             $eventResponse = $this->getResponseForEvent($eventName);
-            $engineEvent = new EngineEvent($eventRequest, $eventResponse);
+            $eventClass = $this->getClassForEvent($eventName);
+            /** @var EngineEvent $engineEvent */
+            $engineEvent = new $eventClass($eventRequest, $eventResponse);
             $engineEvent->setOriginEventName($eventName);
             // trigger onEngineEvent
-            $this->getEventDispatcher()->dispatch(EngineEvent::ENGINE_ON_ENGINE_EVENT, $engineEvent);
+            $this->getEventDispatcher()->dispatch('bluebear.engine.engineEvent', $engineEvent);
             // trigger required event
             $this->getEventDispatcher()->dispatch($eventName, $engineEvent);
         } catch (Exception $e) {
@@ -109,6 +111,23 @@ class Engine
         return new $responseClass($eventName);
     }
 
+    protected function getClassForEvent($eventName)
+    {
+        if (!array_key_exists($eventName, $this->allowedEvents)) {
+            throw new Exception("Not allowed event name \"{$eventName}\"");
+        }
+        if (array_key_exists('event_class', $this->allowedEvents[$eventName])) {
+            $eventClass = $this->allowedEvents[$eventName]['event_class'];
+
+            if (!is_subclass_of($eventClass, 'BlueBear\EngineBundle\Event\EngineEvent')) {
+                throw new Exception("{$eventClass} should extend 'BlueBear\\EngineBundle\\Event\\EngineEvent'");
+            }
+        } else {
+            $eventClass = 'BlueBear\EngineBundle\Event\EngineEvent';
+        }
+        return $eventClass;
+    }
+
     /**
      * @param array $eventsConfig
      * @throws Exception
@@ -136,4 +155,4 @@ class Engine
     {
         return array_keys($this->allowedEvents);
     }
-} 
+}

@@ -33,7 +33,7 @@ class Layer
      * @ORM\Column(name="z_index", type="integer")
      * @Serializer\Expose()
      */
-    protected $index;
+    protected $index = 0;
 
     /**
      *
@@ -44,7 +44,7 @@ class Layer
     public function isAllowed(array $layers)
     {
         foreach ($layers as $layer) {
-            if ($layer->getId() == $this->getId() and
+            if ($layer->getId() == $this->getId() &&
                 $layer->getName() == $this->getName()
             ) {
                 return true;
