@@ -36,6 +36,11 @@ class Player
      */
     protected $enabled = false;
 
+    public function __toString()
+    {
+        return $this->name;
+    }
+
     /**
      * @return boolean
      */

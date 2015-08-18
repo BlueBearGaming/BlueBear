@@ -2,7 +2,7 @@ set :domain,               "ks3313894.kimsufi.com"
 set :deploy_to,            "/home/bluebear/www/"
 set :app_path,             "app"
 set :user,                 "bluebear"
-set :branch,               "master"
+set :branch,               "dev"
 ssh_options[:port] =       "22"
 
 role :web,                 domain

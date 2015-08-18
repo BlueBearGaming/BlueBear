@@ -3,28 +3,16 @@
 namespace BlueBear\DungeonBundle\Controller;
 
 use BlueBear\BaseBundle\Behavior\ControllerTrait;
-use BlueBear\CoreBundle\Constant\Map\Constant;
-use BlueBear\CoreBundle\Entity\Game\Game;
-use BlueBear\CoreBundle\Entity\Game\GameAction;
-use BlueBear\CoreBundle\Entity\Map\Layer;
-use BlueBear\CoreBundle\Entity\Map\Map;
 use BlueBear\CoreBundle\Entity\Map\Player;
-use BlueBear\CoreBundle\Utils\Position;
 use BlueBear\DungeonBundle\Form\Type\CombatType;
 use BlueBear\EngineBundle\Entity\EntityModel;
 use BlueBear\EngineBundle\Event\Data\CombatData;
-use BlueBear\EngineBundle\Event\Data\CombatInitData;
 use BlueBear\EngineBundle\Event\EngineEvent;
-use BlueBear\EngineBundle\Event\EventRequest;
 use BlueBear\EngineBundle\Event\GameEvent;
-use BlueBear\EngineBundle\Event\Request\CombatRequest;
 use BlueBear\EngineBundle\Event\Request\GameCreateRequest;
-use BlueBear\EngineBundle\Event\Response\CombatResponse;
 use BlueBear\EngineBundle\Event\Response\ErrorResponse;
-use BlueBear\EngineBundle\Event\Response\GameTurnResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -53,12 +41,15 @@ class CombatController extends Controller
             ->getEntityManager()
             ->getRepository('BlueBearCoreBundle:Map\Player')
             ->findAll();
-
         $form = $this->createForm(new CombatType(), null, [
             'entities' => $this->sortCharacters($characters),
             'players' => $this->sortPlayers($players)
         ]);
         $form->handleRequest($request);
+        // games in progress
+        $games = $this
+            ->get('bluebear.manager.game')
+            ->findInProgress();
 
         if ($form->isValid()) {
             $data = $form->getData();
@@ -83,7 +74,8 @@ class CombatController extends Controller
             ]);
         }
         return [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'games' => $games
         ];
     }
 
@@ -105,10 +97,10 @@ class CombatController extends Controller
         $eventResponse = $event->getResponse();
 
         if ($eventResponse instanceof ErrorResponse) {
+            // TODO handle event errors
             print_r($eventResponse);
             die;
         }
-
         if ($request->isXmlHttpRequest()) {
             if ($event->getName() == EngineEvent::ENGINE_GAME_TURN) {
                 /** @var CombatData $data */

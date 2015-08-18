@@ -53,6 +53,7 @@ class EntityInstanceType extends AbstractType
             $builder->add('attributes', 'attribute_collection', [
                 'type' => 'entity_instance_attribute'
             ]);
+            $builder->add('army');
         }
     }
 

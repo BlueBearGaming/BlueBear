@@ -2,6 +2,7 @@
 
 namespace BlueBear\EngineBundle\Event\Data;
 
+use BlueBear\EngineBundle\Entity\EntityInstance;
 use JMS\Serializer\Annotation as Serializer;
 
 class CombatData
@@ -11,6 +12,7 @@ class CombatData
      *
      * @Serializer\Expose()
      * @Serializer\Type("BlueBear\EngineBundle\Entity\EntityInstance")
+     * @var EntityInstance
      */
     public $source;
 

@@ -15,12 +15,8 @@ class CombatType extends AbstractType
         $builder
             ->add('fighter_1', 'choice', [
                 'choices' => $options['entities']
-            ])->add('player_1', 'choice', [
-                'choices' => $options['players']
             ])->add('fighter_2', 'choice', [
                 'choices' => $options['entities']
-            ])->add('player_2', 'choice', [
-                'choices' => $options['players']
             ]);
         // TODO add validator to not have the same player and the unit twice
     }

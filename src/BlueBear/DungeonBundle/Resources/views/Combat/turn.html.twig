@@ -1,6 +1,6 @@
-<div class="turn turn-{{ data.turn }}-{{ data.source.id }}">
-    <p>{{ data.turn }}</p>
-    <p>{{ data.source.label }}</p>
+<div class="turn turn-{{ data.turn }}-{{ data.source.id }} turn-{{ data.turn }}">
+    <p>Turn {{ data.turn }}</p>
+    <p>{{ data.source.label }} ({{ data.source.army.player.name }})</p>
     <p>{{ data.source.get('hit_points') }}/{{ data.source.get('max_hit_points') }}</p>
     <p>{{ data.source.get('race') }}</p>
     <ul>
@@ -25,10 +25,12 @@
         contextId: {{ data.contextId }},
         attackerId: {{ data.source.id }},
         defenderId: {{ data.targets[0].id }}, {# only one target handle in hell arena #}
-        turn: {{ data.turn + 1 }},
+        turn: {{ data.turn }},
         attack: ''
     };
     var attackForm = $('.turn-' + {{ data.turn }} + '-' + {{ data.source.id }} + ' form');
+
+    console.log('attackRequest', attackRequest);
 
     attackForm.off().on('submit', function () {
         attackRequest.attack = attackForm.data('attack');
@@ -42,6 +44,10 @@
                 console.log('attack success', response);
                 var combatForm = $('.combat-form');
                 combatForm.submit();
+                // hiding previous form combat
+                attackForm.fadeOut();
+                // hiding previous turn container
+                $('.turn- ' + {{ data.turn - 1 }}).hide();
             }
         });
         return false;

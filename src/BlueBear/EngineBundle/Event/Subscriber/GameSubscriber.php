@@ -226,6 +226,7 @@ class GameSubscriber implements EventSubscriberInterface
         $event->getResponse()->setData($actionData);
     }
 
+    // TODO move in combat subscriber
     public function onCombatAttack(GameEvent $event)
     {
         /** @var AttackRequest $request */
@@ -257,6 +258,7 @@ class GameSubscriber implements EventSubscriberInterface
         $entityInstanceManager->save($defender);
         $entityInstanceManager->flush();
 
+        // creating a request for end of turn event
         $endOfTurnRequest = new GameTurnRequest();
         $endOfTurnRequest->contextId = $request->contextId;
         $endOfTurnRequest->gameId = $request->gameId;
@@ -264,16 +266,16 @@ class GameSubscriber implements EventSubscriberInterface
         $endOfTurnRequest->targetsIds = [
             $defender->getId()
         ];
+        $endOfTurnRequest->turn = $request->turn;
 
+        // at the end of a combat, we dispatch an end of turn for this entity instance
         $endOfTurnEvent = new GameEvent();
         $endOfTurnEvent->setName(EngineEvent::ENGINE_GAME_END_OF_TURN);
         $endOfTurnEvent->setRequest($endOfTurnRequest);
-
         $this
             ->container
             ->get('event_dispatcher')
             ->dispatch(EngineEvent::ENGINE_GAME_END_OF_TURN, $endOfTurnEvent);
-
     }
 
     public function onEndOfTurn(GameEvent $event)

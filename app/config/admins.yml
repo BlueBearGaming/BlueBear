@@ -88,6 +88,7 @@ blue_bear_admin:
                         id: ~
                         name: ~
                         label: ~
+                        army: ~
                     export: [html, xml, xls, csv, json]
                 create: ~
                 edit: ~
@@ -122,6 +123,22 @@ blue_bear_admin:
                         createdAt: ~
                         updatedAt: ~
                         enabled: ~
+                create:
+                    permissions: [ROLE_ADMIN]
+                edit:
+                    permissions: [ROLE_ADMIN]
+                delete:
+                    permissions: [ROLE_ADMIN]
+        army:
+            entity: BlueBear\CoreBundle\Entity\Map\Army
+            form: army
+            actions:
+                list:
+                    fields:
+                        id: ~
+                        name: ~
+                        label: ~
+                        player: ~
                 create:
                     permissions: [ROLE_ADMIN]
                 edit:

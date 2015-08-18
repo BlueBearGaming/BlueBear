@@ -7,6 +7,7 @@ use BlueBear\CoreBundle\Entity\Behavior\Label;
 use BlueBear\CoreBundle\Entity\Behavior\Nameable;
 use BlueBear\CoreBundle\Entity\Behavior\Timestampable;
 use BlueBear\CoreBundle\Entity\Behavior\Typeable;
+use BlueBear\CoreBundle\Entity\Map\Army;
 use BlueBear\CoreBundle\Entity\Map\MapItem;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -30,6 +31,7 @@ class EntityInstance
 
     /**
      * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Army", inversedBy="entityInstances")
+     * @var Army
      */
     protected $army;
 

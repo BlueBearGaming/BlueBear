@@ -31,6 +31,20 @@ class GameManager
         return $game;
     }
 
+    /**
+     * Return running games
+     *
+     * @return Game[]
+     */
+    public function findInProgress()
+    {
+        return $this
+            ->getRepository()
+            ->findInProgress()
+            ->getQuery()
+            ->getResult();
+    }
+
     public function getRepository()
     {
         return $this

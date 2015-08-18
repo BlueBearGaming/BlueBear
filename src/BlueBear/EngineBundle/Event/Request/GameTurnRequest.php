@@ -33,7 +33,7 @@ class GameTurnRequest extends EventRequest
      * @Serializer\Expose()
      * @Serializer\Type("integer")
      */
-    public $turn = 0;
+    public $turn;
 
     /**
      * @Serializer\Expose()
