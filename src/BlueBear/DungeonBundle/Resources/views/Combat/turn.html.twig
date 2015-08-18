@@ -8,8 +8,7 @@
             <li>
                 <form action="{{ path('bluebear_engine_trigger_event', {eventName: 'bluebear.combat.attack'}) }}"
                       method="post" class="attack-form" data-attack="{{ attack.code }}">
-                    <p>{{ attack.label }}</p>
-
+                    <p>{{ attack.label }}&nbsp;(Damage : {{ attack.damage }})</p>
                     <p>{{ attack.description }}</p>
                     <input type="hidden" name="eventData"/>
                     <input type="submit" class="btn btn-default" value="Attack"/>
@@ -28,11 +27,10 @@
         turn: {{ data.turn }},
         attack: ''
     };
-    var attackForm = $('.turn-' + {{ data.turn }} + '-' + {{ data.source.id }} + ' form');
+    var attackForms = $('.turn-' + {{ data.turn }} + '-' + {{ data.source.id }} + ' form');
 
-    console.log('attackRequest', attackRequest);
-
-    attackForm.off().on('submit', function () {
+    attackForms.find('input[type=submit]').on('click', function () {
+        var attackForm = $(this).parents('form');
         attackRequest.attack = attackForm.data('attack');
         attackForm.find('input[name="eventData"]').val(JSON.stringify(attackRequest));
 
@@ -40,14 +38,19 @@
             url: attackForm.attr('action'),
             method: 'post',
             data: attackForm.serialize(),
-            success: function (response) {
-                console.log('attack success', response);
+            success: function () {
                 var combatForm = $('.combat-form');
                 combatForm.submit();
                 // hiding previous form combat
-                attackForm.fadeOut();
+                attackForms.each(function (index, form) {
+                    if ($(form).data('attack') != attackRequest.attack) {
+                        $(form).parent('li').hide();
+                    } else {
+                        $(form).find('input[type=submit]').hide();
+                    }
+                });
                 // hiding previous turn container
-                $('.turn- ' + {{ data.turn - 1 }}).hide();
+                $('.turn-' + '{{ data.turn - 1 }}').hide();
             }
         });
         return false;
