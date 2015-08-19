@@ -1,0 +1,13 @@
+{% extends '@BlueBearGame/layout.html.twig' %}
+
+{% block content %}
+    PANDA ??
+
+    <a href="{{ path('bluebear.game.newGame') }}">{{ 'bluebear.game.menu.newGame' | trans }}</a>
+    <a href="" onclick="alert('lol ;)');return false;">{{ 'bluebear.game.menu.loadGame' | trans }}</a>
+    <a href="" onclick="alert('still no');return false;">{{ 'bluebear.game.menu.options' | trans }}</a>
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}

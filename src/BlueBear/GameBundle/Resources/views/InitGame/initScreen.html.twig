@@ -1,0 +1,15 @@
+{% extends '@BlueBearGame/layout.html.twig' %}
+
+{% block content %}
+    <blink>PRESS START</blink>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(document).on('ready', function () {
+            $(document).on('keypress', function () {
+                window.location.href = '{{ path('bluebear.game.mainMenu') }}';
+            });
+        });
+    </script>
+{% endblock %}

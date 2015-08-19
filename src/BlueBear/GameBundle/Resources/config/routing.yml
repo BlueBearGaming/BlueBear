@@ -1,0 +1,13 @@
+# Create a new BlueBear game
+bluebear.game.initScreen:
+    path:     /game/create
+    defaults: { _controller: BlueBearGameBundle:InitGame:initScreen }
+
+# Display main menu
+bluebear.game.mainMenu:
+    path:     /game/menu
+    defaults: { _controller: BlueBearGameBundle:InitGame:mainMenu }
+
+bluebear.game.newGame:
+    path:     /game/new
+    defaults: { _controller: BlueBearGameBundle:InitGame:newGame }

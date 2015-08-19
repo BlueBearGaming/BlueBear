@@ -1,0 +1,18 @@
+{% extends '@BlueBearGame/layout.html.twig' %}
+
+{% block content %}
+    <style>
+        /* For debugging purpose only */
+        canvas {
+            background: white;
+            width: 100%;
+            height: 600px;
+        }
+    </style>
+    <canvas id="canvas_map" data-options="{{ jikpozeOptions|json_encode }}"></canvas>
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}
+

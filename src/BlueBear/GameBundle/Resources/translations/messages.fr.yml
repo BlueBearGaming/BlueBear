@@ -1,0 +1,6 @@
+bluebear:
+    game:
+        menu:
+            newGame: Nouvelle Partie
+            loadGame: Charger une Partie
+            options: Options
