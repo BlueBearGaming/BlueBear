@@ -61,7 +61,7 @@ class ChessContextUtilities extends ContextUtilities
             if ($this->isOutsideOfBoard($x, $y)) {
                 return self::BLOCKED;
             }
-            if ($this->isKingChecked($piece, $x, $y)) {
+            if ($this->isKingInCheck($piece, $x, $y)) {
                 return self::BLOCKED;
             }
             // Move to free position
@@ -83,7 +83,7 @@ class ChessContextUtilities extends ContextUtilities
     {
         $found = $this->findByPosition($x, $y);
         if ($found && $found->isWhite() !== $piece->isWhite()) { // If found is of the opposite color of the actual player
-            if ($this->isKingChecked($piece, $x, $y)) {
+            if ($this->isKingInCheck($piece, $x, $y)) {
                 return self::BLOCKED;
             }
             // Capture the opponent's piece
@@ -152,7 +152,7 @@ class ChessContextUtilities extends ContextUtilities
      * @param $y
      * @return bool
      */
-    public function isKingChecked(Piece $piece, $x, $y)
+    public function isKingInCheck(Piece $piece, $x, $y)
     {
         // @todo check if king is checked with new move
         return false;

@@ -18,11 +18,11 @@ set :use_set_permissions,  true
 
 set :dump_assetic_assets, true
 set :shared_files,        ["app/config/parameters.yml"]
-set :shared_children,     [app_path + "/logs", web_path + "/uploads", web_path + "/resources", "vendor"]
+set :shared_children,     [app_path + "/logs", web_path + "/uploads", web_path + "/resources", "vendor", web_path + "/jikpoze", "node_modules"]
 set :use_composer,        true
 set :update_vendors,      false
 
-set :repository,       "https://bluebear@github.com/CleverGaming/BlueBear.git"
+set :repository,       "git@github.com:BlueBearGaming/BlueBear.git"
 set :scm,              :git
 set :deploy_via,       :remote_cache
 set :model_manager,    "doctrine"

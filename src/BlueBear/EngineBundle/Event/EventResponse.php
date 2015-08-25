@@ -6,17 +6,10 @@ use JMS\Serializer\Annotation\AccessorOrder;
 /**
  * EventResponse
  *
- * @AccessorOrder("custom", custom={"code", "timestamp", "name", "data"})
+ * @AccessorOrder("custom", custom={"code", "uid", "timestamp", "name", "data"})
  */
 abstract class EventResponse
 {
-    /**
-     * Response class name ("bluebear.game.myEvent" for example)
-     *
-     * @var string
-     */
-    public $name;
-
     /**
      * Response code (KO or OK)
      *
@@ -25,11 +18,11 @@ abstract class EventResponse
     public $code;
 
     /**
-     * Response data
+     * Unique ID
      *
-     * @var mixed
+     * @var string
      */
-    protected $data;
+    public $uid;
 
     /**
      * Response date (timestamp)
@@ -37,6 +30,21 @@ abstract class EventResponse
      * @var int
      */
     public $timestamp;
+
+    /**
+     * Response class name ("bluebear.game.myEvent" for example)
+     *
+     * @var string
+     */
+    public $name;
+
+    /**
+     * Response data. This property is protected because you should implement a setData method to organize data part of
+     * the response
+     *
+     * @var mixed
+     */
+    protected $data;
 
     public function __construct($eventName)
     {
@@ -56,5 +64,6 @@ abstract class EventResponse
     public function setData($data)
     {
         $this->data = $data;
+        $this->uid = uniqid('bluebear');
     }
 }
