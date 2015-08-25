@@ -20,7 +20,7 @@ class UploadExtension extends Twig_Extension
         return $this
             ->getContainer()
             ->get('twig')
-            ->getExtension('assets')
+            ->getExtension('asset')
             ->getAssetUrl('resources/images/' . $fileName, null, $absolute);
     }
 
