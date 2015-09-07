@@ -1,33 +1,28 @@
-load 'deploy' if respond_to?(:namespace) # cap2 differentiator
+# Load DSL and set up stages
+require 'capistrano/setup'
 
-require 'capifony_symfony2'
+# Include default deployment tasks
+require 'capistrano/deploy'
+require 'capistrano/symfony'
 
-set :stages, %w(staging vince)
-set :default_stage, "staging"
-set :stage_dir,     "app/config/capifony"
+# Include tasks from other gems included in your Gemfile
+#
+# For documentation on these, see for example:
+#
+#   https://github.com/capistrano/rvm
+#   https://github.com/capistrano/rbenv
+#   https://github.com/capistrano/chruby
+#   https://github.com/capistrano/bundler
+#   https://github.com/capistrano/rails
+#   https://github.com/capistrano/passenger
+#
+# require 'capistrano/rvm'
+# require 'capistrano/rbenv'
+# require 'capistrano/chruby'
+# require 'capistrano/bundler'
+# require 'capistrano/rails/assets'
+# require 'capistrano/rails/migrations'
+# require 'capistrano/passenger'
 
-set :application,          "BlueBear"
-set :use_sudo,             false
-set :controllers_to_clear, ['none']
-set :composer_options,  "--verbose --prefer-dist --optimize-autoloader --no-progress"
-
-set :writable_dirs,        ["app/cache", "app/logs"]
-set :webserver_user,      "bluebear"
-set :permission_method,   :acl
-set :use_set_permissions,  true
-
-set :dump_assetic_assets, true
-set :shared_files,        ["app/config/parameters.yml"]
-set :shared_children,     [app_path + "/logs", web_path + "/uploads", web_path + "/resources", "vendor", web_path + "/jikpoze", "node_modules"]
-set :use_composer,        true
-set :update_vendors,      false
-
-set :repository,       "git@github.com:BlueBearGaming/BlueBear.git"
-set :scm,              :git
-set :deploy_via,       :remote_cache
-set :model_manager,    "doctrine"
-
-set :keep_releases,  2
-after "deploy:update",     "deploy:cleanup"
-
-require 'capistrano/ext/multistage'
+# Load custom tasks from `lib/capistrano/tasks` if you have any defined
+Dir.glob('lib/capistrano/tasks/*.rake').each { |r| import r }
