@@ -1,0 +1,20 @@
+{% extends '@BlueBearBackoffice/layout.html.twig' %}
+
+{% block content %}
+    <style>
+        table td {
+            height: 50px;
+            width: 50px;
+        }
+    </style>
+
+    <table>
+        {% for row in cells %}
+            <tr>
+            {% for cell in row %}
+                <td>lol</td>
+            {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

@@ -1,0 +1,3 @@
+bluebear.firegame.run:
+    path:     /run
+    defaults: { _controller: BlueBearFireBundle:Game:run }

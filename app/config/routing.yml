@@ -1,3 +1,7 @@
+blue_bear_fire:
+    resource: "@BlueBearFireBundle/Resources/config/routing.yml"
+    prefix:   /fire
+
 blue_bear_dungeon:
     resource: "@BlueBearDungeonBundle/Resources/config/routing.yml"
     prefix:   /dungeon
