@@ -2,35 +2,40 @@
 
 namespace BlueBear\FireBundle\Render\Grid;
 
+use BlueBear\FireBundle\Render\Cell\Cell;
+use BlueBear\FireBundle\Render\Fire\Fire;
+use BlueBear\FireBundle\Render\Fireman\Fireman;
 
 class GridBuilder
 {
     public function build()
     {
-        $configuration = $this->getCellConfiguration();
         $cells = [];
+        $x = 0;
+        $rowCount = 5;
+        $columnCount = 5;
 
-        foreach ($configuration as $x => $row) {
-            foreach ($row as $y => $cell) {
+        while ($x < $rowCount) {
+            $y = 0;
+
+            while ($y < $columnCount) {
                 $cells[$x][$y] = new Cell($x, $y);
+                $y++;
             }
+            $x++;
         }
-        return new Grid($cells);
+        return new Grid($cells, $this->getFireman(), $this->getFires());
     }
 
-    protected function getCellConfiguration()
+    protected function getFireman()
     {
-        return [
-            [
-                [],
-                [],
-                []
-            ],
-            [
-                [],
-                [],
-                []
-            ],
-        ];
+        return new Fireman(0, 0);
+    }
+
+    protected function getFires()
+    {
+        $fires[4][4] = new Fire(4, 4);
+
+        return $fires;
     }
 }

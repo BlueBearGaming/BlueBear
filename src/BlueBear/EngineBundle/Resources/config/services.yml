@@ -34,10 +34,11 @@ services:
     # engine
     bluebear.engine.engine:
         class: %bluebear.engine.engine%
+        arguments:
+            - @event_dispatcher
+            - @jms_serializer
         calls:
-            - [setEventDispatcher, [@event_dispatcher]]
-            - [setSerializer, [@jms_serializer]]
-            - [setAllowedEvents, [%bluebear.engine.events%]]
+            - [registerEvents, [%bluebear.engine.events%]]
 
     # Events Subscribers
     bluebear.engine.event.mapitem_subscriber:

@@ -16,6 +16,9 @@ class GameControllerTest extends WebTestCase
         $this->assertTrue($crawler->filter('table > tr > td')->count() > 0);
 
         // map must have a fireman
-        //$this->assertTrue($crawler->filter('td.fireman')->count() > 0);
+        $this->assertTrue($crawler->filter('td.fireman')->count() > 0);
+
+        // map must have at least one fire
+        $this->assertTrue($crawler->filter('td.fire')->count() > 0);
     }
 }

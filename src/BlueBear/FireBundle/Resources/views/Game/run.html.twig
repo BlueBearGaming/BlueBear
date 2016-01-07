@@ -5,16 +5,49 @@
         table td {
             height: 50px;
             width: 50px;
+            padding: 20px;
+            cursor: pointer;
+        }
+        .fireman {
+            background: red;            
+        }
+        .fire {
+            background: orange;
         }
     </style>
 
     <table>
-        {% for row in cells %}
+        {% for row in map.cells %}
             <tr>
             {% for cell in row %}
-                <td>lol</td>
+
+                {% if map.fireman.x == cell.x and map.fireman.y == cell.y %}
+                    <td class="fireman">
+                        FIREMAN
+                    </td>
+                {% elseif map.getFire(cell.x, cell.y) %}
+                    <td class="fire">
+                        FIRE
+                    </td>
+                {% else %}
+                    <td class="land">
+                        EMPTY
+                    </td>
+                {% endif %}
             {% endfor %}
             </tr>
         {% endfor %}
     </table>
+
+    <script>
+        $(document).on('ready', function () {
+
+        });
+    </script>
+
+    {{ client.renderChat | raw }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ client.render | raw }}
 {% endblock %}

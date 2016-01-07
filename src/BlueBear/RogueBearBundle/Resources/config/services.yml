@@ -1,4 +1,0 @@
-services:
-#    blue_bear_rogue_bear.example:
-#        class: BlueBear\RogueBearBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]

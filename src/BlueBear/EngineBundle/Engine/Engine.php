@@ -5,9 +5,14 @@ namespace BlueBear\EngineBundle\Engine;
 use BlueBear\CoreBundle\Entity\Behavior\HasEventDispatcher;
 use BlueBear\CoreBundle\Entity\Behavior\HasSerializer;
 use BlueBear\EngineBundle\Event\EngineEvent;
+use BlueBear\EngineBundle\Event\EngineEventDefinition;
 use BlueBear\EngineBundle\Event\EventRequest;
 use BlueBear\EngineBundle\Event\Response\ErrorResponse;
 use Exception;
+use JMS\Serializer\SerializerInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpFoundation\ParameterBag;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Engine
@@ -16,12 +21,38 @@ use Exception;
  */
 class Engine
 {
-    use HasEventDispatcher, HasSerializer;
-
     const RESPONSE_CODE_OK = 'ok';
     const RESPONSE_CODE_KO = 'ko';
 
     protected $allowedEvents = [];
+
+    /**
+     * @var ParameterBag
+     */
+    protected $eventDefinitions;
+
+    /**
+     * @var EventDispatcherInterface
+     */
+    protected $eventDispatcher;
+
+    /**
+     * @var SerializerInterface
+     */
+    protected $serializer;
+
+    /**
+     * Engine constructor. Initialize event definitions parameter bag
+     *
+     * @param EventDispatcherInterface $eventDispatcher
+     * @param SerializerInterface $serializer
+     */
+    public function __construct(EventDispatcherInterface $eventDispatcher, SerializerInterface $serializer)
+    {
+        $this->eventDefinitions = new ParameterBag();
+        $this->eventDispatcher = $eventDispatcher;
+        $this->serializer = $serializer;
+    }
 
     /**
      * Run map engine with an event name and event data
@@ -33,19 +64,19 @@ class Engine
     public function run($eventName, $eventData)
     {
         try {
-            // TODO add allowed namespaces in conf
-//            // only BlueBear events are allowed to be triggered here, not Symfony ones
-//            if (strpos($eventName, 'bluebear.') !== 0) {
-//                throw new Exception('Invalid event name. Bluebear events name should start with "bluebear."');
-//            }
             // check if event is allowed
-            if (!in_array($eventName, $this->getAllowedEvents())) {
-                throw new Exception('Invalid event name ' . $eventName . '. Allowed events name are "' .
-                    implode('", "', $this->getAllowedEvents()) . '"');
+            if (!in_array($eventName, $this->eventDefinitions->keys())) {
+                throw new Exception('Not allowed event ' . $eventName);
             }
             if (!is_string($eventData)) {
                 throw new Exception('You should pass a json string as engine event data instead of ' . print_r($eventData, true));
             }
+            $eventDefinition = $this
+                ->eventDefinitions
+                ->get($eventName);
+
+
+
             // deserialize event request
             $eventRequest = $this->getRequestForEvent($eventName, $eventData);
             $eventResponse = $this->getResponseForEvent($eventName);
@@ -73,6 +104,30 @@ class Engine
         }
         // return event
         return $engineEvent;
+    }
+
+    public function registerEvents(array $eventsConfiguration)
+    {
+        $resolver = new OptionsResolver();
+
+        foreach ($eventsConfiguration as $name => $eventConfiguration) {
+            // check event configuration validity
+            $resolver->clear();
+            $resolver->setRequired([
+                'request',
+                'response',
+            ]);
+            $resolver->setAllowedTypes('request', 'string');
+            $resolver->setAllowedTypes('response', 'string');
+            $eventConfiguration = $resolver->resolve($eventConfiguration);
+
+            // add definition to the bag
+            $this->eventDefinitions->set($name, new EngineEventDefinition(
+                $name,
+                $eventConfiguration['request'],
+                $eventConfiguration['response']
+            ));
+        }
     }
 
     protected function getRequestForEvent($eventName, $eventData)

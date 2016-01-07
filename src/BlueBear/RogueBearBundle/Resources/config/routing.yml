@@ -1,3 +1,0 @@
-blue_bear_rogue_bear_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: BlueBearRogueBearBundle:Default:index }

@@ -41,8 +41,6 @@ class AppKernel extends Kernel
             new BlueBear\MenuBundle\BlueBearMenuBundle(),
             new BlueBear\FileUploadBundle\BlueBearFileUploadBundle(),
             new BlueBear\AdminBundle\BlueBearAdminBundle(),
-            //new BlueBear\GameChessBundle\BlueBearGameChessBundle(),
-            new BlueBear\RogueBearBundle\BlueBearRogueBearBundle(),
             new BlueBear\DungeonBundle\BlueBearDungeonBundle(),
             new BlueBear\FireBundle\BlueBearFireBundle(),
         );

@@ -1,7 +1,6 @@
 <?php
 
-namespace BlueBear\FireBundle\Render\Grid;
-
+namespace BlueBear\FireBundle\Render\Cell;
 
 class Cell
 {

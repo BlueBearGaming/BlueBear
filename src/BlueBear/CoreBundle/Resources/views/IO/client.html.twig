@@ -1,0 +1,28 @@
+<script src="/js/socket.io.js"></script>
+<script src="/js/mousetrap.min.js"></script>
+<script>
+    var BlueBearClient = {
+        socket: null,
+
+        init: function () {
+            this.socket = io('{{ serverUrl }}');
+            this.socket.on('message', function (response) {
+                $('#{{ chatId }}').append('<br/>' + response.message);
+            });
+
+            // bind keyboard interaction
+            Mousetrap.bind('right', function() {
+                console.log('right');
+                BlueBearClient.move('right');
+            });
+        },
+
+        move: function (direction) {
+            this.socket.emit('bluebear.fire.move');
+        }
+    };
+
+    $(document).on('ready', function () {
+        BlueBearClient.init();
+    });
+</script>

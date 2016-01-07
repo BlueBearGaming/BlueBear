@@ -3,7 +3,6 @@
 namespace BlueBear\FireBundle\Controller;
 
 use BlueBear\BaseBundle\Behavior\ControllerTrait;
-use BlueBear\FireBundle\Render\Grid\Grid;
 use BlueBear\FireBundle\Render\Grid\GridBuilder;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -17,7 +16,8 @@ class GameController extends Controller
         $grid = $builder->build();
 
         return $this->render('@BlueBearFire/Game/run.html.twig', [
-            'cells' => $grid->getCells()
+            'map' => $grid,
+            'client' => $this->get('bluebear.io.client')
         ]);
     }
 }
