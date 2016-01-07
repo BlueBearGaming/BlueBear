@@ -6,12 +6,16 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class GameControllerTest extends WebTestCase
 {
-    public function testIndex()
+    public function testRun()
     {
+        // create web client
         $client = static::createClient();
-
         $crawler = $client->request('GET', '/fire/run');
 
+        // map must be created with cells into rows
         $this->assertTrue($crawler->filter('table > tr > td')->count() > 0);
+
+        // map must have a fireman
+        //$this->assertTrue($crawler->filter('td.fireman')->count() > 0);
     }
 }
