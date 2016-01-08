@@ -2,11 +2,9 @@
 
 namespace BlueBear\EngineBundle\Engine;
 
-use BlueBear\CoreBundle\Entity\Behavior\HasEventDispatcher;
-use BlueBear\CoreBundle\Entity\Behavior\HasSerializer;
 use BlueBear\EngineBundle\Event\EngineEvent;
 use BlueBear\EngineBundle\Event\EngineEventDefinition;
-use BlueBear\EngineBundle\Event\EventRequest;
+use BlueBear\EngineBundle\Event\EngineEventInterface;
 use BlueBear\EngineBundle\Event\Response\ErrorResponse;
 use Exception;
 use JMS\Serializer\SerializerInterface;
@@ -21,10 +19,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class Engine
 {
-    const RESPONSE_CODE_OK = 'ok';
-    const RESPONSE_CODE_KO = 'ko';
-
-    protected $allowedEvents = [];
+    const RESPONSE_CODE_OK = 200;
+    const RESPONSE_CODE_KO = 500;
 
     /**
      * @var ParameterBag
@@ -42,6 +38,13 @@ class Engine
     protected $serializer;
 
     /**
+     * Format for request and response serialization
+     *
+     * @var string
+     */
+    protected $serializationFormat = 'json';
+
+    /**
      * Engine constructor. Initialize event definitions parameter bag
      *
      * @param EventDispatcherInterface $eventDispatcher
@@ -55,7 +58,7 @@ class Engine
     }
 
     /**
-     * Run map engine with an event name and event data
+     * Trigger game event according to event name and event request and response configuration
      *
      * @param $eventName
      * @param $eventData
@@ -63,6 +66,8 @@ class Engine
      */
     public function run($eventName, $eventData)
     {
+        $event = null;
+
         try {
             // check if event is allowed
             if (!in_array($eventName, $this->eventDefinitions->keys())) {
@@ -71,41 +76,39 @@ class Engine
             if (!is_string($eventData)) {
                 throw new Exception('You should pass a json string as engine event data instead of ' . print_r($eventData, true));
             }
+            // get definition according to event name
             $eventDefinition = $this
                 ->eventDefinitions
                 ->get($eventName);
+            // create event from definition
+            $event = $this->createEvent($eventDefinition, $eventData);
 
-
-
-            // deserialize event request
-            $eventRequest = $this->getRequestForEvent($eventName, $eventData);
-            $eventResponse = $this->getResponseForEvent($eventName);
-            $eventClass = $this->getClassForEvent($eventName);
-            /** @var EngineEvent $engineEvent */
-            $engineEvent = new $eventClass($eventRequest, $eventResponse);
-            $engineEvent->setOriginEventName($eventName);
-            // trigger onEngineEvent
-            $this->getEventDispatcher()->dispatch('bluebear.engine.engineEvent', $engineEvent);
+            // trigger onEngineEvent to enrich engine event with game required data
+            $this
+                ->eventDispatcher
+                ->dispatch(EngineEvent::ENGINE_ON_ENGINE_EVENT, $event);
             // trigger required event
-            $this->getEventDispatcher()->dispatch($eventName, $engineEvent);
+            $this
+                ->eventDispatcher
+                ->dispatch($eventName, $event);
         } catch (Exception $e) {
-            if (!isset($eventRequest)) {
-                $eventRequest = new EventRequest();
-            }
             // on error, set response code ko and return response with exception message and stack trace
             $response = new ErrorResponse($eventName);
             $response->name = $eventName;
             $response->code = EngineEvent::ENGINE_EVENT_RESPONSE_KO;
             $response->message = $e->getMessage();
-            $response->eventRequest = $eventRequest;
             $response->stackTrace = $e->getTraceAsString();
-            // set event response
-            $engineEvent = new EngineEvent($eventRequest, $response);
+            // create error response
+            $event = new EngineEvent(null, $response);
         }
-        // return event
-        return $engineEvent;
+        return $event;
     }
 
+    /**
+     * Register allowed events by creating an event definition containing event configuration values
+     *
+     * @param array $eventsConfiguration
+     */
     public function registerEvents(array $eventsConfiguration)
     {
         $resolver = new OptionsResolver();
@@ -117,97 +120,59 @@ class Engine
                 'request',
                 'response',
             ]);
+            $resolver->setDefaults([
+                'event_class' => 'BlueBear\EngineBundle\Event\EngineEvent'
+            ]);
             $resolver->setAllowedTypes('request', 'string');
             $resolver->setAllowedTypes('response', 'string');
             $eventConfiguration = $resolver->resolve($eventConfiguration);
 
             // add definition to the bag
-            $this->eventDefinitions->set($name, new EngineEventDefinition(
+            $this->registerEvent($name, new EngineEventDefinition(
                 $name,
                 $eventConfiguration['request'],
-                $eventConfiguration['response']
+                $eventConfiguration['response'],
+                $eventConfiguration['event_class']
             ));
         }
     }
 
-    protected function getRequestForEvent($eventName, $eventData)
-    {
-        if (!array_key_exists($eventName, $this->allowedEvents)) {
-            throw new Exception("Not allowed event name \"{$eventName}\"");
-        }
-        $requestClass = $this->allowedEvents[$eventName]['request'];
-
-        if (!class_exists($requestClass)) {
-            throw new Exception("Invalid request class \"{$requestClass}\" (not found). Check your configuration");
-        }
-        if (!is_subclass_of($requestClass, 'BlueBear\EngineBundle\Event\EventRequest')) {
-            throw new Exception("{$requestClass} should extend BlueBear\\EngineBundle\\Event\\EventRequest");
-        }
-        // deserialize json data into EventRequest object
-        return $this
-            ->getSerializer()
-            ->deserialize($eventData, $requestClass, 'json');
-    }
-
-    protected function getResponseForEvent($eventName)
-    {
-        if (!array_key_exists($eventName, $this->allowedEvents)) {
-            throw new Exception("Not allowed event name \"{$eventName}\"");
-        }
-        $responseClass = $this->allowedEvents[$eventName]['response'];
-
-        if (!class_exists($responseClass)) {
-            throw new Exception("Event response class {$responseClass} not found");
-        }
-        if (!is_subclass_of($responseClass, 'BlueBear\EngineBundle\Event\EventResponse')) {
-            throw new Exception("{$responseClass} should extend BlueBear\\EngineBundle\\Event\\EventResponse");
-        }
-        // create new EventResponse object
-        return new $responseClass($eventName);
-    }
-
-    protected function getClassForEvent($eventName)
-    {
-        if (!array_key_exists($eventName, $this->allowedEvents)) {
-            throw new Exception("Not allowed event name \"{$eventName}\"");
-        }
-        if (array_key_exists('event_class', $this->allowedEvents[$eventName])) {
-            $eventClass = $this->allowedEvents[$eventName]['event_class'];
-
-            if (!is_subclass_of($eventClass, 'BlueBear\EngineBundle\Event\EngineEvent')) {
-                throw new Exception("{$eventClass} should extend 'BlueBear\\EngineBundle\\Event\\EngineEvent'");
-            }
-        } else {
-            $eventClass = 'BlueBear\EngineBundle\Event\EngineEvent';
-        }
-        return $eventClass;
-    }
-
     /**
-     * @param array $eventsConfig
-     * @throws Exception
-     */
-    public function setAllowedEvents(array $eventsConfig)
-    {
-        foreach ($eventsConfig as $eventName => $eventConfig) {
-            if (!array_key_exists('request', $eventConfig)) {
-                $eventConfig['request'] = 'BlueBear\EngineBundle\Event\Request\MapItemClickRequest';
-            }
-            if (!array_key_exists('response', $eventConfig)) {
-                $eventConfig['response'] = 'BlueBear\EngineBundle\Event\Response\MapUpdateResponse';
-            }
-            // Check classes ?
-            $this->allowedEvents[$eventName] = $eventConfig;
-        }
-    }
-
-    /**
-     * Return allowed event names
+     * Register a event definition
      *
-     * @return array
+     * @param string $name Event name
+     * @param EngineEventDefinition $definition
      */
-    public function getAllowedEvents()
+    public function registerEvent($name, EngineEventDefinition $definition)
     {
-        return array_keys($this->allowedEvents);
+        $this
+            ->eventDefinitions
+            ->set($name, $definition);
+    }
+
+    /**
+     * Create an event with its hydrated request and response
+     *
+     * @param EngineEventDefinition $definition
+     * @param $data
+     * @return EngineEventInterface
+     */
+    protected function createEvent(EngineEventDefinition $definition, $data)
+    {
+        // create request instance hydrated with deserialize data
+        $request = $this
+            ->serializer
+            ->deserialize($data, $definition->getRequestClass(), $this->serializationFormat);
+
+        // create empty response; response will be hydrated by events
+        $response = $this
+            ->serializer
+            ->deserialize([], $definition->getResponseClass(), $this->serializationFormat);
+
+        // instanciate event
+        $eventClass = $definition->getEventName();
+        $event = new $eventClass($request, $response);
+
+        return $event;
     }
 }

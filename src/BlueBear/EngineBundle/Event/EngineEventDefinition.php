@@ -11,7 +11,21 @@ class EngineEventDefinition
     protected $requestClass;
     protected $responseClass;
 
-    public function __construct($eventName, $requestClass, $responseClass)
+    /**
+     * @var null|string
+     */
+    protected $eventClass;
+
+    /**
+     * EngineEventDefinition constructor.
+     *
+     * @param $eventName
+     * @param $requestClass
+     * @param $responseClass
+     * @param $eventClass
+     * @throws Exception
+     */
+    public function __construct($eventName, $requestClass, $responseClass, $eventClass)
     {
         // check request class validity
         if (!class_exists($requestClass)) {
@@ -27,9 +41,14 @@ class EngineEventDefinition
         if (!is_subclass_of($responseClass, 'BlueBear\EngineBundle\Event\EventResponse')) {
             throw new Exception("{$responseClass} should extend BlueBear\\EngineBundle\\Event\\EventResponse");
         }
+        // check event class validity
+        if (!class_exists($eventClass)) {
+            throw new Exception("Event class {$eventClass} not found");
+        }
         $this->eventName = $eventName;
         $this->requestClass = $requestClass;
         $this->responseClass = $responseClass;
+        $this->eventClass = $eventClass;
     }
 
     /**

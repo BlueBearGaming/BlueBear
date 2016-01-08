@@ -25,19 +25,23 @@ var Client = {
         host: 'dev.bluebear.fr',
         port: 80,
         path: '/app_dev.php/api/events/trigger/',
-        method: 'POST',
+        method: 'POST'
     },
 
     send: function (eventName, data) {
         data = querystring.stringify(data);
-        var options = this.options;
-        options.path += eventName;
-        options.headers = {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Content-Length': Buffer.byteLength(data)
-        };
 
-        var postRequest = http.request(options, function (response) {
+        var options = this.options;
+        var postRequest = http.request({
+            host: options.host,
+            port: options.port,
+            path: options.path + eventName,
+            method: options.method,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Content-Length': Buffer.byteLength(data)
+            }
+        }, function (response) {
             response.setEncoding('utf8');
             response.on('data', function (content) {
                 console.log(content);
@@ -91,7 +95,7 @@ io.on('connection', function (socket) {
     });
     // Fireman stuff
     socket.on('bluebear.fire.move', function () {
-        Client.send('test');
+        Client.send('bluebear.fire.move');
     });
 
 

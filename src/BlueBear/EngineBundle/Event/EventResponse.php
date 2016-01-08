@@ -8,7 +8,7 @@ use JMS\Serializer\Annotation\AccessorOrder;
  *
  * @AccessorOrder("custom", custom={"code", "uid", "timestamp", "name", "data"})
  */
-abstract class EventResponse
+class EventResponse
 {
     /**
      * Response code (KO or OK)
@@ -46,6 +46,10 @@ abstract class EventResponse
      */
     protected $data;
 
+    /**
+     * EventResponse constructor.
+     * @param $eventName
+     */
     public function __construct($eventName)
     {
         $this->name = $eventName;
@@ -61,6 +65,9 @@ abstract class EventResponse
         return $this->data;
     }
 
+    /**
+     * @param $data
+     */
     public function setData($data)
     {
         $this->data = $data;

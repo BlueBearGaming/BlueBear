@@ -83,6 +83,12 @@ class EngineEvent extends Event
      */
     protected $requestClientUpdate = false;
 
+    /**
+     * EngineEvent constructor.
+     *
+     * @param EventRequest|null $eventRequest
+     * @param EventResponse|null $eventResponse
+     */
     public function __construct(EventRequest $eventRequest = null, EventResponse $eventResponse = null)
     {
         $this->request = $eventRequest;
@@ -145,22 +151,6 @@ class EngineEvent extends Event
     public function setContext($context)
     {
         $this->context = $context;
-    }
-
-    /**
-     * @return string
-     */
-    public function getOriginEventName()
-    {
-        return $this->originEventName;
-    }
-
-    /**
-     * @param string $originEventName
-     */
-    public function setOriginEventName($originEventName)
-    {
-        $this->originEventName = $originEventName;
     }
 
     /**
