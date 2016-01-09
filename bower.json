@@ -1,0 +1,27 @@
+{
+  "name": "bluebear",
+  "description": "",
+  "main": "",
+  "authors": [
+    "johnkrovitch <arnaudfrezet@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/BlueBearGaming/BlueBear",
+  "moduleType": [
+    "amd",
+    "es6",
+    "globals",
+    "node"
+  ],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "babylonjs": "~2.2.0"
+  }
+}

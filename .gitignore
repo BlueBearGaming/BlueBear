@@ -23,4 +23,6 @@ backups
 # deployment
 .mage/config/environment
 
+# node, bower
 node_modules
+bower_components
