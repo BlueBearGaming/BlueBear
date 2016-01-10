@@ -31,6 +31,9 @@ blue_bear_engine:
             request: BlueBear\EngineBundle\Event\Request\AttackRequest
             response: BlueBear\EngineBundle\Event\Response\AttackResponse
             event_class: BlueBear\EngineBundle\Event\GameEvent
+        # Fire
+        bluebear.fire.move: ~
+
     game:
         entity_type:
             door:

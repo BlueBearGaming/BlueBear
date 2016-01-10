@@ -3,48 +3,50 @@
 namespace BlueBear\EngineBundle\Event;
 
 
-use Exception;
-
+/**
+ * Describe a GameEvent. Contains the fully-qualified namespace for the event request class, event response class
+ * and the event class itself
+ */
 class EngineEventDefinition
 {
+    /**
+     * Event name
+     *
+     * @var string
+     */
     protected $eventName;
+
+    /**
+     * Event Request class
+     *
+     * @var string
+     */
     protected $requestClass;
+
+    /**
+     * Event response class
+     *
+     * @var string
+     */
     protected $responseClass;
 
     /**
-     * @var null|string
+     * Event class
+     *
+     * @var string
      */
     protected $eventClass;
 
     /**
      * EngineEventDefinition constructor.
      *
-     * @param $eventName
-     * @param $requestClass
-     * @param $responseClass
-     * @param $eventClass
-     * @throws Exception
+     * @param string $eventName
+     * @param string $requestClass
+     * @param string $responseClass
+     * @param string $eventClass
      */
     public function __construct($eventName, $requestClass, $responseClass, $eventClass)
     {
-        // check request class validity
-        if (!class_exists($requestClass)) {
-            throw new Exception("Invalid request class \"{$requestClass}\" (not found). Check your configuration");
-        }
-        if (!is_subclass_of($requestClass, 'BlueBear\EngineBundle\Event\EventRequest')) {
-            throw new Exception("{$requestClass} should extend BlueBear\\EngineBundle\\Event\\EventRequest");
-        }
-        // check response class validity
-        if (!class_exists($responseClass)) {
-            throw new Exception("Event response class {$responseClass} not found");
-        }
-        if (!is_subclass_of($responseClass, 'BlueBear\EngineBundle\Event\EventResponse')) {
-            throw new Exception("{$responseClass} should extend BlueBear\\EngineBundle\\Event\\EventResponse");
-        }
-        // check event class validity
-        if (!class_exists($eventClass)) {
-            throw new Exception("Event class {$eventClass} not found");
-        }
         $this->eventName = $eventName;
         $this->requestClass = $requestClass;
         $this->responseClass = $responseClass;
@@ -52,7 +54,7 @@ class EngineEventDefinition
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getEventName()
     {
@@ -60,7 +62,7 @@ class EngineEventDefinition
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getRequestClass()
     {
@@ -68,10 +70,18 @@ class EngineEventDefinition
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getResponseClass()
     {
         return $this->responseClass;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getEventClass()
+    {
+        return $this->eventClass;
     }
 }

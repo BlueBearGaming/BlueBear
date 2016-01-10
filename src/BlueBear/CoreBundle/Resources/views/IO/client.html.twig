@@ -10,6 +10,16 @@
                 $('#{{ chatId }}').append('<br/>' + response.message);
             });
 
+            this.socket.on('move', function (response) {
+                console.log('response', response);
+                response = JSON.parse(response);
+                $('#{{ chatId }}').append('<br/> move ' + response.data.x  + ' ' + response.data.y);
+
+
+                $('td.fireman').empty();
+                $('td[data-x="0"][data-y="1"]').html('FIREMAN');
+            });
+
             // bind keyboard interaction
             Mousetrap.bind('right', function() {
                 console.log('right');
