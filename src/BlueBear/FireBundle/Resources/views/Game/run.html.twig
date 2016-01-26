@@ -91,6 +91,11 @@
         // Change the scene background color to green.
         scene.clearColor = new BABYLON.Color3(20, 20, 20);
 
+        scene.fogMode = BABYLON.Scene.FOGMODE_EXP2;
+        scene.fogDensity = 0.003;
+        scene.fogColor = new BABYLON.Color3(0.8,0.83,0.8);
+
+
         // This creates and positions a free camera
         //var camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5, -100), scene);
         var camera = new BABYLON.ArcRotateCamera("ArcRotateCamera", 1, 0.8, 10, new BABYLON.Vector3(0, 0, 0), scene);
@@ -121,9 +126,9 @@
         materialSphere1.diffuseTexture = new BABYLON.Texture("http://dev.bluebear.fr/img/grass.jpg", scene);
 
         // Let's try our built-in 'ground' shape.  Params: name, width, depth, subdivisions, scene
-        //var ground = BABYLON.Mesh.CreateGround("ground1", 600, 600, 2, scene);
+        var ground = BABYLON.Mesh.CreateGround("ground1", 600, 600, 2, scene);
 
-        var ground = BABYLON.Mesh.CreateGroundFromHeightMap("ground", "http://dev.bluebear.fr/img/heatmap.png", 600, 600, 250, -5, 15, scene, false);
+        //var ground = BABYLON.Mesh.CreateGroundFromHeightMap("ground", "http://dev.bluebear.fr/img/heatmap.png", 600, 600, 250, -5, 15, scene, false);
         ground.material = materialSphere1;
 
         ground.checkCollisions = true;
@@ -146,6 +151,23 @@
         // Creation of a knot
         // (name, radius, tube, radialSegments, tubularSegments, p, q, scene, updatable)
         //var knot = BABYLON.Mesh.CreateTorusKnot("knot", 2, 0.5, 128, 64, 2, 3, scene);
+
+
+
+
+
+        var trunk = BABYLON.Mesh.CreateCylinder("trunk", 100, 20, 20, 7, 2, scene);
+        // The trunk color
+        trunk.material = new BABYLON.StandardMaterial("trunk", scene);
+        trunk.material.diffuseColor = BABYLON.Color3.FromInts(150,200,200);
+        trunk.material.specularColor = BABYLON.Color3.Black();
+// The trunk is converted in a flat shaded mesh !
+        trunk.convertToFlatShadedMesh();
+
+
+
+
+
 
         // Leave this function
         return scene;
