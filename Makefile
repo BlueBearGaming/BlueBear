@@ -17,3 +17,7 @@ copy-assets:
 
 run-server:
 	nodejs bluebear-node.js
+
+
+fire-fixtures:
+	app/console doctrine:fixtures:load --fixtures /home/johnkrovitch/Projects/BlueBear/src/BlueBear/FireBundle/DataFixtures/ORM --append

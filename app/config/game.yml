@@ -32,7 +32,8 @@ blue_bear_engine:
             response: BlueBear\EngineBundle\Event\Response\AttackResponse
             event_class: BlueBear\EngineBundle\Event\GameEvent
         # Fire
-        bluebear.fire.move: ~
+        bluebear.fire.firemanClick:
+            request: BlueBear\FireBundle\Game\Request\FiremanClick
 
     game:
         entity_type:

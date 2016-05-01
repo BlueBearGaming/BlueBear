@@ -21,7 +21,7 @@
             overflow: hidden;
             width: 100%;
             height: 100%;
-            margin: 0;
+            margin: 50px 0 0 0;
             padding: 0;
         }
 
@@ -32,7 +32,7 @@
         }
     </style>
 
-   {# <table>
+    <table>
         {% for row in map.cells %}
             <tr>
             {% for cell in row %}
@@ -53,13 +53,21 @@
             {% endfor %}
             </tr>
         {% endfor %}
-    </table>#}
+    </table>
 
     <canvas id="renderCanvas"></canvas>
 
     <script>
         $(document).on('ready', function () {
+            $('.fireman').on('click', function () {
 
+                $.post({
+                    url: '{{ path('bluebear_engine_trigger_event', {eventName: 'bluebear.fire.firemanClick'}) }}'
+                    data: JSON.stringify({
+                        firemanId: ''
+                    })
+                })
+            });
         });
 
 
@@ -175,6 +183,7 @@
     };  // End of createScene function
 
     // Now, call the createScene function that you just finished creating
+    /*
     var scene = createScene();
     // Register a render loop to repeatedly render the scene
     engine.runRenderLoop(function () {
@@ -184,6 +193,7 @@
     window.addEventListener("resize", function () {
         engine.resize();
     });
+    */
 
 
 

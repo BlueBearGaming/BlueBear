@@ -1,0 +1,10 @@
+BlueBear\CoreBundle\Entity\Map\Map:
+    map_1:
+        name: map_1
+        label: beginning_map
+        createdAt: <dateTime('now')>
+        updatedAt: <dateTime('now')>
+        cellSize: 10
+        startX: 0
+        startY: 0
+        type: 'square'
