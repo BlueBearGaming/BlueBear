@@ -20,4 +20,4 @@ run-server:
 
 
 fire-fixtures:
-	app/console doctrine:fixtures:load --fixtures /home/johnkrovitch/Projects/BlueBear/src/BlueBear/FireBundle/DataFixtures/ORM --append
+	app/console doctrine:fixtures:load --fixtures /home/johnkrovitch/Projects/BlueBear/src/BlueBear/FireBundle/DataFixtures/ORM

@@ -1,6 +1,6 @@
 BlueBear\CoreBundle\Entity\Map\Map:
-    map_1:
-        name: map_1
+    fire_map_1:
+        name: fire_map_1
         label: beginning_map
         createdAt: <dateTime('now')>
         updatedAt: <dateTime('now')>

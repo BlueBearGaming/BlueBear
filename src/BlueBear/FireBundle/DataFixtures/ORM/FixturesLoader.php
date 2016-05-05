@@ -20,6 +20,8 @@ class FixturesLoader implements FixtureInterface
     {
         Fixtures::load([
             __DIR__ . '/Maps.yml',
+            __DIR__ . '/Contexts.yml',
+            __DIR__ . '/Layers.yml',
             __DIR__ . '/MapItems.yml',
         ], $manager, [
             'locale' => 'fr_FR'

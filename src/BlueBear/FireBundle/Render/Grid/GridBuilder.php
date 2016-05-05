@@ -2,12 +2,28 @@
 
 namespace BlueBear\FireBundle\Render\Grid;
 
+use BlueBear\CoreBundle\Entity\Map\Map;
 use BlueBear\FireBundle\Render\Cell\Cell;
 use BlueBear\FireBundle\Render\Fire\Fire;
 use BlueBear\FireBundle\Render\Fireman\Fireman;
 
 class GridBuilder
 {
+    /**
+     * @var Map
+     */
+    protected $map;
+
+    /**
+     * GridBuilder constructor.
+     * 
+     * @param Map $map
+     */
+    public function __construct(Map $map)
+    {
+        $this->map = $map;
+    }
+
     public function build()
     {
         $cells = [];

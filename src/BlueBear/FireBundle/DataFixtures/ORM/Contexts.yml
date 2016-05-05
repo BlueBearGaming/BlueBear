@@ -1,0 +1,5 @@
+BlueBear\CoreBundle\Entity\Map\Context:
+    main_context:
+        name: main_context
+        label: Main context
+        map: '@fire_map_1'

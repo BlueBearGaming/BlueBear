@@ -1,5 +1,36 @@
 BlueBear\CoreBundle\Entity\Map\MapItem:
-    map_1_cells{1..5}:
+    map_1_cells{0..4}:
         x: <current()>
         y: 0
-        map: '@map_1'
+        layer: '@ground_layer'
+        context: '@main_context'
+
+    map_1_cells{0..4}:
+        x: <current()>
+        y: 1
+        layer: '@ground_layer'
+        context: '@main_context'
+
+    map_1_cells{0..4}:
+        x: <current()>
+        y: 2
+        layer: '@ground_layer'
+        context: '@main_context'
+
+    map_1_cells{0..4}:
+        x: <current()>
+        y: 3
+        layer: '@ground_layer'
+        context: '@main_context'
+
+    map_1_cells{0..4}:
+        x: <current()>
+        y: 4
+        layer: '@ground_layer'
+        context: '@main_context'
+
+    map_1_fireman:
+        x: 0
+        y: 0
+        layer: '@unit_layer'
+        context: '@main_context'

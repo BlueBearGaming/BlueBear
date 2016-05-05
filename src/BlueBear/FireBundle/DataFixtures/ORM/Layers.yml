@@ -1,0 +1,14 @@
+BlueBear\CoreBundle\Entity\Map\Layer:
+    ground_layer:
+        name: main_layer
+        label: Main Layer
+        type: square
+        description: Main layer for the Fire game
+        index: 0
+
+    unit_layer:
+        name: unit_layer
+        label: Unit Layer
+        type: square
+        description: Unit layer for the Fire game
+        index: 1

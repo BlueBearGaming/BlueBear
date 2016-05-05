@@ -12,7 +12,13 @@ class GameController extends Controller
 
     public function runAction()
     {
-        $builder = new GridBuilder();
+        $map = $this
+            ->get('bluebear.manager.map')
+            ->findOneBy([
+                'name' => 'fire_map_1'
+            ]);
+
+        $builder = new GridBuilder($map);
         $grid = $builder->build();
 
         return $this->render('@BlueBearFire/Game/run.html.twig', [
