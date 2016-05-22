@@ -86,10 +86,10 @@ class EngineEvent extends Event
     /**
      * EngineEvent constructor.
      *
-     * @param EventRequest|null $eventRequest
-     * @param EventResponse|null $eventResponse
+     * @param EventRequestInterface $eventRequest
+     * @param EventResponseInterface $eventResponse
      */
-    public function __construct(EventRequest $eventRequest = null, EventResponse $eventResponse = null)
+    public function __construct(EventRequestInterface $eventRequest, EventResponseInterface $eventResponse)
     {
         $this->request = $eventRequest;
         $this->response = $eventResponse;

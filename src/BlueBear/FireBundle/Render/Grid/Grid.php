@@ -24,17 +24,24 @@ class Grid
     protected $fires;
 
     /**
+     * @var int
+     */
+    protected $contextId;
+
+    /**
      * Grid constructor.
      *
      * @param Cell[] $cells
      * @param Fireman $fireman
      * @param Fire[] $fires
+     * @param $contextId
      */
-    public function __construct($cells, Fireman $fireman, $fires)
+    public function __construct($cells, Fireman $fireman, $fires, $contextId)
     {
         $this->cells = $cells;
         $this->fireman = $fireman;
         $this->fires = $fires;
+        $this->contextId = $contextId;
     }
 
     /**
@@ -74,5 +81,13 @@ class Grid
             $fire = $this->fires[$x][$y];
         }
         return $fire;
+    }
+
+    /**
+     * @return int
+     */
+    public function getContextId()
+    {
+        return $this->contextId;
     }
 }

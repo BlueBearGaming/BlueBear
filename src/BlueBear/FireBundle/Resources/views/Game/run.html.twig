@@ -38,7 +38,10 @@
             {% for cell in row %}
 
                 {% if map.fireman.x == cell.x and map.fireman.y == cell.y %}
-                    <td class="fireman" data-x="{{ cell.x }}" data-y="{{ cell.y }}">
+                    <td class="fireman"
+                        data-x="{{ cell.x }}"
+                        data-y="{{ cell.y }}"
+                        data-fireman-id="{{ map.fireman.id }}">
                         FIREMAN
                     </td>
                 {% elseif map.getFire(cell.x, cell.y) %}
@@ -61,10 +64,15 @@
         $(document).on('ready', function () {
             $('.fireman').on('click', function () {
 
-                $.post({
-                    url: '{{ path('bluebear_engine_trigger_event', {eventName: 'bluebear.fire.firemanClick'}) }}'
+                var firemanId = $(this).data('fireman-id');
+                var contextId = {{ map.contextId }};
+
+                $.ajax({
+                    method: 'post',
+                    url: '{{ path('bluebear_engine_trigger_event', {eventName: 'bluebear.fire.firemanClick'}) }}',
                     data: JSON.stringify({
-                        firemanId: ''
+                        firemanId: firemanId,
+                        contextId: contextId
                     })
                 })
             });

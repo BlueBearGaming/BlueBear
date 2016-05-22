@@ -154,6 +154,16 @@ class Map
     }
 
     /**
+     * @return Context
+     */
+    public function getCurrentContext()
+    {
+        return $this
+            ->contexts
+            ->last();
+    }
+
+    /**
      * @return int
      */
     public function getStartX()

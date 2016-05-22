@@ -13,17 +13,24 @@ class Fireman
      * @var int
      */
     protected $y;
+    
+    /**
+     * @var int
+     */
+    protected $id;
 
     /**
      * Fireman constructor.
      *
      * @param int $x
      * @param int $y
+     * @param null $id
      */
-    public function __construct($x, $y)
+    public function __construct($x, $y, $id = null)
     {
         $this->x = $x;
         $this->y = $y;
+        $this->id = $id;
     }
 
     /**
@@ -40,5 +47,13 @@ class Fireman
     public function getY()
     {
         return $this->y;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 }

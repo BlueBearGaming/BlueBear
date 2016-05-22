@@ -10,7 +10,7 @@ use JMS\Serializer\Annotation\Type;
  *
  * Generic event request
  */
-class EventRequest
+class EventRequest implements EventRequestInterface
 {
     /**
      * Map context id

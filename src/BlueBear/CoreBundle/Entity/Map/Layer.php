@@ -70,7 +70,7 @@ class Layer
     }
 
     /**
-     * @return mixed
+     * @return MapItem[]
      */
     public function getMapItems()
     {
@@ -78,7 +78,7 @@ class Layer
     }
 
     /**
-     * @param mixed $mapItems
+     * @param MapItem[] $mapItems
      */
     public function setMapItems($mapItems)
     {

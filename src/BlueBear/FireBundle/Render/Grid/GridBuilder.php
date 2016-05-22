@@ -27,20 +27,29 @@ class GridBuilder
     public function build()
     {
         $cells = [];
-        $x = 0;
-        $rowCount = 5;
-        $columnCount = 5;
+        $firemen = [];
 
-        while ($x < $rowCount) {
-            $y = 0;
+        $groundLayer = $this
+            ->map
+            ->getLayerByName('ground_layer');
 
-            while ($y < $columnCount) {
-                $cells[$x][$y] = new Cell($x, $y);
-                $y++;
+        foreach ($groundLayer->getMapItems() as $mapItem) {
+
+            if (!array_key_exists($mapItem->getX(), $cells)) {
+                $cells[$mapItem->getX()] = [];
             }
-            $x++;
+            $cells[$mapItem->getX()][$mapItem->getY()] = new Cell($mapItem->getX(), $mapItem->getY());
         }
-        return new Grid($cells, $this->getFireman(), $this->getFires());
+
+        $unitLayer = $this
+            ->map
+            ->getLayerByName('fireman_layer');
+
+        foreach ($unitLayer->getMapItems() as $mapItem) {
+            $firemen = new Fireman($mapItem->getX(), $mapItem->getY(), $mapItem->getId());
+        }
+
+        return new Grid($cells, $firemen, $this->getFires(), $this->map->getContexts()->last()->getId());
     }
 
     protected function getFireman()

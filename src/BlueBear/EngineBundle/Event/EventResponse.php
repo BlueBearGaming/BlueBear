@@ -8,7 +8,7 @@ use JMS\Serializer\Annotation\AccessorOrder;
  *
  * @AccessorOrder("custom", custom={"code", "uid", "timestamp", "name", "data"})
  */
-class EventResponse
+class EventResponse implements EventResponseInterface
 {
     /**
      * Response code (KO or OK)

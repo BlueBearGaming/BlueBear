@@ -47,7 +47,8 @@
     "packagist/yuicompressor-bin": "~2.4",
     "nc/elephantio-bundle": "~2.0",
     "hoa/ruler": "~2.0",
-    "hautelook/alice-bundle": "^1.2"
+    "hautelook/alice-bundle": "^1.2",
+    "letournel/path-finder": "^1.1"
   },
   "require-dev": {
     "phpunit/phpunit": "4.7.*"

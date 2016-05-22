@@ -5,6 +5,10 @@ namespace BlueBear\EngineBundle\Engine;
 use BlueBear\EngineBundle\Event\EngineEvent;
 use BlueBear\EngineBundle\Event\EngineEventDefinition;
 use BlueBear\EngineBundle\Event\EngineEventInterface;
+use BlueBear\EngineBundle\Event\EventRequest;
+use BlueBear\EngineBundle\Event\EventRequestInterface;
+use BlueBear\EngineBundle\Event\EventResponse;
+use BlueBear\EngineBundle\Event\EventResponseInterface;
 use BlueBear\EngineBundle\Event\Response\ErrorResponse;
 use Exception;
 use JMS\Serializer\SerializerInterface;
@@ -99,7 +103,7 @@ class Engine
             $response->message = $e->getMessage();
             $response->stackTrace = $e->getTraceAsString();
             // create error response
-            $event = new EngineEvent(null, $response);
+            $event = new EngineEvent(new EventRequest(), $response);
         }
         return $event;
     }
@@ -117,9 +121,9 @@ class Engine
             // check event configuration validity
             $resolver->clear();
             $resolver->setDefaults([
-                'event_class' => 'BlueBear\EngineBundle\Event\EngineEvent',
-                'request' => 'BlueBear\EngineBundle\Event\EventRequest',
-                'response' => 'BlueBear\EngineBundle\Event\EventResponse',
+                'event_class' => EngineEvent::class,
+                'request' => EventRequest::class,
+                'response' => EventResponse::class,
             ]);
             $resolver->setAllowedTypes('request', 'string');
             $resolver->setAllowedTypes('response', 'string');
@@ -148,16 +152,12 @@ class Engine
         if (!class_exists($definition->getRequestClass())) {
             throw new Exception("Invalid request class \"{$definition->getRequestClass()}\" (not found). Check your configuration");
         }
-        if ($definition->getRequestClass() != 'BlueBear\EngineBundle\Event\EventRequest' && !is_subclass_of($definition->getRequestClass(), 'BlueBear\EngineBundle\Event\EventRequest')) {
-            throw new Exception("{$definition->getRequestClass()} should extend BlueBear\\EngineBundle\\Event\\EventRequest");
-        }
+
         // check response class validity
         if (!class_exists($definition->getResponseClass())) {
             throw new Exception("Event response class {$definition->getResponseClass()} not found");
         }
-        if ($definition->getResponseClass() != 'BlueBear\EngineBundle\Event\EventResponse' && !is_subclass_of($definition->getResponseClass(), 'BlueBear\EngineBundle\Event\EventResponse')) {
-            throw new Exception("{$definition->getResponseClass()} should extend BlueBear\\EngineBundle\\Event\\EventResponse");
-        }
+
         // check event class validity
         if (!class_exists($definition->getEventClass())) {
             throw new Exception("Event class {$definition->getEventClass()} not found");
@@ -175,6 +175,7 @@ class Engine
      * @param EngineEventDefinition $definition
      * @param $data
      * @return EngineEventInterface
+     * @throws Exception
      */
     protected function createEvent(EngineEventDefinition $definition, $data)
     {
@@ -183,10 +184,17 @@ class Engine
             ->serializer
             ->deserialize($data, $definition->getRequestClass(), $this->serializationFormat);
 
+        if (!($request instanceof EventRequestInterface)) {
+            throw new Exception(get_class($request).' should implements '.EventRequestInterface::class);
+        }
+
         // create empty response; response will be hydrated by events
-        $response = $this
-            ->serializer
-            ->deserialize('', $definition->getResponseClass(), $this->serializationFormat);
+        $responseClass = $definition->getResponseClass();
+        $response = new $responseClass($definition->getEventName());
+
+        if (!($response instanceof EventResponseInterface)) {
+            throw new Exception(get_class($response).' should implements '.EventResponseInterface::class);
+        }
 
         // instanciate event
         $eventClass = $definition->getEventClass();
