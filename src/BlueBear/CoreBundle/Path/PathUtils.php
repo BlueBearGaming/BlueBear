@@ -3,50 +3,63 @@
 namespace BlueBear\CoreBundle\Path;
 
 use BlueBear\CoreBundle\Entity\Map\Map;
-use BlueBear\CoreBundle\Path\Converter\MapConverterInterface;
+use BlueBear\CoreBundle\Entity\Map\MapItem;
 use BlueBear\CoreBundle\Utils\Position;
-use Letournel\PathFinder\Algorithms\TravelingSalesman\NearestNeighbour;
-use Letournel\PathFinder\Converters\Grid\ASCIISyntax;
-use Letournel\PathFinder\Core\NodeGraph;
+
 
 class PathUtils
 {
     /**
-     * @var MapConverterInterface
+     * Find the nearest neighbours to a source position with a movement.
+     *
+     * @param Position $position
+     * @param Map $map
+     * @param int $movement
+     * @return MapItem[]
      */
-    protected $converter;
-
-    public function __construct(MapConverterInterface $converter)
+    public function getNearestNeighbour(Position $position, Map $map, $movement = 1)
     {
-        $this->converter = $converter;
-    }
+        $mapItems = $map
+            ->getCurrentContext()
+            ->getMapItems();
+        $positions = [];
+        $sortedMapItems = [];
 
-    public function getNearestNeighbour(Position $position, Map $map)
-    {
-        $asciiMap = $this
-            ->converter
-            ->convert($map);
+        foreach ($mapItems as $index => $mapItem) {
+            $positions[$mapItem->getX()][$mapItem->getY()] = true;
+            $sortedMapItems[$mapItem->getX()][$mapItem->getY()] = $mapItem;
+        }
+        // find an area from the lowest point to the highest
+        $lowestPoint = new Position(
+            $position->x - $movement,
+            $position->y - $movement
+        );
+        $highestPoint = new Position(
+            $position->x + $movement,
+            $position->y + $movement
+        );
+        $neighbours = [];
 
-        var_dump($asciiMap);
+        while ($lowestPoint->x <= $highestPoint->x) {
+            $lowestPoint->y = $position->x - $movement;
 
-        $algorithm = new NearestNeighbour();
-        $syntax = new ASCIISyntax();
-        $grid = $syntax->convertToGrid($asciiMap);
-        $matrix = $syntax->convertToMatrix($asciiMap);
+            while ($lowestPoint->y <= $highestPoint->y) {
+                // the position must exists on the map
+                $isXExists = array_key_exists($lowestPoint->x, $positions);
+                $isYExists = $isXExists && array_key_exists($lowestPoint->y, $positions[$lowestPoint->x]);
+                // we dot not add the source
+                $isNotSource = $lowestPoint->x != $position->x || $lowestPoint->y != $position->y;
 
-        $nodeGraph = new NodeGraph($matrix);
+                if ($isXExists && $isYExists && $isNotSource) {
+                    $neighbours[] = $sortedMapItems[$lowestPoint->x][$lowestPoint->y];
+                }
 
+                $lowestPoint->y++;
+            }
 
-        $source = $syntax->findAndCreateNode($asciiMap, ASCIISyntax::IN);
-        $algorithm->setGraph($nodeGraph);
-        $routes = $algorithm->computeRoute();
+            $lowestPoint->x++;
+        }
 
-
-        var_dump($routes);
-
-
-
-
-
+        return $neighbours;
     }
 }

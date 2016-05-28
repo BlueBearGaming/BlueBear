@@ -2,12 +2,12 @@
 
 namespace BlueBear\FireBundle\Event\Subscriber;
 
-use BlueBear\CoreBundle\Entity\Map\MapItemRepository;
-use BlueBear\CoreBundle\Path\Converter\ASCIIConverter;
 use BlueBear\CoreBundle\Path\PathUtils;
 use BlueBear\CoreBundle\Utils\Position;
 use BlueBear\EngineBundle\Event\EngineEvent;
 use BlueBear\FireBundle\Game\Request\FiremanClick;
+use BlueBear\FireBundle\Game\Request\FiremanMove;
+use LogicException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class MovementSubscriber implements EventSubscriberInterface
@@ -19,32 +19,67 @@ class MovementSubscriber implements EventSubscriberInterface
     {
         return [
             'bluebear.fire.move' => 'move',
-            'bluebear.fire.firemanClick' => 'firemanClick'
+            'bluebear.fire.click' => 'click'
         ];
     }
 
     public function move(EngineEvent $event)
     {
-        $response = $event->getResponse();
-        $response->setData([
-            'x' => 1,
-            'y' => 0
-        ]);
-    }
+        /** @var FiremanMove $request */
+        $request = $event->getRequest();
 
-    public function firemanClick(EngineEvent $engineEvent)
-    {
-        /** @var FiremanClick $request */
-        $request = $engineEvent->getRequest();
-        $map = $engineEvent
+        $response = $event->getResponse();
+        $map = $event
             ->getContext()
             ->getMap();
+        $target = $event
+            ->getContext()
+            ->getMapItems()
+            ->get($request->destinationMapItemId);
 
-        $pathUtils = new PathUtils(new ASCIIConverter());
-        $pathUtils->getNearestNeighbour(new Position(), $map);
+        $source = $event
+            ->getContext()
+            ->getMapItems()
+            ->get($request->sourceMapItemId);
+        
 
-        var_dump($request);
+        if ($target === null) {
+            throw new LogicException('Map item ' . $request->destinationMapItemId . ' not found in current context');
+        }
 
+        $pathUtils = new PathUtils();
+        $mapItems = $pathUtils->getNearestNeighbour($source->getPosition(), $map);
 
+        foreach ($mapItems as $mapItem) {
+
+            if ($mapItem->getId() == $target->getId()) {
+                $response->setData($mapItem->getPosition());
+            }
+        }
+    }
+
+    public function click(EngineEvent $event)
+    {
+        /** @var FiremanClick $request */
+        $request = $event->getRequest();
+        $response = $event->getResponse();
+        $map = $event
+            ->getContext()
+            ->getMap();
+        $source = $event
+            ->getContext()
+            ->getMapItems()
+            ->get($request->sourceMapItemId);
+
+        $pathUtils = new PathUtils();
+        $mapItems = $pathUtils->getNearestNeighbour($source->getPosition(), $map);
+
+        $positions = [];
+
+        foreach ($mapItems as $mapItem) {
+            $positions[] = $mapItem->getPosition();
+        }
+
+        $response->setData($positions);
     }
 }

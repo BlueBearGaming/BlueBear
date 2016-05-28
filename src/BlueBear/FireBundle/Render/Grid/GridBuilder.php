@@ -38,7 +38,7 @@ class GridBuilder
             if (!array_key_exists($mapItem->getX(), $cells)) {
                 $cells[$mapItem->getX()] = [];
             }
-            $cells[$mapItem->getX()][$mapItem->getY()] = new Cell($mapItem->getX(), $mapItem->getY());
+            $cells[$mapItem->getX()][$mapItem->getY()] = new Cell($mapItem->getX(), $mapItem->getY(), $mapItem->getId());
         }
 
         $unitLayer = $this

@@ -30,6 +30,19 @@
             height: 100%;
             touch-action: none;
         }
+        td.selected {
+            background: green;
+        }
+
+        td.fire:after {
+            content: 'FIRE !!!!';
+        }
+        td.land:after {
+            content: 'LAND';
+        }
+        td.fireman:after {
+            content: 'Fireman';
+        }
     </style>
 
     <table>
@@ -37,22 +50,26 @@
             <tr>
             {% for cell in row %}
 
+                {% set id = cell.x ~ '-' ~ cell.y %}
+                {% set class = 'land ' %}
+
                 {% if map.fireman.x == cell.x and map.fireman.y == cell.y %}
-                    <td class="fireman"
-                        data-x="{{ cell.x }}"
-                        data-y="{{ cell.y }}"
-                        data-fireman-id="{{ map.fireman.id }}">
-                        FIREMAN
-                    </td>
+
+                    {% set class = class ~ 'fireman' %}
+
                 {% elseif map.getFire(cell.x, cell.y) %}
-                    <td class="fire" data-x="{{ cell.x }}" data-y="{{ cell.y }}">
-                        FIRE
-                    </td>
-                {% else %}
-                    <td class="land" data-x="{{ cell.x }}" data-y="{{ cell.y }}">
-                        EMPTY
-                    </td>
+
+                    {% set class = class ~ 'fire' %}
+
                 {% endif %}
+
+                <td id="{{ id }}"
+                    class="{{ class }}"
+                    data-id="{{ cell.id }}"
+                    data-x="{{ cell.y }}"
+                    data-y="{{ cell.x }}">
+                </td>
+
             {% endfor %}
             </tr>
         {% endfor %}
@@ -62,25 +79,56 @@
 
     <script>
         $(document).on('ready', function () {
-            $('.fireman').on('click', function () {
+            var contextId = '{{ map.contextId }}';
+            var firemanId = '{{ map.fireman.id }}';
 
-                var firemanId = $(this).data('fireman-id');
-                var contextId = {{ map.contextId }};
+            $(document).on('click', '.fireman', function () {
+                var mapItemId = $(this).data('id');
 
                 $.ajax({
                     method: 'post',
-                    url: '{{ path('bluebear_engine_trigger_event', {eventName: 'bluebear.fire.firemanClick'}) }}',
+                    url: '{{ path('bluebear_engine_trigger_event', {eventName: 'bluebear.fire.click'}) }}',
                     data: JSON.stringify({
                         firemanId: firemanId,
-                        contextId: contextId
-                    })
-                })
+                        contextId: contextId,
+                        sourceMapItemId: mapItemId
+                    }),
+                    success: function(response) {
+                        $.each (response.data, function (index, position) {
+                            $('#' + position.x + '-' + position.y).addClass('selected');
+                        });
+                    }
+                });
+            });
+
+            $(document).on('click', 'td.selected', function () {
+                var firemanId = $('.fireman').data('fireman-id');
+                var mapItemId = $(this).data('id');
+                var sourceMapItemId = $('.fireman').data('id');
+
+                $.ajax({
+                    method: 'post',
+                    url: '{{ path('bluebear_engine_trigger_event', {eventName: 'bluebear.fire.move'}) }}',
+                    data: JSON.stringify({
+                        firemanId: firemanId,
+                        contextId: contextId,
+                        sourceMapItemId: sourceMapItemId,
+                        destinationMapItemId: mapItemId
+                    }),
+                    success: function(response) {
+
+                        var position = response.data;
+
+                        $('.fireman').removeClass('fireman');
+                        $('#' + position.x + '-' + position.y).addClass('fireman');
+                    }
+                });
+            });
+
+            $(document).on('click', function () {
+                $('td.selected').removeClass('selected');
             });
         });
-
-
-
-
 
     </script>
 

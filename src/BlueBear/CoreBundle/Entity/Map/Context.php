@@ -7,6 +7,7 @@ use BlueBear\CoreBundle\Entity\Behavior\Id;
 use BlueBear\CoreBundle\Entity\Behavior\Label;
 use BlueBear\CoreBundle\Entity\Behavior\Nameable;
 use BlueBear\CoreBundle\Entity\Behavior\Timestampable;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
@@ -38,7 +39,12 @@ class Context
     /**
      * Map item for this context
      *
-     * @ORM\OneToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\MapItem", mappedBy="context", cascade={"persist", "remove"})
+     * @ORM\OneToMany(
+     *     targetEntity="BlueBear\CoreBundle\Entity\Map\MapItem",
+     *     mappedBy="context",
+     *     cascade={"persist", "remove"},
+     *     indexBy="id"
+     * )
      * @Serializer\Expose()
      */
     protected $mapItems;
@@ -55,7 +61,14 @@ class Context
 
     protected $room;
 
+    public function __construct()
+    {
+        $this->mapItems = new ArrayCollection();
+    }
+
     /**
+     * Return the map items linked to this context, sorted by id.
+     *
      * @return MapItem[]|Collection
      */
     public function getMapItems()
@@ -64,11 +77,17 @@ class Context
     }
 
     /**
-     * @param mixed $mapItems
+     * Define the map items linked to this context and indexed them by id.
+     *
+     * @param MapItem[]|Collection $mapItems
      */
     public function setMapItems($mapItems)
     {
-        $this->mapItems = $mapItems;
+        $this->mapItems = new ArrayCollection();
+
+        foreach ($mapItems as $mapItem) {
+            $this->mapItems->set($mapItem->getId(), $mapItem);
+        }
     }
 
     /**

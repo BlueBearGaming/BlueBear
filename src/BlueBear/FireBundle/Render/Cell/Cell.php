@@ -15,15 +15,22 @@ class Cell
     protected $y;
 
     /**
+     * @var int
+     */
+    protected $id;
+
+    /**
      * Cell constructor.
      *
      * @param $x
      * @param $y
+     * @param $id
      */
-    public function __construct($x, $y)
+    public function __construct($x, $y, $id)
     {
         $this->x = $x;
         $this->y = $y;
+        $this->id = $id;
     }
 
     /**
@@ -40,5 +47,13 @@ class Cell
     public function getY()
     {
         return $this->y;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 }
