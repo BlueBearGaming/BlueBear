@@ -3,27 +3,41 @@
 namespace BlueBear\FireBundle\Controller;
 
 use BlueBear\BaseBundle\Behavior\ControllerTrait;
+use BlueBear\CoreBundle\Entity\Game\Save\Save;
+use BlueBear\FireBundle\Form\Type\SaveType;
 use BlueBear\FireBundle\Render\Grid\GridBuilder;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class GameController extends Controller
 {
     use ControllerTrait;
 
+    /**
+     * @Template()
+     */
     public function runAction()
     {
-        $map = $this
-            ->get('bluebear.manager.map')
+        // find existing save for player
+        $saves = $this
+            ->get('save_repository')
+            ->findForPlayer($this->getCurrentPlayer());
+
+        $save = new Save();
+        $form = $this->createForm(SaveType::class, $save);
+
+
+        return [
+            'form' => $form->createView()
+        ];
+    }
+
+    protected function getCurrentPlayer()
+    {
+        return $this
+            ->get('player_repository')
             ->findOneBy([
-                'name' => 'fire_map_1'
+                'name' => 'fire_player'
             ]);
-
-        $builder = new GridBuilder($map);
-        $grid = $builder->build();
-
-        return $this->render('@BlueBearFire/Game/run.html.twig', [
-            'map' => $grid,
-            'client' => $this->get('bluebear.io.client')
-        ]);
     }
 }

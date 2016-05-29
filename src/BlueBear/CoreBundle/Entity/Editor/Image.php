@@ -8,10 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Image are used in the editor
- *
- * @ORM\Entity(repositoryClass="BlueBear\CoreBundle\Entity\Editor\ImageRepository")
  */
-class Image extends Resource
+class Image
 {
     /**
      * @var \BlueBear\CoreBundle\Entity\Map\Pencil
@@ -29,4 +27,4 @@ class Image extends Resource
     {
         return 'image';
     }
-} 
+}

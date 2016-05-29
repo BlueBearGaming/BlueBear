@@ -5,8 +5,9 @@ namespace BlueBear\CoreBundle\Form\Map;
 
 use BlueBear\CoreBundle\Constant\Map\Constant;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PencilSetType extends AbstractType
 {
@@ -14,16 +15,17 @@ class PencilSetType extends AbstractType
     {
         $builder->add('name');
         $builder->add('label');
-        $builder->add('type', 'choice', [
-            'choices' => Constant::getMapTypes(),
+        $builder->add('type', ChoiceType::class, [
+            'choices' => array_flip(Constant::getMapTypes()),
         ]);
-        $builder->add('sprite', 'resource_image');
+        //$builder->add('sprite', ResourceIma);
+
     }
 
     /**
      * {@inheritdoc}
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function setDefaultOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => 'BlueBear\CoreBundle\Entity\Map\PencilSet'

@@ -1,0 +1,11 @@
+parameters:
+    bluebear.twig.utils: BlueBear\BaseBundle\Twig\UtilsExtension
+
+services:
+    # Twig utils
+    bluebear.twig.utils:
+        class: %bluebear.twig.utils%
+        tags:
+            - {name: twig.extension }
+        calls:
+            - [setContainer, ['@service_container']]

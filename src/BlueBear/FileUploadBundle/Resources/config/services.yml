@@ -7,34 +7,34 @@ parameters:
 
 services:
     blue_bear_file_upload.resource.uploader:
-        class: %blue_bear_file_upload.resource.uploader.class%
+        class: '%blue_bear_file_upload.resource.uploader.class%'
         arguments: [ "@blue_bear_file_upload.manager.resource" ]
         tags:
             - { name: kernel.event_listener, event: oneup_uploader.post_persist, method: onUpload }
 
     blue_bear_file_upload.resource.subscriber:
-        class: %blue_bear_file_upload.resource.subscriber.class%
+        class: '%blue_bear_file_upload.resource.subscriber.class%'
         arguments: [ "@blue_bear_file_upload.manager.resource" ]
         tags:
             - { name: doctrine.event_subscriber, connection: default }
 
     # ResourceManager
     blue_bear_file_upload.manager.resource:
-        class: %blue_bear_file_upload.manager.resource.class%
+        class: '%blue_bear_file_upload.manager.resource.class%'
         calls:
-            - [setContainer, [@service_container]]
+            - [setContainer, ['@service_container']]
 
     # Resources (uploadable entities)
     blue_bear_file_upload.form.resource_type:
-        class: %blue_bear_file_upload.form.resource_type.class%
+        class: '%blue_bear_file_upload.form.resource_type.class%'
         tags:
             - { name: form.type, alias: resource }
 
     # Twig utils
     blue_bear_file_upload.twig.upload_extension:
-        class: %blue_bear_file_upload.twig.extension.class%
+        class: '%blue_bear_file_upload.twig.extension.class%'
         tags:
             - { name: twig.extension }
         calls:
-            - [setContainer, [@service_container]]
+            - [setContainer, ['@service_container']]
 

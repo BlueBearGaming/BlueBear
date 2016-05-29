@@ -1,0 +1,19 @@
+lag_admin:
+    application:
+        title: BlueBear, pyscho panda and maximum bamboo
+        description: BlueBear, pandas, bamboo and energy drink
+        bootstrap: true
+        base_template: 'BlueBearBackofficeBundle::layout.html.twig'
+        routing:
+            name_pattern: 'bluebear.admin.{admin}.{action}'
+            url_pattern: '{admin}/{action}'
+    admins:
+        map:
+            entity: BlueBear\CoreBundle\Entity\Map\Map
+            form: BlueBear\CoreBundle\Form\Type\Map\MapType
+        layer:
+            entity: BlueBear\CoreBundle\Entity\Map\Layer
+            form: BlueBear\CoreBundle\Form\Map\LayerType
+        pencil_set:
+            entity: BlueBear\CoreBundle\Entity\Map\PencilSet
+            form: BlueBear\CoreBundle\Form\Map\PencilSetType

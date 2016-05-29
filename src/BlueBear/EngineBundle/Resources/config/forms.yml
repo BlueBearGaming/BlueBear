@@ -10,30 +10,30 @@ parameters:
 
 services:
     bluebear.form.entity_instance:
-        class: %bluebear.form.entity_instance%
+        class: '%bluebear.form.entity_instance%'
         tags:
             - { name: form.type, alias: entity_instance }
         calls:
-            - [setEntityTypeFactory, [@bluebear.game.entity_type_factory]]
+            - [setEntityTypeFactory, ['@bluebear.game.entity_type_factory']]
 
     bluebear.form.entity_model:
-        class: %bluebear.form.entity_model%
+        class: '%bluebear.form.entity_model%'
         tags:
             - { name: form.type, alias: entity_model }
         calls:
-            - [setEntityTypeFactory, [@bluebear.game.entity_type_factory]]
+            - [setEntityTypeFactory, ['@bluebear.game.entity_type_factory']]
 
     bluebear.form.entity_instance_attribute:
-        class: %bluebear.form.entity_instance_attribute%
+        class: '%bluebear.form.entity_instance_attribute%'
         tags:
             - { name: form.type, alias: entity_instance_attribute }
 
     bluebear.form.entity_model_model:
-        class: %bluebear.form.entity_model_attribute%
+        class: '%bluebear.form.entity_model_attribute%'
         tags:
             - { name: form.type, alias: entity_model_attribute }
 
     bluebear.form.attribute_collection:
-        class: %bluebear.form.attribute_collection%
+        class: '%bluebear.form.attribute_collection%'
         tags:
             - { name: form.type, alias: attribute_collection }

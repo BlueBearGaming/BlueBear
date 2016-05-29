@@ -112,7 +112,7 @@ blue_bear_admin:
                 delete:
                     permissions: [ROLE_ADMIN]
         player:
-            entity: BlueBear\CoreBundle\Entity\Map\Player
+            entity: BlueBear\CoreBundle\Entity\Game\Player\Player
             form: player
             actions:
                 list:

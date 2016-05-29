@@ -41,7 +41,7 @@ class PathUtils
         $neighbours = [];
 
         while ($lowestPoint->x <= $highestPoint->x) {
-            $lowestPoint->y = $position->x - $movement;
+            $lowestPoint->y = $position->y - $movement;
 
             while ($lowestPoint->y <= $highestPoint->y) {
                 // the position must exists on the map

@@ -26,15 +26,15 @@ class Pencil
 {
     use Id, Nameable, Label, Descriptionable, Sizable, Typeable, Taggable;
 
-    /**
-     * Image used in render
-     *
-     * @var Image
-     * @ORM\OneToOne(targetEntity="BlueBear\CoreBundle\Entity\Editor\Image", inversedBy="pencil", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(name="image_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
-     * @Serializer\Expose()
-     */
-    protected $image;
+//    /**
+//     * Image used in render
+//     *
+//     * @var Image
+//     * @ORM\OneToOne(targetEntity="BlueBear\CoreBundle\Entity\Editor\Image", inversedBy="pencil", cascade={"persist", "remove"})
+//     * @ORM\JoinColumn(name="image_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+//     * @Serializer\Expose()
+//     */
+//    protected $image;
 
     /**
      * PencilSet which this pencil belongs

@@ -1,13 +1,18 @@
 # homepage
-bluebear_backoffice_homepage:
-    pattern:  /
-    defaults: {_controller: BlueBearBackofficeBundle:Main:homepage}
+bluebear.homepage:
+    path:  /
+    defaults: {_controller: 'BlueBearBackofficeBundle:Main:homepage'}
 
 # Tests for API
 bluebear_backoffice_api:
-    pattern: /tests
-    defaults: { _controller: BlueBearBackofficeBundle:Api:index }
+    path: /tests
+    defaults: { _controller: 'BlueBearBackofficeBundle:Api:index' }
 
 bluebear_backoffice_api_scenario:
-    pattern: /tests/scenarios
-    defaults: { _controller: BlueBearBackofficeBundle:Api:scenario }
+    path: /tests/scenarios
+    defaults: { _controller: 'BlueBearBackofficeBundle:Api:scenario' }
+
+# User
+bluebear.user.create:
+    path: /user/create
+    defaults: {_controller: 'BlueBearBackofficeBundle:User:create'}

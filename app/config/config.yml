@@ -1,17 +1,20 @@
 imports:
     - { resource: parameters.yml }
+    - { resource: services.yml }
     - { resource: security.yml }
-    - { resource: admins.yml }
-    - { resource: menus.yml }
+    #- { resource: admins.yml }
+    - { resource: admin/admin.yml }
+    - { resource: admin/menu.yml }
+#    - { resource: menus.yml }
     - { resource: game.yml }
     - { resource: actions.yml }
-    - { resource: fileupload.yml }
+    #- { resource: fileupload.yml }
 
 # Symfony Configuration
 framework:
     #esi:             ~
     translator:      { fallback: fr }
-    secret:          %secret%
+    secret:          '%secret%'
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
         strict_requirements: ~
@@ -24,19 +27,15 @@ framework:
     trusted_proxies: ~
     session:
         cookie_lifetime:    3600
-    fragments:       ~
+    fragments:  ~
+    serializer: ~
 
 # Twig Configuration
 twig:
-    debug:            %kernel.debug%
-    strict_variables: %kernel.debug%
+    debug:            '%kernel.debug%'
+    strict_variables: '%kernel.debug%'
     form_themes:
-        # Default:
-        - form_div_layout.html.twig
-
-        # Bootstrap:
         - bootstrap_3_layout.html.twig
-        - bootstrap_3_horizontal_layout.html.twig
 
         # Custom
         - BlueBearCoreBundle:Form:fields.html.twig
@@ -52,15 +51,15 @@ monolog:
 
 # Assetic Configuration
 assetic:
-    write_to: %kernel.root_dir%/../web
-    debug: %kernel.debug%
+    write_to: '%kernel.root_dir%/../web'
+    debug: '%kernel.debug%'
     use_controller: false
     bundles:
         - BlueBearBackofficeBundle
-        - BlueBearAdminBundle
+#        - 'BlueBearAdminBundle'
         - BlueBearEditorBundle
         - BlueBearGameBundle
-    java: %java_path%
+    java: '%java_path%'
     filters:
         cssrewrite: ~
         sass: ~
@@ -84,27 +83,24 @@ assetic:
 # Doctrine Configuration
 doctrine:
     dbal:
-        driver:   %database_driver%
-        host:     %database_host%
-        port:     %database_port%
-        dbname:   %database_name%
-        user:     %database_user%
-        password: %database_password%
+        driver:   '%database_driver%'
+        host:     '%database_host%'
+        port:     '%database_port%'
+        dbname:   '%database_name%'
+        user:     '%database_user%'
+        password: '%database_password%'
         charset:  UTF8
 
     orm:
-        auto_generate_proxy_classes: %kernel.debug%
+        auto_generate_proxy_classes: '%kernel.debug%'
         auto_mapping: true
-        mappings:
-            FOSUserBundle: ~
-            BlueBearUserBundle: ~
 
 # Swiftmailer Configuration
 swiftmailer:
-    transport: %mailer_transport%
-    host:      %mailer_host%
-    username:  %mailer_user%
-    password:  %mailer_password%
+    transport: '%mailer_transport%'
+    host:      '%mailer_host%'
+    username:  '%mailer_user%'
+    password:  '%mailer_password%'
     spool:     { type: memory }
 
 services:
@@ -113,29 +109,29 @@ services:
         tags:
             - { name: doctrine.event_subscriber, connection: default }
         calls:
-            - [ setAnnotationReader, [ @annotation_reader ] ]
+            - [ setAnnotationReader, [ '@annotation_reader' ] ]
     twig.extension.text:
         class: Twig_Extensions_Extension_Text
         tags:
             - { name: twig.extension }
 
 # Mopa
-mopa_bootstrap:
-    form: ~
+#mopa_bootstrap:
+#    form: ~
 
 # FOS User
-fos_user:
-    db_driver: orm
-    firewall_name: main
-    user_class: BlueBear\UserBundle\Entity\User
+#fos_user:
+#    db_driver: orm
+#    firewall_name: main
+#    user_class: BlueBear\UserBundle\Entity\User
 
 # JMS Serializer naming strategy
 parameters:
     jms_serializer.serialized_name_annotation_strategy.class: JMS\Serializer\Naming\IdenticalPropertyNamingStrategy
 
 # ElephantIO
-nc_elephant_io:
-    clients:
-        default:
-            connection: %socket_io_server%
-            version: 1.x
+#nc_elephant_io:
+#    clients:
+#        default:
+#            connection: '%socket_io_server%'
+#            version: 1.x

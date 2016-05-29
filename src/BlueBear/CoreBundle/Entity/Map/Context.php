@@ -26,9 +26,9 @@ class Context
     use Id, Nameable, Label, Timestampable, Data;
 
     /**
-     * @ORM\OneToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\UserContext", mappedBy="context", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Game\Player\Player", inversedBy="contexts")
      */
-    protected $userContexts;
+    protected $player;
 
     /**
      * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Map", fetch="EAGER", inversedBy="contexts")

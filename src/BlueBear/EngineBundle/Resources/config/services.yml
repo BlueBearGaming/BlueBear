@@ -33,43 +33,43 @@ parameters:
 services:
     # engine
     bluebear.engine.engine:
-        class: %bluebear.engine.engine%
+        class: '%bluebear.engine.engine%'
         arguments:
-            - @event_dispatcher
-            - @jms_serializer
+            - '@event_dispatcher'
+            - '@serializer'
         calls:
-            - [registerEvents, [%bluebear.engine.events%]]
+            - [registerEvents, ['%bluebear.engine.events%']]
 
     # Events Subscribers
     bluebear.engine.event.mapitem_subscriber:
-        class: %bluebear.engine.event.mapitem_subscriber%
+        class: '%bluebear.engine.event.mapitem_subscriber%'
         tags:
             - {name: kernel.event_subscriber}
         calls:
-            - [setContainer, [@service_container]]
+            - [setContainer, ['@service_container']]
 
     bluebear.engine.event.map_subscriber:
-        class: %bluebear.engine.event.map_subscriber%
+        class: '%bluebear.engine.event.map_subscriber%'
         tags:
             - {name: kernel.event_subscriber}
         calls:
-            - [setContextFactory, [@bluebear.engine.context_factory]]
-            - [setContainer, [@service_container]]
+            - [setContextFactory, ['@bluebear.engine.context_factory']]
+            - [setContainer, ['@service_container']]
 
     bluebear.engine.event.engine_subscriber:
-        class: %bluebear.engine.event.engine_subscriber%
+        class: '%bluebear.engine.event.engine_subscriber%'
         tags:
             - {name: kernel.event_subscriber}
         calls:
-            - [setEventDispatcher, [@event_dispatcher]]
-            - [setContextManager, [@bluebear.manager.context]]
+            - [setEventDispatcher, ['@event_dispatcher']]
+            - [setContextManager, ['@bluebear.manager.context']]
 
     bluebear.engine.event.game_subscriber:
         class: %bluebear.engine.event.game_subscriber%
         tags:
             - {name: kernel.event_subscriber}
         calls:
-            - [setContainer, [@service_container]]
+            - [setContainer, ['@service_container']]
 
     bluebear.kernel.terminate.listener:
          class: BlueBear\EngineBundle\Listener\KernelTerminateEventListener
@@ -78,32 +78,32 @@ services:
 
     # ContextFactory
     bluebear.engine.context_factory:
-        class: %bluebear.engine.context_factory%
+        class: '%bluebear.engine.context_factory%'
         calls:
-            - [setMapManager, [@bluebear.manager.map]]
-            - [setDoctrine, [@doctrine]]
+            - [setMapManager, ['@bluebear.manager.map']]
+            - [setDoctrine, ['@doctrine']]
 
     # pathfinder
     bluebear.engine.path_finder:
-        class: %bluebear.engine.path_finder%
+        class: '%bluebear.engine.path_finder%'
         calls:
-            - [setRuler, [@bluebear.engine.ruler]]
+            - [setRuler, ['@bluebear.engine.ruler']]
 
     # ruler
     bluebear.engine.ruler:
-        class: %bluebear.engine.ruler%
+        class: '%bluebear.engine.ruler%'
 
     # factory
     bluebear.game.entity_type_factory:
-        class: %bluebear.game.entity_type_factory%
+        class: '%bluebear.game.entity_type_factory%'
         calls:
-            - [createEntityTypes, [%bluebear.game.entity_type%, %bluebear.game.attribute%, %bluebear.game.behaviors%]]
+            - [createEntityTypes, ['%bluebear.game.entity_type%', '%bluebear.game.attribute%', '%bluebear.game.behaviors%']]
 
     bluebear.engine.context.utilities:
-        class: %bluebear.engine.context.utilities.class%
+        class: '%bluebear.engine.context.utilities.class%'
 
     bluebear.listener.doctrine_event_listener:
-        class: %bluebear.listener.doctrine_event_listener.class%
-        arguments: [@bluebear.game.entity_type_factory]
+        class: '%bluebear.listener.doctrine_event_listener.class%'
+        arguments: ['@bluebear.game.entity_type_factory']
         tags:
             - { name: doctrine.event_listener, event: loadClassMetadata }

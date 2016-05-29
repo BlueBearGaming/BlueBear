@@ -5,13 +5,7 @@ namespace BlueBear\CoreBundle\Entity\Map;
 use BlueBear\CoreBundle\Entity\Behavior\Timestampable;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * UserContext
- *
- * @ORM\Table(name="user_context")
- * @ORM\Entity(repositoryClass="BlueBear\CoreBundle\Entity\Map\ContextRepository")
- * @ORM\HasLifecycleCallbacks()
- */
+
 class UserContext 
 {
     use Timestampable;

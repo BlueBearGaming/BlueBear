@@ -4,7 +4,6 @@ parameters:
     bluebear.form.pencil_set_type: BlueBear\CoreBundle\Form\Map\PencilSetType
     bluebear.form.pencil_set_list_type: BlueBear\CoreBundle\Form\Map\PencilSetListType
     bluebear.form.layer_type: BlueBear\CoreBundle\Form\Map\LayerType
-    bluebear.form.map_type: BlueBear\CoreBundle\Form\Map\MapType
     bluebear.form.player: BlueBear\CoreBundle\Form\Type\PlayerType
     bluebear.form.army: BlueBear\CoreBundle\Form\Type\ArmyType
     bluebear.form.resource_image_type: BlueBear\CoreBundle\Form\Editor\ImageType
@@ -14,66 +13,66 @@ parameters:
 services:
     # PencilType
     bluebear.form.pencil_type:
-        class: %bluebear.form.pencil_type%
+        class: '%bluebear.form.pencil_type%'
         tags:
             - { name: form.type, alias: pencil }
         calls:
-            - [setPencilSetManager, [@bluebear.manager.pencil_set]]
+            - [setPencilSetManager, ['@bluebear.manager.pencil_set']]
 
     # PencilSetType
     bluebear.form.pencil_set_list_type:
-        class: %bluebear.form.pencil_set_list_type%
+        class: '%bluebear.form.pencil_set_list_type%'
         tags:
             - { name: form.type, alias: pencil_set_list }
 
     # PencilSetListType
     bluebear.form.pencil_set_type:
-        class: %bluebear.form.pencil_set_type%
+        class: '%bluebear.form.pencil_set_type%'
         tags:
             - { name: form.type, alias: pencil_set }
 
     # LayerType
     bluebear.form.layer_type:
-        class: %bluebear.form.layer_type%
+        class: '%bluebear.form.layer_type%'
         tags:
             - { name: form.type, alias: layer }
 
     # MapType
     bluebear.form.map_type:
-        class: %bluebear.form.map_type%
+        class: BlueBear\CoreBundle\Form\Type\Map\MapType
         tags:
             - { name: form.type, alias: map }
         calls:
-            - [setPencilSetManager, [@bluebear.manager.pencil_set]]
-            - [setLayerManager, [@bluebear.manager.layer]]
+            - [setPencilSetManager, ['@bluebear.manager.pencil_set']]
+            - [setLayerManager, ['@bluebear.manager.layer']]
 
     # PlayerType
     bluebear.form.player:
-        class: %bluebear.form.player%
+        class: '%bluebear.form.player%'
         tags:
             - { name: form.type, alias: player }
 
     # ArmyType
     bluebear.form.army:
-        class: %bluebear.form.army%
+        class: '%bluebear.form.army%'
         tags:
             - { name: form.type, alias: army }
 
     # Resources (uploadable entities)
     bluebear.form.resource_image:
-        class: %bluebear.form.resource_image_type%
+        class: '%bluebear.form.resource_image_type%'
         tags:
             - { name: form.type, alias: resource_image }
 
     # Utils
     bluebear.form.engine_event_test_type:
-        class: %bluebear.form.engine_event_test_type%
+        class: '%bluebear.form.engine_event_test_type%'
         tags:
             - { name: form.type, alias: engine_event_test }
         calls:
-            - [setEngine, [@bluebear.engine.engine]]
+            - [setEngine, ['@bluebear.engine.engine']]
 
     bluebear.form.engine_scenario_test:
-        class: %bluebear.form.engine_scenario_test%
+        class: '%bluebear.form.engine_scenario_test%'
         tags:
             - { name: form.type, alias: engine_scenario_test }

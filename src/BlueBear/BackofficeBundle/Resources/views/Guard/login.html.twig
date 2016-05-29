@@ -1,0 +1,51 @@
+{% extends '@BlueBearBackoffice/layout.html.twig' %}
+
+{% block container %}
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="login-panel panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Rejoins la communauté BlueBear, trou d'balle !</h3>
+                </div>
+                <div class="panel-body">
+                    <a href="{{ path('bluebear.user.create') }}" class="btn btn-lg btn-success btn-block">
+                        Créer un nouveau compte !
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="login-panel panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Déjà un compte ?</h3>
+                </div>
+                <div class="panel-body">
+                    <form role="form" action="{{ path('login_check') }}" method="post">
+                        <fieldset>
+                            {% if error %}
+                                <div>
+                                    {{ error|trans() }}
+                                    {{ form_errors(form) }}
+                                </div>
+                            {% endif %}
+                            <div class="form-group">
+                                {{ form_widget(form.username) }}
+                            </div>
+                            <div class="form-group">
+                                {{ form_widget(form.password) }}
+                            </div>
+                            {{ form_rest(form) }}
+
+                            <input type="submit" id="_submit" name="_submit"
+                                   value="{{ 'login'|trans }}"
+                                   class="btn btn-lg btn-success btn-block"/>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

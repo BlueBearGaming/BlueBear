@@ -1,0 +1,8 @@
+BlueBear\CoreBundle\Entity\Game\Player\Player:
+    fire_player:
+        name: fire_player
+        createdAt: <dateTime('now')>
+        updatedAt: <dateTime('now')>
+        isHuman: true
+        pseudonym: Fireman_du_69
+        enabled: true

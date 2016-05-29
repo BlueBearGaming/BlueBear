@@ -1,15 +1,15 @@
-blue_bear_menu:
-    menus:
-        main:
-            type: static
-            # main menu route (optionnal)
-            main_item: {route: bluebear_backoffice_homepage, title: BlueBear by BlueBearGaming}
-            # (by default)
-            template: BlueBearMenuBundle:Menu:main.html.twig
-            # menu items
-            items:
-                - {admin: pencil, action: list, title: Pencils, permissions: [ROLE_USER]}
-                - {admin: pencil_set, action: list, title: Pencil sets, permissions: [ROLE_USER]}
-        right:
-            type: dynamic
-            template: BlueBearMenuBundle:Menu:right.html.twig
+#blue_bear_menu:
+#    menus:
+#        main:
+#            type: static
+#            # main menu route (optionnal)
+#            main_item: {route: bluebear_backoffice_homepage, title: BlueBear by BlueBearGaming}
+#            # (by default)
+#            template: BlueBearMenuBundle:Menu:main.html.twig
+#            # menu items
+#            items:
+#                - {admin: pencil, action: list, title: Pencils, permissions: [ROLE_USER]}
+#                - {admin: pencil_set, action: list, title: Pencil sets, permissions: [ROLE_USER]}
+#        right:
+#            type: dynamic
+#            template: BlueBearMenuBundle:Menu:right.html.twig

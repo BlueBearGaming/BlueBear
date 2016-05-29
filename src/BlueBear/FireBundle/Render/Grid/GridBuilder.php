@@ -35,10 +35,10 @@ class GridBuilder
 
         foreach ($groundLayer->getMapItems() as $mapItem) {
 
-            if (!array_key_exists($mapItem->getX(), $cells)) {
-                $cells[$mapItem->getX()] = [];
+            if (!array_key_exists($mapItem->getY(), $cells)) {
+                $cells[$mapItem->getY()] = [];
             }
-            $cells[$mapItem->getX()][$mapItem->getY()] = new Cell($mapItem->getX(), $mapItem->getY(), $mapItem->getId());
+            $cells[$mapItem->getY()][$mapItem->getX()] = new Cell($mapItem->getX(), $mapItem->getY(), $mapItem->getId());
         }
 
         $unitLayer = $this

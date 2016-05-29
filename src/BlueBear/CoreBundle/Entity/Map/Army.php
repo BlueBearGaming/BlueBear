@@ -16,7 +16,7 @@ class Army
     use Id, Label, Nameable;
 
     /**
-     * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Map\Player", inversedBy="armies")
+     * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\Game\Player\Player", inversedBy="armies")
      */
     protected $player;
 

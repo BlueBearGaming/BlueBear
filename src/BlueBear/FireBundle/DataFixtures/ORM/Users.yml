@@ -1,0 +1,15 @@
+BlueBear\CoreBundle\Entity\User\User:
+    fire_player_user:
+        username: FireMan_du_69
+        usernameCanonical: FireMan_du_69
+        password: <password()>
+        enabled: true
+        email: <email()>
+        emailCanonical: <email()>
+        salt: <password()>
+        lastLogin: <dateTime()>
+        confirmationToken: <password()>
+        passwordRequestedAt: <dateTime()>
+        roles: ['ROLE_PLAYER']
+        credentialsExpired: false
+        credentialsExpireAt: <dateTime()>

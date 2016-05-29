@@ -1,35 +1,5 @@
-{% extends 'BlueBearAdminBundle::admin.layout.html.twig' %}
+{% extends 'LAGAdminBundle::admin.layout.html.twig' %}
 
-{% block stylesheets %}
-    {% stylesheets
-    'bundles/bluebearbackoffice/css/bootstrap-datetimepicker.min.css'
-    'bundles/bluebearbackoffice/css/font-awesome.min.css'
-    filter='cssrewrite' %}
-    <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen"/>
-    {% endstylesheets %}
-
-    {% stylesheets
-    '@BlueBearBackofficeBundle/Resources/sass/backoffice.scss'
-    filter='compass' %}
-    <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen"/>
-    {% endstylesheets %}
-
-    {% javascripts
-    'assets/jquery/jquery.min.js'
-    'assets/jquery-ui/ui/minified/core.min.js'
-    'assets/jquery-ui/ui/minified/widget.min.js'
-    'assets/jquery-ui/ui/minified/mouse.min.js'
-    'assets/jquery-ui/ui/minified/sortable.min.js'
-    '@MopaBootstrapBundle/Resources/public/bootstrap-sass/assets/javascripts/bootstrap.js'
-    '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-collection.js'
-    '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-subnav.js'
-    '@MopaBootstrapBundle/Resources/public/components/smalot-bootstrap-datetimepicker/js/bootstrap-datetimepicker.js'
-    '@MopaBootstrapBundle/Resources/public/components/smalot-bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.fr.js'
-    'bundles/bluebearbackoffice/js/vendors/highcharts.js' %}
-    <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-{% endblock %}
-
-{% block topMenu %}
-    {% include '@BlueBearBackoffice/Main/topMenu.html.twig' %}
+{% block mainTitle %}
+    <a href="{{ path('bluebear.homepage') }}" class="navbar-brand">BlueBear Portal</a>
 {% endblock %}

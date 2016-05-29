@@ -37,15 +37,15 @@ class PencilSet
      */
     protected $maps;
     
-    /**
-     * Sprite used to group pencils images
-     *
-     * @var Image
-     * @ORM\OneToOne(targetEntity="BlueBear\CoreBundle\Entity\Editor\Image", inversedBy="pencilSet", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(name="sprite_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
-     * @Serializer\Expose()
-     */
-    protected $sprite;
+//    /**
+//     * Sprite used to group pencils images
+//     *
+//     * @var Image
+//     * @ORM\OneToOne(targetEntity="BlueBear\CoreBundle\Entity\Editor\Image", inversedBy="pencilSet", cascade={"persist", "remove"})
+//     * @ORM\JoinColumn(name="sprite_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+//     * @Serializer\Expose()
+//     */
+//    protected $sprite;
 
     public function __construct()
     {

@@ -20,29 +20,31 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             // Extra bundles
             new JMS\AopBundle\JMSAopBundle(),
-            new JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
-            new Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle(),
+            //new Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
-            new FOS\UserBundle\FOSUserBundle(),
+            /*new FOS\UserBundle\FOSUserBundle(),
             new Oneup\UploaderBundle\OneupUploaderBundle(),
             new DCS\DynamicDiscriminatorMapBundle\DCSDynamicDiscriminatorMapBundle(),
             new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
-            new EE\DataExporterBundle\EEDataExporterBundle(),
-            new Nc\Bundle\ElephantIOBundle\NcElephantIOBundle(),
+            new Nc\Bundle\ElephantIOBundle\NcElephantIOBundle(),*/
             // BlueBear
-            new BlueBear\BaseBundle\BlueBearBaseBundle(),
             new BlueBear\CoreBundle\BlueBearCoreBundle(),
             new BlueBear\BackofficeBundle\BlueBearBackofficeBundle(),
             new BlueBear\EditorBundle\BlueBearEditorBundle(),
             new BlueBear\EngineBundle\BlueBearEngineBundle(),
-            new BlueBear\UserBundle\BlueBearUserBundle(),
+            //new BlueBear\UserBundle\BlueBearUserBundle(),
             new BlueBear\GameBundle\BlueBearGameBundle(),
-            new BlueBear\MenuBundle\BlueBearMenuBundle(),
+            //new BlueBear\MenuBundle\BlueBearMenuBundle(),
             new BlueBear\FileUploadBundle\BlueBearFileUploadBundle(),
-            new BlueBear\AdminBundle\BlueBearAdminBundle(),
             new BlueBear\DungeonBundle\BlueBearDungeonBundle(),
             new BlueBear\FireBundle\BlueBearFireBundle(),
+
+            // AdminBundle
+            new \LAG\AdminBundle\LAGAdminBundle(),
+            new \Knp\Bundle\MenuBundle\KnpMenuBundle(),
+            new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
+            new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'])) {
@@ -53,8 +55,23 @@ class AppKernel extends Kernel
         return $bundles;
     }
 
+    public function getRootDir()
+    {
+        return __DIR__;
+    }
+
+    public function getCacheDir()
+    {
+        return dirname(__DIR__).'/var/cache/'.$this->getEnvironment();
+    }
+
+    public function getLogDir()
+    {
+        return dirname(__DIR__).'/var/logs';
+    }
+
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
-        $loader->load(__DIR__ . '/config/config_' . $this->getEnvironment() . '.yml');
+        $loader->load(__DIR__.'/config/config_'.$this->getEnvironment().'.yml');
     }
 }

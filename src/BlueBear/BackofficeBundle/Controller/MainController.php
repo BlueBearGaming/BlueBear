@@ -15,9 +15,6 @@ class MainController extends Controller
      */
     public function homepageAction()
     {
-        // TODO count number of entities in backoffice
-        //$unitsCount = $this->get('bluebear.manager.units');
-        $maps = $this->get('bluebear.manager.map')->count();
         return [];
     }
 }

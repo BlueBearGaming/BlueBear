@@ -1,24 +1,19 @@
 # symfony
 app/config/parameters.yml
-app/bootstrap.php.cache
-app/logs
+var/bootstrap.php.cache
+var/logs
 bin/*
+!bin/console
 cache
-resources
 vendor
 web/bundles
 web/assets
 web/css
 web/js
-web/jikpoze
-*.log
-backups
-.sass-cache
 
 # kde, apple, stuff
 .ds_store
 .directory
-.idea
 
 # deployment
 .mage/config/environment

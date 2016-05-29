@@ -23,6 +23,8 @@ class FixturesLoader implements FixtureInterface
             __DIR__ . '/Maps.yml',
             __DIR__ . '/Contexts.yml',
             __DIR__ . '/MapItems.yml',
+            __DIR__ . '/Users.yml',
+            __DIR__ . '/Player.yml',
         ], $manager, [
             'locale' => 'fr_FR'
         ]);

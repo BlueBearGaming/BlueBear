@@ -1,0 +1,24 @@
+services:
+    save_repository:
+        class: BlueBear\CoreBundle\Entity\Game\Save\SaveRepository
+        factory:
+            - '@doctrine'
+            - getRepository
+        arguments:
+            - BlueBear\CoreBundle\Entity\Game\Save\Save
+
+    player_repository:
+        class: BlueBear\CoreBundle\Entity\Game\Player\PlayerRepository
+        factory:
+            - '@doctrine'
+            - getRepository
+        arguments:
+            - BlueBear\CoreBundle\Entity\Game\Player\Player
+
+    user_repository:
+        class: BlueBear\CoreBundle\Entity\User\UserRepository
+        factory:
+            - '@doctrine'
+            - getRepository
+        arguments:
+            - BlueBear\CoreBundle\Entity\User\User

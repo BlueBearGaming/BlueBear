@@ -3,7 +3,7 @@
 namespace BlueBear\DungeonBundle\Controller;
 
 use BlueBear\BaseBundle\Behavior\ControllerTrait;
-use BlueBear\CoreBundle\Entity\Map\Player;
+use BlueBear\CoreBundle\Entity\Game\Player\Player;
 use BlueBear\DungeonBundle\Form\Type\CombatType;
 use BlueBear\EngineBundle\Entity\EntityModel;
 use BlueBear\EngineBundle\Event\Data\CombatData;

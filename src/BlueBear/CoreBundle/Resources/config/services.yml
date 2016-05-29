@@ -1,13 +1,14 @@
 imports:
     - { resource: managers.yml }
     - { resource: forms.yml }
+    - { resource: repositories.yml }
 
 parameters:
     bluebear.io.client.class: BlueBear\CoreBundle\IO\Client\Client
 
 services:
     bluebear.io.client:
-        class: %bluebear.io.client.class%
+        class: '%bluebear.io.client.class%'
         arguments:
-            - @twig
-            - http://127.0.0.1:8000
+            - '@twig'
+            - 'http://127.0.0.1:8000'

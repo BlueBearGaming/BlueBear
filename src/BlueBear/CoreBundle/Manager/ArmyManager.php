@@ -4,7 +4,7 @@ namespace BlueBear\CoreBundle\Manager;
 
 use BlueBear\BaseBundle\Behavior\ManagerTrait;
 use BlueBear\CoreBundle\Entity\Map\Army;
-use BlueBear\CoreBundle\Entity\Map\Player;
+use BlueBear\CoreBundle\Entity\Game\Player\Player;
 use Doctrine\ORM\EntityRepository;
 
 class ArmyManager

@@ -12,12 +12,12 @@ class FormPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        $template = 'BlueBearFileUploadBundle:Form:fields.html.twig';
-        $resources = $container->getParameter('twig.form.resources');
-        // Ensure it wasn't already added via config
-        if (!in_array($template, $resources)) {
-            $resources[] = $template;
-            $container->setParameter('twig.form.resources', $resources);
-        }
+//        $template = 'BlueBearFileUploadBundle:Form:fields.html.twig';
+//        $resources = $container->getParameter('twig.form.resources');
+//        // Ensure it wasn't already added via config
+//        if (!in_array($template, $resources)) {
+//            $resources[] = $template;
+//            $container->setParameter('twig.form.resources', $resources);
+//        }
     }
 }

@@ -1,0 +1,36 @@
+# app/config/config.yml
+knp_menu:
+    # use "twig: false" to disable the Twig extension and the TwigRenderer
+    twig:
+        template: 'LAGAdminBundle:Menu:bootstrap_menu.html.twig'
+    #  if true, enables the helper for PHP templates
+    templating: false
+    # the renderer to use, list is also available by default
+    default_renderer: twig
+
+
+lag_admin:
+    menus:
+        main:
+            items:
+                map_menu:
+                    url: '#'
+                    text: Map
+                    icon: fa fa-gamepad
+                    items:
+                        map:
+                            admin: map
+                            action: list
+                        layer:
+                            admin: layer
+                            action: list
+                        pencil_set:
+                            admin: pencil_set
+                            action: list
+                logout:
+                    route: logout
+                    icon: fa fa-sign-out
+                    text: Logout
+
+
+

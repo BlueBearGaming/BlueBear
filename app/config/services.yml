@@ -1,0 +1,12 @@
+services:
+    bluebear_user_provider:
+        class: BlueBear\Guard\UserProvider\UserProvider
+        arguments:
+            - '@user_repository'
+
+    bluebear_authenticator:
+        class: BlueBear\Guard\Authenticator\TokenAuthenticator
+        arguments:
+            - '@router'
+            - '@form.factory'
+            - '@security.encoder_factory'
