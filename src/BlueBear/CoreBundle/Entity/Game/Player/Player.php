@@ -17,6 +17,12 @@ class Player
     use Id, Nameable, Timestampable;
 
     /**
+     * @ORM\ManyToOne(targetEntity="BlueBear\CoreBundle\Entity\User\User")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    protected $user;
+
+    /**
      * @ORM\Column(name="is_human", type="boolean")
      */
     protected $isHuman = false;
@@ -103,5 +109,21 @@ class Player
     public function setEnabled($enabled)
     {
         $this->enabled = $enabled;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
     }
 }

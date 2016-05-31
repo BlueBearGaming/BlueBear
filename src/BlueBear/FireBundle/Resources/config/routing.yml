@@ -1,3 +1,13 @@
+# all routes are prefixed with /fire/ (@see app/config/routing.yml)
+
+bluebear.fire.start:
+    path: /start
+    defaults: {_controller: BlueBearFireBundle:Game:start}
+
+bluebear.fire.new:
+    path: /new
+    defaults: {_controller: BlueBearFireBundle:Game:new}
+
 bluebear.firegame.run:
     path:     /run
-    defaults: { _controller: BlueBearFireBundle:Game:run }
+    defaults: {_controller: BlueBearFireBundle:Game:run}

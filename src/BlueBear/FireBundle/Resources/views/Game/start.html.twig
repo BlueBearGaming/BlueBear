@@ -1,0 +1,28 @@
+{% extends '@BlueBearBackoffice/layout.html.twig' %}
+
+{% block content %}
+    <style>
+        body {
+            background-color: #404040;
+        }
+
+        #page-wrapper {
+            background-color: #fff;
+        }
+    </style>
+
+
+    {% if saves | length > 0 %}
+        the void
+    {% else %}
+        <a href="" class="btn btn-primary">
+            New Game
+        </a>
+    {% endif %}
+
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}
+

@@ -2,8 +2,8 @@
 
 namespace BlueBear\CoreBundle\Entity\Game\Player;
 
-use Doctrine\ORM\EntityRepository;
+use LAG\AdminBundle\Repository\DoctrineRepository;
 
-class PlayerRepository extends EntityRepository
+class PlayerRepository extends DoctrineRepository
 {
 }

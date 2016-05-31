@@ -11,9 +11,11 @@ lag_admin:
         map:
             entity: BlueBear\CoreBundle\Entity\Map\Map
             form: BlueBear\CoreBundle\Form\Type\Map\MapType
+            actions: ~
         layer:
             entity: BlueBear\CoreBundle\Entity\Map\Layer
             form: BlueBear\CoreBundle\Form\Map\LayerType
         pencil_set:
             entity: BlueBear\CoreBundle\Entity\Map\PencilSet
             form: BlueBear\CoreBundle\Form\Map\PencilSetType
+            actions: ~

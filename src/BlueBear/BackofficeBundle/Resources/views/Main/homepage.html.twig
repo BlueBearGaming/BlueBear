@@ -1,45 +1,21 @@
 {% extends 'BlueBearBackofficeBundle::layout.html.twig' %}
 
 {% block content %}
-    <div class="test"></div>
-{% endblock %}
-
-{% block javascripts %}
-    <script>
-        $(document).on('ready', function () {
-            var HighChartHelper = {
-                init: function (container, options) {
-                    container.highcharts({
-                        chart: {
-                            type: options.type,
-                            backgroundColor: '#303030'
-                        },
-                        title: {
-                            text: options.title
-                        },
-                        xAxis: {
-                            categories: ['Apples', 'Bananas', 'Oranges']
-                        },
-                        yAxis: {
-                            title: {
-                                text: 'Fruit eaten'
-                            }
-                        },
-                        series: options.series
-                    });
-                }
-            };
-            var chartsOptions = {
-                type: 'pie',
-                title: 'Images',
-                series: [
-                    {
-                        name: 'test',
-                        data: [0, 2, 5, 8, 9]
-                    }
-                ]
-            };
-            HighChartHelper.init($('.test'), chartsOptions);
-        })
-    </script>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="jumbotron">
+                <h2>BlueBear</h2>
+                <p>Psycho pandas and maximum bamboo</p>
+                <p><a href="" class="btn btn-primary">Play</a></p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="jumbotron">
+                <h2>Fire 3242</h2>
+                <p>Become a fireman of the futuuuuuure....</p>
+                <img src="{{ asset('img/fire/logo.jpg') }}" alt="fire logo" width="100"/>
+                <p><a href="{{ path('bluebear.fire.start') }}" class="btn btn-primary">Play</a></p>
+            </div>
+        </div>
+    </div>
 {% endblock %}
