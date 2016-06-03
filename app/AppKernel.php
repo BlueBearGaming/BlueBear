@@ -47,7 +47,8 @@ class AppKernel extends Kernel
             new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
 
             // EAV
-            new Sidus\EAVModelBundle\SidusEAVModelBundle()
+            new Sidus\EAVModelBundle\SidusEAVModelBundle(),
+            new LAG\AdminEAVBridgeBundle\LAGAdminEAVBridgeBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'])) {

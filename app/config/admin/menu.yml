@@ -27,6 +27,14 @@ lag_admin:
                         pencil_set:
                             admin: pencil_set
                             action: list
+                fireman:
+                    url: '#'
+                    text: Fire 3242
+                    icon: fa fa-fire-extinguisher
+                    items:
+                        fireman:
+                            admin: fireman
+                            action: list
                 logout:
                     route: logout
                     icon: fa fa-sign-out

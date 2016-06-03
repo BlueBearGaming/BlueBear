@@ -1,0 +1,28 @@
+services:
+    lag.admin.eav_bridge.data_provider:
+        class: LAG\AdminEAVBridgeBundle\DataProvider\EAVDataProvider
+        arguments:
+            - '@lag.admin.eav_bridge.repository'
+            - '@lag.admin.eav_bridge.mapper'
+            - '@sidus_eav_model.family_configuration.handler'
+        tags:
+            - {name: 'data_provider'}
+
+    lag.admin.eav_bridge.repository:
+        class: LAG\AdminEAVBridgeBundle\Repository\DoctrineEAVRepository
+        factory:
+            - '@doctrine'
+            - getRepository
+        arguments:
+            - '%lag.admin.eav_bridge.entity%'
+
+    lag.admin.eav_bridge.configuration_subscriber:
+        class: LAG\AdminEAVBridgeBundle\Event\Subscriber\EAVAdminConfigurationSubscriber
+        tags:
+            - {name: kernel.event_subscriber}
+        arguments:
+            - '%lag.admin.eav_bridge.mapping%'
+            - '@lag.admin.eav_bridge.mapper'
+
+    lag.admin.eav_bridge.mapper:
+        class: LAG\AdminEAVBridgeBundle\Mapping\AdminEAVFamilyMapper

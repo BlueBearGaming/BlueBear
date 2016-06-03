@@ -3303,12 +3303,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/larriereguichet/AdminBundle.git",
-                "reference": "2f7956e50eb38904df80758d4974362f11470e1a"
+                "reference": "8d2fe0e811fcd9ee19908cd1c524400fb40b5661"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/larriereguichet/AdminBundle/zipball/2f7956e50eb38904df80758d4974362f11470e1a",
-                "reference": "2f7956e50eb38904df80758d4974362f11470e1a",
+                "url": "https://api.github.com/repos/larriereguichet/AdminBundle/zipball/8d2fe0e811fcd9ee19908cd1c524400fb40b5661",
+                "reference": "8d2fe0e811fcd9ee19908cd1c524400fb40b5661",
                 "shasum": ""
             },
             "require": {
@@ -3369,7 +3369,7 @@
                 "backoffice",
                 "generic"
             ],
-            "time": "2016-05-31 20:07:28"
+            "time": "2016-06-03 19:47:25"
         },
         {
             "name": "lag/array-utils",
@@ -4520,12 +4520,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/VincentChalnot/SidusEAVModelBundle.git",
-                "reference": "5ec29a8e9ec9df5720df3275d38602e6ee5ad0fa"
+                "reference": "5da356418d151ab67941d2c1db8ba0c6c4d05e5f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/VincentChalnot/SidusEAVModelBundle/zipball/5ec29a8e9ec9df5720df3275d38602e6ee5ad0fa",
-                "reference": "5ec29a8e9ec9df5720df3275d38602e6ee5ad0fa",
+                "url": "https://api.github.com/repos/VincentChalnot/SidusEAVModelBundle/zipball/5da356418d151ab67941d2c1db8ba0c6c4d05e5f",
+                "reference": "5da356418d151ab67941d2c1db8ba0c6c4d05e5f",
                 "shasum": ""
             },
             "require": {
@@ -4562,7 +4562,7 @@
                 "eav",
                 "model"
             ],
-            "time": "2016-06-03 18:47:47"
+            "time": "2016-06-03 19:35:03"
         },
         {
             "name": "stfalcon/tinymce-bundle",

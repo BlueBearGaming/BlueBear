@@ -7,7 +7,7 @@ use Sidus\EAVModelBundle\Entity\Data;
 
 /**
  * @ORM\Table(name="fire_eav_entity")
- * @ORM\Entity(repositoryClass="Sidus\EAVModelBundle\Entity\DataRepository")
+ * @ORM\Entity(repositoryClass="LAG\AdminEAVBridgeBundle\Repository\DoctrineEAVRepository")
  */
 class EAVEntity extends Data
 {

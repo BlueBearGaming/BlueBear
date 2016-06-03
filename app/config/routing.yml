@@ -1,3 +1,7 @@
+lag_admin_eav_bridge:
+    resource: "@LAGAdminEAVBridgeBundle/Resources/config/routing.yml"
+    prefix:   /
+
 # Guard
 login:
     path: /login

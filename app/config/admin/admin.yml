@@ -21,4 +21,11 @@ lag_admin:
             actions: ~
         fireman:
             entity: BlueBear\FireBundle\Entity\EAVEntity
-            form: ~
+            form: Sidus\EAVModelBundle\Form\Type\DataType
+            data_provider: 'lag.admin.eav_bridge.data_provider'
+
+lag_admin_eav_bridge:
+    entity: BlueBear\FireBundle\Entity\EAVEntity
+    mapping:
+        # admin: EAV Family
+        fireman: FireMan
