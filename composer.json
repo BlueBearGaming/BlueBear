@@ -42,7 +42,6 @@
 
     "mopa/bootstrap-bundle": "3.*@dev",
     "twbs/bootstrap-sass": "3.*@dev",
-    "log0ymxm/bootswatch-scss": "dev-master",
 
     "clever-gaming/jikpoze": "*@dev",
 
@@ -54,10 +53,11 @@
     "doctrine/doctrine-fixtures-bundle": "^2.3",
     "jms/security-extra-bundle": "^1.6",
     "jms/serializer-bundle": "^1.1",
-    "lag/adminbundle": "dev-dev"
+    "lag/adminbundle": "dev-dev",
+    "sidus/eav-model-bundle": "dev-symfony3"
   },
   "require-dev": {
-    "phpunit/phpunit": "4.7.*"
+    
   },
   "scripts": {
     "post-install-cmd": [

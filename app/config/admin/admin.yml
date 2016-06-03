@@ -19,3 +19,6 @@ lag_admin:
             entity: BlueBear\CoreBundle\Entity\Map\PencilSet
             form: BlueBear\CoreBundle\Form\Map\PencilSetType
             actions: ~
+        fireman:
+            entity: BlueBear\FireBundle\Entity\EAVEntity
+            form: ~

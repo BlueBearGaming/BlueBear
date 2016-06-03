@@ -45,6 +45,9 @@ class AppKernel extends Kernel
             new \Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
             new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
+
+            // EAV
+            new Sidus\EAVModelBundle\SidusEAVModelBundle()
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'])) {

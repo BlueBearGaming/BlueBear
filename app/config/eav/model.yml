@@ -1,0 +1,25 @@
+sidus_eav_model:
+    data_class: 'BlueBear\FireBundle\Entity\EAVEntity'
+    value_class: 'BlueBear\FireBundle\Entity\EAVValue'
+    default_context: []
+
+    families:
+        FireMan:
+            attributeAsLabel: name
+            attributes:
+                - name
+                - age
+                - class
+
+    attributes:
+        name:
+            required: true
+
+        age:
+            type: integer
+
+        class:
+            type: choice
+            form_options:
+                choices:
+                    fireman: Fireman

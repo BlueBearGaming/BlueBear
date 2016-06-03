@@ -9,6 +9,7 @@ use BlueBear\CoreBundle\Entity\Map\Map;
 use BlueBear\CoreBundle\Entity\Map\MapItem;
 use BlueBear\CoreBundle\Entity\Map\MapItemRepository;
 use Doctrine\Common\Collections\ArrayCollection;
+use Exception;
 
 /**
  * Basic map generator for fire game.
@@ -37,6 +38,11 @@ class MapGenerator
         $this->mapItemRepository = $mapItemRepository;
     }
 
+    /**
+     * @param Map $map
+     * @param Player $player
+     * @throws Exception
+     */
     public function generate(Map $map, Player $player)
     {
         $contextName = sprintf('context-%s-%s', $player->getName(), $player->getId());
@@ -46,6 +52,10 @@ class MapGenerator
         $context->setMap($map);
         $mapItems = new ArrayCollection();
         $landLayer = $map->getLayerByName('land_layer');
+
+        if (!$landLayer) {
+            throw new Exception('You must have a Layer with the name land_layer');
+        }
 
         $this
             ->contextRepository

@@ -1,6 +1,6 @@
 # symfony
 app/config/parameters.yml
-var/bootstrap.php.cache
+app/bootstrap.php.cache
 var/logs
 bin/*
 !bin/console
