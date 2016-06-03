@@ -22,3 +22,27 @@ services:
             - getRepository
         arguments:
             - BlueBear\CoreBundle\Entity\User\User
+
+    context_repository:
+        class: BlueBear\CoreBundle\Entity\Map\ContextRepository
+        factory:
+            - '@doctrine'
+            - getRepository
+        arguments:
+            - BlueBear\CoreBundle\Entity\Map\Context
+
+    map_item_repository:
+        class: BlueBear\CoreBundle\Entity\Map\MapItemRepository
+        factory:
+            - '@doctrine'
+            - getRepository
+        arguments:
+            - BlueBear\CoreBundle\Entity\Map\MapItem
+
+    map_repository:
+        class: BlueBear\CoreBundle\Entity\Map\MapRepository
+        factory:
+            - '@doctrine'
+            - getRepository
+        arguments:
+            - BlueBear\CoreBundle\Entity\Map\Map

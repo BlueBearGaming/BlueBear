@@ -8,4 +8,4 @@ BlueBear\CoreBundle\Entity\Map\Map:
         startX: 0
         startY: 0
         type: 'square'
-        layers: ['@ground_layer', '@fireman_layer', '@fire_layer']
+        layers: ['@land_layer', '@fireman_layer', '@fire_layer']

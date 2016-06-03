@@ -31,7 +31,7 @@ class GridBuilder
 
         $groundLayer = $this
             ->map
-            ->getLayerByName('ground_layer');
+            ->getLayerByName('land_layer');
 
         foreach ($groundLayer->getMapItems() as $mapItem) {
 

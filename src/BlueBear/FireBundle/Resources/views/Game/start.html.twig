@@ -14,8 +14,10 @@
 
     {% if saves | length > 0 %}
         the void
+
+        {{ dump(saves) }}
     {% else %}
-        <a href="" class="btn btn-primary">
+        <a href="{{ path('bluebear.fire.new') }}" class="btn btn-primary">
             New Game
         </a>
     {% endif %}

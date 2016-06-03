@@ -1,0 +1,5 @@
+BlueBear\CoreBundle\Entity\Map\PencilSet:
+    name: 'fake_pencil'
+    label: 'Fake Pencil'
+    type: 'selection'
+    map: '@fire_map_1'

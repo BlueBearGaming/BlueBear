@@ -186,4 +186,20 @@ class Context
         }
         return null;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getPlayer()
+    {
+        return $this->player;
+    }
+
+    /**
+     * @param mixed $player
+     */
+    public function setPlayer($player)
+    {
+        $this->player = $player;
+    }
 }

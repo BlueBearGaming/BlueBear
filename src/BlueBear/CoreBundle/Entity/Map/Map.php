@@ -5,6 +5,7 @@ namespace BlueBear\CoreBundle\Entity\Map;
 use BlueBear\CoreBundle\Entity\Behavior\Id;
 use BlueBear\CoreBundle\Entity\Behavior\Label;
 use BlueBear\CoreBundle\Entity\Behavior\Nameable;
+use BlueBear\CoreBundle\Entity\Behavior\Sizable;
 use BlueBear\CoreBundle\Entity\Behavior\Timestampable;
 use BlueBear\CoreBundle\Entity\Behavior\Typeable;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -23,7 +24,7 @@ use JMS\Serializer\Annotation as Serializer;
  */
 class Map
 {
-    use Id, Nameable, Label, Timestampable, Typeable;
+    use Id, Nameable, Label, Timestampable, Typeable, Sizable;
 
     const TYPE_SQUARE = 'square';
     const TYPE_ISOMETRIC = 'isometric';

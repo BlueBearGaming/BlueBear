@@ -1,6 +1,6 @@
 BlueBear\CoreBundle\Entity\Map\Layer:
-    ground_layer:
-        name: ground_layer
+    land_layer:
+        name: land_layer
         label: Main Layer
         type: square
         description: Main layer for the Fire game

@@ -14,6 +14,9 @@ class SaveRepository extends EntityRepository
             ->innerJoin('save.context', 'context')
             ->innerJoin('context.player', 'player')
             ->where('player.id = :player_id')
-            ->setParameter('player_id', $player->getId());
+            ->setParameter('player_id', $player->getId())
+            ->getQuery()
+            ->getResult()
+        ;
     }
 }

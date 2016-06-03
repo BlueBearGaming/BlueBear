@@ -3,3 +3,9 @@ services:
         class: BlueBear\FireBundle\Event\Subscriber\MovementSubscriber
         tags:
             - {name: kernel.event_subscriber}
+
+    bluebear.fire.map_generator:
+        class: BlueBear\FireBundle\Generator\MapGenerator
+        arguments:
+            - '@context_repository'
+            - '@map_item_repository'

@@ -50,16 +50,22 @@ class MapType extends AbstractType
             //'help_block' => 'Map type'
         ]);
         $builder->add('cellSize', ChoiceType::class, [
-            'choices' => [
+            'choices' => array_flip([
                 '64' => '64px',
                 '128' => '128px',
-            ],
+            ]),
             //'help_block' => 'Cell size (in px)'
         ]);
         $builder->add('startX', IntegerType::class, [
             //'help_block' => 'Starting x position'
         ]);
         $builder->add('startY', IntegerType::class, [
+            //'help_block' => 'Starting y position'
+        ]);
+        $builder->add('width', IntegerType::class, [
+            //'help_block' => 'Starting x position'
+        ]);
+        $builder->add('height', IntegerType::class, [
             //'help_block' => 'Starting y position'
         ]);
         $builder->add(

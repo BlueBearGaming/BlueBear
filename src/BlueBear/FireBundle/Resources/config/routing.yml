@@ -9,5 +9,5 @@ bluebear.fire.new:
     defaults: {_controller: BlueBearFireBundle:Game:new}
 
 bluebear.firegame.run:
-    path:     /run
+    path:     /run/{contextId}
     defaults: {_controller: BlueBearFireBundle:Game:run}

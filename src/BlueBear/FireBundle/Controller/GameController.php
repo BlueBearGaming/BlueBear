@@ -3,6 +3,8 @@
 namespace BlueBear\FireBundle\Controller;
 
 use BlueBear\CoreBundle\Entity\Game\Player\Player;
+use BlueBear\CoreBundle\Entity\Map\Map;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -27,15 +29,25 @@ class GameController extends Controller
 
     public function newAction()
     {
-        
+        /** @var Map $map */
+        $map = $this
+            ->get('map_repository')
+            ->findOneBy([
+                'name' => 'fire_map_1'
+            ]);
+
+        $this
+            ->get('bluebear.fire.map_generator')
+            ->generate($map, $this->getCurrentPlayer());
     }
 
     /**
      * @Template()
+     * @ParamConverter(context, class="BlueBearCoreBundle:Map:Context")
      */
     public function runAction()
     {
-
+        die('run');
     }
 
     /**
@@ -57,7 +69,7 @@ class GameController extends Controller
             $player->setIsHuman(true);
             $player->setUser($this->getUser());
             $player->setPseudonym($this->getUser()->getUsername());
-            $player->setName($this->getUser()->getUsername());
+            $player->setName('fire_player');
 
             $repository->save($player);
         }

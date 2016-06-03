@@ -16,7 +16,7 @@ class ASCIIConverter implements MapConverterInterface
     public function convert(Map $map)
     {
         $cells = $map
-            ->getLayerByName('ground_layer')
+            ->getLayerByName('land_layer')
             ->getMapItems();
         $asciiRepresentation = [];
         $minX = 0;
