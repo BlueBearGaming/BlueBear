@@ -91,10 +91,6 @@ doctrine:
         user:     '%database_user%'
         password: '%database_password%'
         charset:  UTF8
-        types:
-            sidus_family:
-                class: Sidus\EAVModelBundle\Doctrine\Types\FamilyType
-                commented: true
 
     orm:
         auto_generate_proxy_classes: '%kernel.debug%'

@@ -1,25 +1,21 @@
 sidus_eav_model:
     data_class: 'BlueBear\FireBundle\Entity\EAVEntity'
     value_class: 'BlueBear\FireBundle\Entity\EAVValue'
+    collection_type: Sidus\EAVBootstrapBundle\Form\Type\BootstrapCollectionType
     default_context: []
 
     families:
         FireMan:
             attributeAsLabel: name
             attributes:
-                - name
-                - age
-                - class
+                name:
+                    required: true
 
-    attributes:
-        name:
-            required: true
+                age:
+                    type: integer
 
-        age:
-            type: integer
-
-        class:
-            type: choice
-            form_options:
-                choices:
-                    fireman: Fireman
+                class:
+                    type: choice
+                    form_options:
+                        choices:
+                            fireman: Fireman

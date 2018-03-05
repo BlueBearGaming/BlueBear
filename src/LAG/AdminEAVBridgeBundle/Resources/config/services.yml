@@ -4,7 +4,7 @@ services:
         arguments:
             - '@lag.admin.eav_bridge.repository'
             - '@lag.admin.eav_bridge.mapper'
-            - '@sidus_eav_model.family_configuration.handler'
+            - '@sidus_eav_model.family.registry'
         tags:
             - {name: 'data_provider'}
 

@@ -4,15 +4,14 @@ namespace LAG\AdminEAVBridgeBundle\DataProvider;
 
 use Exception;
 use LAG\AdminBundle\DataProvider\DataProvider;
-use LAG\AdminBundle\DataProvider\DataProviderInterface;
 use LAG\AdminBundle\Repository\RepositoryInterface;
 use LAG\AdminEAVBridgeBundle\Mapping\AdminEAVFamilyMapper;
-use Sidus\EAVModelBundle\Configuration\FamilyConfigurationHandler;
+use Sidus\EAVModelBundle\Registry\FamilyRegistry;
 
 /**
  * Override DataProvider to allow EAV entities creation with Family in constructor's argument.
  */
-class EAVDataProvider extends DataProvider implements DataProviderInterface
+class EAVDataProvider extends DataProvider
 {
     /**
      * @var AdminEAVFamilyMapper
@@ -20,26 +19,26 @@ class EAVDataProvider extends DataProvider implements DataProviderInterface
     protected $mapper;
 
     /**
-     * @var FamilyConfigurationHandler
+     * @var FamilyRegistry
      */
-    protected $handler;
+    protected $familyRegistry;
 
     /**
      * EAVDataProvider constructor.
      *
      * @param RepositoryInterface $repository
      * @param AdminEAVFamilyMapper $mapper
-     * @param FamilyConfigurationHandler $handler
+     * @param FamilyRegistry $familyRegistry
      */
     public function __construct(
         RepositoryInterface $repository,
         AdminEAVFamilyMapper $mapper,
-        FamilyConfigurationHandler $handler
+        FamilyRegistry $familyRegistry
     ) {
         parent::__construct($repository);
 
         $this->mapper = $mapper;
-        $this->handler = $handler;
+        $this->familyRegistry = $familyRegistry;
     }
 
     public function create()
@@ -51,10 +50,10 @@ class EAVDataProvider extends DataProvider implements DataProviderInterface
             ->mapper
             ->getFamily($className);
 
-        if (!$this->handler->hasFamily($family)) {
+        if (!$this->familyRegistry->hasFamily($family)) {
             throw new Exception($family.' not found in in family handler. Check your mapping configuration');
         }
 
-        return new $className($this->handler->getFamily($family));
+        return new $className($this->familyRegistry->getFamily($family));
     }
 }

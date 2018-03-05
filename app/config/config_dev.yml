@@ -1,6 +1,6 @@
 imports:
     - { resource: config.yml }
-    - { resource: '@SidusEAVModelBundle/Resources/config/annotation_generator.yml' }
+    - { resource: '@SidusEAVModelBundle/Resources/config/services/annotation_generator.yml' }
 
 framework:
     router:   { resource: "%kernel.root_dir%/config/routing_dev.yml" }

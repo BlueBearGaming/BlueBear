@@ -21,3 +21,5 @@ web/js
 # node, bower
 node_modules
 bower_components
+
+.idea

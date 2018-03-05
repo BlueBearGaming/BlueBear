@@ -25,7 +25,6 @@ class AppKernel extends Kernel
             new JMS\SerializerBundle\JMSSerializerBundle(),
             /*new FOS\UserBundle\FOSUserBundle(),
             new Oneup\UploaderBundle\OneupUploaderBundle(),
-            new DCS\DynamicDiscriminatorMapBundle\DCSDynamicDiscriminatorMapBundle(),
             new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
             new Nc\Bundle\ElephantIOBundle\NcElephantIOBundle(),*/
             // BlueBear
@@ -41,8 +40,8 @@ class AppKernel extends Kernel
             new BlueBear\FireBundle\BlueBearFireBundle(),
 
             // AdminBundle
-            new \LAG\AdminBundle\LAGAdminBundle(),
-            new \Knp\Bundle\MenuBundle\KnpMenuBundle(),
+            new LAG\AdminBundle\LAGAdminBundle(),
+            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
             new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
 

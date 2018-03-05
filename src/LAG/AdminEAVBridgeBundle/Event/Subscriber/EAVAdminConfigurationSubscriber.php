@@ -2,7 +2,8 @@
 
 namespace LAG\AdminEAVBridgeBundle\Event\Subscriber;
 
-use LAG\AdminBundle\Event\AdminEvent;
+use LAG\AdminBundle\Admin\Event\AdminCreateEvent;
+use LAG\AdminBundle\Admin\Event\AdminEvents;
 use LAG\AdminEAVBridgeBundle\Mapping\AdminEAVFamilyMapper;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -38,21 +39,21 @@ class EAVAdminConfigurationSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            AdminEvent::ADMIN_CREATE => 'adminCreate'
+            AdminEvents::ADMIN_CREATE => 'adminCreate'
         ];
     }
 
     /**
-     * @param AdminEvent $event
+     * @param AdminCreateEvent $event
      */
-    public function adminCreate(AdminEvent $event)
+    public function adminCreate(AdminCreateEvent $event)
     {
         if (!array_key_exists($event->getAdminName(), $this->mapping)) {
             return;
         }
         // add mapping between a class, an admin and an eav family for the data provider
         $class = $event
-            ->getConfiguration()['entity'];
+            ->getAdminConfiguration()['entity'];
 
         $this
             ->mapper
