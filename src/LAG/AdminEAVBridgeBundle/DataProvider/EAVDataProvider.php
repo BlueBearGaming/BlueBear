@@ -24,11 +24,9 @@ class EAVDataProvider extends DataProvider
     protected $familyRegistry;
 
     /**
-     * EAVDataProvider constructor.
-     *
-     * @param RepositoryInterface $repository
+     * @param RepositoryInterface  $repository
      * @param AdminEAVFamilyMapper $mapper
-     * @param FamilyRegistry $familyRegistry
+     * @param FamilyRegistry       $familyRegistry
      */
     public function __construct(
         RepositoryInterface $repository,
@@ -41,19 +39,19 @@ class EAVDataProvider extends DataProvider
         $this->familyRegistry = $familyRegistry;
     }
 
+    /**
+     * @return object|\Sidus\EAVModelBundle\Entity\DataInterface
+     * @throws Exception
+     */
     public function create()
     {
-        $className = $this
-            ->repository
-            ->getClassName();
-        $family = $this
-            ->mapper
-            ->getFamily($className);
+        $className = $this->repository->getClassName();
+        $family = $this->mapper->getFamily($className);
 
         if (!$this->familyRegistry->hasFamily($family)) {
             throw new Exception($family.' not found in in family handler. Check your mapping configuration');
         }
 
-        return new $className($this->familyRegistry->getFamily($family));
+        return $this->familyRegistry->getFamily($family)->createData();
     }
 }

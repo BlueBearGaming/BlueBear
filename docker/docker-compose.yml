@@ -1,0 +1,51 @@
+version: '2'
+
+services:
+    app:
+        image: alpine
+        command: 'true'
+        volumes:
+            - ${APP_DIR}:/var/www/current
+
+    www:
+        build: www
+        working_dir: /var/www/current
+        depends_on:
+            - mysql
+            - mailcatcher
+        ports:
+            - ${WWW_PORT}:80
+        volumes_from:
+            - app
+        volumes:
+            - ./www/nginx/sites-available/:/etc/nginx/sites-available/
+            - ${SSH_AUTH_SOCK}:/ssh-agent
+        environment:
+            SF_DATABASE_HOST: mysql
+            SF_DATABASE_PORT: 3306
+            SF_DATABASE_NAME: ${MYSQL_DATABASE}
+            SF_DATABASE_USER: ${MYSQL_USER}
+            SF_DATABASE_PASSWORD: ${MYSQL_PASSWORD}
+            SF_MAILER_TRANSPORT: smtp
+            SF_MAILER_HOST: 'mailcatcher:1025'
+            SF_MAILER_USER: '~'
+            SF_MAILER_PASSWORD: '~'
+            SF_SECRET: ${SF_SECRET}
+            SF_TRUSTED_PROXIES: '~'
+
+    mysql:
+        image: mariadb
+        ports:
+            - ${DB_PORT}:3306
+        volumes:
+            - ./data/mysql:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+
+    mailcatcher:
+        image: zolweb/docker-mailcatcher:latest
+        ports:
+            - ${MAILCATCHER_PORT}:1080

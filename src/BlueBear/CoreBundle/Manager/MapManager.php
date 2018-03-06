@@ -75,17 +75,6 @@ class MapManager
             ->getOneOrNullResult();
     }
 
-    /**
-     * Return number of maps
-     *
-     * @return mixed
-     */
-    public function count()
-    {
-        return $this
-            ->getRepository()
-            ->count();
-    }
 
     /**
      * Return map repository
@@ -96,6 +85,6 @@ class MapManager
     {
         return $this
             ->getEntityManager()
-            ->getRepository('BlueBear\CoreBundle\Entity\Map\Map');
+            ->getRepository(Map::class);
     }
 }
