@@ -1,0 +1,36 @@
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    root /var/www/current/web;
+
+    index app.php;
+
+    location / {
+        try_files $uri $uri/ /app.php$is_args$args;
+    }
+
+    # DEV
+    location ~ ^/app_dev\.php(/|$) {
+        include snippets/fastcgi-php.conf;
+    }
+
+    # PROD
+    location ~ ^/app\.php(/|$) {
+        include snippets/fastcgi-php.conf;
+
+        internal;
+    }
+
+    location ~ \.php$ {
+        # Disable this in production
+        include snippets/fastcgi-php.conf;
+
+        # Disable this in dev
+        #return 404;
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }
+}

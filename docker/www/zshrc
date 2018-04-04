@@ -1,0 +1,6 @@
+export ZSH=$HOME/.oh-my-zsh
+ZSH_THEME="robbyrussell"
+plugins=(git git-extras github rsync symfony2 capistrano history-substring-search sudo arch composer docker docker-compose)
+source $ZSH/oh-my-zsh.sh
+export PROMPT="%{$fg[magenta]%}docker%{$reset_color%} $PROMPT"
+alias suno="sudo nano"
