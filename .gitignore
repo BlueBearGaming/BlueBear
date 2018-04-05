@@ -27,3 +27,12 @@ web/uploads/tmp
 .mage/config/environment
 
 node_modules
+
+
+!/docker/data
+/docker/data/*
+!docker/data/.gitkeep
+!/docker/ssh
+/docker/ssh/*
+!docker/ssh/.gitkeep
+/docker/.env

@@ -3,6 +3,7 @@ FROM bluebeargaming/ubuntu-server
 USER root
 
 RUN add-apt-repository ppa:ondrej/php
+RUN echo 'fuck you docker cache'
 RUN apt-get update
 
 # Custom php extensions
@@ -23,9 +24,11 @@ RUN apt-get install -y \
 # Fix fastcgi params in nginx
 COPY nginx/snippets/fastcgi-php.conf /etc/nginx/snippets/fastcgi-php.conf
 
+RUN update-alternatives --set php /usr/bin/php5.6
+
 # Enabling our custom config
 COPY php/mods-available/symfony.ini /etc/php/5.6/mods-available/symfony.ini
-RUN phpenmod symfony
+RUN phpenmod -v 5.6 symfony
 
 # Install composer
 ENV COMPOSER_ALLOW_SUPERUSER 1
