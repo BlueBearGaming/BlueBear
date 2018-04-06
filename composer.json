@@ -1,5 +1,5 @@
 {
-    "name": "BlueBear",
+    "name": "BlueBear/BlueBear",
     "license": "MIT",
     "type": "project",
     "description": "BlueBear, pandas against the world",
@@ -15,7 +15,7 @@
       }
     ],
     "require": {
-        "php": ">=5.3.3",
+        "php": ">=5.6",
         "symfony/symfony": "2.6.6",
         "symfony/assetic-bundle": "~2.3",
         "symfony/swiftmailer-bundle": "~2.3",

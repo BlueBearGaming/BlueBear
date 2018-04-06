@@ -48,7 +48,7 @@ class MainController extends Controller
             'layerSelectorName' => 'bluebear_map_editor[selected_layer]',
             'pencilSelectorName' => 'bluebear_map_editor[selected_pencil]',
             'contextId' => $context->getId(),
-            'socketIOUri' => $request->getHost() . ':8000',
+            'socketIOUri' => $this->container->getParameter('socket_io_server'),
         ];
 
         return [
