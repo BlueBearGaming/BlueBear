@@ -2,16 +2,20 @@
 
 namespace LAG\AdminEAVBridgeBundle\DataProvider;
 
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityRepository;
 use Exception;
-use LAG\AdminBundle\DataProvider\DataProvider;
-use LAG\AdminBundle\Repository\RepositoryInterface;
+use LAG\AdminBundle\Bridge\Doctrine\Orm\DataProvider\OrmDataProvider;
 use LAG\AdminEAVBridgeBundle\Mapping\AdminEAVFamilyMapper;
 use Sidus\EAVModelBundle\Registry\FamilyRegistry;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Override DataProvider to allow EAV entities creation with Family in constructor's argument.
  */
-class EAVDataProvider extends DataProvider
+class EAVDataProvider extends OrmDataProvider
 {
     /**
      * @var AdminEAVFamilyMapper
@@ -24,23 +28,29 @@ class EAVDataProvider extends DataProvider
     protected $familyRegistry;
 
     /**
-     * @param RepositoryInterface  $repository
-     * @param AdminEAVFamilyMapper $mapper
-     * @param FamilyRegistry       $familyRegistry
+     * @param EntityRepository         $repository
+     * @param AdminEAVFamilyMapper     $mapper
+     * @param FamilyRegistry           $familyRegistry
+     * @param EntityManagerInterface   $entityManager
+     * @param EventDispatcherInterface $eventDispatcher
+     * @param RequestStack             $requestStack
      */
     public function __construct(
-        RepositoryInterface $repository,
+        EntityRepository $repository,
         AdminEAVFamilyMapper $mapper,
-        FamilyRegistry $familyRegistry
+        FamilyRegistry $familyRegistry,
+        EntityManagerInterface $entityManager,
+        EventDispatcherInterface $eventDispatcher,
+        RequestStack $requestStack
     ) {
-        parent::__construct($repository);
+        parent::__construct($entityManager, $eventDispatcher, $requestStack);
 
         $this->mapper = $mapper;
         $this->familyRegistry = $familyRegistry;
     }
 
     /**
-     * @return object|\Sidus\EAVModelBundle\Entity\DataInterface
+     * @return mixed|\Sidus\EAVModelBundle\Entity\DataInterface
      * @throws Exception
      */
     public function create()

@@ -4,9 +4,8 @@ lag_admin:
         description: BlueBear, pandas, bamboo and energy drink
         bootstrap: true
         base_template: 'BlueBearBackofficeBundle::layout.html.twig'
-        routing:
-            name_pattern: 'bluebear.admin.{admin}.{action}'
-            url_pattern: '{admin}/{action}'
+        routing_name_pattern: 'bluebear.admin.{admin}.{action}'
+        routing_url_pattern: '{admin}/{action}'
     admins:
         map:
             entity: BlueBear\CoreBundle\Entity\Map\Map

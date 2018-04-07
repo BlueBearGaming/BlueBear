@@ -40,7 +40,7 @@ class AppKernel extends Kernel
 
             // AdminBundle
             new LAG\AdminBundle\LAGAdminBundle(),
-            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+            //new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
             new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
 

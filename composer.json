@@ -19,7 +19,6 @@
         "symfony/swiftmailer-bundle": "~2.3",
         "symfony/asset": "^3.0",
         "sensio/distribution-bundle": "^5.0",
-        "sensio/framework-extra-bundle": "^3.0",
         "twig/extensions": "^1.5",
         "incenteev/composer-parameter-handler": "^2.1",
 
@@ -36,7 +35,8 @@
         "jms/security-extra-bundle": "^1.6",
         "jms/serializer-bundle": "^1.1",
         "lag/adminbundle": "dev-refonte",
-        "sidus/eav-bootstrap-bundle": "1.2.*"
+        "sidus/eav-bootstrap-bundle": "1.2.*",
+        "symfony/monolog-bundle": "^3.2"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0"
