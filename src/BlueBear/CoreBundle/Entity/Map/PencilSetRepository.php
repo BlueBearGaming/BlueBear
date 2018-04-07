@@ -2,9 +2,9 @@
 
 namespace BlueBear\CoreBundle\Entity\Map;
 
-use LAG\AdminBundle\Repository\DoctrineRepository;
+use Doctrine\ORM\EntityRepository;
 
-class PencilSetRepository extends DoctrineRepository
+class PencilSetRepository extends EntityRepository
 {
     public function findByMap(Map $map)
     {

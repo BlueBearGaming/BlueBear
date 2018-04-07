@@ -2,8 +2,8 @@
 
 namespace BlueBear\CoreBundle\Entity\Map;
 
-use LAG\AdminBundle\Repository\DoctrineRepository;
+use Doctrine\ORM\EntityRepository;
 
-class LayerRepository extends DoctrineRepository
+class LayerRepository extends EntityRepository
 {
 }

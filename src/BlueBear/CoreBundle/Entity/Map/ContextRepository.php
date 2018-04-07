@@ -5,9 +5,9 @@ namespace BlueBear\CoreBundle\Entity\Map;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use Exception;
-use LAG\AdminBundle\Repository\DoctrineRepository;
+use Doctrine\ORM\EntityRepository;
 
-class ContextRepository extends DoctrineRepository
+class ContextRepository extends EntityRepository
 {
     /**
      * Return a context with its map item from a starting position to a ending position

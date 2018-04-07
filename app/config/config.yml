@@ -5,7 +5,6 @@ imports:
     #- { resource: admins.yml }
     - { resource: admin/admin.yml }
     - { resource: admin/menu.yml }
-#    - { resource: menus.yml }
     - { resource: game.yml }
     - { resource: actions.yml }
     - { resource: eav/model.yml }

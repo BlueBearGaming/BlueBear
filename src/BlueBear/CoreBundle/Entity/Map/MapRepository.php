@@ -3,9 +3,9 @@
 namespace BlueBear\CoreBundle\Entity\Map;
 
 use Doctrine\ORM\QueryBuilder;
-use LAG\AdminBundle\Repository\DoctrineRepository;
+use Doctrine\ORM\EntityRepository;
 
-class MapRepository extends DoctrineRepository
+class MapRepository extends EntityRepository
 {
     /**
      * Find a map by its id

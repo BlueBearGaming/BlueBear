@@ -20,7 +20,6 @@ lag_admin:
     prefix: /
     type: extra
 
-
 blue_bear_fire:
     resource: "@BlueBearFireBundle/Resources/config/routing.yml"
     prefix:   /fire
