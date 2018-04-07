@@ -23,3 +23,10 @@ node_modules
 bower_components
 
 .idea
+
+# docker
+docker/.env
+docker/data/mysql
+
+# sydus
+var/annotations/Sidus
