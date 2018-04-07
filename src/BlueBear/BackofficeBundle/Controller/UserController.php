@@ -4,16 +4,17 @@ namespace BlueBear\BackofficeBundle\Controller;
 
 use BlueBear\BackofficeBundle\Form\Type\UserType;
 use BlueBear\CoreBundle\Entity\User\User;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
 {
     /**
-     * @Template()
      * @param Request $request
-     * @return array
+     *
+     * @return RedirectResponse|Response
      */
     public function createAction(Request $request)
     {
@@ -31,8 +32,8 @@ class UserController extends Controller
             return $this->redirectToRoute('bluebear.homepage');
         }
 
-        return [
+        return $this->render('@BlueBearBackoffice/User/create.html.twig', [
             'form' => $form->createView()
-        ];
+        ]);
     }
 }

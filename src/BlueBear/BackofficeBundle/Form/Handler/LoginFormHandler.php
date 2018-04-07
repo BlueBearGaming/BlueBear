@@ -4,7 +4,7 @@ namespace BlueBear\BackofficeBundle\Form\Handler;
 
 
 use BlueBear\CoreBundle\Entity\User\User;
-use BlueBear\CoreBundle\Entity\User\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -15,20 +15,31 @@ class LoginFormHandler
      * @var UserPasswordEncoderInterface
      */
     private $passwordEncoder;
-    
-    /**
-     * @var UserRepository
-     */
-    private $userRepository;
 
+    /**
+     * @var EntityManagerInterface
+     */
+    private $entityManager;
+
+    /**
+     * LoginFormHandler constructor.
+     *
+     * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param EntityManagerInterface       $entityManager
+     */
     public function __construct(
         UserPasswordEncoderInterface $passwordEncoder,
-        UserRepository $userRepository
+        EntityManagerInterface $entityManager
     ) {
         $this->passwordEncoder = $passwordEncoder;
-        $this->userRepository = $userRepository;
+        $this->entityManager = $entityManager;
     }
 
+    /**
+     * @param FormInterface $form
+     *
+     * @throws Exception
+     */
     public function handle(FormInterface $form)
     {
         $user = $form->getData();
@@ -42,9 +53,8 @@ class LoginFormHandler
         $user->setPassword($this->passwordEncoder->encodePassword($user, $user->getPassword()));
         $user->setEnabled(true);
 
-        $this
-            ->userRepository
-            ->save($user);
+        $this->entityManager->persist($user);
+        $this->entityManager->flush();
     }
 
     /**

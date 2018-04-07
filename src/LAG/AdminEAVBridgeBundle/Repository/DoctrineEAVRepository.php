@@ -2,10 +2,9 @@
 
 namespace LAG\AdminEAVBridgeBundle\Repository;
 
-use LAG\AdminBundle\Repository\RepositoryInterface;
 use Sidus\EAVModelBundle\Entity\DataRepository;
 
-class DoctrineEAVRepository extends DataRepository implements RepositoryInterface
+class DoctrineEAVRepository extends DataRepository
 {
     /**
      * Save an entity

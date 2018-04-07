@@ -1,6 +1,4 @@
 services:
     bluebear.form.login_handler:
         class: BlueBear\BackofficeBundle\Form\Handler\LoginFormHandler
-        arguments:
-            - '@security.password_encoder'
-            - '@user_repository'
+        autowire: true
