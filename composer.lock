@@ -56,12 +56,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/BlueBearGaming/Jikpoze.git",
-                "reference": "bd18cf85c0c4724a10599bed7b71cb75dac76b45"
+                "reference": "563ad7774e8b198d371d0e1523b6cb073a4fe0a2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/BlueBearGaming/Jikpoze/zipball/bd18cf85c0c4724a10599bed7b71cb75dac76b45",
-                "reference": "bd18cf85c0c4724a10599bed7b71cb75dac76b45",
+                "url": "https://api.github.com/repos/BlueBearGaming/Jikpoze/zipball/563ad7774e8b198d371d0e1523b6cb073a4fe0a2",
+                "reference": "563ad7774e8b198d371d0e1523b6cb073a4fe0a2",
                 "shasum": ""
             },
             "type": "game-engine",
@@ -85,7 +85,7 @@
                 "stagexl",
                 "tiles"
             ],
-            "time": "2018-04-06T17:11:21+00:00"
+            "time": "2018-04-07T18:02:38+00:00"
         },
         {
             "name": "components/font-awesome",
@@ -3154,12 +3154,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/larriereguichet/AdminBundle.git",
-                "reference": "91c72581930bb9783599d2e68174445548726ebb"
+                "reference": "4a18d0320e41c40fd36252f5c6356130889e3f0c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/larriereguichet/AdminBundle/zipball/91c72581930bb9783599d2e68174445548726ebb",
-                "reference": "91c72581930bb9783599d2e68174445548726ebb",
+                "url": "https://api.github.com/repos/larriereguichet/AdminBundle/zipball/4a18d0320e41c40fd36252f5c6356130889e3f0c",
+                "reference": "4a18d0320e41c40fd36252f5c6356130889e3f0c",
                 "shasum": ""
             },
             "require": {
@@ -3215,7 +3215,7 @@
                 "backoffice",
                 "generic"
             ],
-            "time": "2018-03-27T22:27:21+00:00"
+            "time": "2018-04-07T20:50:57+00:00"
         },
         {
             "name": "letournel/path-finder",
