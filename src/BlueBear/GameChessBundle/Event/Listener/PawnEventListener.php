@@ -13,11 +13,13 @@ class PawnEventListener extends PieceEventListener
         $this->handlePossibleMovement($x, $y);
 
         // Adding possible captures in diagonal
-        $this->handlePossibleCapture($x+1, $y);
-        $this->handlePossibleCapture($x-1, $y);
+        $this->handlePossibleCapture($x + 1, $y);
+        $this->handlePossibleCapture($x - 1, $y);
 
         // If pawn has never moved, it can move up to the second row
-        if ($this->piece->getY() == 6 && $this->piece->isWhite() || $this->piece->getY() == 1 && !$this->piece->isWhite()) {
+        if (($this->piece->getY() == 6 && $this->piece->isWhite())
+            || ($this->piece->getY() == 1 && !$this->piece->isWhite())
+        ) {
             $this->piece->isWhite() ? $y-- : $y++;
             $this->handlePossibleMovement($x, $y);
         }
@@ -36,10 +38,13 @@ class PawnEventListener extends PieceEventListener
         $moves[] = ['x' => $x - 1, 'y' => $y];
 
         // If pawn has never moved, it can move up to the second row
-        if ($this->piece->getY() == 6 && $this->piece->isWhite() || $this->piece->getY() == 1 && !$this->piece->isWhite()) {
+        if (($this->piece->getY() == 6 && $this->piece->isWhite())
+            || ($this->piece->getY() == 1 && !$this->piece->isWhite())
+        ) {
             $this->piece->isWhite() ? $y-- : $y++;
             $moves[] = ['x' => $x, 'y' => $y];
         }
+
         // @todo take "en passant"
         return $moves;
     }

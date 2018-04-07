@@ -158,7 +158,7 @@ class MapSubscriber implements EventSubscriberInterface
                     ->getMapItemManager()
                     ->findByPositionAndLayer($context, $position, $layer);
                 // update current map item according to pencil and map item
-                $updated[] = $this->updateMapItem($context, $pencil, $mapItem, $layer, $position);;
+                $updated[] = $this->updateMapItem($context, $pencil, $mapItem, $layer, $position);
             } else {
                 // try to find an existing item
                 $mapItem = $this->getMapItemManager()->findByPositionAndLayer($context, $position, $layer);
@@ -188,6 +188,7 @@ class MapSubscriber implements EventSubscriberInterface
         // if map item exists, we just change pencil
         if ($mapItem) {
             $mapItem->setPencil($pencil);
+            $this->getMapItemManager()->save($mapItem);
         } else {
             // searching if an entity model is linked to the pencil
             /** @var EntityModel $entityModel */
@@ -216,9 +217,10 @@ class MapSubscriber implements EventSubscriberInterface
                 $mapItem->setY($requestPosition->y);
                 $mapItem->setLayer($layer);
                 $mapItem->setPencil($pencil);
+                $this->getMapItemManager()->save($mapItem);
             }
         }
-        $this->getMapItemManager()->save($mapItem);
+
         return $mapItem;
     }
 

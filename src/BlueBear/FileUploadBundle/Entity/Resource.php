@@ -12,7 +12,6 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="BlueBear\FileUploadBundle\Entity\ResourceRepository")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type", type="string")
- * @ORM\DiscriminatorMap({"resource" = "BlueBear\FileUploadBundle\Entity\Resource"})
  */
 class Resource extends BaseResource
 {

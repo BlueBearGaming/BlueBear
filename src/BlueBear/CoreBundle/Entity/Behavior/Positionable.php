@@ -50,7 +50,7 @@ trait Positionable
      */
     public function setX($x)
     {
-        $this->x = $x;
+        $this->x = (int) $x;
     }
 
     /**
@@ -70,7 +70,7 @@ trait Positionable
      */
     public function setY($y)
     {
-        $this->y = $y;
+        $this->y = (int) $y;
     }
 
     /**
@@ -90,7 +90,7 @@ trait Positionable
      */
     public function setPosition(Position $position)
     {
-        $this->x = $position->x;
-        $this->y = $position->y;
+        $this->setX($position->x);
+        $this->setY($position->y);
     }
 } 

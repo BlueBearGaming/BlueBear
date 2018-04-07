@@ -34,8 +34,11 @@ abstract class PieceEventListener
      */
     abstract protected function findMoves();
 
-    public function __construct(ChessContextUtilities $contextUtilities, MapItemManager $mapItemManager, EntityTypeFactory $entityTypeFactory)
-    {
+    public function __construct(
+        ChessContextUtilities $contextUtilities,
+        MapItemManager $mapItemManager,
+        EntityTypeFactory $entityTypeFactory
+    ) {
         $this->contextUtilities = $contextUtilities;
         $this->mapItemManager = $mapItemManager;
         $this->entityTypeFactory = $entityTypeFactory; // Temporary
@@ -43,13 +46,14 @@ abstract class PieceEventListener
 
     /**
      * @param EngineEvent $engineEvent
+     *
      * @throws \Exception
      */
     public function onSelect(EngineEvent $engineEvent)
     {
         /**
          * @var MapItemClickRequest $request
-         * @var MapUpdateResponse $response
+         * @var MapUpdateResponse   $response
          */
         $request = $engineEvent->getRequest();
         $response = $engineEvent->getResponse();
@@ -57,7 +61,7 @@ abstract class PieceEventListener
         $this->contextUtilities->setContext($context);
         $this->piece = $this->contextUtilities->findTarget($request->target);
         if (!$this->piece) {
-            throw new \Exception("No valid target found");
+            throw new \Exception('No valid target found');
         }
 
         // Select current piece
@@ -73,13 +77,14 @@ abstract class PieceEventListener
 
     /**
      * @param EngineEvent $engineEvent
+     *
      * @throws \Exception
      */
     public function onMove(EngineEvent $engineEvent)
     {
         /**
          * @var MapItemClickRequest $request
-         * @var MapUpdateResponse $response
+         * @var MapUpdateResponse   $response
          */
         $request = $engineEvent->getRequest();
         $response = $engineEvent->getResponse();
@@ -87,7 +92,7 @@ abstract class PieceEventListener
         $this->contextUtilities->setContext($context);
         $this->piece = $this->contextUtilities->findTarget($request->source);
         if (!$this->piece) {
-            throw new \Exception("No valid source found");
+            throw new \Exception('No valid source found');
         }
 
         $x = $request->target->position->x;
@@ -109,11 +114,14 @@ abstract class PieceEventListener
         // adding entity listeners for each behaviors from configuration
         foreach ($behaviors as $behavior) {
             if (!array_key_exists($behavior, $entitiesBehaviors)) {
-                throw new \Exception("Invalid behavior : " . $behavior);
+                throw new \Exception('Invalid behavior : '.$behavior);
             }
-            $mapItem->addListener('click', [
-                'name' => $entitiesBehaviors[$behavior]->getListener()
-            ]);
+            $mapItem->addListener(
+                'click',
+                [
+                    'name' => $entitiesBehaviors[$behavior]->getListener(),
+                ]
+            );
         }
         // Fin du gros fix dégueulasse
 
@@ -139,6 +147,7 @@ abstract class PieceEventListener
     /**
      * @param int $x
      * @param int $y
+     *
      * @return string
      */
     protected function handlePossibleAction($x, $y)
@@ -146,12 +155,14 @@ abstract class PieceEventListener
         if (!$this->isAllowedMovement($x, $y)) {
             return ChessContextUtilities::BLOCKED;
         }
+
         return $this->contextUtilities->handlePossibleAction($this->piece, $x, $y, $this->mapItems);
     }
 
     /**
      * @param int $x
      * @param int $y
+     *
      * @return string
      */
     protected function handlePossibleCapture($x, $y)
@@ -159,12 +170,14 @@ abstract class PieceEventListener
         if (!$this->isAllowedMovement($x, $y)) {
             return ChessContextUtilities::BLOCKED;
         }
+
         return $this->contextUtilities->handlePossibleCapture($this->piece, $x, $y, $this->mapItems);
     }
 
     /**
      * @param int $x
      * @param int $y
+     *
      * @return string
      */
     protected function handlePossibleMovement($x, $y)
@@ -172,12 +185,14 @@ abstract class PieceEventListener
         if (!$this->isAllowedMovement($x, $y)) {
             return ChessContextUtilities::BLOCKED;
         }
+
         return $this->contextUtilities->handlePossibleMovement($this->piece, $x, $y, $this->mapItems);
     }
 
     /**
      * @param int $x
      * @param int $y
+     *
      * @return bool
      */
     protected function isAllowedMovement($x, $y)
@@ -188,12 +203,15 @@ abstract class PieceEventListener
                 return true;
             }
         }
+
         return false;
     }
 
     /**
      * Method is declared here because it's used by both rook and queen
+     *
      * @param array $moves
+     *
      * @return array
      */
     protected function findRookMoves(array &$moves = [])
@@ -202,12 +220,15 @@ abstract class PieceEventListener
         $this->contextUtilities->findPath($this->piece, -1, 0, $moves);
         $this->contextUtilities->findPath($this->piece, 0, 1, $moves);
         $this->contextUtilities->findPath($this->piece, 0, -1, $moves);
+
         return $moves;
     }
 
     /**
      * Method is declared here because it's used by both bishop and queen
+     *
      * @param array $moves
+     *
      * @return array
      */
     protected function findBishopMoves(array &$moves = [])
@@ -216,6 +237,7 @@ abstract class PieceEventListener
         $this->contextUtilities->findPath($this->piece, 1, -1, $moves);
         $this->contextUtilities->findPath($this->piece, -1, 1, $moves);
         $this->contextUtilities->findPath($this->piece, -1, -1, $moves);
+
         return $moves;
     }
 }
