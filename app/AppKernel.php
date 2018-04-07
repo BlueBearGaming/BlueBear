@@ -38,7 +38,8 @@ class AppKernel extends Kernel
             new BlueBear\UserBundle\BlueBearUserBundle(),
             new BlueBear\FileUploadBundle\BlueBearFileUploadBundle(),
             new BlueBear\AdminBundle\BlueBearAdminBundle(),
-            new BlueBear\GameChessBundle\BlueBearGameChessBundle()
+            new BlueBear\GameChessBundle\BlueBearGameChessBundle(),
+            new BlueBear\HexagonBundle\BlueBearHexagonBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

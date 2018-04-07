@@ -16,6 +16,7 @@ use BlueBear\EngineBundle\Manager\EntityModelManager;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\HttpFoundation\File\File;
@@ -24,7 +25,7 @@ use UnexpectedValueException;
 class ChessGameData implements FixtureInterface, ContainerAwareInterface
 {
     use ContainerTrait;
-    
+
     /**
      * @var ObjectManager
      */
@@ -65,13 +66,16 @@ class ChessGameData implements FixtureInterface, ContainerAwareInterface
         $pencilSet->setType('square');
         $this->manager->persist($pencilSet);
 
+        $fs = new Filesystem();
+        $fs->mkdir($applicationPath.'/../web/resources/images');
+
         $finder = new Finder();
-        $finder->files()->in($applicationPath . '/../fixtures/chess');
+        $finder->files()->in($applicationPath.'/../fixtures/chess');
         $pieces = [];
         /** @var SplFileInfo $fileInfo */
         foreach ($finder as $fileInfo) {
             /** @var Image $image */
-            $image = $imageManager->addFile(new File($fileInfo->getRealPath()), $fileInfo->getRealPath(), 'image');
+            $image = $imageManager->addFile(new File($fileInfo->getRealPath()), $fileInfo->getFilename(), 'image');
             $pencilType = strpos($fileInfo->getFilename(), 'bg') ? 'land' : 'units';
             $piecePencil = new Pencil();
             $piecePencil->setName($fileInfo->getFilename());
@@ -82,6 +86,7 @@ class ChessGameData implements FixtureInterface, ContainerAwareInterface
 
             $this->manager->persist($piecePencil);
             $pieces[str_replace('.png', '', $fileInfo->getFilename())] = $piecePencil;
+            $fs->copy($fileInfo->getRealPath(), $applicationPath.'/../web/resources/images/'.$fileInfo->getFilename(), true);
         }
         $layers = $this
             ->container
@@ -129,7 +134,12 @@ class ChessGameData implements FixtureInterface, ContainerAwareInterface
 
         foreach (['black', 'white'] as $color) {
             foreach (['rook', 'knight', 'bishop', 'queen', 'king', 'pawn'] as $type) {
-                $this->createEntityModel("chess_{$type}_{$color}", ucwords("{$color} {$type}"), "chess_{$type}", $pieces["{$color}_{$type}"]);
+                $this->createEntityModel(
+                    "chess_{$type}_{$color}",
+                    ucwords("{$color} {$type}"),
+                    "chess_{$type}",
+                    $pieces["{$color}_{$type}"]
+                );
             }
         }
 

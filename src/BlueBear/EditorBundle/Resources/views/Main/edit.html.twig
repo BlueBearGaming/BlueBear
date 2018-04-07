@@ -27,6 +27,8 @@
                                 {% if pencil.image %}
                                     <img width="50" height="50" src="{{ resource_path(pencil.image) }}"/>
                                     <div class="clear"></div>
+                                {% else %}
+                                    {{ pencil.name }}
                                 {% endif %}
                             </label>
                         </div>
