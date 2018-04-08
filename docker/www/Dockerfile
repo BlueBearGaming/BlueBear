@@ -3,7 +3,6 @@ FROM bluebeargaming/ubuntu-server
 USER root
 
 RUN add-apt-repository ppa:ondrej/php
-RUN echo 'fuck you docker cache'
 RUN apt-get update
 
 # Custom php extensions
