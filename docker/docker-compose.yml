@@ -5,7 +5,7 @@ services:
         image: alpine
         command: 'true'
         volumes:
-            - ${APP_DIR}:/var/www/current
+            - '../:/var/www/current'
 
     www:
         build: www
@@ -13,6 +13,8 @@ services:
         depends_on:
             - mysql
             - mailcatcher
+            - socketio
+            - jikpoze
         ports:
             - ${WWW_PORT}:80
         volumes_from:
@@ -30,8 +32,11 @@ services:
             SF_MAILER_HOST: 'mailcatcher:1025'
             SF_MAILER_USER: '~'
             SF_MAILER_PASSWORD: '~'
+            SF_LOCALE: en
             SF_SECRET: ${SF_SECRET}
-            SF_TRUSTED_PROXIES: '~'
+            SF_SOCKET_IO_SERVER: 'socketio:3000'
+            SF_SOCKET_IO_EXTERNAL_URI: 'http://${APP_HOSTNAME}:${SOCKETIO_PORT}'
+            SF_DART_PORT: ${DART_PORT}
 
     mysql:
         image: mariadb
@@ -40,10 +45,43 @@ services:
         volumes:
             - ./data/mysql:/var/lib/mysql
         environment:
-            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
             MYSQL_DATABASE: ${MYSQL_DATABASE}
             MYSQL_USER: ${MYSQL_USER}
             MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+
+    dart:
+        image: google/dart:1
+        working_dir: /app
+        volumes:
+            - '../jikpoze/:/app/'
+            - '../.dart-cache/:/root/.pub-cache/'
+        command: ['pub', 'get']
+
+    socketio:
+        image: google/dart:1
+        working_dir: /app
+        depends_on:
+            - dart
+        ports:
+            - ${SOCKETIO_PORT}:3000
+        volumes:
+            - '../jikpoze/:/app/'
+            - '../.dart-cache/:/root/.pub-cache/'
+        command: ['pub', 'run', 'jikpoze']
+
+    jikpoze:
+        image: google/dart:1
+        working_dir: /app
+        depends_on:
+            - dart
+        ports:
+            - ${DART_PORT}:8080
+            - 8181:8181
+        volumes:
+            - '../jikpoze/:/app/'
+            - '../.dart-cache/:/root/.pub-cache/'
+        command: ['pub', 'serve', '--hostname=0.0.0.0']
 
     mailcatcher:
         image: zolweb/docker-mailcatcher:latest

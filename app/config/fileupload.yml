@@ -5,4 +5,4 @@ oneup_uploader:
             frontend: blueimp
             allowed_mimetypes: [ "image/jpg", "image/jpeg", "image/png", "image/gif" ]
             storage:
-                directory: %resources_dir%/images
+                directory: '%kernel.root_dir%/../web/resources/images'

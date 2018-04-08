@@ -23,42 +23,53 @@ class MainController extends Controller
         $maps = $this->getMapManager()->findAll();
 
         return [
-            'maps' => $maps
+            'maps' => $maps,
         ];
     }
 
     /**
      * @Template()
      * @param Request $request
+     *
      * @return array
      */
     public function editAction(Request $request)
     {
+        $edition = (bool)$request->get('edition');
+
         /** @var Map $map */
         $map = $this
             ->getMapManager()
             ->findOneBy(['name' => $request->get('mapName')]);
+
         $context = $map
             ->getContexts()
             ->first();
+
+        $endpoint = $this->generateUrl('bluebear_engine_trigger_event', [], UrlGeneratorInterface::ABSOLUTE_URL).'/';
         $jikpozeOptions = [
-            'endPoint' => $this->generateUrl('bluebear_engine_trigger_event', [], UrlGeneratorInterface::ABSOLUTE_URL) . '/',
-            'edition' => (bool) $request->get('edition'),
+            'endPoint' => $endpoint,
+            'edition' => $edition,
             'resourceBasePath' => $this->get('blue_bear_file_upload.twig.upload_extension')->resource_path(null, true),
             'layerSelectorName' => 'bluebear_map_editor[selected_layer]',
             'pencilSelectorName' => 'bluebear_map_editor[selected_pencil]',
             'contextId' => $context->getId(),
-            'socketIOUri' => $this->container->getParameter('socket_io_server'),
+            'socketIOUri' => $this->container->getParameter('socket_io_external_uri'),
         ];
+        $dartPort = $this->container->getParameter('dart_port');
+        $dartHost = $request->getScheme().'://'.$request->getHost().':'.$dartPort;
 
         return [
             'context' => $context,
+            'edition' => $edition,
+            'dartHost' => $dartHost,
             'jikpozeOptions' => $jikpozeOptions,
         ];
     }
 
     /**
      * @param Request $request
+     *
      * @return array
      */
     public function deleteAction(Request $request)
@@ -83,10 +94,13 @@ class MainController extends Controller
         $response = new JsonResponse();
         $response->setStatusCode($statusCode);
         $response->setEncodingOptions(JSON_PRETTY_PRINT);
-        $response->setData([
-            'code' => $code,
-            'data' => $data
-        ]);
+        $response->setData(
+            [
+                'code' => $code,
+                'data' => $data,
+            ]
+        );
+
         return $response;
     }
 }

@@ -23,11 +23,8 @@ web/uploads/tmp
 .directory
 .idea
 
-# deployment
-.mage/config/environment
-
-node_modules
-
+/jikpoze
+/.dart-cache
 
 !/docker/data
 /docker/data/*
@@ -36,3 +33,5 @@ node_modules
 /docker/ssh/*
 !docker/ssh/.gitkeep
 /docker/.env
+
+!.gitkeep

@@ -73,7 +73,23 @@
         "symfony-web-dir": "web",
         "symfony-assets-install": "symlink",
         "incenteev-parameters": {
-            "file": "app/config/parameters.yml"
+            "file": "app/config/parameters.yml",
+            "env-map": {
+                "database_host": "SF_DATABASE_HOST",
+                "database_port": "SF_DATABASE_PORT",
+                "database_name": "SF_DATABASE_NAME",
+                "database_user": "SF_DATABASE_USER",
+                "database_password": "SF_DATABASE_PASSWORD",
+                "mailer_transport": "SF_MAILER_TRANSPORT",
+                "mailer_host": "SF_MAILER_HOST",
+                "mailer_user": "SF_MAILER_USER",
+                "mailer_password": "SF_MAILER_PASSWORD",
+                "locale": "SF_LOCALE",
+                "secret": "SF_SECRET",
+                "socket_io_server": "SF_SOCKET_IO_SERVER",
+                "socket_io_external_uri": "SF_SOCKET_IO_EXTERNAL_URI",
+                "dart_port": "SF_DART_PORT"
+            }
         }
     }
 }
