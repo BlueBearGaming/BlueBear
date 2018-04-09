@@ -3,10 +3,9 @@ FROM bluebeargaming/ubuntu-server
 USER root
 
 RUN add-apt-repository ppa:ondrej/php
-RUN apt-get update
 
 # Custom php extensions
-RUN apt-get install -y \
+RUN apt-get update && apt-get install -y \
     mariadb-client \
     nginx \
     php5.6-fpm \
