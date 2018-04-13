@@ -28,7 +28,8 @@ class EntityInstance
     use Id, Nameable, Label, Timestampable, Typeable;
 
     /**
-     * @ORM\OneToMany(targetEntity="BlueBear\EngineBundle\Entity\EntityInstanceAttribute", cascade={"persist", "remove"}, mappedBy="entityInstance", indexBy="name")
+     * @ORM\OneToMany(targetEntity="BlueBear\EngineBundle\Entity\EntityInstanceAttribute",
+     *     cascade={"persist", "remove"}, mappedBy="entityInstance", indexBy="name")
      */
     protected $attributes;
 
@@ -130,19 +131,21 @@ class EntityInstance
      * Return the value of an attribute
      *
      * @param $attributeName
+     *
      * @return mixed
      * @throws Exception
      */
     public function get($attributeName)
     {
         if (!array_key_exists($attributeName, $this->attributes->toArray())) {
-            throw new Exception('Attribute not found : ' . $attributeName);
+            throw new Exception('Attribute not found : '.$attributeName);
         }
+
         return $this->attributes[$attributeName]->getValue();
     }
 
     /**
-     * @return mixed
+     * @return array
      */
     public function getBehaviors()
     {
@@ -151,11 +154,12 @@ class EntityInstance
 
     /**
      * @param $behaviorName
+     *
      * @return bool
      */
     public function hasBehavior($behaviorName)
     {
-        return in_array($behaviorName, $this->behaviors);
+        return in_array($behaviorName, $this->behaviors, true);
     }
 
     /**

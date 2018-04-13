@@ -1,3 +1,0 @@
-blue_bear_action_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: BlueBearActionBundle:Default:index }

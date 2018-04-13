@@ -2,15 +2,17 @@
 
 namespace BlueBear\EngineBundle\Event\Subscriber;
 
-use BlueBear\BaseBundle\Behavior\ContainerTrait;
 use BlueBear\CoreBundle\Entity\Map\Context;
 use BlueBear\CoreBundle\Entity\Map\Layer;
 use BlueBear\CoreBundle\Entity\Map\MapItem;
 use BlueBear\CoreBundle\Entity\Map\Pencil;
+use BlueBear\CoreBundle\Manager\ContextManager;
+use BlueBear\CoreBundle\Manager\LayerManager;
 use BlueBear\CoreBundle\Manager\MapItemManager;
+use BlueBear\CoreBundle\Manager\PencilManager;
 use BlueBear\CoreBundle\Utils\Position;
-use BlueBear\EngineBundle\Behavior\HasContextFactory;
-use BlueBear\EngineBundle\Behavior\HasException;
+use BlueBear\EngineBundle\Engine\Context\ContextFactory;
+use BlueBear\EngineBundle\Entity\EntityInstance;
 use BlueBear\EngineBundle\Event\EngineEvent;
 use BlueBear\EngineBundle\Event\Request\MapLoadRequest;
 use BlueBear\EngineBundle\Event\Request\MapUpdateRequest;
@@ -18,6 +20,9 @@ use BlueBear\EngineBundle\Event\Request\SubRequest\MapUpdateItemSubRequest;
 use BlueBear\EngineBundle\Event\Response\MapLoadResponse;
 use BlueBear\EngineBundle\Event\Response\MapUpdateResponse;
 use BlueBear\EngineBundle\Entity\EntityModel;
+use BlueBear\EngineBundle\Factory\EntityTypeFactory;
+use BlueBear\EngineBundle\Manager\EntityInstanceManager;
+use BlueBear\EngineBundle\Manager\EntityModelManager;
 use Exception;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -28,7 +33,29 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class MapSubscriber implements EventSubscriberInterface
 {
-    use HasContextFactory, ContainerTrait, HasException;
+    /** @var MapItemManager */
+    protected $mapItemManager;
+
+    /** @var ContextManager */
+    protected $contextManager;
+
+    /** @var ContextFactory */
+    protected $contextFactory;
+
+    /** @var EntityInstanceManager */
+    protected $entityInstanceManager;
+
+    /** @var EntityTypeFactory */
+    protected $entityTypeFactory;
+
+    /** @var LayerManager */
+    protected $layerManager;
+
+    /** @var PencilManager */
+    protected $pencilManager;
+
+    /** @var EntityModelManager */
+    protected $entityModelManager;
 
     /**
      * Subscribe on mapLoad, mapSave events
@@ -39,7 +66,7 @@ class MapSubscriber implements EventSubscriberInterface
     {
         return [
             EngineEvent::ENGINE_MAP_LOAD => 'onMapLoad',
-            EngineEvent::EDITOR_MAP_UPDATE => 'onMapUpdate'
+            EngineEvent::EDITOR_MAP_UPDATE => 'onMapUpdate',
         ];
     }
 
@@ -47,6 +74,7 @@ class MapSubscriber implements EventSubscriberInterface
      * Load context and return it into event response
      *
      * @param EngineEvent $event
+     *
      * @throws Exception
      */
     public function onMapLoad(EngineEvent $event)
@@ -58,42 +86,41 @@ class MapSubscriber implements EventSubscriberInterface
             $topLeft = $request->loadContext->topLeft;
             $bottomRight = $request->loadContext->bottomRight;
 
-            if (!$topLeft or !$topLeft->x or !$topLeft->y) {
-                throw new Exception('Invalid starting point (top left coordinates are not valid)');
+            if (!$topLeft || !$topLeft->x or !$topLeft->y) {
+                throw new \RuntimeException('Invalid starting point (top left coordinates are not valid)');
             }
-            if (!$bottomRight or !$bottomRight->x or !$bottomRight->y) {
-                throw new Exception('Invalid ending point (bottom right coordinates are not valid)');
+            if (!$bottomRight || !$bottomRight->x or !$bottomRight->y) {
+                throw new \RuntimeException('Invalid ending point (bottom right coordinates are not valid)');
             }
             // find context with limit for map items
-            $context = $this
-                ->getContainer()
-                ->get('bluebear.manager.context')
-                ->findWithLimit($request->contextId, $topLeft, $bottomRight);
+            $context = $this->contextManager->findWithLimit($request->contextId, $topLeft, $bottomRight);
+
             $mapItems = $context->getMapItems();
             /** @var MapItem $mapItem */
             foreach ($mapItems as $mapItem) {
                 // find an entity instance exist at this position
-                $entityInstance = $this
-                    ->getContainer()
-                    ->get('bluebear.manager.entity_instance')
-                    ->findOneBy([
-                        'mapItem' => $mapItem->getId()
-                    ]);
+                /** @var EntityInstance $entityInstance */
+                $entityInstance = $this->entityInstanceManager
+                    ->findOneBy(
+                        [
+                            'mapItem' => $mapItem->getId(),
+                        ]
+                    );
 
                 if ($entityInstance) {
-                    $entitiesBehaviors = $this
-                        ->container
-                        ->get('bluebear.game.entity_type_factory')
-                        ->getEntityBehaviors();
+                    $entitiesBehaviors = $this->entityTypeFactory->getEntityBehaviors();
                     $behaviors = $entityInstance->getBehaviors();
                     // adding entity listeners for each behaviors from configuration
                     foreach ($behaviors as $behavior) {
                         if (!array_key_exists($behavior, $entitiesBehaviors)) {
-                            throw new Exception("Invalid behavior : " . $behavior);
+                            throw new \InvalidArgumentException("Invalid behavior: {$behavior}");
                         }
-                        $mapItem->addListener('click', [
-                            'name' => $entitiesBehaviors[$behavior]->getListener()
-                        ]);
+                        $mapItem->addListener(
+                            'click',
+                            [
+                                'name' => $entitiesBehaviors[$behavior]->getListener(),
+                            ]
+                        );
                     }
                 }
             }
@@ -102,7 +129,9 @@ class MapSubscriber implements EventSubscriberInterface
             }
             $event->setContext($context);
         }
-        $event->getContext()->setListeners($this->container->get('bluebear.game.entity_type_factory')->getEntityBehaviors());
+        $event->getContext()->setListeners(
+            $this->entityTypeFactory->getEntityBehaviors()
+        );
         /** @var MapLoadResponse $response */
         $response = $event->getResponse();
         // set context as event response to data
@@ -113,20 +142,21 @@ class MapSubscriber implements EventSubscriberInterface
      * Update map items
      *
      * @param EngineEvent $event
+     *
      * @throws Exception
      */
     public function onMapUpdate(EngineEvent $event)
     {
         /**
-         * @var MapUpdateRequest $request
+         * @var MapUpdateRequest  $request
          * @var MapUpdateResponse $response
          */
         $request = $event->getRequest();
         $response = $event->getResponse();
         $context = $event->getContext();
 
-        if (0 == count($request->mapItems)) {
-            throw new \UnexpectedValueException("request.mapItems must contains mapItems");
+        if (0 === count($request->mapItems)) {
+            throw new \UnexpectedValueException('request.mapItems must contains mapItems');
         }
 
         $updated = [];
@@ -134,36 +164,44 @@ class MapSubscriber implements EventSubscriberInterface
         /** @var MapUpdateItemSubRequest $mapItemRequest */
         foreach ($request->mapItems as $mapItemRequest) {
             if (!$mapItemRequest->layerName) {
-                throw new \UnexpectedValueException("mapItem.layerName missing");
+                throw new \UnexpectedValueException('mapItem.layerName missing');
             }
             $position = new Position($mapItemRequest->x, $mapItemRequest->y);
             /** @var Layer $layer */
-            $layer = $this
-                ->getContainer()
-                ->get('bluebear.manager.layer')
-                ->findOneBy([
-                    'name' => $mapItemRequest->layerName,
-                ]);
-            $this->throwUnless($layer, 'Layer not found');
+            $layer = $this->layerManager
+                ->findOneBy(
+                    [
+                        'name' => $mapItemRequest->layerName,
+                    ]
+                );
+            if (!$layer) {
+                throw new \UnexpectedValueException('Layer not found');
+            }
             // if a pencil name is provided, we update existing map item or we create it. If not, we delete
             // existing map item
             if ($mapItemRequest->pencilName) {
                 /** @var Pencil $pencil */
-                $pencil = $this->getContainer()->get('bluebear.manager.pencil')->findOneBy([
-                    'name' => $mapItemRequest->pencilName,
-                ]);
-                $this->throwUnless($pencil, 'Pencil not found');
+                $pencil = $this->pencilManager->findOneBy(
+                    [
+                        'name' => $mapItemRequest->pencilName,
+                    ]
+                );
+                if (!$pencil) {
+                    throw new \UnexpectedValueException('Pencil not found');
+                }
                 // try to find an existing item
                 $mapItem = $this
-                    ->getMapItemManager()
+                    ->mapItemManager
                     ->findByPositionAndLayer($context, $position, $layer);
                 // update current map item according to pencil and map item
                 $updated[] = $this->updateMapItem($context, $pencil, $mapItem, $layer, $position);
             } else {
                 // try to find an existing item
-                $mapItem = $this->getMapItemManager()->findByPositionAndLayer($context, $position, $layer);
-                $this->throwUnless($mapItem, 'Unable to delete. Map item not found');
-                $this->getMapItemManager()->delete($mapItem);
+                $mapItem = $this->mapItemManager->findByPositionAndLayer($context, $position, $layer);
+                if (!$mapItem) {
+                    throw new \UnexpectedValueException('Unable to delete. Map item not found');
+                }
+                $this->mapItemManager->delete($mapItem);
                 $removed[] = $mapItem;
             }
         }
@@ -175,34 +213,39 @@ class MapSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @param Context $context
-     * @param Pencil $pencil
-     * @param MapItem $mapItem
-     * @param Layer $layer
+     * @param Context  $context
+     * @param Pencil   $pencil
+     * @param MapItem  $mapItem
+     * @param Layer    $layer
      * @param Position $requestPosition
-     * @return MapItem
+     *
      * @throws Exception
+     *
+     * @return MapItem
      */
-    protected function updateMapItem(Context $context, Pencil $pencil, MapItem $mapItem = null, Layer $layer, Position $requestPosition)
-    {
+    protected function updateMapItem(
+        Context $context,
+        Pencil $pencil,
+        MapItem $mapItem = null,
+        Layer $layer,
+        Position $requestPosition
+    ) {
         // if map item exists, we just change pencil
         if ($mapItem) {
             $mapItem->setPencil($pencil);
-            $this->getMapItemManager()->save($mapItem);
+            $this->mapItemManager->save($mapItem);
         } else {
             // searching if an entity model is linked to the pencil
             /** @var EntityModel $entityModel */
-            $entityModel = $this
-                ->getContainer()
-                ->get('bluebear.manager.entity_model')
-                ->findOneBy([
-                    'pencil' => $pencil->getId()
-                ]);
+            $entityModel = $this->entityModelManager
+                ->findOneBy(
+                    [
+                        'pencil' => $pencil->getId(),
+                    ]
+                );
             // if a entity model is found, we add it with its listeners. Map item will be created automatically
             if ($entityModel) {
-                $this
-                    ->getContainer()
-                    ->get('bluebear.manager.entity_instance')
+                $this->entityInstanceManager
                     ->create(
                         $context,
                         $entityModel,
@@ -217,18 +260,10 @@ class MapSubscriber implements EventSubscriberInterface
                 $mapItem->setY($requestPosition->y);
                 $mapItem->setLayer($layer);
                 $mapItem->setPencil($pencil);
-                $this->getMapItemManager()->save($mapItem);
+                $this->mapItemManager->save($mapItem);
             }
         }
 
         return $mapItem;
-    }
-
-    /**
-     * @return MapItemManager
-     */
-    protected function getMapItemManager()
-    {
-        return $this->getContainer()->get('bluebear.manager.map_item');
     }
 }

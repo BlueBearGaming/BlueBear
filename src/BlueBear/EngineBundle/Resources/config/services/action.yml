@@ -1,0 +1,8 @@
+services:
+    bluebear.action.event:
+        class: BlueBear\EngineBundle\Action\TriggerEventAction
+        arguments:
+            - '@bluebear.engine.engine'
+            - '@serializer'
+            - '@bluebear.kernel.terminate.listener'
+            - '@elephantio_client.default'

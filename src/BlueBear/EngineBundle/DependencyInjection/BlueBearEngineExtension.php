@@ -22,7 +22,10 @@ class BlueBearEngineExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config/services'));
+        $loader->load('action.yml');
+        $loader->load('forms.yml');
+        $loader->load('managers.yml');
         $loader->load('services.yml');
         // engine allowed events
         $container->setParameter('bluebear.engine.events', $config['events']);
