@@ -58,6 +58,36 @@ class MapSubscriber implements EventSubscriberInterface
     protected $entityModelManager;
 
     /**
+     * @param MapItemManager        $mapItemManager
+     * @param ContextManager        $contextManager
+     * @param ContextFactory        $contextFactory
+     * @param EntityInstanceManager $entityInstanceManager
+     * @param EntityTypeFactory     $entityTypeFactory
+     * @param LayerManager          $layerManager
+     * @param PencilManager         $pencilManager
+     * @param EntityModelManager    $entityModelManager
+     */
+    public function __construct(
+        MapItemManager $mapItemManager,
+        ContextManager $contextManager,
+        ContextFactory $contextFactory,
+        EntityInstanceManager $entityInstanceManager,
+        EntityTypeFactory $entityTypeFactory,
+        LayerManager $layerManager,
+        PencilManager $pencilManager,
+        EntityModelManager $entityModelManager
+    ) {
+        $this->mapItemManager = $mapItemManager;
+        $this->contextManager = $contextManager;
+        $this->contextFactory = $contextFactory;
+        $this->entityInstanceManager = $entityInstanceManager;
+        $this->entityTypeFactory = $entityTypeFactory;
+        $this->layerManager = $layerManager;
+        $this->pencilManager = $pencilManager;
+        $this->entityModelManager = $entityModelManager;
+    }
+
+    /**
      * Subscribe on mapLoad, mapSave events
      *
      * @return array
@@ -194,7 +224,7 @@ class MapSubscriber implements EventSubscriberInterface
                     ->mapItemManager
                     ->findByPositionAndLayer($context, $position, $layer);
                 // update current map item according to pencil and map item
-                $updated[] = $this->updateMapItem($context, $pencil, $mapItem, $layer, $position);
+                $updated[] = $this->updateMapItem($context, $pencil, $layer, $position, $mapItem);
             } else {
                 // try to find an existing item
                 $mapItem = $this->mapItemManager->findByPositionAndLayer($context, $position, $layer);
@@ -215,9 +245,9 @@ class MapSubscriber implements EventSubscriberInterface
     /**
      * @param Context  $context
      * @param Pencil   $pencil
-     * @param MapItem  $mapItem
      * @param Layer    $layer
      * @param Position $requestPosition
+     * @param MapItem  $mapItem
      *
      * @throws Exception
      *
@@ -226,9 +256,9 @@ class MapSubscriber implements EventSubscriberInterface
     protected function updateMapItem(
         Context $context,
         Pencil $pencil,
-        MapItem $mapItem = null,
         Layer $layer,
-        Position $requestPosition
+        Position $requestPosition,
+        MapItem $mapItem = null
     ) {
         // if map item exists, we just change pencil
         if ($mapItem) {

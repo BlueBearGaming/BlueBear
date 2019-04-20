@@ -31,9 +31,10 @@ class ChessContextUtilities extends ContextUtilities
 
     /**
      * @param Piece $piece
-     * @param int $x
-     * @param int $y
+     * @param int   $x
+     * @param int   $y
      * @param array $mapItems
+     *
      * @return string
      */
     public function handlePossibleAction(Piece $piece, $x, $y, array &$mapItems)
@@ -44,14 +45,16 @@ class ChessContextUtilities extends ContextUtilities
         if ($this->handlePossibleCapture($piece, $x, $y, $mapItems) === self::CAPTURE) {
             return self::CAPTURE;
         }
+
         return self::BLOCKED;
     }
 
     /**
      * @param Piece $piece
-     * @param int $x
-     * @param int $y
+     * @param int   $x
+     * @param int   $y
      * @param array $mapItems
+     *
      * @return string
      */
     public function handlePossibleMovement(Piece $piece, $x, $y, &$mapItems)
@@ -67,35 +70,42 @@ class ChessContextUtilities extends ContextUtilities
             // Move to free position
             $mapItems[] = $this->createEventMapItem($x, $y, $this->createClickListener($piece));
             $mapItems[] = $this->createSelectionMapItem($x, $y); // @todo create pencil for 'movement'
+
             return self::MOVEMENT;
         }
+
         return self::BLOCKED;
     }
 
     /**
      * @param Piece $piece
-     * @param int $x
-     * @param int $y
+     * @param int   $x
+     * @param int   $y
      * @param array $mapItems
+     *
      * @return string
      */
     public function handlePossibleCapture(Piece $piece, $x, $y, &$mapItems)
     {
         $found = $this->findByPosition($x, $y);
-        if ($found && $found->isWhite() !== $piece->isWhite()) { // If found is of the opposite color of the actual player
+        if ($found && $found->isWhite() !== $piece->isWhite(
+            )) { // If found is of the opposite color of the actual player
             if ($this->isKingInCheck($piece, $x, $y)) {
                 return self::BLOCKED;
             }
             // Capture the opponent's piece
             $mapItems[] = $this->createEventMapItem($x, $y, $this->createClickListener($piece));
             $mapItems[] = $this->createSelectionMapItem($x, $y); // @todo create pencil for 'capture'
+
             return self::CAPTURE;
         }
+
         return self::BLOCKED;
     }
 
     /**
      * @param Piece $piece
+     *
      * @return array
      */
     protected function createClickListener(Piece $piece)
@@ -111,12 +121,14 @@ class ChessContextUtilities extends ContextUtilities
                 ],
             ];
         }
+
         return ['click' => $listener];
     }
 
     /**
      * @param int $x
      * @param int $y
+     *
      * @return Piece|null
      */
     public function findByPosition($x, $y)
@@ -125,11 +137,13 @@ class ChessContextUtilities extends ContextUtilities
         if (isset($this->pieces[$x][$y])) {
             return $this->pieces[$x][$y];
         }
+
         return null;
     }
 
     /**
      * @param MapItemSubRequest $target
+     *
      * @return Piece|null
      */
     public function findTarget(MapItemSubRequest $target)
@@ -139,6 +153,7 @@ class ChessContextUtilities extends ContextUtilities
 
     /**
      * @param Piece $piece
+     *
      * @return \BlueBear\CoreBundle\Entity\Map\MapItem
      */
     public function selectPiece(Piece $piece)
@@ -148,8 +163,9 @@ class ChessContextUtilities extends ContextUtilities
 
     /**
      * @param Piece $piece
-     * @param $x
-     * @param $y
+     * @param       $x
+     * @param       $y
+     *
      * @return bool
      */
     public function isKingInCheck(Piece $piece, $x, $y)
@@ -167,9 +183,11 @@ class ChessContextUtilities extends ContextUtilities
             return;
         }
         /** @var Piece[] $pieces */
-        $pieces = $this->entityInstanceManager->findBy([
-            'mapItem' => $this->context->getMapItems()->toArray(),
-        ]);
+        $pieces = $this->entityInstanceManager->findBy(
+            [
+                'mapItem' => $this->context->getMapItems()->toArray(),
+            ]
+        );
         if (count($pieces) === 0) {
             throw new \Exception("No piece found on board");
         }
@@ -187,9 +205,10 @@ class ChessContextUtilities extends ContextUtilities
 
     /**
      * @param Piece $piece
-     * @param $moveX
-     * @param $moveY
+     * @param       $moveX
+     * @param       $moveY
      * @param array $moves
+     *
      * @return array
      */
     public function findPath(Piece $piece, $moveX, $moveY, array &$moves = [])
@@ -208,6 +227,7 @@ class ChessContextUtilities extends ContextUtilities
             }
             $moves[] = ['x' => $x, 'y' => $y];
         } while (!$found);
+
         return $moves;
     }
 }

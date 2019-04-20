@@ -47,11 +47,17 @@ services:
 
     bluebear.engine.event.map_subscriber:
         class: %bluebear.engine.event.map_subscriber%
+        arguments:
+            - '@bluebear.manager.map_item'
+            - '@bluebear.manager.context'
+            - '@bluebear.engine.context_factory'
+            - '@bluebear.manager.entity_instance'
+            - '@bluebear.game.entity_type_factory'
+            - '@bluebear.manager.layer'
+            - '@bluebear.manager.pencil'
+            - '@bluebear.manager.entity_model'
         tags:
-            - {name: kernel.event_subscriber}
-        calls:
-            - [setContextFactory, [@bluebear.engine.context_factory]]
-            - [setContainer, [@service_container]]
+            - { name: kernel.event_subscriber }
 
     bluebear.engine.event.engine_subscriber:
         class: %bluebear.engine.event.engine_subscriber%
