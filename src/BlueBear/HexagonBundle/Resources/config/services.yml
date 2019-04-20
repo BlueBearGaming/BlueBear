@@ -1,0 +1,11 @@
+services:
+    hexagon.listeners.unit.select:
+        class: BlueBear\HexagonBundle\Event\Listener\UnitEventListener
+        arguments: [@hexagon.engine.context.utilities, @bluebear.manager.map_item, @bluebear.game.entity_type_factory]
+        tags:
+            - {name: kernel.event_listener, event: bluebear.hexagon.unit.select, method: onSelect}
+            - {name: kernel.event_listener, event: bluebear.hexagon.unit.move, method: onMove}
+
+    hexagon.engine.context.utilities:
+        class: BlueBear\HexagonBundle\Event\UnitContextUtilities
+        arguments: [@bluebear.manager.entity_instance]

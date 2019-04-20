@@ -1,12 +1,6 @@
 # BlueBear Engine
 blue_bear_engine:
     events:
-        bluebear.engine.mapLoad:
-            request: BlueBear\EngineBundle\Event\Request\MapLoadRequest
-            response: BlueBear\EngineBundle\Event\Response\MapLoadResponse
-        bluebear.editor.mapUpdate:
-            request: BlueBear\EngineBundle\Event\Request\MapUpdateRequest
-            response: BlueBear\EngineBundle\Event\Response\MapUpdateResponse
         bluebear.chess.pawn.select: ~
         bluebear.chess.rook.select: ~
         bluebear.chess.bishop.select: ~

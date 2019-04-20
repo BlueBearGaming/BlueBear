@@ -12,7 +12,7 @@ use BlueBear\HexagonBundle\Entity\Unit;
 use BlueBear\HexagonBundle\Event\UnitContextUtilities;
 use Doctrine\Common\Collections\Collection;
 
-abstract class UnitEventListener
+class UnitEventListener
 {
     /** @var UnitContextUtilities */
     protected $contextUtilities;
@@ -30,10 +30,10 @@ abstract class UnitEventListener
     protected $unit;
 
     /**
-     * @return array
+     * @param UnitContextUtilities $contextUtilities
+     * @param MapItemManager       $mapItemManager
+     * @param EntityTypeFactory    $entityTypeFactory
      */
-    abstract protected function findMoves();
-
     public function __construct(
         UnitContextUtilities $contextUtilities,
         MapItemManager $mapItemManager,
@@ -64,7 +64,7 @@ abstract class UnitEventListener
             throw new \Exception('No valid target found');
         }
 
-        // Select current piece
+        // Select current unit
         $this->mapItems = [
             $this->contextUtilities->selectUnit($this->unit),
         ];
@@ -135,6 +135,35 @@ abstract class UnitEventListener
     }
 
     /**
+     * @return array
+     */
+    protected function findMoves()
+    {
+        $odd = [
+            [+1, 0],
+            [+1, -1],
+            [0, -1],
+            [-1, 0],
+            [0, +1],
+            [+1, +1],
+        ];
+        $even = [
+            [+1, 0],
+            [0, -1],
+            [-1, -1],
+            [-1, 0],
+            [-1, +1],
+            [0, +1],
+        ];
+        $moves = [];
+        foreach ((0 === $this->unit->getY() % 2) ? $odd : $even as list($x, $y)) {
+            $moves[] = ['x' => $this->unit->getX() + $x, 'y' => $this->unit->getY() + $y];
+        }
+
+        return $moves;
+    }
+
+    /**
      * Check all possible actions for legal moves
      */
     protected function addPossibleActions()
@@ -199,7 +228,6 @@ abstract class UnitEventListener
     {
         foreach ($this->findMoves() as $move) {
             if ($move['x'] == $x && $move['y'] == $y) {
-                // More checks with ChessContextUtilities
                 return true;
             }
         }

@@ -1,3 +1,0 @@
-blue_bear_game_chess_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: BlueBearGameChessBundle:Default:index }

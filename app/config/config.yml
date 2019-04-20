@@ -4,6 +4,7 @@ imports:
     - { resource: admins.yml }
     - { resource: game.yml }
     - { resource: @BlueBearGameChessBundle/Resources/config/game.yml }
+    - { resource: @BlueBearHexagonBundle/Resources/config/game.yml }
     - { resource: actions.yml }
     - { resource: fileupload.yml }
 

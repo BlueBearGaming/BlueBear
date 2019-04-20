@@ -1,10 +1,14 @@
 <?php
 
 use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symfony\Component\HttpKernel\Kernel;
 
 class AppKernel extends Kernel
 {
+    /**
+     * @return array|BundleInterface[]
+     */
     public function registerBundles()
     {
         $bundles = array(
@@ -47,11 +51,17 @@ class AppKernel extends Kernel
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
         }
+
         return $bundles;
     }
 
+    /**
+     * @param LoaderInterface $loader
+     *
+     * @throws Exception
+     */
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
-        $loader->load(__DIR__ . '/config/config_' . $this->getEnvironment() . '.yml');
+        $loader->load(__DIR__.'/config/config_'.$this->getEnvironment().'.yml');
     }
 }

@@ -2,6 +2,7 @@
 blue_bear_engine:
     events:
         bluebear.hexagon.unit.select: ~
+        bluebear.hexagon.unit.move: ~
         # all empty events descriptions will automatically default to clickRequest and mapUpdateResponse
     game:
         entity_type:
@@ -9,35 +10,7 @@ blue_bear_engine:
                 label: Unit
                 description: Base unit (common logic to all units)
                 class: BlueBear\HexagonBundle\Entity\Unit
-            chess_pawn:
-                label: Pawn
-                parent: chess_piece
-                behaviors: [selectable_pawn]
-            chess_rook:
-                label: Rook
-                parent: chess_piece
-                behaviors: [selectable_rook]
-            chess_bishop:
-                label: Bishop
-                parent: chess_piece
-                behaviors: [selectable_bishop]
-            chess_knight:
-                label: Knight
-                parent: chess_piece
-                behaviors: [selectable_knight]
-            chess_queen:
-                label: Queen
-                parent: chess_piece
-                behaviors: [selectable_queen]
-            chess_king:
-                label: King
-                parent: chess_piece
-                behaviors: [selectable_king]
+                behaviors: [selectable_unit]
         # entity behaviors (and their associated event to listen)
         behaviors:
-            selectable_pawn: bluebear.chess.pawn.select
-            selectable_rook: bluebear.chess.rook.select
-            selectable_bishop: bluebear.chess.bishop.select
-            selectable_knight: bluebear.chess.knight.select
-            selectable_queen: bluebear.chess.queen.select
-            selectable_king: bluebear.chess.king.select
+            selectable_unit: bluebear.hexagon.unit.select
