@@ -90,16 +90,12 @@ swiftmailer:
     spool:     { type: memory }
 
 services:
-    gedmo.listener.timestampable:
-        class: Gedmo\Timestampable\TimestampableListener
-        tags:
-            - { name: doctrine.event_subscriber, connection: default }
-        calls:
-            - [ setAnnotationReader, [ @annotation_reader ] ]
     twig.extension.text:
         class: Twig_Extensions_Extension_Text
         tags:
             - { name: twig.extension }
+    serializer:
+        alias: jms_serializer.serializer
 
 # Mopa
 mopa_bootstrap:

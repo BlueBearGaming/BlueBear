@@ -1,5 +1,5 @@
 {
-    "name": "BlueBear/BlueBear",
+    "name": "bluebear/bluebear",
     "license": "MIT",
     "type": "project",
     "description": "BlueBear, pandas against the world",
@@ -8,15 +8,9 @@
             "": "src/"
         }
     },
-    "repositories": [
-      {
-        "type": "vcs",
-        "url": "git@github.com:log0ymxm/bootswatch-scss.git"
-      }
-    ],
     "require": {
-        "php": ">=5.6",
-        "symfony/symfony": "2.6.6",
+        "php": ">=7.2",
+        "symfony/symfony": "2.8.*",
         "symfony/assetic-bundle": "~2.3",
         "symfony/swiftmailer-bundle": "~2.3",
         "symfony/monolog-bundle": "~2.4",
@@ -29,17 +23,12 @@
         "friendsofsymfony/user-bundle": "~1.3",
         "twig/extensions": "~1.0",
         "incenteev/composer-parameter-handler": "~2.0",
-        "gedmo/doctrine-extensions": "dev-master",
-        "jms/security-extra-bundle": "1.5.*",
-        "jms/di-extra-bundle": "1.4.*",
-        "andres-montanez/magallanes": "1.0.*",
         "mopa/bootstrap-bundle": "3.*@dev",
         "twbs/bootstrap-sass": "3.*@dev",
-        "log0ymxm/bootswatch-scss": "dev-master",
         "components/jquery": "1.11.*",
         "components/jqueryui": "1.11.*",
-        "oneup/uploader-bundle": "1.3.*",
-        "jms/serializer-bundle": "0.13.*",
+        "oneup/uploader-bundle": "1.9.*",
+        "jms/serializer-bundle": "2.4.*",
         "bluebear/jikpoze": "*@dev",
         "bluebear/basebundle": "dev-0.2-dev",
         "bluebear/adminbundle": "dev-0.2-dev",

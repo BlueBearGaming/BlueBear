@@ -4,10 +4,11 @@ namespace BlueBear\FileUploadBundle\Twig;
 
 use BlueBear\BaseBundle\Behavior\ContainerTrait;
 use BlueBear\FileUploadBundle\Entity\Resource;
-use Twig_Extension;
-use Twig_SimpleFunction;
+use Symfony\Bridge\Twig\Extension\AssetExtension;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-class UploadExtension extends Twig_Extension
+class UploadExtension extends AbstractExtension
 {
     use ContainerTrait;
 
@@ -17,17 +18,18 @@ class UploadExtension extends Twig_Extension
         if ($resource) {
             $fileName = $resource->getFileName();
         }
+
         return $this
             ->getContainer()
             ->get('twig')
-            ->getExtension('assets')
-            ->getAssetUrl('resources/images/' . $fileName, null, $absolute);
+            ->getExtension(AssetExtension::class)
+            ->getAssetUrl('resources/images/'.$fileName, null, $absolute);
     }
 
     public function getFunctions()
     {
         return [
-            new Twig_SimpleFunction('resource_path', [$this, 'resource_path'])
+            new TwigFunction('resource_path', [$this, 'resource_path']),
         ];
     }
 
