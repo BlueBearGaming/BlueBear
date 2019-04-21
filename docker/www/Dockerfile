@@ -19,6 +19,10 @@ RUN apt-get update && apt-get install -y \
     php7.2-mysql \
     php7.2-curl
 
+RUN apt-get install -y nodejs npm
+
+RUN npm install -g uglify-js uglifycss
+
 # Fix fastcgi params in nginx
 COPY nginx/snippets/fastcgi-php.conf /etc/nginx/snippets/fastcgi-php.conf
 

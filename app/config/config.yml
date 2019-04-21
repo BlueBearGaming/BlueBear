@@ -47,14 +47,17 @@ monolog:
 # Assetic Configuration
 assetic:
     write_to: %kernel.root_dir%/../web
-    debug:          %kernel.debug%
+    debug: %kernel.debug%
     use_controller: false
     bundles:
         - BlueBearBackofficeBundle
         - BlueBearAdminBundle
         - BlueBearEditorBundle
+    node: "%node_path%"
     filters:
         cssrewrite: ~
+        uglifyjs2:
+            bin: "%node_uglifyjs_path%"
     assets:
         map1:
             input: "%kernel.root_dir%/../web/assets/jquery/jquery.min.map"
