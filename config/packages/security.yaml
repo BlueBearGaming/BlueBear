@@ -1,6 +1,8 @@
 security:
     providers:
-        in_memory: { memory: ~ }
+        fos_userbundle:
+            id: fos_user.user_provider.username_email
+
     firewalls:
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
@@ -8,11 +10,10 @@ security:
         main:
             pattern: ^/
             form_login:
-                #provider: fos_userbundle
-                provider: in_memory
-                #csrf_provider: form.csrf_provider
+                provider: fos_userbundle
                 default_target_path: /
                 always_use_default_target_path: false
+                csrf_token_generator: security.csrf.token_manager
             logout:       true
             anonymous:    true
 

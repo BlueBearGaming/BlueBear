@@ -1,0 +1,39 @@
+# homepage
+app.homepage:
+    path:  /
+    defaults: {_controller: App\Controller\Admin\Homepage}
+
+bluebear_engine_trigger_event:
+    path:     /api/events/trigger/{eventName}
+    defaults: { _controller: BlueBearEngineBundle:Engine:triggerEvent, eventName: "" }
+
+bluebear_editor_homepage:
+    path:  /editor
+    defaults: { _controller: BlueBearEditorBundle:Main:index }
+
+bluebear_map_edit:
+    path:  /editor/map
+    defaults: { _controller: BlueBearEditorBundle:Main:edit }
+
+bluebear_map_delete:
+    path:  /editor/delete/{id}
+    defaults: { _controller: BlueBearEditorBundle:Main:delete }
+
+bluebear_resource_proxy:
+    path:     /resources/{filename}
+    defaults: { _controller: BlueBearCoreBundle:Resource:proxy }
+
+
+# Tests for API
+bluebear_backoffice_api:
+    path: /tests
+    defaults: { _controller: BlueBearBackofficeBundle:Api:index }
+
+bluebear_backoffice_api_scenario:
+    path: /tests/scenarios
+    defaults: { _controller: BlueBearBackofficeBundle:Api:scenario }
+
+# BlueBear AdminBundle
+blue_bear_admin:
+    resource: .
+    type: extra

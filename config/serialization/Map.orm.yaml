@@ -1,0 +1,7 @@
+App\Entity\Map\Layer:
+    attributes:
+        id: ~
+        name: ~
+        label: ~
+        description: ~
+        index: ~

@@ -1,0 +1,27 @@
+App\Entity\Map\Layer:
+    table: layer
+    repositoryClass: App\Entity\Map\LayerRepository
+
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: auto
+    fields:
+        name:
+            type: string
+        label:
+            type: string
+        description:
+            type: text
+        index:
+            column: z_index
+            type: integer
+        createdAt:
+            type: datetime
+        updatedAt:
+            type: datetime
+
+    oneToMany:
+        targetEntity: App\Entity\Map\MapItem
+        mappedBy: layer

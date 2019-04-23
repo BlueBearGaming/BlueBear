@@ -1,0 +1,21 @@
+App\Entity\User\User:
+    table: fos_user
+    repositoryClass: App\Entity\User\UserRepository
+    lifecycleCallbacks: ~
+
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: auto
+    fields:
+        createdAt:
+            type: datetime
+        updatedAt:
+            type: datetime
+
+    oneToMany:
+        targetEntity: App\Entity\Map\UserContext
+        mappedBy: user
+        joinColumn:
+            name: user_contexts
