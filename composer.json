@@ -1,95 +1,86 @@
 {
-    "name": "BlueBear/BlueBear",
-    "license": "MIT",
+    "name": "symfony/website-skeleton",
     "type": "project",
-    "description": "BlueBear, pandas against the world",
-    "autoload": {
-        "psr-0": {
-            "": "src/"
-        }
-    },
-    "repositories": [
-      {
-        "type": "vcs",
-        "url": "git@github.com:log0ymxm/bootswatch-scss.git"
-      }
-    ],
+    "license": "MIT",
+    "description": "A skeleton to start a new Symfony website",
     "require": {
-        "php": ">=5.6",
-        "symfony/symfony": "2.6.6",
-        "symfony/assetic-bundle": "~2.3",
-        "symfony/swiftmailer-bundle": "~2.3",
-        "symfony/monolog-bundle": "~2.4",
-        "sensio/distribution-bundle": "~2.3",
-        "sensio/generator-bundle": "~2.3",
-        "sensio/framework-extra-bundle": "~3.0",
-        "doctrine/doctrine-bundle": "~1.2",
-        "doctrine/data-fixtures": "@dev",
-        "doctrine/doctrine-fixtures-bundle": "@dev",
-        "friendsofsymfony/user-bundle": "~1.3",
-        "twig/extensions": "~1.0",
-        "incenteev/composer-parameter-handler": "~2.0",
-        "gedmo/doctrine-extensions": "dev-master",
-        "jms/security-extra-bundle": "1.5.*",
-        "jms/di-extra-bundle": "1.4.*",
-        "andres-montanez/magallanes": "1.0.*",
-        "mopa/bootstrap-bundle": "3.*@dev",
-        "twbs/bootstrap-sass": "3.*@dev",
-        "log0ymxm/bootswatch-scss": "dev-master",
-        "components/jquery": "1.11.*",
-        "components/jqueryui": "1.11.*",
-        "oneup/uploader-bundle": "1.3.*",
-        "jms/serializer-bundle": "0.13.*",
-        "bluebear/jikpoze": "*@dev",
-        "bluebear/basebundle": "dev-0.2-dev",
-        "bluebear/adminbundle": "dev-0.2-dev",
-        "packagist/yuicompressor-bin": "~2.4",
-        "nc/elephantio-bundle": "~2.0"
+        "php": "^7.1.3",
+        "ext-ctype": "*",
+        "ext-iconv": "*",
+        "friendsofsymfony/user-bundle": "^2.1",
+        "lag/adminbundle": "dev-master",
+        "sensio/framework-extra-bundle": "^5.1",
+        "symfony/asset": "*",
+        "symfony/console": "*",
+        "symfony/dotenv": "*",
+        "symfony/expression-language": "*",
+        "symfony/flex": "^1.1",
+        "symfony/form": "*",
+        "symfony/framework-bundle": "*",
+        "symfony/monolog-bundle": "^3.1",
+        "symfony/orm-pack": "*",
+        "symfony/process": "*",
+        "symfony/security-bundle": "*",
+        "symfony/serializer-pack": "*",
+        "symfony/swiftmailer-bundle": "^3.1",
+        "symfony/translation": "*",
+        "symfony/twig-bundle": "*",
+        "symfony/validator": "*",
+        "symfony/web-link": "*",
+        "symfony/yaml": "*"
     },
-    "scripts": {
-        "post-install-cmd": [
-            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "Mopa\\Bundle\\BootstrapBundle\\Composer\\ScriptHandler::postInstallSymlinkTwitterBootstrapSass"
-        ],
-        "post-update-cmd": [
-            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "Mopa\\Bundle\\BootstrapBundle\\Composer\\ScriptHandler::postInstallSymlinkTwitterBootstrapSass"
-        ]
+    "require-dev": {
+        "hautelook/alice-bundle": "^2.5",
+        "symfony/debug-pack": "*",
+        "symfony/maker-bundle": "^1.0",
+        "symfony/profiler-pack": "*",
+        "symfony/test-pack": "*",
+        "symfony/web-server-bundle": "*"
     },
     "config": {
         "bin-dir": "bin",
-        "component-dir": "web/assets"
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "App\\Tests\\": "tests/"
+        }
+    },
+    "replace": {
+        "paragonie/random_compat": "2.*",
+        "symfony/polyfill-ctype": "*",
+        "symfony/polyfill-iconv": "*",
+        "symfony/polyfill-php71": "*",
+        "symfony/polyfill-php70": "*",
+        "symfony/polyfill-php56": "*"
+    },
+    "scripts": {
+        "auto-scripts": {
+            "cache:clear": "symfony-cmd",
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+        },
+        "post-install-cmd": [
+            "@auto-scripts"
+        ],
+        "post-update-cmd": [
+            "@auto-scripts"
+        ]
+    },
+    "conflict": {
+        "symfony/symfony": "*"
     },
     "extra": {
-        "symfony-app-dir": "app",
-        "symfony-web-dir": "web",
-        "symfony-assets-install": "symlink",
-        "incenteev-parameters": {
-            "file": "app/config/parameters.yml",
-            "env-map": {
-                "database_host": "SF_DATABASE_HOST",
-                "database_port": "SF_DATABASE_PORT",
-                "database_name": "SF_DATABASE_NAME",
-                "database_user": "SF_DATABASE_USER",
-                "database_password": "SF_DATABASE_PASSWORD",
-                "mailer_transport": "SF_MAILER_TRANSPORT",
-                "mailer_host": "SF_MAILER_HOST",
-                "mailer_user": "SF_MAILER_USER",
-                "mailer_password": "SF_MAILER_PASSWORD",
-                "locale": "SF_LOCALE",
-                "secret": "SF_SECRET",
-                "socket_io_server": "SF_SOCKET_IO_SERVER",
-                "socket_io_external_uri": "SF_SOCKET_IO_EXTERNAL_URI",
-                "dart_port": "SF_DART_PORT"
-            }
+        "symfony": {
+            "allow-contrib": false,
+            "require": "4.2.*"
         }
     }
 }

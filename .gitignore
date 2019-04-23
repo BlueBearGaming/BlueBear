@@ -1,37 +1,19 @@
-# symfony
-app/config/parameters.yml
-app/bootstrap.php.cache
-app/logs
-bin/*
-cache
-resources
-vendor
-web/bundles
-web/assets
-web/css
-web/js
-web/jikpoze
-*.log
-backups
+public/build
 
-# sprites
-web/uploads/sprites
-web/uploads/tmp
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/public/bundles/
+/var/
+/vendor/
+###< symfony/framework-bundle ###
 
-# kde, apple, stuff
-.ds_store
-.directory
-.idea
+###> symfony/phpunit-bridge ###
+.phpunit
+/phpunit.xml
+###< symfony/phpunit-bridge ###
 
-/jikpoze
-/.dart-cache
-
-!/docker/data
-/docker/data/*
-!docker/data/.gitkeep
-!/docker/ssh
-/docker/ssh/*
-!docker/ssh/.gitkeep
-/docker/.env
-
-!.gitkeep
+###> symfony/web-server-bundle ###
+/.web-server-pid
+###< symfony/web-server-bundle ###

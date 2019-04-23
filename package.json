@@ -1,0 +1,16 @@
+{
+  "name": "bluebear",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:BlueBearGaming/BlueBear.git",
+  "author": "johnkrovitch <arnaudfrezet@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@symfony/webpack-encore": "^0.27.0",
+    "bootstrap": "^4.3.1",
+    "jquery": "^3.4.0",
+    "node-sass": "^4.11.0",
+    "popper.js": "^1.15.0",
+    "sass-loader": "^7.0.1"
+  }
+}
