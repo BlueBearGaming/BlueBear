@@ -1,4 +1,5 @@
 App\Entity\Map\Layer:
+    type: entity
     table: layer
     repositoryClass: App\Entity\Map\LayerRepository
 
@@ -21,7 +22,10 @@ App\Entity\Map\Layer:
             type: datetime
         updatedAt:
             type: datetime
+        type:
+            type: string
 
     oneToMany:
-        targetEntity: App\Entity\Map\MapItem
-        mappedBy: layer
+        mapItems:
+            targetEntity: App\Entity\Map\MapItem
+            mappedBy: layer

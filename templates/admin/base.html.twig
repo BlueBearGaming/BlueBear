@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+
+        <link rel="stylesheet" href="{{ asset('build/app.css') }}" />
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+        {% block container %}
+            <div class="container">
+                <div class="row-fluid">
+                    <div class="col-md-2">
+                        {% block left %}{% endblock %}
+                    </div>
+                    <div class="col-md-10">
+                        {% block content %}{% endblock %}
+                    </div>
+                </div>
+            </div>
+        {% endblock %}
+
+        <script src="{{ asset('build/app.js') }}"></script>
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

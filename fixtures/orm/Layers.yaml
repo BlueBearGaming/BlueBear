@@ -1,0 +1,72 @@
+App\Entity\Map\Layer:
+    layer_background:
+        name: background
+        label: Background
+        type: background
+        description: Map background
+
+    layer_land:
+        name: land
+        label: Land
+        type: land
+        description: Map land (plains, forests...)
+
+    layer_grid:
+        name: grid
+        label: Grid
+        type: grid
+        description: Grid (displayed or not)
+
+    layer_selection:
+        name: selection
+        label: Selection
+        type: selection
+        description: Unit, object or building selection (hover..)
+
+    layer_ground:
+        name: ground
+        label: Ground props
+        type: props
+        description: Ground props
+
+    layer_vegatation:
+        name: vegetation
+        label: Vegetation
+        type: props
+        description: Small vegetation
+
+    layer_objects:
+        name: objects
+        label: Objects
+        type: objects
+        description: Objects (item...) on the map
+
+    layer_trees:
+        name: trees
+        label: Trees
+        type: props
+        description: Trees
+
+    layer_building:
+        name: buildings
+        label: Buildings
+        type: buildings
+        description: Buildings
+
+    layer_units:
+        name: units
+        label: Units
+        type: units
+        description: Units on the map
+
+    layer_effect:
+        name: effects
+        label: Effects
+        type: effects
+        description: Map Effects
+
+    layer_events:
+        name: events
+        label: Events
+        type: events
+        description: Events on map

@@ -1,0 +1,38 @@
+App\Entity\Map\PencilSet:
+    type: entity
+    table: pencil_set
+    repositoryClass: App\Entity\Map\PencilSetRepository
+
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: auto
+    fields:
+        name:
+            type: string
+        label:
+            type: string
+        type:
+            type: string
+
+    oneToMany:
+        pencils:
+            targetEntity: App\Entity\Map\Pencil
+            mappedBy: pencilSet
+            fetch: EAGER
+    manyToMany:
+        maps:
+            targetEntity: App\Entity\Map\Map
+    oneToOne:
+        sprite:
+            targetEntity: App\Entity\Editor\Image
+            inversedBy: pencilSet
+            cascade:
+                - persist
+                - remove
+            joinColumn:
+                name: sprite_id
+                referenceColumnName: id
+                nullable: true
+                onDelete: SET NULL

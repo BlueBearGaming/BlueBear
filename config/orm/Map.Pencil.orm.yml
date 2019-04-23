@@ -1,0 +1,68 @@
+App\Entity\Map\Pencil:
+    type: entity
+    table: pencil
+    repositoryClass: App\Entity\Map\PencilRepository
+
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: auto
+    fields:
+        name:
+            type: string
+        label:
+            type: string
+        type:
+            type: string
+        description:
+            type: text
+        width:
+            type: float
+        height:
+            type: float
+        imageX:
+            type: integer
+        imageY:
+            type: float
+        tags:
+            type: array
+        allowedLayerTypes:
+            type: simple_array
+            nullable: true
+        spriteX:
+            type: integer
+            nullable: true
+        spriteY:
+            type: integer
+            nullable: true
+        spriteWidth:
+            type: integer
+            nullable: true
+        spriteHeight:
+            type: integer
+            nullable: true
+        boundingBox:
+            type: array
+
+    oneToOne:
+        image:
+            targetEntity: App\Entity\Editor\Image
+            inversedBy: pencil
+            cascade:
+                - persist
+                - remove
+            joinColum:
+                name: image_id
+                referencedColumnName: id
+                nullable: true
+                onDelete: "SET NULL"
+    manyToOne:
+        pencilSet:
+            targetEntity: App\Entity\Map\PencilSet
+            inversedBy: pencils
+            fetch: EAGER
+    oneToMany:
+        mapItems:
+            targetEntity: App\Entity\Map\MapItem
+            mappedBy: pencil

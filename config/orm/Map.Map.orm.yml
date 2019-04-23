@@ -1,0 +1,47 @@
+App\Entity\Map\Map:
+    type: entity
+    table: map
+    repositoryClass: App\Entity\Map\MapRepository
+
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: auto
+    lifecycleCallbacks: ~
+    fields:
+        name:
+            type: string
+        description:
+            type: string
+        label:
+            type: string
+        type:
+            type: string
+        cellSize:
+            type: integer
+        startX:
+            type: integer
+        startY:
+            type: integer
+        createdAt:
+        updatedAt:
+
+    manyToMany:
+        pencilSets:
+            targetEntity: App\Entity\Map\PencilSet
+            fetch: EAGER
+            cascade:
+                - persist
+        layers:
+            targetEntity: App\Entity\Map\Layer
+            fetch: EAGER
+            cascade:
+                - persist
+    oneToMany:
+        contexts:
+            targetEntity: App\Entity\Map\Context
+            mappedBy: map
+            cascade:
+                - persist
+                - remove
