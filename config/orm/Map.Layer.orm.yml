@@ -20,8 +20,14 @@ App\Entity\Map\Layer:
             type: integer
         createdAt:
             type: datetime
+            gedmo:
+                timestampable:
+                    on: create
         updatedAt:
             type: datetime
+            gedmo:
+                timestampable:
+                    on: update
         type:
             type: string
 

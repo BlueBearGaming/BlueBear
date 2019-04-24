@@ -1,3 +1,0 @@
-bluebear_engine_trigger_event:
-    path:     /api/events/trigger/{eventName}
-    defaults: { _controller: BlueBearEngineBundle:Engine:triggerEvent, eventName: "" }

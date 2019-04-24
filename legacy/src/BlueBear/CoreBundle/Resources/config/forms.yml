@@ -1,0 +1,64 @@
+parameters:
+    bluebear.form.pencil_type: App\Form\Map\PencilType
+    bluebear.form.pencil_set_type: App\Form\Map\PencilSetType
+    bluebear.form.pencil_set_list_type: App\Form\Map\PencilSetListType
+    bluebear.form.layer_type: App\Form\Map\LayerType
+    bluebear.form.map_type: App\Form\Map\MapType
+    bluebear.form.resource_image_type: App\Form\Editor\ImageType
+    bluebear.form.engine_event_test_type: App\Form\Engine\EngineEventTestType
+    bluebear.form.engine_scenario_test: App\Form\Engine\EngineScenarioTestType
+
+services:
+    # PencilType
+    bluebear.form.pencil_type:
+        class: %bluebear.form.pencil_type%
+        tags:
+            - { name: form.type, alias: pencil }
+        calls:
+            - [setPencilSetManager, [@bluebear.manager.pencil_set]]
+
+    # PencilSetType
+    bluebear.form.pencil_set_list_type:
+        class: %bluebear.form.pencil_set_list_type%
+        tags:
+            - { name: form.type, alias: pencil_set_list }
+
+    # PencilSetListType
+    bluebear.form.pencil_set_type:
+        class: %bluebear.form.pencil_set_type%
+        tags:
+            - { name: form.type, alias: pencil_set }
+
+    # LayerType
+    bluebear.form.layer_type:
+        class: %bluebear.form.layer_type%
+        tags:
+            - { name: form.type, alias: layer }
+
+    # MapType
+    bluebear.form.map_type:
+        class: %bluebear.form.map_type%
+        tags:
+            - { name: form.type, alias: map }
+        calls:
+            - [setPencilSetManager, [@bluebear.manager.pencil_set]]
+            - [setLayerManager, [@bluebear.manager.layer]]
+
+    # Resources (uploadable entities)
+    bluebear.form.resource_image:
+        class: %bluebear.form.resource_image_type%
+        tags:
+            - { name: form.type, alias: resource_image }
+
+    # Utils
+    bluebear.form.engine_event_test_type:
+        class: %bluebear.form.engine_event_test_type%
+        tags:
+            - { name: form.type, alias: engine_event_test }
+        calls:
+            - [setEngine, [@bluebear.engine.engine]]
+
+    bluebear.form.engine_scenario_test:
+        class: %bluebear.form.engine_scenario_test%
+        tags:
+            - { name: form.type, alias: engine_scenario_test }

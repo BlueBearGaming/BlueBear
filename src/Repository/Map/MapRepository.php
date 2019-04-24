@@ -42,18 +42,4 @@ class MapRepository extends ServiceEntityRepository
             ->createQueryBuilder('map')
             ->setMaxResults(1);
     }
-
-    /**
-     * Return number of entities in map repository
-     *
-     * @return mixed
-     */
-    public function count()
-    {
-        return $this
-            ->createQueryBuilder('map')
-            ->select('COUNT(map.id)')
-            ->getQuery()
-            ->getSingleScalarResult();
-    }
 }

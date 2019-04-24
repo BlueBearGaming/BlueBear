@@ -1,0 +1,37 @@
+# symfony
+app/config/parameters.yml
+app/bootstrap.php.cache
+app/logs
+bin/*
+cache
+resources
+vendor
+web/bundles
+web/assets
+web/css
+web/js
+web/jikpoze
+*.log
+backups
+
+# sprites
+web/uploads/sprites
+web/uploads/tmp
+
+# kde, apple, stuff
+.ds_store
+.directory
+.idea
+
+/jikpoze
+/.dart-cache
+
+!/docker/data
+/docker/data/*
+!docker/data/.gitkeep
+!/docker/ssh
+/docker/ssh/*
+!docker/ssh/.gitkeep
+/docker/.env
+
+!.gitkeep

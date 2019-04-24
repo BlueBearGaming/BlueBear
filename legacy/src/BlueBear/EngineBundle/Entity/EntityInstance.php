@@ -1,0 +1,200 @@
+<?php
+
+namespace BlueBear\EngineBundle\Entity;
+
+use App\Entity\Behavior\Id;
+use App\Entity\Behavior\Label;
+use App\Entity\Behavior\Nameable;
+use App\Entity\Behavior\Timestampable;
+use App\Entity\Behavior\Typeable;
+use App\Entity\Map\MapItem;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
+use Exception;
+
+/**
+ * UnitInstance
+ *
+ * Represents a instance of a unit on map
+ *
+ * @ORM\Table(name="entity_instance")
+ * @ORM\Entity(repositoryClass="BlueBear\EngineBundle\Repository\EntityInstanceRepository")
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="doctrine_type", type="string")
+ * @ORM\HasLifecycleCallbacks()
+ */
+class EntityInstance
+{
+    use Id, Nameable, Label, Timestampable, Typeable;
+
+    /**
+     * @ORM\OneToMany(targetEntity="BlueBear\EngineBundle\Entity\EntityInstanceAttribute", cascade={"persist", "remove"}, mappedBy="entityInstance", indexBy="name")
+     */
+    protected $attributes;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Map\MapItem", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="map_item_id", onDelete="CASCADE")
+     */
+    protected $mapItem;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Map\Pencil")
+     */
+    protected $pencil;
+
+    /**
+     * @ORM\Column(name="behaviors", type="array")
+     */
+    protected $behaviors = [];
+
+    /**
+     * Allowed layers for this entity
+     *
+     * @ORM\Column(name="allowed_layer_types", type="simple_array", nullable=true)
+     */
+    protected $allowedLayerTypes;
+
+    /**
+     * Initialize collection
+     */
+    public function __construct()
+    {
+        $this->attributes = new ArrayCollection();
+    }
+
+    /**
+     * Hydrate entity instance from model default data
+     *
+     * @param EntityModel $entityModel
+     */
+    public function hydrateFromModel(EntityModel $entityModel)
+    {
+        $this->name = $entityModel->getName();
+        $this->label = $entityModel->getLabel();
+        $this->type = $entityModel->getType();
+        /** @var EntityModelAttribute $entityModelAttribute */
+        foreach ($entityModel->getAttributes() as $entityModelAttribute) {
+            $instanceAttribute = new EntityInstanceAttribute();
+            $instanceAttribute->hydrateFromModel($entityModelAttribute);
+            $instanceAttribute->setEntityInstance($this);
+            $this->attributes->add($instanceAttribute);
+        }
+        foreach ($entityModel->getBehaviors() as $entityModelBehavior) {
+            $this->behaviors[] = $entityModelBehavior;
+        }
+    }
+
+    /**
+     * @return MapItem
+     */
+    public function getMapItem()
+    {
+        return $this->mapItem;
+    }
+
+    /**
+     * @param MapItem $mapItem
+     */
+    public function setMapItem(MapItem $mapItem)
+    {
+        $this->mapItem = $mapItem;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAttributes()
+    {
+        return $this->attributes;
+    }
+
+    /**
+     * @param mixed $attributes
+     */
+    public function setAttributes($attributes)
+    {
+        $this->attributes = $attributes;
+        /** @var EntityInstanceAttribute $attribute */
+        foreach ($this->attributes as $attribute) {
+            $attribute->setEntityInstance($this);
+        }
+    }
+
+    public function has($attributeName)
+    {
+        return array_key_exists($attributeName, $this->attributes->toArray());
+    }
+
+    /**
+     * Return the value of an attribute
+     *
+     * @param $attributeName
+     * @return mixed
+     * @throws Exception
+     */
+    public function get($attributeName)
+    {
+        if (!array_key_exists($attributeName, $this->attributes->toArray())) {
+            throw new Exception('Attribute not found : ' . $attributeName);
+        }
+        return $this->attributes[$attributeName]->getValue();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBehaviors()
+    {
+        return $this->behaviors;
+    }
+
+    /**
+     * @param $behaviorName
+     * @return bool
+     */
+    public function hasBehavior($behaviorName)
+    {
+        return in_array($behaviorName, $this->behaviors);
+    }
+
+    /**
+     * @param mixed $behaviors
+     */
+    public function setBehaviors($behaviors)
+    {
+        $this->behaviors = $behaviors;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPencil()
+    {
+        return $this->pencil;
+    }
+
+    /**
+     * @param mixed $pencil
+     */
+    public function setPencil($pencil)
+    {
+        $this->pencil = $pencil;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAllowedLayerTypes()
+    {
+        return $this->allowedLayerTypes;
+    }
+
+    /**
+     * @param mixed $allowedLayerTypes
+     */
+    public function setAllowedLayerTypes($allowedLayerTypes)
+    {
+        $this->allowedLayerTypes = $allowedLayerTypes;
+    }
+}

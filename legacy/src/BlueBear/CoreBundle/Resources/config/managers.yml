@@ -1,0 +1,49 @@
+parameters:
+    bluebear.manager.image: App\Manager\Map\ImageManager
+    bluebear.manager.pencil: App\Manager\Map\PencilManager
+    bluebear.manager.pencil_set: App\Manager\Map\PencilSetManager
+    bluebear.manager.layer: App\Manager\Map\LayerManager
+    bluebear.manager.map: App\Manager\Map\MapManager
+    bluebear.manager.map_item: App\Manager\Map\MapItemManager
+    bluebear.manager.context: App\Manager\Map\ContextManager
+
+services:
+    # ImageManager
+    bluebear.manager.image:
+        class: %bluebear.manager.image%
+        calls:
+            - [setContainer, [@service_container]]
+
+    # PencilManager
+    bluebear.manager.pencil:
+        class: %bluebear.manager.pencil%
+        calls:
+            - [setContainer, [@service_container]]
+
+    # PencilSetManager
+    bluebear.manager.pencil_set:
+        class: %bluebear.manager.pencil_set%
+        calls:
+            - [setContainer, [@service_container]]
+
+    # LayerManager
+    bluebear.manager.layer:
+        class: %bluebear.manager.layer%
+        calls:
+            - [setContainer, [@service_container]]
+
+    # MapManager
+    bluebear.manager.map:
+        class: %bluebear.manager.map%
+        calls:
+            - [setContainer, [@service_container]]
+    # MapItemManager
+    bluebear.manager.map_item:
+        class: %bluebear.manager.map_item%
+        calls:
+            - [setContainer, [@service_container]]
+    # ContextManager
+    bluebear.manager.context:
+        class: %bluebear.manager.context%
+        calls:
+            - [setContainer, [@service_container]]

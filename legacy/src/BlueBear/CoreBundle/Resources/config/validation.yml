@@ -1,0 +1,31 @@
+# Map
+App\Entity\Map\Map:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: name
+    properties:
+        name:
+            - NotBlank: ~
+            - NotNull: ~
+        label:
+            - NotBlank: ~
+            - NotNull: ~
+        pencilSets:
+            - Count: {min: 1}
+        layers:
+            - Count: {min: 1}
+
+
+# Pencil Set
+App\Entity\Map\PencilSet:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: name
+
+# Pencil
+App\Entity\Map\Pencil:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: name
+
+# Layer
+App\Entity\Map\Layer:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: name

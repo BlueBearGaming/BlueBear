@@ -1,0 +1,30 @@
+App\Entity\Map\MapItem:
+    type: entity
+    table: map_item
+    repositoryClass: App\Entity\Map\MapItemRepository
+
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: auto
+    fields:
+        x:
+            type: integer
+        y:
+            type: integer
+    manyToOne:
+        pencil:
+            targetEntity: App\Entity\Map\Pencil
+            inversedBy: mapItems
+        layer:
+            targetEntity: App\Entity\Map\Layer
+            inversedBy: mapItems
+            fetch: EAGER
+            joinColumn:
+                nullable: false
+        context:
+            targetEntity: App\Entity\Map\Context
+            inversedBy: mapItems
+            joinColumn:
+                nullable: false

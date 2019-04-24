@@ -1,0 +1,23 @@
+App\Entity\Editor\Image:
+    type: entity
+    repositoryClass: App\Repository\Editor\ImageRepository
+
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: auto
+    fields:
+        name:
+            type: string
+        description:
+            type: text
+        path:
+            type: string
+    oneToOne:
+        pencil:
+            targetEntity: App\Entity\Map\Pencil
+            mappedBy: image
+        pencilSet:
+            targetEntity: App\Entity\Map\PencilSet
+            mappedBy: sprite

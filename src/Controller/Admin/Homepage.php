@@ -26,6 +26,6 @@ class Homepage
 
     public function __invoke(): Response
     {
-        return new Response($this->environment->render(':admin:pages:homepage.html.twig'));
+        return new Response($this->environment->render('admin/pages/homepage.html.twig'));
     }
 }

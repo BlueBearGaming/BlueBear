@@ -1,0 +1,83 @@
+{% block topMenu %}
+    {% set currentRoute = app.request.attributes.get('_route') %}
+
+    <div class="navbar navbar-default navbar-fixed-top"
+         role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand {{ currentRoute === 'app.homepage' ?: 'active' }}"
+                   href="{{ path('app.homepage') }}">BlueBear by BlueBearGaming</a>
+            </div>
+            <div class="navbar-collapse collapse navbar-responsive-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle"
+                           data-toggle="dropdown" role="button"
+                           aria-expanded="false">Pencils <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li class="{{ {{ currentRoute === 'bluebear_admin_pencil_set_list' ?: 'active' }} }}">
+                                <a href="{{ path('bluebear_admin_pencil_set_list') }}">Pencil Sets</a>
+                            </li>
+                            <li class="{{ {{ currentRoute === 'bluebear_admin_pencil_list' ?: 'active' }} }}">
+                                <a href="{{ path('bluebear_admin_pencil_list') }}">Pencils</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="{{ {{ currentRoute === 'bluebear_admin_layer_list' ?: 'active' }} }}">
+                        <a href="{{ path('bluebear_admin_layer_list') }}">Layers</a>
+                    </li>
+                    <li class="{{ {{ currentRoute === 'bluebear_admin_map_list' ?: 'active' }} }}">
+                        <a href="{{ path('bluebear_admin_map_list') }}">Maps</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle"
+                           data-toggle="dropdown" role="button"
+                           aria-expanded="false">Api <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li class="{{ ('bluebear_backoffice_api') }}">
+                                <a href="{{ path('bluebear_backoffice_api') }}">Api</a>
+                            </li>
+                            <li class="{{ ('bluebear_backoffice_api_scenario') }}">
+                                <a href="{{ path('bluebear_backoffice_api_scenario') }}">Scenario</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle"
+                           data-toggle="dropdown" role="button"
+                           aria-expanded="false">Entities <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li class="{{ ('bluebear_admin_entity_model_list') }}">
+                                <a href="{{ path('bluebear_admin_entity_model_list') }}">Entity Models list</a>
+                            </li>
+                            <li class="{{ ('bluebear_admin_entity_instance_list') }}">
+                                <a href="{{ path('bluebear_admin_entity_instance_list') }}">Entity Instances list</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="{{ ('bluebear_editor_homepage') }}">
+                        <a href="{{ path('bluebear_editor_homepage') }}">Editor</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle"
+                           data-toggle="dropdown" role="button"
+                           aria-expanded="false">Parameters <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li class="{{ ('bluebear_admin_user_list') }}">
+                                <a href="{{ path('bluebear_admin_user_list') }}">Users</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="{{ ('fos_user_security_logout') }}">
+                        <a href="{{ path('fos_user_security_logout') }}">Logout ({{ app.user.username}})</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

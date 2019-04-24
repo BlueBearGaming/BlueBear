@@ -10,7 +10,7 @@ class User extends \FOS\UserBundle\Model\User
 
     protected $id;
 
-    protected $userContexts;
+    protected $contexts;
 
     /**
      * @return mixed
@@ -31,16 +31,16 @@ class User extends \FOS\UserBundle\Model\User
     /**
      * @return mixed
      */
-    public function getUserContexts()
+    public function getContexts()
     {
-        return $this->userContexts;
+        return $this->contexts;
     }
 
     /**
-     * @param mixed $userContexts
+     * @param mixed $contexts
      */
-    public function setUserContexts($userContexts)
+    public function setContexts($contexts)
     {
-        $this->userContexts = $userContexts;
+        $this->contexts = $contexts;
     }
 } 

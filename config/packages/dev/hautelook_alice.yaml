@@ -1,2 +1,5 @@
 hautelook_alice:
-    fixtures_path: fixtures
+    fixtures_path: fixtures/orm
+    root_dirs:
+        - '%kernel.root_dir%'
+        - '%kernel.project_dir%'

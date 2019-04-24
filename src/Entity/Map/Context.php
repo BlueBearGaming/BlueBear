@@ -6,6 +6,7 @@ use App\Entity\Behavior\Data;
 use App\Entity\Behavior\Id;
 use App\Entity\Behavior\Label;
 use App\Entity\Behavior\Timestampable;
+use App\Entity\User\User;
 use Doctrine\Common\Collections\Collection;
 
 /**
@@ -16,9 +17,9 @@ class Context
     use Id, Label, Timestampable, Data;
 
     /**
-     * @var Context[]|Collection
+     * @var User[]|Collection
      */
-    protected $contexts;
+    protected $users;
 
     /**
      * @var Map
@@ -76,17 +77,17 @@ class Context
     /**
      * @return UserContext[]|Collection
      */
-    public function getContexts()
+    public function getUsers()
     {
-        return $this->contexts;
+        return $this->users;
     }
 
     /**
-     * @param mixed $contexts
+     * @param mixed $users
      */
-    public function setContexts($contexts)
+    public function setUsers($users)
     {
-        $this->contexts = $contexts;
+        $this->users = $users;
     }
 
     /**

@@ -1,0 +1,108 @@
+#
+# bluebear admin
+#
+# all properties marked as default can be removed. It is here for the example
+blue_bear_admin:
+    application:
+        # application configuration
+        title: BlueBear, pyscho panda and maximum bamboo
+        description: BlueBear, pandas, bamboo and energy drink
+        # main layout (by default)
+        layout: BlueBearBackofficeBundle::layout.html.twig
+        # block layout (by default)
+        block_template: BlueBearAdminBundle:Form:fields.html.twig
+        # max entities per page
+        max_per_page: 25
+        # use default bootstrap integration
+        bootstrap: false
+        # Routing options
+        routing:
+            name_pattern: 'bluebear_admin_{admin}_{action}'
+            url_pattern: '{admin}/{action}'
+    # list of managed admins
+    admins:
+        # entities (pencil is an example)
+        pencil:
+            # orm entity class
+            entity: App\Entity\Map\Pencil
+            # associated form type
+            form: pencil
+            # associated controller (by default)
+            controller: BlueBearAdminBundle:Generic
+            # entity manager call for CRUD actions
+            manager: ~
+            # max entities per page (by default)
+            max_per_page: 25
+            # availables actions (by default)
+            actions:
+                list:
+                    title: Pencils list
+                    permissions: [ROLE_ADMIN, ROLE_USER]
+                    export: ~
+                    # available fields for this action
+                    fields:
+                        id: ~
+                        name: ~
+                        label: ~
+                        # displayed only 50 first characters in list action
+                        description: {length: 50}
+                        pencilSet: ~
+                create: ~
+                edit: ~
+                delete: ~
+        # short configuration
+        pencil_set:
+            entity: App\Entity\Map\PencilSet
+            form: pencil_set
+        layer:
+            entity: App\Entity\Map\Layer
+            form: layer
+        map:
+            entity: App\Entity\Map\Map
+            form: map
+            manager:
+                name: bluebear.manager.map
+                save: saveMap
+        entity_model:
+            entity: BlueBear\EngineBundle\Entity\EntityModel
+            form: entity_model
+            manager:
+                name: bluebear.manager.entity_model
+                save: save
+            actions:
+                list:
+                    fields:
+                        id: ~
+                        name: ~
+                create: ~
+                edit: ~
+                delete: ~
+        entity_instance:
+            entity: BlueBear\EngineBundle\Entity\EntityInstance
+            form: entity_instance
+            actions:
+                list:
+                    fields:
+                        id: ~
+                        name: ~
+                create: ~
+                edit: ~
+                delete: ~
+        user:
+            entity: BlueBear\UserBundle\Entity\User
+            form: user
+            actions:
+                list:
+                    fields:
+                        id: ~
+                        username: ~
+                        email: ~
+                        createdAt: ~
+                        updatedAt: ~
+                        enabled: ~
+                create:
+                    permissions: [ROLE_ADMIN]
+                edit:
+                    permissions: [ROLE_ADMIN]
+                delete:
+                    permissions: [ROLE_ADMIN]

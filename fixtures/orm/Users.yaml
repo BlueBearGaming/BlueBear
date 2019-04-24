@@ -1,0 +1,17 @@
+App\Entity\User\User:
+    johnkrovitch:
+        username: johnkrovitch
+        username_canonical: johnkrovitch
+        email: arnaudfrezet@gmail.com
+        email_canonical: arnaudfrezet@gmail.com
+        enabled: true
+        plainPassword: password
+        roles: [ROLE_ADMIN]
+    vincent_chalnot:
+        username: vince
+        username_canonical: vince
+        email: vincent.chalnot@gmail.com
+        email_canonical: vincent.chalnot@gmail.com
+        enabled: true
+        plainPassword: password
+        roles: [ROLE_ADMIN]

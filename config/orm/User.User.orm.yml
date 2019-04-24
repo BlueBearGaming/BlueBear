@@ -1,7 +1,7 @@
 App\Entity\User\User:
     type: entity
     table: fos_user
-    repositoryClass: App\Entity\User\UserRepository
+    repositoryClass: App\Repository\User\UserRepository
     lifecycleCallbacks: ~
 
     id:
@@ -12,11 +12,17 @@ App\Entity\User\User:
     fields:
         createdAt:
             type: datetime
+            gedmo:
+                timestampable:
+                    on: create
         updatedAt:
             type: datetime
+            gedmo:
+                timestampable:
+                    on: update
 
-    oneToMany:
-        targetEntity: App\Entity\Map\UserContext
-        mappedBy: user
-        joinColumn:
-            name: user_contexts
+    manyToMany:
+        contexts:
+            targetEntity: App\Entity\Map\Context
+            inversedBy: users
+
