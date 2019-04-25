@@ -1,0 +1,14 @@
+lag_admin:
+    admins:
+        pencil_set:
+            entity: App\Entity\Map\PencilSet
+            actions:
+                menus: false
+                list:
+                    fields:
+                        id: ~
+                        name: ~
+                create: ~
+                edit:
+                    title: cms.page.edit.form_title
+                delete: ~

@@ -1,7 +1,7 @@
 App\Entity\Map\PencilSet:
     type: entity
     table: pencil_set
-    repositoryClass: App\Entity\Map\PencilSetRepository
+    repositoryClass: App\Repository\Map\PencilSetRepository
 
     id:
         id:

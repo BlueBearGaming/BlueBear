@@ -37,3 +37,7 @@ bluebear_backoffice_api_scenario:
 blue_bear_admin:
     resource: .
     type: extra
+
+lag_admin:
+    resource: .
+    type: extra

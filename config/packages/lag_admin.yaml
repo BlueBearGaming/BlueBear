@@ -1,0 +1,10 @@
+imports:
+    - {resource: ../admin/PencilSet.yaml}
+    - {resource: ../admin/Pencil.yaml}
+
+lag_admin:
+    application:
+        title: BlueBear Gaming, The Game BackOffice
+        routing_name_pattern: admin.{admin}.{action}
+        routing_url_pattern: /{admin}/{action}
+    menus: ~

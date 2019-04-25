@@ -1,7 +1,7 @@
 App\Entity\Map\Pencil:
     type: entity
     table: pencil
-    repositoryClass: App\Entity\Map\PencilRepository
+    repositoryClass: App\Repository\Map\PencilRepository
 
     id:
         id:
