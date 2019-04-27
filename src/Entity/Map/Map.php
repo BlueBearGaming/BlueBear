@@ -8,19 +8,12 @@ use App\Entity\Behavior\Label;
 use App\Entity\Behavior\Nameable;
 use App\Entity\Behavior\Timestampable;
 use App\Entity\Behavior\Typeable;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation as Serializer;
 
 /**
  * The map
- *
- * @ORM\Table(name="map")
- * @ORM\Entity(repositoryClass="App\Entity\Map\MapRepository")
- * @ORM\HasLifecycleCallbacks()
- * @Serializer\ExclusionPolicy("all")
- * @Serializer\AccessorOrder("custom", custom={"id", "name", "label", "type", "cellSize", "layers", "pencilSets"})
  */
 class Map
 {
@@ -28,30 +21,20 @@ class Map
 
     /**
      * Map pencil sets
-     *
-     * @ORM\ManyToMany(targetEntity="App\Entity\Map\PencilSet", fetch="EAGER", cascade={"persist"})
-     * @Serializer\Expose()
      */
     protected $pencilSets;
 
     /**
      * Map layers
-     *
-     * @ORM\ManyToMany(targetEntity="App\Entity\Map\Layer", fetch="EAGER", cascade={"persist"})
-     * @Serializer\Expose()
      */
     protected $layers;
 
     /**
      * Map user contexts (ie snapshot of map state for user)
-     *
-     * @ORM\OneToMany(targetEntity="App\Entity\Map\Context", mappedBy="map", cascade={"persist", "remove"})
      */
     protected $contexts;
 
     /**
-     * @ORM\Column(name="cell_size", type="integer")
-     * @Serializer\Expose()
      * @var int
      */
     protected $cellSize;
@@ -59,15 +42,11 @@ class Map
     /**
      * Starting point x coordinates
      *
-     * @ORM\Column(name="start_x", type="integer")
-     * @Serializer\Expose()
      * @var int
      */
     protected $startX = 0;
 
     /**
-     * @ORM\Column(name="start_y", type="integer")
-     * @Serializer\Expose()
      * @var int
      */
     protected $startY = 0;
@@ -79,6 +58,7 @@ class Map
     {
         $this->contexts = new ArrayCollection();
         $this->pencilSets = new ArrayCollection();
+        $this->createdAt = new DateTime();
     }
 
     /**
