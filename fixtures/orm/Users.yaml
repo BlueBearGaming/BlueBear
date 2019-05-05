@@ -5,7 +5,7 @@ App\Entity\User\User:
         email: arnaudfrezet@gmail.com
         email_canonical: arnaudfrezet@gmail.com
         enabled: true
-        plainPassword: password
+        plainPassword: test
         roles: [ROLE_ADMIN]
     vincent_chalnot:
         username: vince
@@ -13,5 +13,5 @@ App\Entity\User\User:
         email: vincent.chalnot@gmail.com
         email_canonical: vincent.chalnot@gmail.com
         enabled: true
-        plainPassword: password
+        plainPassword: test
         roles: [ROLE_ADMIN]

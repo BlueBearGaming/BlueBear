@@ -1,7 +1,7 @@
 App\Entity\Map\Layer:
     type: entity
     table: layer
-    repositoryClass: App\Entity\Map\LayerRepository
+    repositoryClass: App\Repository\Map\LayerRepository
 
     id:
         id:

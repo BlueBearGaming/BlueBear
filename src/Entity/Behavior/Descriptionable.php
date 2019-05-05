@@ -2,15 +2,10 @@
 
 namespace App\Entity\Behavior;
 
-use JMS\Serializer\Annotation as Serializer;
-
 trait Descriptionable
 {
     /**
      * Entity description
-     *
-     * @ORM\Column(type="string", length=100, nullable=true)
-     * @Serializer\Expose()
      */
     protected $description;
 

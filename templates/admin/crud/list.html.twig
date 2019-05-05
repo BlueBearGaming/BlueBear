@@ -1,0 +1,22 @@
+{% extends '@LAGAdmin/CRUD/list.html.twig' %}
+
+{% block top_extra_content %}
+    {% set allowedActions = admin.adminConfiguration.getParameter('actions') | keys %}
+
+    {% if 'create' in allowedActions %}
+    <div class="row">
+        <div class="col-6">
+        </div>
+        <div class="col-6 text-right">
+            <a href="{{ admin_url(admin, 'create') }}"
+               class="btn btn-primary"
+               role="button">
+                <i class="fa fa-plus"></i>
+                {{ 'lag.admin.create' | trans({
+                    '%entity%': admin.name | title
+                }) }}
+            </a>
+        </div>
+    </div>
+    {% endif %}
+{% endblock %}

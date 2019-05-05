@@ -3,6 +3,17 @@ app.homepage:
     path:  /
     defaults: {_controller: App\Controller\Admin\Homepage}
 
+# API
+bluebear.api.action:
+    path: /api/map/action
+    defaults: {_controller: App\Controller\Map\MapAction}
+
+# Admin
+lag_admin:
+    resource: .
+    type: extra
+
+# OLD
 bluebear_engine_trigger_event:
     path:     /api/events/trigger/{eventName}
     defaults: { _controller: BlueBearEngineBundle:Engine:triggerEvent, eventName: "" }
@@ -32,12 +43,3 @@ bluebear_backoffice_api:
 bluebear_backoffice_api_scenario:
     path: /tests/scenarios
     defaults: { _controller: BlueBearBackofficeBundle:Api:scenario }
-
-# BlueBear AdminBundle
-blue_bear_admin:
-    resource: .
-    type: extra
-
-lag_admin:
-    resource: .
-    type: extra

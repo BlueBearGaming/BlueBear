@@ -2,8 +2,6 @@
 
 namespace App\Entity\Behavior;
 
-use JMS\Serializer\Annotation as Serializer;
-
 /**
  * Nameable
  *
@@ -13,9 +11,6 @@ trait Nameable
 {
     /**
      * Entity name
-     *
-     * @ORM\Column(type="string", length=255)
-     * @Serializer\Expose()
      */
     protected $name;
 

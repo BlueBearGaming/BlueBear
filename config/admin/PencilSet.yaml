@@ -9,6 +9,5 @@ lag_admin:
                         id: ~
                         name: ~
                 create: ~
-                edit:
-                    title: cms.page.edit.form_title
+                edit: ~
                 delete: ~

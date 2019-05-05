@@ -1,35 +1,30 @@
 <?php
 
-
 namespace App\Entity\Behavior;
-
 
 trait Taggable
 {
     /**
-     * Tags
-     *
-     * @var string
-     * @ORM\Column(type="text")
+     * @var array
      */
-    protected $tags = '';
+    protected $tags = [];
 
     /**
-     * Return item's tags
+     * Return item's tags.
      *
-     * @return string
+     * @return array
      */
-    public function getTags()
+    public function getTags(): array
     {
         return $this->tags;
     }
 
     /**
-     * Set item's tags
+     * Set item's tags.
      *
-     * @param $tags
+     * @param array $tags
      */
-    public function setTags($tags)
+    public function setTags(array $tags)
     {
         $this->tags = $tags;
     }

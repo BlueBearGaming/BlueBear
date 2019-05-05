@@ -1,0 +1,27 @@
+App\Entity\Map\Map:
+    map_demo:
+        name: <name()>
+        description: <text()>
+        label: <name()>
+        type: map
+        cellSize: 20
+        startX: 0
+        startY: 0
+        layers:
+            - '@layer_background'
+            - '@layer_land'
+            - '@layer_grid'
+            - '@layer_selection'
+            - '@layer_ground'
+            - '@layer_vegatation'
+            - '@layer_objects'
+            - '@layer_trees'
+            - '@layer_building'
+            - '@layer_units'
+            - '@layer_effect'
+            - '@layer_events'
+
+App\Entity\Map\Context:
+    map_demo_context:
+        label: <name()>
+        map: '@map_demo'

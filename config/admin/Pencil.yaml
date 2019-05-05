@@ -3,10 +3,7 @@ lag_admin:
         pencil:
             entity: App\Entity\Map\Pencil
             actions:
-                list:
-                    fields:
-                        id: ~
+                list: ~
                 create: ~
-                edit:
-                    title: cms.page.edit.form_title
+                edit: ~
                 delete: ~

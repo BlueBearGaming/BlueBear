@@ -1,7 +1,7 @@
 App\Entity\Map\Map:
     type: entity
     table: map
-    repositoryClass: App\Entity\Map\MapRepository
+    repositoryClass: App\Repository\Map\MapRepository
 
     id:
         id:
@@ -25,7 +25,15 @@ App\Entity\Map\Map:
         startY:
             type: integer
         createdAt:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: create
         updatedAt:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: update
 
     manyToMany:
         pencilSets:

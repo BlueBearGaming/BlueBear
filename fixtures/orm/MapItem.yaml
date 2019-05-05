@@ -1,0 +1,6 @@
+App\Entity\Map\MapItem:
+    map_demo_background{1..10}:
+        x: 0
+        y: 0
+        layer: '@layer_background'
+        context: '@map_demo_context'

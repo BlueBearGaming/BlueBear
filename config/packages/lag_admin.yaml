@@ -1,10 +1,15 @@
 imports:
-    - {resource: ../admin/PencilSet.yaml}
+    - {resource: ../admin/Layer.yaml}
+    - {resource: ../admin/Map.yaml}
     - {resource: ../admin/Pencil.yaml}
+    - {resource: ../admin/PencilSet.yaml}
 
 lag_admin:
     application:
         title: BlueBear Gaming, The Game BackOffice
         routing_name_pattern: admin.{admin}.{action}
         routing_url_pattern: /{admin}/{action}
-    menus: ~
+        enable_menus: false
+        base_template: admin/base.html.twig
+        list_template: admin/crud/list.html.twig
+

@@ -1,12 +1,11 @@
 <?php
 
-namespace BlueBear\EngineBundle\Path;
+namespace App\Engine\Path;
 
 use App\Constant\Map\Constant;
 use App\Entity\Map\Context;
 use App\Entity\Map\MapItem;
 use App\Utils\Position;
-use BlueBear\EngineBundle\Rules\Rule;
 use BlueBear\EngineBundle\Rules\Ruler;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\PersistentCollection;

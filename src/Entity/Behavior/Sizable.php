@@ -2,8 +2,6 @@
 
 namespace App\Entity\Behavior;
 
-use JMS\Serializer\Annotation as Serializer;
-
 /**
  * Sizable
  *
@@ -13,17 +11,11 @@ trait Sizable
 {
     /**
      * Entity width
-     *
-     * @ORM\Column(type="float")
-     * @Serializer\Expose()
      */
     protected $width = 1;
 
     /**
      * Entity height
-     *
-     * @ORM\Column(type="float")
-     * @Serializer\Expose()
      */
     protected $height = 1;
 

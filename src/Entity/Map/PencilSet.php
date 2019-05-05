@@ -9,15 +9,9 @@ use App\Entity\Behavior\Typeable;
 use App\Entity\Editor\Image;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation as Serializer;
 
 /**
  * A pencil set is a collection of pencil. Each have a pencil set.
- *
- * @ORM\Table(name="pencil_set")
- * @ORM\Entity(repositoryClass="App\Entity\Map\PencilSetRepository")
- * @Serializer\ExclusionPolicy("all")
  */
 class PencilSet
 {
@@ -25,14 +19,10 @@ class PencilSet
 
     /**
      * List of pencils attached to the pencil set
-     *
-     * @ORM\OneToMany(targetEntity="App\Entity\Map\Pencil", fetch="EAGER", mappedBy="pencilSet")
-     * @Serializer\Expose()
      */
     protected $pencils;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Map\Map")
      * @var ArrayCollection
      */
     protected $maps;
@@ -41,9 +31,6 @@ class PencilSet
      * Sprite used to group pencils images
      *
      * @var Image
-     * @ORM\OneToOne(targetEntity="App\Entity\Editor\Image", inversedBy="pencilSet", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(name="sprite_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
-     * @Serializer\Expose()
      */
     protected $sprite;
 

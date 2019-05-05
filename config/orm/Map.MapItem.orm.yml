@@ -1,7 +1,7 @@
 App\Entity\Map\MapItem:
     type: entity
     table: map_item
-    repositoryClass: App\Entity\Map\MapItemRepository
+    repositoryClass: App\Repository\Map\MapItemRepository
 
     id:
         id:

@@ -11,14 +11,20 @@ App\Entity\Map\Context:
     fields:
         label:
             type: string
-        createdAt:
-            type: datetime
-        updatedAt:
-            type: datetime
         data:
             type: array
         version:
             type: integer
+        createdAt:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: create
+        updatedAt:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: update
 
     manyToMany:
         users:

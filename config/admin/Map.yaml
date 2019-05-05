@@ -1,0 +1,9 @@
+lag_admin:
+    admins:
+        map:
+            entity: App\Entity\Map\Map
+            actions:
+                list: ~
+                create: ~
+                edit: ~
+                delete: ~

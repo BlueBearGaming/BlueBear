@@ -24,9 +24,10 @@ App\Entity\Map\Pencil:
         imageX:
             type: integer
         imageY:
-            type: float
+            type: integer
         tags:
             type: array
+            nullable: true
         allowedLayerTypes:
             type: simple_array
             nullable: true

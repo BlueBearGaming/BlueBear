@@ -2,8 +2,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand"
            href="#">
-            BlueBear Gaming<br/>
-            <small>Making your dreams true...</small>
+            BlueBear Gaming <small>Make your dreams comes true...</small>
         </a>
         <button class="navbar-toggler"
                 type="button"
@@ -23,10 +22,6 @@
                        href="#">Home <span class="sr-only">(current)</span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link"
-                       href="#">Link</a>
-                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle"
                        href="#"
@@ -45,124 +40,54 @@
                            href="{{ path('admin.pencil.list') }}">Pencil</a>
                     </div>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="{{ path('admin.layer.list') }}">Layers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="{{ path('admin.map.list') }}">Map</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle"
+                       href="#"
+                       id="navbarDropdown"
+                       role="button"
+                       data-toggle="dropdown"
+                       aria-haspopup="true"
+                       aria-expanded="false">
+                        API
+                    </a>
+                    <div class="dropdown-menu"
+                         aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item disabled"
+                           href="#">API Docs</a>
+                        <a class="dropdown-item disabled"
+                           href="#">API Scenario</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled"
+                       href="#">Editor</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled"
+                       href="#">Users</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled"
+                       href="#">Logout
+                        <i class="fa fa-sign-out-alt"></i></a>
+                </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                <input class="form-control mr-sm-2"
+                       type="search"
+                       placeholder="Search"
+                       aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0"
+                        type="submit">Search</button>
             </form>
         </div>
     </nav>
-
-
-
-
-
-
-
-pencil_set 	App\Entity\Map\PencilSet
-menus
-Key 	Value
-list
-Key 	Value
-fields
-
-array:1 [▼
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{% set currentRoute = '' %}
-
-lol
-    <div class="navbar navbar-default navbar-fixed-top"
-         role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-                <a class="navbar-brand {{ currentRoute == 'app.homepage' ? 'active' : '' }}"
-                   href="{{ path('app.homepage') }}">BlueBear by BlueBearGaming</a>
-            </div>
-            <div class="navbar-collapse collapse navbar-responsive-collapse">
-                <ul class="nav navbar-nav">
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle"
-                           data-toggle="dropdown" role="button"
-                           aria-expanded="false">Pencils <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li class="{{ currentRoute == 'admin.pencil_set.list' ? 'active' : '' }} }}">
-                                <a href="{{ path('admin.pencil_set.list') }}">Pencil Sets</a>
-                            </li>
-{#                            <li class="{{ currentRoute == 'bluebear_admin_pencil_list' ? 'active' : '' }} }}">#}
-{#                                <a href="{{ path('bluebear_admin_pencil_list') }}">Pencils</a>#}
-{#                            </li>#}
-                        </ul>
-                    </li>
-{#                    <li class="{{ currentRoute == 'bluebear_admin_layer_list' ? 'active' : '' }} }}">#}
-{#                        <a href="{{ path('bluebear_admin_layer_list') }}">Layers</a>#}
-{#                    </li>#}
-{#                    <li class="{{ currentRoute == 'bluebear_admin_map_list' ? 'active' : '' }} }}">#}
-{#                        <a href="{{ path('bluebear_admin_map_list') }}">Maps</a>#}
-{#                    </li>#}
-{#                    <li class="dropdown">#}
-{#                        <a href="#" class="dropdown-toggle"#}
-{#                           data-toggle="dropdown" role="button"#}
-{#                           aria-expanded="false">Api <span class="caret"></span>#}
-{#                        </a>#}
-{#                        <ul class="dropdown-menu" role="menu">#}
-{#                            <li class="{{ ('bluebear_backoffice_api') }}">#}
-{#                                <a href="{{ path('bluebear_backoffice_api') }}">Api</a>#}
-{#                            </li>#}
-{#                            <li class="{{ ('bluebear_backoffice_api_scenario') }}">#}
-{#                                <a href="{{ path('bluebear_backoffice_api_scenario') }}">Scenario</a>#}
-{#                            </li>#}
-{#                        </ul>#}
-{#                    </li>#}
-
-{#                    <li class="dropdown">#}
-{#                        <a href="#" class="dropdown-toggle"#}
-{#                           data-toggle="dropdown" role="button"#}
-{#                           aria-expanded="false">Entities <span class="caret"></span>#}
-{#                        </a>#}
-{#                        <ul class="dropdown-menu" role="menu">#}
-{#                            <li class="{{ ('bluebear_admin_entity_model_list') }}">#}
-{#                                <a href="{{ path('bluebear_admin_entity_model_list') }}">Entity Models list</a>#}
-{#                            </li>#}
-{#                            <li class="{{ ('bluebear_admin_entity_instance_list') }}">#}
-{#                                <a href="{{ path('bluebear_admin_entity_instance_list') }}">Entity Instances list</a>#}
-{#                            </li>#}
-{#                        </ul>#}
-{#                    </li>#}
-{#                    <li class="{{ ('bluebear_editor_homepage') }}">#}
-{#                        <a href="{{ path('bluebear_editor_homepage') }}">Editor</a>#}
-{#                    </li>#}
-{#                    <li class="dropdown">#}
-{#                        <a href="#" class="dropdown-toggle"#}
-{#                           data-toggle="dropdown" role="button"#}
-{#                           aria-expanded="false">Parameters <span class="caret"></span>#}
-{#                        </a>#}
-{#                        <ul class="dropdown-menu" role="menu">#}
-{#                            <li class="{{ ('bluebear_admin_user_list') }}">#}
-{#                                <a href="{{ path('bluebear_admin_user_list') }}">Users</a>#}
-{#                            </li>#}
-{#                        </ul>#}
-{#                    </li>#}
-{#                    <li class="{{ ('fos_user_security_logout') }}">#}
-{#                        <a href="{{ path('fos_user_security_logout') }}">Logout ({{ app.user.username}})</a>#}
-{#                    </li>#}
-                </ul>
-            </div>
-        </div>
-    </div>
 {% endblock %}
