@@ -1,0 +1,31 @@
+App\Entity\Engine\GameEntity:
+    type: entity
+    table: game_entity
+    repositoryClass: App\Repository\Engine\GameEntityRepository
+
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: auto
+
+    fields:
+        reference:
+            type: guid
+        description:
+            type: text
+        createdAt:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: create
+        updatedAt:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: update
+
+    manyToMany:
+        behaviors:
+            targetEntity: App\Entity\Engine\GameBehavior
+            indexBy: name

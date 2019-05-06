@@ -1,0 +1,31 @@
+App\Entity\Engine\GameBehavior:
+    type: entity
+    table: game_behavior
+    repositoryClass: App\Repository\Engine\GameBehaviorRepository
+
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: auto
+
+    uniqueConstraints:
+        search_idx:
+            columns:
+                - name
+
+    fields:
+        reference:
+            type: guid
+        name:
+            type: string
+        createdAt:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: create
+        updatedAt:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: update

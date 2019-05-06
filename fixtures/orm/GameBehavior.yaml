@@ -1,0 +1,5 @@
+App\Entity\Engine\GameBehavior:
+    behavior_movable:
+        name: movable
+    behavior_positionable:
+        name: positionable

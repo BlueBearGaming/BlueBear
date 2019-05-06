@@ -19,7 +19,7 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
                     <a class="nav-link"
-                       href="#">Home <span class="sr-only">(current)</span>
+                       href="{{ path('app.homepage') }}">Home <span class="sr-only">(current)</span>
                     </a>
                 </li>
                 <li class="nav-item dropdown">
@@ -44,9 +44,21 @@
                     <a class="nav-link"
                        href="{{ path('admin.layer.list') }}">Layers</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link"
-                       href="{{ path('admin.map.list') }}">Map</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle"
+                       href="#"
+                       id="navbarDropdown"
+                       role="button"
+                       data-toggle="dropdown"
+                       aria-haspopup="true"
+                       aria-expanded="false">
+                        Map
+                    </a>
+                    <div class="dropdown-menu"
+                         aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item"
+                           href="{{ path('admin.map.list') }}">Maps</a>
+                    </div>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle"
@@ -66,9 +78,25 @@
                            href="#">API Scenario</a>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled"
-                       href="#">Editor</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle"
+                       href="#"
+                       id="navbarDropdown"
+                       role="button"
+                       data-toggle="dropdown"
+                       aria-haspopup="true"
+                       aria-expanded="false">
+                        API
+                    </a>
+                    <div class="dropdown-menu"
+                         aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item disabled"
+                           href="#">Editor</a>
+                        <a class="dropdown-item"
+                           href="{{ path('') }}">Game Entities</a>
+                        <a class="dropdown-item"
+                           href="{{ path('') }}">Game Behaviors</a>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link disabled"

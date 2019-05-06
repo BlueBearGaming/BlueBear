@@ -1,0 +1,4 @@
+App\Entity\Engine\GameEntity:
+    chess_white_queen:
+        description: The white queen in the Chess game
+        behaviors: '[@behavior_movable]'
