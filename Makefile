@@ -43,3 +43,16 @@ assets@watch:
 .PHONY: serve
 serve:
 	bin/console server:run --env=dev
+
+### Database ###
+.PHONY: database@drop database@update database@drop-and-load-fixtures
+
+database@drop:
+	bin/console doctrine:schema:drop --force
+
+database@update:
+	bin/console doctrine:schema:update --force
+
+database@drop-and-load-fixtures: database@drop database@update
+	bin/console hautelook:fixtures:load -n
+################

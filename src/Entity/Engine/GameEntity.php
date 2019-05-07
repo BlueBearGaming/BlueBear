@@ -30,10 +30,16 @@ class GameEntity
      */
     private $behaviors;
 
-    public function __construct()
+    /**
+     * @var string
+     */
+    private $type;
+
+    public function __construct(string $type)
     {
         $this->reference = Uuid::uuid4()->toString();
         $this->behaviors = new ArrayCollection();
+        $this->type = $type;
     }
 
     public function getId(): int
@@ -91,5 +97,13 @@ class GameEntity
     public function removeBehavior(GameBehavior $behavior)
     {
         $this->behaviors->removeElement($behavior);
+    }
+
+    /**
+     * @return string
+     */
+    public function getType(): string
+    {
+        return $this->type;
     }
 }

@@ -10,6 +10,8 @@ App\Entity\Engine\GameEntity:
                 strategy: auto
 
     fields:
+        type:
+            type: string
         reference:
             type: guid
         description:
@@ -29,3 +31,5 @@ App\Entity\Engine\GameEntity:
         behaviors:
             targetEntity: App\Entity\Engine\GameBehavior
             indexBy: name
+            joinTable:
+                name: behave
