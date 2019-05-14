@@ -1,3 +1,9 @@
-#bluebear:
-#    engine:
-#        allowed_events:
+bluebear:
+    engine:
+        behaviors:
+            positionable:
+                class: App\Entity\Engine\Behaviors\PositionBehavior
+            movable:
+                class: App\Entity\Engine\Behaviors\MovementBehavior
+                depends:
+                    - positionable

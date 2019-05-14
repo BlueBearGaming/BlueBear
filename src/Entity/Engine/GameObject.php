@@ -7,33 +7,39 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\Uuid;
 
-class GameEntity
+class GameObject
 {
-    private $id;
+    protected $id;
 
-    private $reference;
+    protected $reference;
 
-    private $description = '';
-
-    /**
-     * @var DateTime
-     */
-    private $createdAt;
+    protected $description = '';
 
     /**
      * @var DateTime
      */
-    private $updatedAt;
+    protected $createdAt;
+
+    /**
+     * @var DateTime
+     */
+    protected $updatedAt;
 
     /**
      * @var GameBehavior[]|Collection
      */
-    private $behaviors;
+    protected $behaviors;
 
     /**
      * @var string
      */
-    private $type;
+    protected $type;
+
+    protected $x = 0;
+
+    protected $y = 0;
+
+    protected $z = 0;
 
     public function __construct(string $type)
     {
@@ -105,5 +111,53 @@ class GameEntity
     public function getType(): string
     {
         return $this->type;
+    }
+
+    /**
+     * @return int
+     */
+    public function getX(): int
+    {
+        return $this->x;
+    }
+
+    /**
+     * @param int $x
+     */
+    public function setX(int $x): void
+    {
+        $this->x = $x;
+    }
+
+    /**
+     * @return int
+     */
+    public function getY(): int
+    {
+        return $this->y;
+    }
+
+    /**
+     * @param int $y
+     */
+    public function setY(int $y): void
+    {
+        $this->y = $y;
+    }
+
+    /**
+     * @return int
+     */
+    public function getZ(): int
+    {
+        return $this->z;
+    }
+
+    /**
+     * @param int $z
+     */
+    public function setZ(int $z): void
+    {
+        $this->z = $z;
     }
 }

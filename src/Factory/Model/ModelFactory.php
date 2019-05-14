@@ -6,6 +6,7 @@ use App\Contracts\Factory\ModelFactoryInterface;
 use App\Contracts\Model\ModelInterface;
 use App\Engine\Exception\EngineException;
 use App\Model\Map\Movement;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ModelFactory implements ModelFactoryInterface
 {
@@ -25,6 +26,9 @@ class ModelFactory implements ModelFactoryInterface
         }
 
         if ('movement' === $name) {
+            $resolver = new OptionsResolver();
+
+
             $model = new Movement();
         }
 

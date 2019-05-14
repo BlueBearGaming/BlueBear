@@ -1,7 +1,7 @@
-App\Entity\Engine\GameEntity:
+App\Entity\Engine\GameObject:
     type: entity
-    table: game_entity
-    repositoryClass: App\Repository\Engine\GameEntityRepository
+    table: game_object
+    repositoryClass: App\Repository\Engine\GameObjectRepository
 
     id:
         id:

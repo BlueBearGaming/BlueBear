@@ -8,10 +8,8 @@ use App\Contracts\Model\ModelInterface;
 use App\Engine\Exception\EngineException;
 use App\Engine\Request\EngineRequest;
 use App\Engine\Response\EngineResponse;
-use BlueBear\EngineBundle\Event\EngineEvent;
-use BlueBear\EngineBundle\Event\EventRequest;
-use BlueBear\EngineBundle\Event\Response\ErrorResponse;
-use Exception;
+use App\Event\Engine\EngineEvent;
+use App\Event\Events;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -54,7 +52,11 @@ class Engine implements EngineInterface
 
         $model = $this->modelFactory->create($engineRequest->getModelName(), $engineRequest->getData());
 
+        $event = new EngineEvent($model);
+
+        $this->eventDispatcher->dispatch(Events::PRE_MODEL_HANDLE, $event);
         $this->modelHandler->handle($model);
+        $this->eventDispatcher->dispatch(Events::POST_MODEL_HANDLE, $event);
 
         return $this->createEngineResponse($model);
     }

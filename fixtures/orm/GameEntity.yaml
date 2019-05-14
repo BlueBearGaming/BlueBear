@@ -1,4 +1,4 @@
-App\Entity\Engine\GameEntity:
+App\Entity\Engine\GameObject:
     chess_white_queen:
         __construct:
             - unit
@@ -6,6 +6,12 @@ App\Entity\Engine\GameEntity:
         behaviors: '[@behavior_movable]'
 
     chess_map_item_0_0:
+        __construct:
+            - map_item
+        description: A map item
+        behaviors: '[@behavior_positionable]'
+
+    chess_map_item_1_1:
         __construct:
             - map_item
         description: A map item
