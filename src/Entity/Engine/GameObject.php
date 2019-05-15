@@ -9,6 +9,10 @@ use Ramsey\Uuid\Uuid;
 
 class GameObject
 {
+    const TYPE_MAP_ITEM = 'map_item';
+    const TYPE_UNIT = 'unit';
+    const TYPE_OTHER = 'other';
+
     protected $id;
 
     protected $reference;
@@ -34,12 +38,6 @@ class GameObject
      * @var string
      */
     protected $type;
-
-    protected $x = 0;
-
-    protected $y = 0;
-
-    protected $z = 0;
 
     public function __construct(string $type)
     {
@@ -111,53 +109,5 @@ class GameObject
     public function getType(): string
     {
         return $this->type;
-    }
-
-    /**
-     * @return int
-     */
-    public function getX(): int
-    {
-        return $this->x;
-    }
-
-    /**
-     * @param int $x
-     */
-    public function setX(int $x): void
-    {
-        $this->x = $x;
-    }
-
-    /**
-     * @return int
-     */
-    public function getY(): int
-    {
-        return $this->y;
-    }
-
-    /**
-     * @param int $y
-     */
-    public function setY(int $y): void
-    {
-        $this->y = $y;
-    }
-
-    /**
-     * @return int
-     */
-    public function getZ(): int
-    {
-        return $this->z;
-    }
-
-    /**
-     * @param int $z
-     */
-    public function setZ(int $z): void
-    {
-        $this->z = $z;
     }
 }

@@ -17,6 +17,11 @@ use Doctrine\Common\Collections\Collection;
  */
 class Map
 {
+    const TYPE_SQUARE = 'square';
+    const TYPE_HEXAGON = 'hexagon';
+    const TYPE_3D = '3d';
+
+
     use Id, Nameable, Label, Timestampable, Typeable, Descriptionable;
 
     /**
@@ -50,6 +55,8 @@ class Map
      * @var int
      */
     protected $startY = 0;
+
+    protected $algorithm = 'a_star';
 
     /**
      * Initialize user context
@@ -189,5 +196,21 @@ class Map
             }
         }
         return null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAlgorithm(): string
+    {
+        return $this->algorithm;
+    }
+
+    /**
+     * @param string $algorithm
+     */
+    public function setAlgorithm(string $algorithm): void
+    {
+        $this->algorithm = $algorithm;
     }
 }

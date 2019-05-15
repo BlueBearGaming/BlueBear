@@ -13,6 +13,7 @@ use App\Event\Events;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class Engine implements EngineInterface
@@ -49,9 +50,9 @@ class Engine implements EngineInterface
     public function run(Request $request): Response
     {
         $engineRequest = $this->createEngineRequest($request);
+        $data = $this->resolveData($engineRequest->getModelName(), $engineRequest->getData());
 
-        $model = $this->modelFactory->create($engineRequest->getModelName(), $engineRequest->getData());
-
+        $model = $this->modelFactory->create($engineRequest->getModelName(), $data);
         $event = new EngineEvent($model);
 
         $this->eventDispatcher->dispatch(Events::PRE_MODEL_HANDLE, $event);
@@ -80,6 +81,14 @@ class Engine implements EngineInterface
         $data = $this->serializer->serialize($model, 'json');
 
         return new EngineResponse($data, 200, [], true);
+    }
+
+    private function resolveData(string $modelName, array $data): array
+    {
+        $resolver = new OptionsResolver();
+        $this->modelFactory->configure($modelName, $resolver);
+
+        return $resolver->resolve($data);
     }
 
 

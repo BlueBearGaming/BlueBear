@@ -3,7 +3,8 @@ App\Entity\Map\Map:
         name: <name()>
         description: <text()>
         label: <name()>
-        type: map
+        type: square
+        algorithm: chess
         cellSize: 20
         startX: 0
         startY: 0

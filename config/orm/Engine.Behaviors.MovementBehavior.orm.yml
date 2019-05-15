@@ -1,6 +1,6 @@
-App\Entity\Engine\GameBehavior:
+App\Entity\Engine\Behaviors\MovementBehavior:
     type: entity
-    table: game_behavior
+    table: behavior_movement
     repositoryClass: App\Repository\Engine\GameBehaviorRepository
 
     id:
@@ -9,16 +9,19 @@ App\Entity\Engine\GameBehavior:
             generator:
                 strategy: auto
 
-    uniqueConstraints:
-        search_idx:
-            columns:
-                - name
-
     fields:
         reference:
             type: guid
-        name:
-            type: string
+        x:
+            type: integer
+        y:
+            type: integer
+        z:
+            type: integer
+        movement:
+            type: integer
+        movementMax:
+            type: integer
         createdAt:
             type: datetime
             gedmo:
@@ -29,3 +32,7 @@ App\Entity\Engine\GameBehavior:
             gedmo:
                 timestampable:
                     on: update
+
+    oneToOne:
+        gameObject:
+            targetEntity: App\Entity\Engine\GameObject

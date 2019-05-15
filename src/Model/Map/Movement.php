@@ -2,45 +2,51 @@
 
 namespace App\Model\Map;
 
-use App\Contracts\Map\Movable;
-use App\Contracts\Map\Positionable;
 use App\Contracts\Model\ModelInterface;
+use App\Entity\Engine\GameObject;
 
 class Movement implements ModelInterface
 {
     /**
-     * @var Positionable
+     * @var GameObject
      */
     private $source;
-
     /**
-     * @var Positionable
+     * @var GameObject
      */
     private $destination;
-
     /**
-     * @var Movable
+     * @var GameObject
      */
     private $movable;
 
-    public function __construct(Positionable $source, Positionable $destination, Movable $movable)
+    public function __construct(GameObject $source, GameObject $destination, GameObject $movable)
     {
         $this->source = $source;
         $this->destination = $destination;
         $this->movable = $movable;
     }
 
-    public function getSource(): Positionable
+    /**
+     * @return GameObject
+     */
+    public function getSource(): GameObject
     {
         return $this->source;
     }
 
-    public function getDestination(): Positionable
+    /**
+     * @return GameObject
+     */
+    public function getDestination(): GameObject
     {
         return $this->destination;
     }
 
-    public function getMovable(): Movable
+    /**
+     * @return GameObject
+     */
+    public function getMovable(): GameObject
     {
         return $this->movable;
     }

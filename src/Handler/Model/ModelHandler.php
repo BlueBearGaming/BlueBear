@@ -4,7 +4,6 @@ namespace App\Handler\Model;
 
 use App\Contracts\Handler\ModelHandlerInterface;
 use App\Contracts\Model\ModelInterface;
-use App\Model\Map\Movement;
 
 class ModelHandler implements ModelHandlerInterface
 {
@@ -12,6 +11,11 @@ class ModelHandler implements ModelHandlerInterface
      * @var ModelHandlerInterface[]
      */
     private $handlers = [];
+
+    public function __construct(array $handlers)
+    {
+        $this->handlers = $handlers;
+    }
 
     public function handle(ModelInterface $model): void
     {
@@ -25,13 +29,12 @@ class ModelHandler implements ModelHandlerInterface
 
     public function supports(string $class): bool
     {
-        return in_array($class, [
-            Movement::class,
-        ]);
-    }
+        foreach ($this->handlers as $handler) {
+            if ($handler->supports($class)) {
+                return true;
+            }
+        }
 
-    public function addHandler(ModelHandlerInterface $handler)
-    {
-        $this->handlers[] = $handler;
+        return false;
     }
 }

@@ -18,6 +18,8 @@ App\Entity\Map\Map:
             type: string
         type:
             type: string
+        algorithm:
+            type: string
         cellSize:
             type: integer
         startX:
