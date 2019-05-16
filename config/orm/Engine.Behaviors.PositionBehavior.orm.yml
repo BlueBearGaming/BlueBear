@@ -1,7 +1,7 @@
-App\Entity\Engine\Behaviors\MovementBehavior:
+App\Entity\Engine\Behaviors\PositionBehavior:
     type: entity
-    table: behavior_movement
-    repositoryClass: App\Repository\Engine\MovementBehaviorRepository
+    table: behavior_position
+    repositoryClass: App\Repository\Engine\MovementPositionRepository
 
     id:
         id:
@@ -12,9 +12,11 @@ App\Entity\Engine\Behaviors\MovementBehavior:
     fields:
         reference:
             type: guid
-        movement:
+        x:
             type: integer
-        movementMax:
+        y:
+            type: integer
+        z:
             type: integer
         createdAt:
             type: datetime

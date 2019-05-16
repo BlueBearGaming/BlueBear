@@ -4,6 +4,7 @@ namespace App\Manager\Engine;
 
 use App\Engine\Exception\EngineException;
 use App\Entity\Engine\GameObject;
+use App\Repository\Engine\GameBehaviorRepository;
 use App\Repository\Engine\GameObjectRepository;
 
 class GameObjectManager
@@ -18,12 +19,9 @@ class GameObjectManager
         $this->gameObjectRepository = $gameObjectRepository;
     }
 
-    public function get(string $reference, string $type): GameObject
+    public function get(string $reference): GameObject
     {
-        $object = $this->gameObjectRepository->findOneBy([
-            'reference' => $reference,
-            'type' => $type,
-        ]);
+        $object = $this->gameObjectRepository->get($reference);
         $this->throwExceptionIfNull($reference, $object);
 
         return $object;
@@ -32,7 +30,7 @@ class GameObjectManager
     private function throwExceptionIfNull(string $reference, ?GameObject $gameObject)
     {
         if (null === $gameObject) {
-            throw new EngineException('Missing game object "'.$reference.'" not found');
+            throw new EngineException('The game object "'.$reference.'" was not found');
         }
     }
 }

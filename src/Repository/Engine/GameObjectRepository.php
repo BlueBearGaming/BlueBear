@@ -12,4 +12,17 @@ class GameObjectRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, GameObject::class);
     }
+
+    public function get(string $reference): ?GameObject
+    {
+        return $this
+            ->createQueryBuilder('game_object')
+            ->where('game_object.reference = :reference')
+            ->setParameters([
+                'reference' => $reference,
+            ])
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 }

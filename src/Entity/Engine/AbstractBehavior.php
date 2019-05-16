@@ -5,32 +5,37 @@ namespace App\Entity\Engine;
 use DateTime;
 use Ramsey\Uuid\Uuid;
 
-class GameBehavior
+abstract class AbstractBehavior
 {
     /**
      * @var int
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
      */
-    private $reference;
+    protected $reference;
 
     /**
      * @var string
      */
-    private $name;
+    protected $name;
+
+    /**
+     * @var GameObject
+     */
+    protected $gameObject;
 
     /**
      * @var DateTime
      */
-    private $createdAt;
+    protected $createdAt;
 
     /**
      * @var DateTime
      */
-    private $updatedAt;
+    protected $updatedAt;
 
     public function __construct()
     {
@@ -83,5 +88,21 @@ class GameBehavior
     public function setName(string $name): void
     {
         $this->name = $name;
+    }
+
+    /**
+     * @return GameObject
+     */
+    public function getGameObject(): GameObject
+    {
+        return $this->gameObject;
+    }
+
+    /**
+     * @param GameObject $gameObject
+     */
+    public function setGameObject(GameObject $gameObject): void
+    {
+        $this->gameObject = $gameObject;
     }
 }

@@ -27,9 +27,3 @@ App\Entity\Engine\GameObject:
                 timestampable:
                     on: update
 
-    manyToMany:
-        behaviors:
-            targetEntity: App\Entity\Engine\GameBehavior
-            indexBy: name
-            joinTable:
-                name: behave

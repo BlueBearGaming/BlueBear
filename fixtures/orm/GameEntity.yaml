@@ -3,16 +3,14 @@ App\Entity\Engine\GameObject:
         __construct:
             - unit
         description: The white queen in the Chess game
-        behaviors: '[@behavior_movable]'
 
     chess_map_item_0_0:
         __construct:
             - map_item
         description: A map item
-        behaviors: '[@behavior_positionable]'
+
 
     chess_map_item_1_1:
         __construct:
             - map_item
         description: A map item
-        behaviors: '[@behavior_positionable]'

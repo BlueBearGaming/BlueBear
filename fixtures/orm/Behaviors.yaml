@@ -1,0 +1,24 @@
+App\Entity\Engine\Behaviors\MovementBehavior:
+    behavior_movable_white_queen:
+        name: movable
+        gameObject: '@chess_white_queen'
+        movement: 8
+        movementMax: 8
+
+App\Entity\Engine\Behaviors\PositionBehavior:
+    behavior_positionable_white_queen:
+        name: positionable
+        gameObject: '@chess_white_queen'
+        x: 0
+        y: 0
+    behavior_positionable_chess_0_0:
+        name: positionable
+        gameObject: '@chess_map_item_0_0'
+        x: 0
+        y: 0
+
+    behavior_positionable_chess_1_1:
+        name: positionable
+        gameObject: '@chess_map_item_1_1'
+        x: 1
+        y: 1

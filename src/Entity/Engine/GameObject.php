@@ -30,7 +30,7 @@ class GameObject
     protected $updatedAt;
 
     /**
-     * @var GameBehavior[]|Collection
+     * @var AbstractBehavior[]|Collection
      */
     protected $behaviors;
 
@@ -86,19 +86,19 @@ class GameObject
     }
 
     /**
-     * @return GameBehavior[]|Collection
+     * @return AbstractBehavior[]|Collection
      */
     public function getBehaviors(): Collection
     {
         return $this->behaviors;
     }
 
-    public function addBehavior(GameBehavior $behavior)
+    public function addBehavior(AbstractBehavior $behavior)
     {
         $this->behaviors->add($behavior);
     }
 
-    public function removeBehavior(GameBehavior $behavior)
+    public function removeBehavior(AbstractBehavior $behavior)
     {
         $this->behaviors->removeElement($behavior);
     }
