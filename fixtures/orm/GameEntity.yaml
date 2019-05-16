@@ -3,14 +3,17 @@ App\Entity\Engine\GameObject:
         __construct:
             - unit
         description: The white queen in the Chess game
+        reference: 4ea921c2-159f-4f77-b34e-bb7177487dd9
 
     chess_map_item_0_0:
         __construct:
             - map_item
         description: A map item
+        reference: 16691944-8f8b-4e69-88fb-d620bda4c348
 
 
     chess_map_item_1_1:
         __construct:
             - map_item
         description: A map item
+        reference: 363626a2-d4b4-4aaa-b34b-7d7578eef01a
