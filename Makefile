@@ -30,6 +30,22 @@ reset-bdd: ## Reset the database completely and load fixtures
 jikpoze: ## Initialize Jikpoze project
 	git clone https://github.com/BlueBearGaming/Jikpoze.git jikpoze
 
+
+###> local ###
+.PHONY: local@install
+
+local@install: vendor node_modules assets@build
+
+vendor: composer.json composer.lock
+	composer validate
+	composer install
+
+node_modules: package.json package-lock.json
+
+package-lock.json: assets@install
+###< local ###
+
+###> assets ###
 .PHONY: assets@watch assets@install assets@build
 assets@install:
 	yarn install
@@ -39,6 +55,7 @@ assets@build:
 
 assets@watch:
 	yarn run encore dev --watch
+###< assets ###
 
 .PHONY: serve
 serve:
@@ -47,10 +64,13 @@ serve:
 ### Database ###
 .PHONY: database@drop database@update database@drop-and-load-fixtures
 
-database@drop:
+database@create:
+	bin/console doctrine:database:create --if-not-exists
+
+database@drop: database@create
 	bin/console doctrine:schema:drop --force
 
-database@update:
+database@update: database@create
 	bin/console doctrine:schema:update --force
 
 database@drop-and-load-fixtures: database@drop database@update

@@ -13,8 +13,8 @@ class MovementHandler implements ModelHandlerInterface
      */
     public function handle(ModelInterface $model): void
     {
-        
-        
+
+        var_dump($model->getSource());
         die('ko');
 
     }

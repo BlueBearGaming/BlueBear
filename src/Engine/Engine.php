@@ -70,7 +70,11 @@ class Engine implements EngineInterface
         $engineRequest = $this->serializer->deserialize($request->getContent(), EngineRequest::class, 'json');
 
         if (!$engineRequest instanceof EngineRequest) {
-            throw new EngineException();
+            throw new EngineException('The data can not be deserialized into a engine request object');
+        }
+
+        if ('' === $engineRequest->getModelName()) {
+            throw new EngineException('The model name cannot be empty');
         }
 
         return $engineRequest;
@@ -90,4 +94,4 @@ class Engine implements EngineInterface
 
         return $resolver->resolve($data);
     }
-} 
+}

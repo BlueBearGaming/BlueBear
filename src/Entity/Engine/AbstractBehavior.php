@@ -2,10 +2,11 @@
 
 namespace App\Entity\Engine;
 
+use App\Contracts\Engine\BehaviorInterface;
 use DateTime;
 use Ramsey\Uuid\Uuid;
 
-abstract class AbstractBehavior
+abstract class AbstractBehavior implements BehaviorInterface
 {
     /**
      * @var int

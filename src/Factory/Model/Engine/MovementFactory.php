@@ -4,28 +4,27 @@ namespace App\Factory\Model\Engine;
 
 use App\Contracts\Factory\ModelFactoryInterface;
 use App\Contracts\Model\ModelInterface;
-use App\Entity\Engine\GameObject;
-use App\Manager\Engine\GameObjectManager;
+use App\DataProvider\GameObjectDataProvider;
 use App\Model\Map\Movement;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class MovementFactory implements ModelFactoryInterface
 {
     /**
-     * @var GameObjectManager
+     * @var GameObjectDataProvider
      */
-    private $gameObjectManager;
+    private $gameObjectDataProvider;
 
-    public function __construct(GameObjectManager $gameObjectManager)
+    public function __construct(GameObjectDataProvider $gameObjectDataProvider)
     {
-        $this->gameObjectManager = $gameObjectManager;
+        $this->gameObjectDataProvider = $gameObjectDataProvider;
     }
 
     public function create(string $modelName, array $data): ModelInterface
     {
-        $source = $this->gameObjectManager->get($data['source'], GameObject::TYPE_MAP_ITEM);
-        $destination = $this->gameObjectManager->get($data['destination'], GameObject::TYPE_MAP_ITEM);
-        $movable = $this->gameObjectManager->get($data['movable'], GameObject::TYPE_UNIT);
+        $source = $this->gameObjectDataProvider->get($data['source']);
+        $destination = $this->gameObjectDataProvider->get($data['destination']);
+        $movable = $this->gameObjectDataProvider->get($data['movable']);
 
         return new Movement($source, $destination, $movable);
     }

@@ -27,3 +27,6 @@ App\Entity\Engine\GameObject:
                 timestampable:
                     on: update
 
+    lifecycleCallbacks:
+        postLoad:
+            - load

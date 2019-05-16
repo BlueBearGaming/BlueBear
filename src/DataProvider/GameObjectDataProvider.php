@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Manager\Engine;
+namespace App\DataProvider;
 
 use App\Engine\Exception\EngineException;
 use App\Entity\Engine\GameObject;
-use App\Repository\Engine\GameBehaviorRepository;
 use App\Repository\Engine\GameObjectRepository;
 
-class GameObjectManager
+class GameObjectDataProvider
 {
     /**
      * @var GameObjectRepository
@@ -30,7 +29,7 @@ class GameObjectManager
     private function throwExceptionIfNull(string $reference, ?GameObject $gameObject)
     {
         if (null === $gameObject) {
-            throw new EngineException('The game object "'.$reference.'" was not found');
+            throw new EngineException('Game object "'.$reference.'" not found');
         }
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Entity\Engine;
 
+use App\Contracts\Engine\BehaviorInterface;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -44,6 +45,13 @@ class GameObject
         $this->reference = Uuid::uuid4()->toString();
         $this->behaviors = new ArrayCollection();
         $this->type = $type;
+    }
+
+    public function load(): void
+    {
+        if (null === $this->behaviors) {
+            $this->behaviors = new ArrayCollection();
+        }
     }
 
     public function getId(): int
@@ -93,12 +101,21 @@ class GameObject
         return $this->behaviors;
     }
 
-    public function addBehavior(AbstractBehavior $behavior)
+    public function addBehaviors(Collection $behaviors)
     {
-        $this->behaviors->add($behavior);
+        foreach ($behaviors as $behavior) {
+            $this->addBehavior($behavior);
+        }
     }
 
-    public function removeBehavior(AbstractBehavior $behavior)
+    public function addBehavior(BehaviorInterface $behavior)
+    {
+        if (!$this->behaviors->contains($behavior)) {
+            $this->behaviors->add($behavior);
+        }
+    }
+
+    public function removeBehavior(BehaviorInterface $behavior)
     {
         $this->behaviors->removeElement($behavior);
     }
