@@ -28,6 +28,13 @@ trait Positionable
     protected $y;
 
     /**
+     * Z entity position
+     *
+     * @ORM\Column(name="z", type="integer")
+     */
+    protected $z;
+
+    /**
      * @Serializer\Expose()
      * @Serializer\AccessType("public_method")
      */
@@ -74,13 +81,33 @@ trait Positionable
     }
 
     /**
+     * Get z coordinates
+     *
+     * @return integer
+     */
+    public function getZ()
+    {
+        return $this->z;
+    }
+
+    /**
+     * Set z coordinates
+     *
+     * @param integer $z
+     */
+    public function setZ($z)
+    {
+        $this->z = (int) $z;
+    }
+
+    /**
      * Return a position object from x and y
      *
      * @return Position
      */
     public function getPosition()
     {
-        return new Position($this->x, $this->y);
+        return new Position($this->x, $this->y, $this->z);
     }
 
     /**
@@ -92,5 +119,6 @@ trait Positionable
     {
         $this->setX($position->x);
         $this->setY($position->y);
+        $this->setZ($position->z);
     }
-} 
+}

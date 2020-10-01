@@ -2,6 +2,7 @@
 
 namespace BlueBear\EngineBundle\Event\Subscriber;
 
+use function array_key_exists;
 use BlueBear\CoreBundle\Entity\Map\Context;
 use BlueBear\CoreBundle\Entity\Map\Layer;
 use BlueBear\CoreBundle\Entity\Map\MapItem;
@@ -23,6 +24,8 @@ use BlueBear\EngineBundle\Entity\EntityModel;
 use BlueBear\EngineBundle\Factory\EntityTypeFactory;
 use BlueBear\EngineBundle\Manager\EntityInstanceManager;
 use BlueBear\EngineBundle\Manager\EntityModelManager;
+use BlueBear\WorldBrowserBundle\Model\Cell;
+use BlueBear\WorldBrowserBundle\Model\Map;
 use Exception;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -56,6 +59,9 @@ class MapSubscriber implements EventSubscriberInterface
 
     /** @var EntityModelManager */
     protected $entityModelManager;
+
+    /** @var Pencil[] */
+    protected $pencilsCache = [];
 
     /**
      * @param MapItemManager        $mapItemManager
@@ -124,6 +130,28 @@ class MapSubscriber implements EventSubscriberInterface
             }
             // find context with limit for map items
             $context = $this->contextManager->findWithLimit($request->contextId, $topLeft, $bottomRight);
+
+//            $world = new Map('bluebearmilitarycoriandre');
+//            $landLayer = $this->layerManager->findOneBy(['name' => 'land']);
+//            if (!$landLayer instanceof Layer) {
+//                throw new \UnexpectedValueException('Missing land layer');
+//            }
+//            foreach ($world->getCells() as $x => $cellRow) {
+//                foreach ($cellRow as $y => $cell) {
+////                    $mapItems = $context->getMapItemsByLayerNameAndPosition('land', $x, $y);
+////                    if (!empty($mapItems)) {
+////                        continue;
+////                    }
+//                    $mapItem = new MapItem();
+//                    $mapItem->setContext($context);
+//                    $mapItem->setLayer($landLayer);
+//                    $mapItem->setX($x);
+//                    $mapItem->setY($y);
+//                    $mapItem->setZ($cell->getHeight());
+//                    $mapItem->setPencil($this->getPencilForCell($cell));
+//                    $context->getMapItems()->add($mapItem);
+//                }
+//            }
 
             $mapItems = $context->getMapItems();
             /** @var MapItem $mapItem */
@@ -196,7 +224,7 @@ class MapSubscriber implements EventSubscriberInterface
             if (!$mapItemRequest->layerName) {
                 throw new \UnexpectedValueException('mapItem.layerName missing');
             }
-            $position = new Position($mapItemRequest->x, $mapItemRequest->y);
+            $position = new Position($mapItemRequest->x, $mapItemRequest->y, $mapItemRequest->z);
             /** @var Layer $layer */
             $layer = $this->layerManager
                 ->findOneBy(
@@ -295,5 +323,20 @@ class MapSubscriber implements EventSubscriberInterface
         }
 
         return $mapItem;
+    }
+
+    /**
+     * @param Cell $cell
+     *
+     * @return Pencil
+     */
+    protected function getPencilForCell(Cell $cell): ?Pencil
+    {
+        $name = $cell->getPencilName();
+        if (!array_key_exists($name, $this->pencilsCache)) {
+            $this->pencilsCache[$name] = $this->pencilManager->findOneBy(['name' => $name]);
+        }
+
+        return $this->pencilsCache[$name];
     }
 }

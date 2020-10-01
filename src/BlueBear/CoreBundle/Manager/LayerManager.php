@@ -4,6 +4,7 @@ namespace BlueBear\CoreBundle\Manager;
 
 use BlueBear\CoreBundle\Entity\Map\LayerRepository;
 use BlueBear\BaseBundle\Behavior\ManagerTrait;
+use BlueBear\CoreBundle\Entity\Map\Layer;
 
 class LayerManager
 {
@@ -16,6 +17,6 @@ class LayerManager
      */
     protected function getRepository()
     {
-        return $this->getEntityManager()->getRepository('BlueBear\CoreBundle\Entity\Map\Layer');
+        return $this->getEntityManager()->getRepository(Layer::class);
     }
 }

@@ -16,6 +16,7 @@ use JMS\Serializer\Annotation as Serializer;
  * @ORM\Table(name="context")
  * @ORM\Entity(repositoryClass="BlueBear\CoreBundle\Entity\Map\ContextRepository")
  * @ORM\HasLifecycleCallbacks()
+ *
  * @Serializer\ExclusionPolicy("all")
  * @Serializer\AccessorOrder("custom", custom={"id", "label", "map", "mapItems", "listeners"})
  */
@@ -24,7 +25,8 @@ class Context
     use Id, Label, Timestampable, Data;
 
     /**
-     * @ORM\OneToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\UserContext", mappedBy="context", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\UserContext", mappedBy="context",
+     *                                                                           cascade={"persist", "remove"})
      */
     protected $userContexts;
 
@@ -37,7 +39,8 @@ class Context
     /**
      * Map item for this context
      *
-     * @ORM\OneToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\MapItem", mappedBy="context", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="BlueBear\CoreBundle\Entity\Map\MapItem", mappedBy="context", cascade={"persist",
+     *                                                                       "remove"})
      * @Serializer\Expose()
      */
     protected $mapItems;
@@ -136,8 +139,9 @@ class Context
 
     /**
      * @param string $layerName
-     * @param int $x
-     * @param int $y
+     * @param int    $x
+     * @param int    $y
+     *
      * @return MapItem[]
      */
     public function getMapItemsByLayerNameAndPosition($layerName, $x, $y)
@@ -148,13 +152,15 @@ class Context
                 $mapItems[] = $mapItem;
             }
         }
+
         return $mapItems;
     }
 
     /**
      * @param string $layerName
-     * @param int $x
-     * @param int $y
+     * @param int    $x
+     * @param int    $y
+     *
      * @return MapItem|null
      */
     public function getMapItemByLayerNameAndPosition($layerName, $x, $y)
@@ -164,6 +170,7 @@ class Context
                 return $mapItem;
             }
         }
+
         return null;
     }
 }

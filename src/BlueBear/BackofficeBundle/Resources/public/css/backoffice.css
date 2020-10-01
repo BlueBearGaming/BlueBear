@@ -9064,6 +9064,8 @@ table th[data-sort] {
 .map-editor-form .pencil {
   padding-bottom: 5px;
   border-bottom: 1px solid #ffffdd;
+  display: inline-block;
+  width: 49%;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/www\/bluebear\/src\/BlueBear\/BackofficeBundle\/Resources\/sass\/partials\/_forms\.scss}line{font-family:\0000353}}
 .map-editor-form .pencil label {

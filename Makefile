@@ -36,6 +36,10 @@ jikpoze: ## Initialize Jikpoze project
 deploy-sidus: ## Deploy to staging
 	$(DC) run deploy cap bluebear.sidus deploy
 
+.PHONY: build-dart
+build-dart:
+	$(DC) run jikpoze dart2js -m /app/web/main.dart
+
 #install-apt:
 #	sudo apt-get install npm nodejs nodejs-legacy
 #

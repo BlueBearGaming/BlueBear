@@ -1,0 +1,94 @@
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html {
+    font-family: Georgia, serif;
+    font-size: 62.5%;
+}
+body {
+    margin: 0 auto;
+    bottom: 0;
+    top: 0;
+}
+.hexagon {
+    position: relative;
+    display: inline-block;
+    /* left/right margin approx. 25% of .hexagon width + spacing */
+    margin: 0 3px;
+    text-align: center;
+}
+.hexagon, .hexagon::before, .hexagon::after {
+    /* easy way: height is width * 1.732
+    actual formula is 2*(width/(2*Math.tan(Math.PI/6)))
+    remove border-radius for straight edges on hexagons */
+    width: 16px;
+    height: 27px;
+}
+.hexagon.hexagon-hidden {
+    opacity: 0;
+}
+.hexagon::before {
+    background-color: inherit;
+    content: "";
+    position: absolute;
+    left: 0;
+    transform: rotate(-60deg);
+}
+.hexagon::after {
+    background-color: inherit;
+    content: "";
+    position: absolute;
+    left: 0;
+    transform: rotate(60deg);
+}
+.hexagon:nth-child(even) {
+    /* top approx. 50% of .hexagon height + spacing */
+    top: 14px;
+}
+.honeycomb-even .hexagon:nth-child(even) {
+    /* top approx. 50% of .hexagon height + spacing */
+    top: -14px;
+}
+.hexagon:hover {
+    cursor: pointer;
+    z-index: 105;
+}
+.hexagon:active {
+    z-index: 110;
+}
+.hexacontent {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 140%;
+    font-size: 1.4rem;
+    line-height: 1.2;
+    z-index: 100;
+    color: #0a0a0a;
+}
+.ibws-fix {
+    font-size: 0;
+    white-space: nowrap;
+}
+.ibws-fix-odd {
+    margin-top: -14px;
+}
+.honeycomb {
+    margin: 0 auto;
+    text-align: center;
+    overflow: auto;
+}
+.honeycomb-even {
+    padding-top: 14px;
+}
+
+.hexagon.fog {
+    opacity: 0.5;
+}
+
+.black {
+    background-color: black;
+}

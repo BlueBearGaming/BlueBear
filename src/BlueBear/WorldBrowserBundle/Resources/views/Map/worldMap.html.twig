@@ -1,0 +1,47 @@
+{% extends '@BlueBearLayout/layout.html.twig' %}
+
+{% block main_container %}
+    <style>
+        {% set size = size | default(16) %}
+        {% set height = size * 1.732 %}
+        .hexagon {
+            /* left/right margin approx. 25% of .hexagon width + spacing */
+            margin: 0 {{ (size * 0.24)|round }}px;
+        }
+        .hexagon, .hexagon::before, .hexagon::after {
+            /*
+             * easy way: height is width * 1.732
+             * actual formula is 2*(width/(2*Math.tan(Math.PI/6)))
+             */
+            width: {{ size }}px;
+            height: {{ height|round }}px;
+        }
+        .hexagon:nth-child(even) {
+            top: {{ (height / 2)|round }}px;
+        }
+        .honeycomb-even .hexagon:nth-child(even) {
+            top: -{{ (height / 2)|round }}px;
+        }
+        .honeycomb-even {
+            padding-top: {{ (height / 2)|round }}px;
+        }
+        .ibws-fix-odd {
+            margin-top: -{{ (height / 2)|round }}px;
+        }
+    </style>
+    {{ parent() }}
+{% endblock %}
+
+{% block tg_center %}
+    <div class="honeycomb">
+        {% for row in 0..35 %}
+            <div class="ibws-fix">
+                {% for col in 0..70 %}
+                    {% set offset = col is even ? 0 : 1 %}
+                    {% set c = map.cell(col, row - (col - offset) / 2) %}
+                    {% include '@BlueBearWorldBrowser/Map/cell.html.twig' with {cell: c} %}
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

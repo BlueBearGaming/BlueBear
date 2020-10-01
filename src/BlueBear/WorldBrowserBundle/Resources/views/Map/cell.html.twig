@@ -1,0 +1,16 @@
+{% spaceless %}
+    {% if not cell or hidden | default(false) %}
+        <div class="hexagon hexagon-hidden"></div>
+    {% else %}
+        <a href="{{ admin_path('map', 'areaMap', {x: cell.x, y: cell.y, id: map.world.id}) }}"
+           class="hexagon {{ class is defined ? class }}" style="background-color:{{ get_color(cell) }}">
+            {% if c.contents|length %}
+                <div class="hexacontent">
+                    {% for content in c.contents %}
+                        <i class="fa fa-{{ content.icon }}" title="{{ content }}"></i>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </a>
+    {% endif %}
+{% endspaceless %}
